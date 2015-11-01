@@ -32,11 +32,33 @@ public class GreetingController {
 		save(g2);
 	}
 	
+	// delete helper method
+	private static boolean delete(BigInteger id) {
+		Greeting deletedGreeting = greetingMap.remove(id);
+		if(deletedGreeting==null){
+			return false;
+		}
+		return true;
+		
+	}
+	
+	// create & update helper method
 	private static Greeting save(Greeting greeting) {
 		if(greetingMap == null) {
 			greetingMap = new HashMap<BigInteger, Greeting>();
 			nextId = BigInteger.ONE;
 		}
+		// if update...
+		if(greeting.getId()!=null) {
+			Greeting oldGreeting = greetingMap.get(greeting.getId());
+			if (oldGreeting==null){
+				return null;
+			}
+			greetingMap.remove(greeting.getId());
+			greetingMap.put(greeting.getId(), greeting);
+			return greeting;
+		}
+		// if create ...
 		greeting.setId(nextId);
 		nextId = nextId.add(BigInteger.ONE);
 		greetingMap.put(greeting.getId(), greeting);
@@ -73,5 +95,24 @@ public class GreetingController {
 		
 	}
 		
-
+	@RequestMapping(value="api/greetings/{id}", method=RequestMethod.PUT, 
+			consumes=MediaType.APPLICATION_JSON_VALUE, 
+			produces=MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<Greeting> updateGreeting(@RequestBody Greeting greeting){
+		Greeting updatedGreeting = save(greeting);
+		if(updatedGreeting == null) {
+			return new ResponseEntity<Greeting>(HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+		return new ResponseEntity<Greeting>(greeting, HttpStatus.OK);
+	}
+	
+	@RequestMapping(value="api/greetings/{id}", method=RequestMethod.DELETE, 
+			consumes=MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<Greeting> deleteGreeting(@PathVariable("id") BigInteger id){
+		boolean isDeleted = delete(id);
+		if(isDeleted) {
+			return new ResponseEntity<Greeting>(HttpStatus.NO_CONTENT);
+		}
+		return new ResponseEntity<Greeting>(HttpStatus.NOT_FOUND);
+	}
 }
