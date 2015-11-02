@@ -42,19 +42,19 @@ public class CommunityController {
 			nextId = 1;
 		}
 		// if update...
-		if(community.getId()>0) {
-			Community oldCommunity = communityMap.get(community.getId());
+		if(community.getCommunityId()>0) {
+			Community oldCommunity = communityMap.get(community.getCommunityId());
 			if (oldCommunity==null){
 				return null;
 			}
-			communityMap.remove(community.getId());
-			communityMap.put(community.getId(), community);
+			communityMap.remove(community.getCommunityId());
+			communityMap.put(community.getCommunityId(), community);
 			return community;
 		}
 		// if create ...
-		community.setId(nextId);
+		community.setCommunityId(nextId);
 		nextId = nextId + 1;
-		communityMap.put(community.getId(), community);
+		communityMap.put(community.getCommunityId(), community);
 		return community;
 	}
 	
