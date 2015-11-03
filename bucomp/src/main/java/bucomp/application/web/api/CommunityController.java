@@ -29,14 +29,14 @@ public class CommunityController {
 		Community c1 = new Community();
 		c1.setTitle("My first community");
 		c1.setCreationDate(new Date());
-		save(c1);
+		saveOrUpdate(c1);
 		
 		Community c2 = new Community();
 		c2.setTitle("My second community");
 		c2.setCreationDate(new Date());
-		save(c2);
+		saveOrUpdate(c2);
 	}
-	private static Community save(Community community) {
+	private static Community saveOrUpdate(Community community) {
 		if(communityMap == null) {
 			communityMap = new HashMap<Integer, Community>();
 			nextId = 1;
@@ -57,7 +57,13 @@ public class CommunityController {
 		communityMap.put(community.getCommunityId(), community);
 		return community;
 	}
-	
+	private static boolean delete(Integer id) {
+		Community deletedCommunity = communityMap.remove(id);
+		if(deletedCommunity==null) {
+			return false;
+		}
+		return true;
+	}
 	/**
 	 * Request Mappings
 	 */
@@ -88,7 +94,7 @@ public class CommunityController {
 			produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Community> createCommunity(@RequestBody Community community) {
 		
-		Community savedCommunity = save(community);
+		Community savedCommunity = saveOrUpdate(community);
 		return new ResponseEntity<Community>(savedCommunity, HttpStatus.CREATED);
 		
 	}
@@ -98,11 +104,22 @@ public class CommunityController {
 			consumes=MediaType.APPLICATION_JSON_VALUE, 
 			produces=MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Community> updateCommunity(@RequestBody Community community){
-		Community updatedCommunity = save(community);
+		Community updatedCommunity = saveOrUpdate(community);
 		if(updatedCommunity == null) {
 			return new ResponseEntity<Community>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 		return new ResponseEntity<Community>(community, HttpStatus.OK);
+	}
+	
+	//delete community
+	@RequestMapping(value="api/communities/{id}", method=RequestMethod.DELETE, 
+			consumes=MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<Community> deleteCommunity(@PathVariable("id") Integer id, @RequestBody Community community){
+		boolean isDeleted = delete(id);
+		if(!isDeleted) {
+			return new ResponseEntity<Community>(HttpStatus.NOT_FOUND);
+		}
+		return new ResponseEntity<Community>(HttpStatus.OK);
 	}
 
 }
