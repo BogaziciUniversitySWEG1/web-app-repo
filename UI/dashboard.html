@@ -23,7 +23,7 @@ xmlns:data="http://www.google.com/2005/gml/data" xmlns:expr="http://www.google.c
                             <div id="header-inner">
                                 <div class="titlewrapper">
                                     <h1 class="site-title">
-                                        <a href="template.html">BuComp</a>
+                                        <a href="dashboard.html">BuComp</a>
                                     </h1>
                                 </div>
                                     <h2 class="site-description">BU Community Groups</h2>
@@ -32,28 +32,38 @@ xmlns:data="http://www.google.com/2005/gml/data" xmlns:expr="http://www.google.c
                     </div>
                 </div>
                 <div class="togglesnbtdiv">
-                    <div class="togglenbtclass" id="menu-toggle" title="Home" onclick="window.location='index.html';">
+                    <div class="togglenbtclass" id="menu-toggle" title="Home" onclick="window.location='dashboard.html';">
                         <span class="screen-reader-text">Menu</span>
                     </div> 
-                    <div class="togglenbtclass" id="search-toggle" title="login">
+                    <div class="togglenbtclass" id="user-toggle" title="User">
                         <span class="screen-reader-text">User</span>
                     </div>
                 </div>
             </div>
         </header>
-        <!-- #masthead -->
-        <div class="panel" id="search-toggle-nav">
-            <div class="search-wrapper">
-                <label>
-                    <span class="screen-reader-text">User Name:</span>
-                    <input class="search-field" name="q" placeholder="Email" type="email" value="" />
-                    <span class="screen-reader-text">Password:</span>
-                    <input class="search-field" name="q" placeholder="Password" type="password" value="" />
-                </label>
-                <input class="search-submit" type="button" value="Login" />
-                <input class="search-submit" type="button" value="Register" />
-            </div>
-        </div>
+        <!-- #masthead --> 
+        <div class="panel" id="search-toggle-nav" style="display: block;">
+<div class="main-navigation" id="site-navigation" role="navigation"> 
+<div class="bwraptopmenu">
+<ul>
+    <li class="current_page_item"><a href="#">My Profile</a></li>
+    <li><a href="#">Community</a>
+        <ul class="children">
+            <li><a href="#">Create New Community</a></li>
+            <li><a href="#">My Communities</a></li> 
+        </ul>
+    </li>
+    <li><a href="#">Meetings</a>
+        <ul class="children">
+            <li><a href="#">Upcoming Meetings</a></li>
+            <li><a href="#">Past Meetings</a></li> 
+            <li><a href="#">Create New Meeting</a></li> 
+        </ul> 
+    </li>  
+</ul>
+</div>
+</div><!-- #site-navigation -->
+</div>
         <div class="bwrapsite-content" id="bwrapcontent">
             <div class="content-area" id="primarybwrap">
                 <div class="bwrapsite-main" id="mainbwrap" role="main">
@@ -221,7 +231,7 @@ xmlns:data="http://www.google.com/2005/gml/data" xmlns:expr="http://www.google.c
                         </div> 
                         <div class="clear">
                         </div>
-                        <h2> Sort By</h2>
+                         <h2> Sort By</h2>
                         <div class="item-title">
                             <a  href="#">Title</a>
                         </div>
@@ -377,7 +387,7 @@ Copyright ©
                 var sidebarToggle = $('#sidebar-toggle');
                 var menuToggle = $('#menu-toggle');
                 var socialLinksToggle = $('#social-links-toggle');
-                var searchToggle = $('#search-toggle');
+                var searchToggle = $('#user-toggle');
 
                 var socialLinksNav = $('#social-links-toggle-nav');
                 var sidebarNav = $('#sidebar-toggle-nav');
@@ -456,5 +466,6 @@ Copyright ©
     <script src="PageScript/index/GLOBALS.js" type="text/javascript"></script>
     <script src="PageScript/index/SP_BANK.js" type="text/javascript"></script>
     <script src="PageScript/index/DESIGN.js" type="text/javascript"></script>
+
 </body>
 </html>
