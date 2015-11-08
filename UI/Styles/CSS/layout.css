@@ -1,0 +1,55 @@
+.form-group{
+    margin-bottom: 15px;
+}
+
+.form-control{
+    display: block;
+    width: 90%;
+    padding: 6px 12px;
+    font-size: 14px;
+    line-height: 1.428571429;
+    vertical-align: middle;
+    border: 1px solid #cccccc;
+    border-radius: 4px;
+}
+
+.label{
+    display: inline-block;
+    padding: .2em .6em .3em;
+    font-size: 75%;
+    font-weight: bold;
+    line-height: 1;
+    color: #ffffff;
+    text-align: left;
+    white-space: nowrap;
+    vertical-align: baseline;
+    border-radius: .25em;
+}
+
+.allHolder{
+    background-color: #fff;
+    border: 1px solid #e5e5e5;
+    border-bottom: 1px solid #eee;
+    padding: 18px 22px 10px 22px;
+}
+
+.commentField{
+    background-color: #fff;
+    border: 1px solid #e5e5e5;
+    color: #222;
+    display: inline-block;
+    font-family: arial;
+    font-size: 13px;
+    padding: 5px 2px 2px 5px;
+    vertical-align: top;
+    width: 100%;
+}
+
+.communityMemberPic{
+    padding: 2px;
+    border: 1px solid #ccc;
+}
+
+.members ul li {
+    display: inline-block !important;
+}
