@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import bucomp.application.model.User;
@@ -18,7 +19,7 @@ import bucomp.application.model.User;
 @RestController
 public class UserController {
 	
-private static Map<Integer, User> userMap;
+public static Map<Integer, User> userMap;
 	
 	//this block is created for test purpose.
 	private static Integer nextId;
@@ -72,8 +73,22 @@ private static Map<Integer, User> userMap;
 	// Get all users
 	@RequestMapping(value = "/api/users", method = RequestMethod.GET, 
 			produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<Collection<User>> getAllUsers() {
-		Collection<User> users = userMap.values();
+	public ResponseEntity<Collection<User>> getUsers(@RequestParam(value = "key", required = false) String key) {
+		
+		Collection<User> users = null;
+		if (key == null) {
+			// return all users
+			users = userMap.values();
+		} else {
+			/**
+			 * TODO: Call db search method here, return retrieved result
+			 */
+			System.out.println("search key: " + key);
+			users = userMap.values(); // this will be changed
+		}
+		if(users==null || users.size()==0) {
+			return new ResponseEntity<Collection<User>>(users, HttpStatus.NO_CONTENT);
+		}
 		return new ResponseEntity<Collection<User>>(users, HttpStatus.OK);
 	}
 	
@@ -84,7 +99,7 @@ private static Map<Integer, User> userMap;
 		
 		User user = userMap.get(id);
 		if(user == null) {
-			return new ResponseEntity<User>(HttpStatus.NOT_FOUND);
+			return new ResponseEntity<User>(HttpStatus.NO_CONTENT);
 		}
 		return new ResponseEntity<User>(user, HttpStatus.OK);
 	}
@@ -96,6 +111,9 @@ private static Map<Integer, User> userMap;
 	public ResponseEntity<User> createUser(@RequestBody User user) {
 		
 		User savedUser = saveOrUpdate(user);
+		if(savedUser == null) {
+			return new ResponseEntity<User>(HttpStatus.INTERNAL_SERVER_ERROR);
+		}
 		return new ResponseEntity<User>(savedUser, HttpStatus.CREATED);
 		
 	}
@@ -109,7 +127,7 @@ private static Map<Integer, User> userMap;
 		if(updatedUser == null) {
 			return new ResponseEntity<User>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
-		return new ResponseEntity<User>(user, HttpStatus.OK);
+		return new ResponseEntity<User>(updatedUser, HttpStatus.OK);
 	}
 	
 	//delete user
@@ -117,7 +135,7 @@ private static Map<Integer, User> userMap;
 	public ResponseEntity<User> deleteUser(@PathVariable("id") Integer id){
 		boolean isDeleted = delete(id);
 		if(!isDeleted) {
-			return new ResponseEntity<User>(HttpStatus.NOT_FOUND);
+			return new ResponseEntity<User>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 		return new ResponseEntity<User>(HttpStatus.OK);
 	}
