@@ -28,15 +28,15 @@ public class Meetingresource implements Serializable {
 	@OneToMany(mappedBy="meetingresource")
 	private List<Meetingnote> meetingnotes;
 
-	//bi-directional many-to-one association to Meeting
-	@ManyToOne
-	@JoinColumn(name="MeetingId")
-	private Meeting meeting;
-
 	//bi-directional many-to-one association to Meetingresourcetype
 	@ManyToOne
 	@JoinColumn(name="MeetingResourceTypeId")
 	private Meetingresourcetype meetingresourcetype;
+
+	//bi-directional many-to-one association to Meeting
+	@ManyToOne
+	@JoinColumn(name="MeetingId")
+	private Meeting meeting;
 
 	public Meetingresource() {
 	}
@@ -95,20 +95,20 @@ public class Meetingresource implements Serializable {
 		return meetingnote;
 	}
 
-	public Meeting getMeeting() {
-		return this.meeting;
-	}
-
-	public void setMeeting(Meeting meeting) {
-		this.meeting = meeting;
-	}
-
 	public Meetingresourcetype getMeetingresourcetype() {
 		return this.meetingresourcetype;
 	}
 
 	public void setMeetingresourcetype(Meetingresourcetype meetingresourcetype) {
 		this.meetingresourcetype = meetingresourcetype;
+	}
+
+	public Meeting getMeeting() {
+		return this.meeting;
+	}
+
+	public void setMeeting(Meeting meeting) {
+		this.meeting = meeting;
 	}
 
 }

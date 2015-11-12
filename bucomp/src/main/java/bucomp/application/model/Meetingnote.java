@@ -20,15 +20,15 @@ public class Meetingnote implements Serializable {
 	@Lob
 	private byte[] meetingNote;
 
-	//bi-directional many-to-one association to Meeting
-	@ManyToOne
-	@JoinColumn(name="MeetingId")
-	private Meeting meeting;
-
 	//bi-directional many-to-one association to Meetingresource
 	@ManyToOne
 	@JoinColumn(name="MeetingResourceId")
 	private Meetingresource meetingresource;
+
+	//bi-directional many-to-one association to Meeting
+	@ManyToOne
+	@JoinColumn(name="MeetingId")
+	private Meeting meeting;
 
 	public Meetingnote() {
 	}
@@ -49,20 +49,20 @@ public class Meetingnote implements Serializable {
 		this.meetingNote = meetingNote;
 	}
 
-	public Meeting getMeeting() {
-		return this.meeting;
-	}
-
-	public void setMeeting(Meeting meeting) {
-		this.meeting = meeting;
-	}
-
 	public Meetingresource getMeetingresource() {
 		return this.meetingresource;
 	}
 
 	public void setMeetingresource(Meetingresource meetingresource) {
 		this.meetingresource = meetingresource;
+	}
+
+	public Meeting getMeeting() {
+		return this.meeting;
+	}
+
+	public void setMeeting(Meeting meeting) {
+		this.meeting = meeting;
 	}
 
 }

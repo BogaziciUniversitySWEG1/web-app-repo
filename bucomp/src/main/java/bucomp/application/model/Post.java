@@ -28,15 +28,15 @@ public class Post implements Serializable {
 
 	private String title;
 
-	//bi-directional many-to-one association to User
-	@ManyToOne
-	@JoinColumn(name="UserId")
-	private User user;
-
 	//bi-directional many-to-one association to Posttype
 	@ManyToOne
 	@JoinColumn(name="PostTypeId")
 	private Posttype posttype;
+
+	//bi-directional many-to-one association to User
+	@ManyToOne
+	@JoinColumn(name="UserId")
+	private User user;
 
 	public Post() {
 	}
@@ -81,20 +81,20 @@ public class Post implements Serializable {
 		this.title = title;
 	}
 
-	public User getUser() {
-		return this.user;
-	}
-
-	public void setUser(User user) {
-		this.user = user;
-	}
-
 	public Posttype getPosttype() {
 		return this.posttype;
 	}
 
 	public void setPosttype(Posttype posttype) {
 		this.posttype = posttype;
+	}
+
+	public User getUser() {
+		return this.user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
 	}
 
 }

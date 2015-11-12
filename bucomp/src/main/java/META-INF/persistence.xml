@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="1.0"
+	xmlns="http://java.sun.com/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_1_0.xsd">
+	<persistence-unit name="greetingPU" transaction-type="RESOURCE_LOCAL">
+		<provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
+		<class>bucomp.application.model.Community</class>
+		<class>bucomp.application.model.Communitymember</class>
+		<class>bucomp.application.model.Communityoffer</class>
+		<class>bucomp.application.model.Communityrequest</class>
+		<class>bucomp.application.model.Log</class>
+		<class>bucomp.application.model.Meetingattendant</class>
+		<class>bucomp.application.model.Meetingnote</class>
+		<class>bucomp.application.model.Meetingresource</class>
+		<class>bucomp.application.model.Meetingresourcetype</class>
+		<class>bucomp.application.model.Meetingrole</class>
+		<class>bucomp.application.model.Meeting</class>
+		<class>bucomp.application.model.Meetingtype</class>
+		<class>bucomp.application.model.Post</class>
+		<class>bucomp.application.model.Posttype</class>
+		<class>bucomp.application.model.Resource</class>
+		<class>bucomp.application.model.Resourcetype</class>
+		<class>bucomp.application.model.Role</class>
+		<class>bucomp.application.model.Tagrelation</class>
+		<class>bucomp.application.model.Tag</class>
+		<class>bucomp.application.model.Tagtype</class>
+		<class>bucomp.application.model.Userrole</class>
+		<class>bucomp.application.model.User</class>
+		<properties>
+			<property name="eclipselink.jdbc.password" value="emr3050" />
+			<property name="eclipselink.jdbc.user" value="root" />
+			<property name="eclipselink.jdbc.driver" value="com.mysql.jdbc.Driver" />
+			<property name="eclipselink.jdbc.url" value="jdbc:mysql://localhost:3306/bucomp" />
+			<property name="eclipselink.ddl-generation" value="drop-and-create-tables" />
+			<property name="eclipselink.logging.level" value="INFO" />
+		</properties>
+	</persistence-unit>
+</persistence>
