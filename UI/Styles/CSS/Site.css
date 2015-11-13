@@ -973,7 +973,7 @@ border: 1px solid #f0f1f3;
 -moz-box-sizing: border-box;
 box-sizing: border-box;
 max-width: 100%;
-padding: 12.5px;
+padding: 13.5px;
 }
 input[type="text"]:focus,
 input[type="email"]:focus,
@@ -1004,7 +1004,7 @@ border: 1px solid #f0f1f3;
 -moz-box-sizing: border-box;
 box-sizing: border-box;
 max-width: 100%;
-padding: 12.5px;
+padding: 13.5px;
 }
 textarea:focus {
 background: white;
@@ -1440,22 +1440,46 @@ padding: 13.5px 0;
 }
 .panel .search-wrapper input[type="email"] {
 font-size: 1.27778em;
+line-height: 0.97391em;
+border: 0;
+border-radius: 0;
+margin: 0;
+width: 35%;
+}
+@media screen and (max-width: 47.2226em) {
+.panel .search-wrapper input[type="email"] {
+font-size: 1.27778em;
 line-height: 1.17391em;
 border: 0;
 border-radius: 0;
 margin: 0;
-padding: 13.5px 27px;
+width: 100%;
+padding-bottom: 10px;
+}
+}
+
+.panel .search-wrapper input[type="password"] {
+font-size: 1.27778em;
+line-height: 0.97391em;
+border: 0;
+border-radius: 0;
+margin: 0;
 width: 35%;
 }
+
+@media screen and (max-width: 47.2226em) {
 .panel .search-wrapper input[type="password"] {
 font-size: 1.27778em;
 line-height: 1.17391em;
 border: 0;
 border-radius: 0;
 margin: 0;
-padding: 13.5px 27px;
-width: 35%;
+width: 100%;
+padding-bottom: 10px;
 }
+}
+
+
 @media screen and (max-width: 47.2226em) {
 .panel .search-wrapper input[type="search"] {
 font-size: 0.83333em;
@@ -1480,7 +1504,6 @@ width: 28%;
 }
 @media screen and (max-width: 59.306em) {
 .panel .search-wrapper {
-max-width: 41.667em;
 }
 }
 @media screen and (max-width: 47.2226em) {
