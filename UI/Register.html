@@ -4,67 +4,6 @@ xmlns:data="http://www.google.com/2005/gml/data" xmlns:expr="http://www.google.c
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 		<meta content="width=device-width, initial-scale=1" name="viewport" />
-		<script src="CommonScripts/cb=gapi.loaded_0" async="" type="text/javascript"></script>
-		<script type="text/javascript">
-			(function() {
-				(function() {
-					function c(a) {
-						this.t = {};
-						this.tick = function(a, c, b) {
-							var d =
-							void 0 != b ? b : (new Date).getTime();
-							this.t[a] = [d, c];
-							if (
-								void 0 == b)
-								try {
-									window.console.timeStamp("CSI/" + a)
-								} catch (e) {
-								}
-						};
-						this.tick("start", null, a)
-					}
-
-					var a;
-					window.performance && ( a = window.performance.timing);
-					var h = a ? new c(a.responseStart) : new c;
-					window.jstiming = {
-						Timer : c,
-						load : h
-					};
-					if (a) {
-						var b = a.navigationStart,
-						    e = a.responseStart;
-						0 < b && e >= b && (window.jstiming.srt = e - b)
-					}
-					if (a) {
-						var d = window.jstiming.load;
-						0 < b && e >= b && (d.tick("_wtsrt",
-						void 0, b), d.tick("wtsrt_", "_wtsrt", e), d.tick("tbsd_", "wtsrt_"))
-					}
-					try {
-						a = null, window.chrome && window.chrome.csi && ( a = Math.floor(window.chrome.csi().pageT), d && 0 < b && (d.tick("_tbnd",
-						void 0, window.chrome.csi().startE), d.tick("tbnd_", "_tbnd", b))), null == a && window.gtbExternal && ( a = window.gtbExternal.pageT()), null == a && window.external && ( a = window.external.pageT, d && 0 < b && (d.tick("_tbnd",
-						void 0, window.external.startE), d.tick("tbnd_", "_tbnd", b))), a && (window.jstiming.pt = a)
-					} catch (k) {
-					}
-				})();
-				window.tickAboveFold = function(c) {
-					var a = 0;
-					if (c.offsetParent) {
-						do
-							a += c.offsetTop;
-						while (c = c.offsetParent)
-					}
-					c = a;
-					750 >= c && window.jstiming.load.tick("aft")
-				};
-				var f = !1;
-				function g() {
-					f || ( f = !0, window.jstiming.load.tick("firstScrollTime"))
-				}
-				window.addEventListener ? window.addEventListener("scroll", g, !1) : window.attachEvent("onscroll", g);
-			})();
-		</script>
 		<link href="http://sorbet-theme.blogspot.com.tr/favicon.ico" rel="icon" type="image/x-icon" />
 		<link href="http://sorbet-theme.blogspot.com/" rel="canonical" />
 		<link rel="alternate" type="application/atom+xml" title="Sorbet - Atom" href="http://sorbet-theme.blogspot.com/feeds/posts/default" />
@@ -75,219 +14,12 @@ xmlns:data="http://www.google.com/2005/gml/data" xmlns:expr="http://www.google.c
 		<link rel="openid.delegate" href="http://sorbet-theme.blogspot.com/" />
 		<link href="styles/css/cssdemo.css" media="all" rel="stylesheet" type="text/css">
 		<link href="styles/css/font-awesome.css" rel="stylesheet">
-		<title>Create Community</title>
+		<title>Register</title>
 		<link type="text/css" rel="stylesheet" href="styles/css/4235914959-widget_css_bundle.css">
 		<link type="text/css" rel="stylesheet" href="styles/css/authorization.css">
 		<link href="Styles/CSS/Site.css" rel="stylesheet" type="text/css" />
         <link href="Styles/CSS/layout.css" rel="stylesheet" type="text/css" />
 		<script src="CommonScripts/jquery.min.js" type="text/javascript"></script>
-		<script type="text/javascript">
-			//<![CDATA[
-
-			/*! jQuery Migrate v1.2.1 | (c) 2005, 2013 jQuery Foundation, Inc. and other contributors | jquery.org/license */
-			jQuery.migrateMute ===
-			void 0 && (jQuery.migrateMute = !0), function(e, t, n) {
-				function r(n) {
-					var r = t.console;
-					i[n] || (i[n] = !0, e.migrateWarnings.push(n), r && r.warn && !e.migrateMute && (r.warn("JQMIGRATE: " + n), e.migrateTrace && r.trace && r.trace()))
-				}
-
-				function a(t, a, i, o) {
-					if (Object.defineProperty)
-						try {
-							return Object.defineProperty(t, a, {
-								configurable : !0,
-								enumerable : !0,
-								get : function() {
-									return r(o), i
-								},
-								set : function(e) {
-									r(o),
-									i =
-									e
-								}
-							}), n
-						} catch (s) {
-						}
-					e._definePropertyBroken = !0, t[a] =
-					i
-				}
-
-				var i = {};
-				e.migrateWarnings = [], !e.migrateMute && t.console && t.console.log && t.console.log("JQMIGRATE: Logging is active"), e.migrateTrace === n && (e.migrateTrace = !0), e.migrateReset = function() {
-					i = {}, e.migrateWarnings.length = 0
-				}, "BackCompat" === document.compatMode && r("jQuery is not compatible with Quirks Mode");
-				var o = e("<input/>", {
-					size : 1
-				}).attr("size") && e.attrFn,
-				    s = e.attr,
-				    u = e.attrHooks.value && e.attrHooks.value.get ||
-				function() {
-					return null
-				},
-				    c = e.attrHooks.value && e.attrHooks.value.set ||
-				function() {
-					return n
-				},
-				    l = /^(?:input|button)$/i,
-				    d = /^[238]$/,
-				    p = /^(?:autofocus|autoplay|async|checked|controls|defer|disabled|hidden|loop|multiple|open|readonly|required|scoped|selected)$/i,
-				    f = /^(?:checked|selected)$/i;
-				a(e, "attrFn", o || {}, "jQuery.attrFn is deprecated"), e.attr = function(t, a, i, u) {
-					var c = a.toLowerCase(),
-					    g = t && t.nodeType;
-					return u && (4 > s.length && r("jQuery.fn.attr( props, pass ) is deprecated"), t && !d.test(g) && ( o ? a in o : e.isFunction(e.fn[a]))) ? e(t)[a](i) : ("type" === a && i !== n && l.test(t.nodeName) && t.parentNode && r("Can't change the 'type' of an input or button in IE 6/7/8"), !e.attrHooks[c] && p.test(c) && (e.attrHooks[c] = {
-						get : function(t, r) {
-							var a,
-							    i = e.prop(t, r);
-							return i === !0 || "boolean" != typeof i && ( a = t.getAttributeNode(r)) && a.nodeValue !== !1 ? r.toLowerCase() : n
-						},
-						set : function(t, n, r) {
-							var a;
-							return n === !1 ? e.removeAttr(t, r) : ( a = e.propFix[r] || r, a in t && (t[a] = !0), t.setAttribute(r, r.toLowerCase())), r
-						}
-					}, f.test(c) && r("jQuery.fn.attr('" + c + "') may use property instead of attribute")), s.call(e, t, a, i))
-				}, e.attrHooks.value = {
-					get : function(e, t) {
-						var n = (e.nodeName || "").toLowerCase();
-						return "button" === n ? u.apply(this, arguments) : ("input" !== n && "option" !== n && r("jQuery.fn.attr('value') no longer gets properties"), t in e ? e.value : null)
-					},
-					set : function(e, t) {
-						var a = (e.nodeName || "").toLowerCase();
-						return "button" === a ? c.apply(this, arguments) : ("input" !== a && "option" !== a && r("jQuery.fn.attr('value', val) no longer sets properties"), e.value =
-						t, n)
-					}
-				};
-				var g,
-				    h,
-				    v = e.fn.init,
-				    m = e.parseJSON,
-				    y = /^([^<]*)(<[\w\W]+>)([^>]*)$/;
-				e.fn.init = function(t, n, a) {
-					var i;
-					return t && "string" == typeof t && !e.isPlainObject(n) && ( i = y.exec(e.trim(t))) && i[0] && ("<" !== t.charAt(0) && r("$(html) HTML strings must start with '<' character"), i[3] && r("$(html) HTML text after last tag is ignored"), "#" === i[0].charAt(0) && (r("HTML string cannot start with a '#' character"), e.error("JQMIGRATE: Invalid selector string (XSS)")), n && n.context && ( n = n.context), e.parseHTML) ? v.call(this, e.parseHTML(i[2], n, !0), n, a) : v.apply(this, arguments)
-				}, e.fn.init.prototype = e.fn, e.parseJSON = function(e) {
-					return e || null === e ? m.apply(this, arguments) : (r("jQuery.parseJSON requires a valid JSON string"), null)
-				}, e.uaMatch = function(e) {
-					e = e.toLowerCase();
-					var t = /(chrome)[ \/]([\w.]+)/.exec(e) || /(webkit)[ \/]([\w.]+)/.exec(e) || /(opera)(?:.*version|)[ \/]([\w.]+)/.exec(e) || /(msie) ([\w.]+)/.exec(e) || 0 > e.indexOf("compatible") && /(mozilla)(?:.*? rv:([\w.]+)|)/.exec(e) || [];
-					return {
-						browser : t[1] || "",
-						version : t[2] || "0"
-					}
-				}, e.browser || ( g = e.uaMatch(navigator.userAgent),
-				h = {}, g.browser && (h[g.browser] = !0, h.version = g.version), h.chrome ? h.webkit = !0 : h.webkit && (h.safari = !0), e.browser =
-				h), a(e, "browser", e.browser, "jQuery.browser is deprecated"), e.sub = function() {
-					function t(e, n) {
-						return new t.fn.init(e, n)
-					}
-					e.extend(!0, t, this), t.superclass = this, t.fn = t.prototype = this(), t.fn.constructor =
-					t, t.sub = this.sub, t.fn.init = function(r, a) {
-						return a && a instanceof e && !( a instanceof t) && ( a = t(a)), e.fn.init.call(this, r, a, n)
-					}, t.fn.init.prototype = t.fn;
-					var n = t(document);
-					return r("jQuery.sub() is deprecated"), t
-				}, e.ajaxSetup({
-					converters : {
-						"text json" : e.parseJSON
-					}
-				});
-				var b = e.fn.data;
-				e.fn.data = function(t) {
-					var a,
-					    i,
-					    o = this[0];
-					return !o || "events" !== t || 1 !== arguments.length || ( a = e.data(o, t),
-					i = e._data(o, t), a !== n && a !== i || i === n) ? b.apply(this, arguments) : (r("Use of jQuery.fn.data('events') is deprecated"), i)
-				};
-				var j = /\/(java|ecma)script/i,
-				    w = e.fn.andSelf || e.fn.addBack;
-				e.fn.andSelf = function() {
-					return r("jQuery.fn.andSelf() replaced by jQuery.fn.addBack()"), w.apply(this, arguments)
-				}, e.clean || (e.clean = function(t, a, i, o) {
-					a = a || document,
-					a = !a.nodeType && a[0] || a,
-					a = a.ownerDocument || a, r("jQuery.clean() is deprecated");
-					var s,
-					    u,
-					    c,
-					    l,
-					    d = [];
-					if (e.merge(d, e.buildFragment(t, a).childNodes), i)
-						for ( c = function(e) {
-							return !e.type || j.test(e.type) ? o ? o.push(e.parentNode ? e.parentNode.removeChild(e) : e) : i.appendChild(e) : n
-						},
-						s = 0; null != ( u = d[s]); s++)
-							e.nodeName(u, "script") && c(u) || (i.appendChild(u), u.getElementsByTagName !== n && ( l = e.grep(e.merge([], u.getElementsByTagName("script")), c), d.splice.apply(d, [s + 1, 0].concat(l)), s += l.length));
-					return d
-				});
-				var Q = e.event.add,
-				    x = e.event.remove,
-				    k = e.event.trigger,
-				    N = e.fn.toggle,
-				    T = e.fn.live,
-				    M = e.fn.die,
-				    S = "ajaxStart|ajaxStop|ajaxSend|ajaxComplete|ajaxError|ajaxSuccess",
-				    C = RegExp("\\b(?:" + S + ")\\b"),
-				    H = /(?:^|\s)hover(\.\S+|)\b/,
-				    A = function(t) {
-					return "string" != typeof t || e.event.special.hover ? t : (H.test(t) && r("'hover' pseudo-event is deprecated, use 'mouseenter mouseleave'"), t && t.replace(H, "mouseenter$1 mouseleave$1"))
-				};
-				e.event.props && "attrChange" !== e.event.props[0] && e.event.props.unshift("attrChange", "attrName", "relatedNode", "srcElement"), e.event.dispatch && a(e.event, "handle", e.event.dispatch, "jQuery.event.handle is undocumented and deprecated"), e.event.add = function(e, t, n, a, i) {
-					e !== document && C.test(t) && r("AJAX events should be attached to document: " + t), Q.call(this, e, A(t || ""), n, a, i)
-				}, e.event.remove = function(e, t, n, r, a) {
-					x.call(this, e, A(t) || "", n, r, a)
-				}, e.fn.error = function() {
-					var e = Array.prototype.slice.call(arguments, 0);
-					return r("jQuery.fn.error() is deprecated"), e.splice(0, 0, "error"), arguments.length ? this.bind.apply(this, e) : (this.triggerHandler.apply(this, e), this)
-				}, e.fn.toggle = function(t, n) {
-					if (!e.isFunction(t) || !e.isFunction(n))
-						return N.apply(this, arguments);
-					r("jQuery.fn.toggle(handler, handler...) is deprecated");
-					var a = arguments,
-					    i = t.guid || e.guid++,
-					    o = 0,
-					    s = function(n) {
-						var r = (e._data(this, "lastToggle" + t.guid) || 0) % o;
-						return e._data(this, "lastToggle" + t.guid, r + 1), n.preventDefault(), a[r].apply(this, arguments) || !1
-					};
-					for (s.guid = i; a.length > o; )
-						a[o++].guid = i;
-					return this.click(s)
-				}, e.fn.live = function(t, n, a) {
-					return r("jQuery.fn.live() is deprecated"), T ? T.apply(this, arguments) : (e(this.context).on(t, this.selector, n, a), this)
-				}, e.fn.die = function(t, n) {
-					return r("jQuery.fn.die() is deprecated"), M ? M.apply(this, arguments) : (e(this.context).off(t, this.selector || "**", n), this)
-				}, e.event.trigger = function(e, t, n, a) {
-					return n || C.test(e) || r("Global events are undocumented and deprecated"), k.call(this, e, t, n || document, a)
-				}, e.each(S.split("|"), function(t, n) {
-					e.event.special[n] = {
-						setup : function() {
-							var t = this;
-							return t !== document && (e.event.add(document, n + "." + e.guid, function() {
-								e.event.trigger(n, null, t, !0)
-							}), e._data(this, n, e.guid++)), !1
-						},
-						teardown : function() {
-							return this !== document && e.event.remove(document, n + "." + e._data(this, n)), !1
-						}
-					}
-				})
-			}(jQuery, window);
-
-			//]]>
-		</script>
-		<script type="text/javascript">
-			summary_noimg = 300;
-			summary_img = 200;
-			img_thumb_height = 150;
-			img_thumb_width = 200;
-		</script>
-		
-		<script type="text/javascript">
-			if (window.jstiming)
-				window.jstiming.load.tick('headEnd');
-		</script>
 	</head>
 	<body class="home blog right-sidebar">
 		<div id="bpagewrap">
@@ -298,7 +30,7 @@ xmlns:data="http://www.google.com/2005/gml/data" xmlns:expr="http://www.google.c
 							<div class="widget Header" id="Header1">
 								<div id="header-inner">
 									<div class="titlewrapper">
-										<h1 class="site-title"><a href="template.html">BuComp</a></h1>
+										<h1 class="site-title"><a href="index.html">BuComp</a></h1>
 									</div>
 									<h2 class="site-description">BU Community Groups</h2>
 								</div>
@@ -309,28 +41,12 @@ xmlns:data="http://www.google.com/2005/gml/data" xmlns:expr="http://www.google.c
 						<div class="togglenbtclass" id="menu-toggle" title="Menu" onclick="window.location='index.html';">
 							<span class="screen-reader-text">Menu</span>
 						</div>
-						<div class="togglenbtclass" id="search-toggle" title="Search">
-							<span class="screen-reader-text">User</span>
-						</div>
 					</div>
 				</div>
 			</header>
 			<!-- #masthead -->
-			<div class="panel" id="search-toggle-nav">
-				<div class="search-wrapper">
-					<label> <span class="screen-reader-text">User Name:</span>
-						<input class="search-field" name="q" placeholder="Email" type="email" value="" />
-						<span class="screen-reader-text">Password:</span>
-						<input class="search-field" name="q" placeholder="Password" type="password" value="" />
-					</label>
-					<input class="search-submit" type="button" value="Login" />
-					<input class="search-submit" type="button" value="Register" />
-				</div>
-			</div>
 			<div class="bwrapsite-content" id="bwrapcontent">
 				<div class="content-area" id="primarybwrap">
-					<div class="bwrapsite-main" id="mainbwrap" role="main">
-						<div class="mainblogsec section" id="mainblogsec">
 							<div class="widget Blog" id="Blog1">
 								<div class="blog-posts hfeed">
 									<div class="date-outer">
@@ -339,7 +55,7 @@ xmlns:data="http://www.google.com/2005/gml/data" xmlns:expr="http://www.google.c
 												<article class="post hentry">
 													<a name="4682800689275728420"></a>
 													<header class="entry-header">
-														<h2 class="post-title entry-title"><a href="community.html?cid=1">Register</a></h2>
+														<h2 class="post-title entry-title">Register</h2>
 													</header>
 													<div class="post-header-line-1"></div>
 													<div class="post-body entry-content">
@@ -361,30 +77,27 @@ xmlns:data="http://www.google.com/2005/gml/data" xmlns:expr="http://www.google.c
                                                         </div>
                                                         <div class="form-group">
                                                             <label for="slLocation">Location</label>
-                                                            <select id="slLocation" class="form-control">
-                                                                <option>Istanbul</option>
-                                                                <option>Ankara</option>
-                                                                <option>İzmir</option>
-                                                                <option>Adana</option>
-                                                                <option>Bursa</option>
-                                                            </select>
+                                                            <input type="text" id="txtLocation" class="form-control" />
                                                         </div>
                                                         <div class="form-group">
                                                             <label for="txtHobbies">Hobbies</label>
                                                             <textarea id="txtHobbies" class="form-control" rows="10"></textarea>
                                                         </div>
-                                                        <div class="form-group">
+                                                        <div class="image-upload">
                                                             <label for="imgProfile">Profile Photo</label>
                                                             <br/>
-                                                            <img src="images/man-icon.png" width="40" height="40" id="imgProfile" />
-                                                            <input type="file" />
+															<label for="profilePic">
+																<img src="images/man-icon.png" width="50" height="50" id="imgProfile" />
+															</label>
+															
+															<input id="profilePic" type="file" />
                                                         </div>
                                                         <div class="form-group">
                                                             <label for="imgProfile">Short CV</label>
                                                             <br/>
                                                             <input type="file" />
                                                         </div>
-                                                        <div class="form-group">
+                                                        <div class="form-group-center">
                                                             <input type="button" value="Save" class="search-submit" />
                                                             <input type="button" value="Cancel" class="search-submit" />
                                                         </div>
@@ -396,16 +109,6 @@ xmlns:data="http://www.google.com/2005/gml/data" xmlns:expr="http://www.google.c
 										</div>
 									</div>
 								</div>
-								<div style="clear: both;"></div>
-								
-								<div class="clear"></div>
-								<script type="text/javascript">
-									window.___gcfg = {
-										'lang' : 'en'
-									};
-								</script>
-							</div>
-						</div>
 					</div>
 					<!-- #main -->
 				</div>
@@ -433,237 +136,5 @@ xmlns:data="http://www.google.com/2005/gml/data" xmlns:expr="http://www.google.c
 			<!-- #colophon -->
 		</div>
 		<!-- #page -->
-		<script type="text/javascript">
-			//<![CDATA[
-
-			jQuery(document).ready(function($) {
-
-				function navMenu() {
-
-					var sidebarToggle = $('#sidebar-toggle');
-					var menuToggle = $('#menu-toggle');
-					var socialLinksToggle = $('#social-links-toggle');
-					var searchToggle = $('#search-toggle');
-
-					var socialLinksNav = $('#social-links-toggle-nav');
-					var sidebarNav = $('#sidebar-toggle-nav');
-					var searchNav = $('#search-toggle-nav');
-					var menuNav = $('#menu-toggle-nav');
-
-					function myToggleClass($myvar) {
-						if ($myvar.hasClass('active')) {
-							$myvar.removeClass('active');
-						} else {
-							$myvar.addClass('active');
-						}
-					}
-
-					// Display/hide sidebar
-					sidebarToggle.on('click', function() {
-						sidebarNav.slideToggle();
-						myToggleClass($(this));
-
-						socialLinksNav.hide();
-						menuNav.hide();
-						searchNav.hide();
-
-						searchToggle.removeClass('active');
-						menuToggle.removeClass('active');
-						socialLinksToggle.removeClass('active');
-					});
-					// Display/hide social links
-					socialLinksToggle.on('click', function() {
-						socialLinksNav.slideToggle();
-						myToggleClass($(this));
-
-						menuNav.hide();
-						searchNav.hide();
-						sidebarNav.hide();
-
-						searchToggle.removeClass('active');
-						menuToggle.removeClass('active');
-						sidebarToggle.removeClass('active');
-					});
-					// Display/hide menu
-					menuToggle.on('click', function() {
-						menuNav.slideToggle();
-						myToggleClass($(this));
-
-						searchNav.hide();
-						sidebarNav.hide();
-						socialLinksNav.hide();
-
-						searchToggle.removeClass('active');
-						sidebarToggle.removeClass('active');
-						socialLinksToggle.removeClass('active');
-					});
-					// Display/hide search
-					searchToggle.on('click', function() {
-						searchNav.slideToggle();
-						myToggleClass($(this));
-
-						sidebarNav.hide();
-						socialLinksNav.hide();
-						menuNav.hide();
-
-						sidebarToggle.removeClass('active');
-						menuToggle.removeClass('active');
-						socialLinksToggle.removeClass('active');
-					});
-				}
-
-
-				$(window).on('load', navMenu);
-			});
-
-			//]]>
-		</script>
-		<script type="text/javascript">
-			//<![CDATA[
-
-			(function() {
-				var is_webkit = navigator.userAgent.toLowerCase().indexOf('webkit') > -1,
-				    is_opera = navigator.userAgent.toLowerCase().indexOf('opera') > -1,
-				    is_ie = navigator.userAgent.toLowerCase().indexOf('msie') > -1;
-
-				if ((is_webkit || is_opera || is_ie) && 'undefined' !== typeof (document.getElementById)) {
-					var eventMethod = (window.addEventListener) ? 'addEventListener' : 'attachEvent';
-					window[eventMethod]('hashchange', function() {
-						var element = document.getElementById(location.hash.substring(1));
-
-						if (element) {
-							if (!/^(?:a|select|input|button|textarea)$/i.test(element.tagName))
-								element.tabIndex = -1;
-
-							element.focus();
-						}
-					}, false);
-				}
-			})();
-
-			//]]>
-		</script>
-		<script type="text/javascript">
-			if (window.jstiming)
-				window.jstiming.load.tick('widgetJsBefore');
-		</script>
-		<script type="text/javascript" src="commonscripts/3102085676-widgets.js"></script>
-		<script type="text/javascript" src="commonscripts/plusone.js" gapi_processed="true"></script>
-		<script type="text/javascript">
-			if ( typeof (BLOG_attachCsiOnload) != 'undefined' && BLOG_attachCsiOnload != null) {
-				window['blogger_templates_experiment_id'] = "templatesV1";
-				window['blogger_blog_id'] = '3762999460689474077';
-				BLOG_attachCsiOnload('');
-			}
-			_WidgetManager._Init('//www.blogger.com/rearrange?blogID\x3d3762999460689474077', '//sorbet-theme.blogspot.com.tr/', '3762999460689474077');
-			_WidgetManager._SetDataContext([{
-				'name' : 'blog',
-				'data' : {
-					'blogId' : '3762999460689474077',
-					'bloggerUrl' : 'https://www.blogger.com',
-					'title' : 'Sorbet',
-					'pageType' : 'index',
-					'url' : 'http://sorbet-theme.blogspot.com.tr/',
-					'canonicalUrl' : 'http://sorbet-theme.blogspot.com/',
-					'homepageUrl' : 'http://sorbet-theme.blogspot.com.tr/',
-					'canonicalHomepageUrl' : 'http://sorbet-theme.blogspot.com/',
-					'blogspotFaviconUrl' : 'http://sorbet-theme.blogspot.com.tr/favicon.ico',
-					'enabledCommentProfileImages' : true,
-					'adultContent' : false,
-					'disableAdSenseWidget' : false,
-					'analyticsAccountNumber' : '',
-					'useUniversalAnalytics' : false,
-					'searchLabel' : '',
-					'searchQuery' : '',
-					'pageName' : '',
-					'pageTitle' : 'Sorbet',
-					'encoding' : 'UTF-8',
-					'locale' : 'en',
-					'localeUnderscoreDelimited' : 'en',
-					'isPrivate' : true,
-					'isMobile' : false,
-					'isMobileRequest' : false,
-					'mobileClass' : '',
-					'isPrivateBlog' : false,
-					'languageDirection' : 'ltr',
-					'feedLinks' : '\74link rel\75\42alternate\42 type\75\42application/atom+xml\42 title\75\42Sorbet - Atom\42 href\75\42http://sorbet-theme.blogspot.com/feeds/posts/default\42 /\76\n\74link rel\75\42alternate\42 type\75\42application/rss+xml\42 title\75\42Sorbet - RSS\42 href\75\42http://sorbet-theme.blogspot.com/feeds/posts/default?alt\75rss\42 /\76\n\74link rel\75\42service.post\42 type\75\42application/atom+xml\42 title\75\42Sorbet - Atom\42 href\75\42https://www.blogger.com/feeds/3762999460689474077/posts/default\42 /\76\n',
-					'meTag' : '\74link rel\75\42me\42 href\75\42https://www.blogger.com/profile/03581916711991136601\42 /\76\n',
-					'openIdOpTag' : '\74link rel\75\42openid.server\42 href\75\42https://www.blogger.com/openid-server.g\42 /\76\n\74link rel\75\42openid.delegate\42 href\75\42http://sorbet-theme.blogspot.com/\42 /\76\n',
-					'latencyHeadScript' : '\74script type\75\42text/javascript\42\76(function() { (function(){function c(a){this.t\75{};this.tick\75function(a,c,b){var d\75void 0!\75b?b:(new Date).getTime();this.t[a]\75[d,c];if(void 0\75\75b)try{window.console.timeStamp(\42CSI/\42+a)}catch(e){}};this.tick(\42start\42,null,a)}var a;window.performance\46\46(a\75window.performance.timing);var h\75a?new c(a.responseStart):new c;window.jstiming\75{Timer:c,load:h};if(a){var b\75a.navigationStart,e\75a.responseStart;0\74b\46\46e\76\75b\46\46(window.jstiming.srt\75e-b)}if(a){var d\75window.jstiming.load;0\74b\46\46e\76\75b\46\46(d.tick(\42_wtsrt\42,void 0,b),d.tick(\42wtsrt_\42,\n\42_wtsrt\42,e),d.tick(\42tbsd_\42,\42wtsrt_\42))}try{a\75null,window.chrome\46\46window.chrome.csi\46\46(a\75Math.floor(window.chrome.csi().pageT),d\46\0460\74b\46\46(d.tick(\42_tbnd\42,void 0,window.chrome.csi().startE),d.tick(\42tbnd_\42,\42_tbnd\42,b))),null\75\75a\46\46window.gtbExternal\46\46(a\75window.gtbExternal.pageT()),null\75\75a\46\46window.external\46\46(a\75window.external.pageT,d\46\0460\74b\46\46(d.tick(\42_tbnd\42,void 0,window.external.startE),d.tick(\42tbnd_\42,\42_tbnd\42,b))),a\46\46(window.jstiming.pt\75a)}catch(k){}})();window.tickAboveFold\75function(c){var a\0750;if(c.offsetParent){do a+\75c.offsetTop;while(c\75c.offsetParent)}c\75a;750\76\75c\46\46window.jstiming.load.tick(\42aft\42)};var f\75!1;function g(){f||(f\75!0,window.jstiming.load.tick(\42firstScrollTime\42))}window.addEventListener?window.addEventListener(\42scroll\42,g,!1):window.attachEvent(\42onscroll\42,g);\n })();\74/script\076',
-					'mobileHeadScript' : '',
-					'view' : '',
-					'dynamicViewsCommentsSrc' : '//www.blogblog.com/dynamicviews/4224c15c4e7c9321/js/comments.js',
-					'dynamicViewsScriptSrc' : '//www.blogblog.com/dynamicviews/c53cb8d8da80cd45',
-					'plusOneApiSrc' : 'https://apis.google.com/js/plusone.js',
-					'sf' : 'n'
-				}
-			}, {
-				'name' : 'skin',
-				'data' : {
-					'vars' : {},
-					'override' : ''
-				}
-			}, {
-				'name' : 'view',
-				'data' : {
-					'classic' : {
-						'name' : 'classic',
-						'url' : '?view\75classic'
-					},
-					'flipcard' : {
-						'name' : 'flipcard',
-						'url' : '?view\75flipcard'
-					},
-					'magazine' : {
-						'name' : 'magazine',
-						'url' : '?view\75magazine'
-					},
-					'mosaic' : {
-						'name' : 'mosaic',
-						'url' : '?view\75mosaic'
-					},
-					'sidebar' : {
-						'name' : 'sidebar',
-						'url' : '?view\75sidebar'
-					},
-					'snapshot' : {
-						'name' : 'snapshot',
-						'url' : '?view\75snapshot'
-					},
-					'timeslide' : {
-						'name' : 'timeslide',
-						'url' : '?view\75timeslide'
-					}
-				}
-			}]);
-			_WidgetManager._RegisterWidget('_HeaderView', new _WidgetInfo('Header1', 'headersec', null, document.getElementById('Header1'), {}, 'displayModeFull'));
-			_WidgetManager._RegisterWidget('_FeedView', new _WidgetInfo('Feed1', 'panelbwrapwidget1', null, document.getElementById('Feed1'), {
-				'title' : 'Blogger Templates',
-				'showItemDate' : false,
-				'showItemAuthor' : false,
-				'feedUrl' : 'http://newbloggerthemes.com/feed/',
-				'numItemsShow' : 5,
-				'loadingMsg' : 'Loading...',
-				'openLinksInNewWindow' : false
-			}, 'displayModeFull'));
-			_WidgetManager._RegisterWidget('_HTMLView', new _WidgetInfo('HTML41', 'panelbwrapwidget2', null, document.getElementById('HTML41'), {}, 'displayModeFull'));
-			_WidgetManager._RegisterWidget('_HTMLView', new _WidgetInfo('HTML2', 'panelbwrapwidget3', null, document.getElementById('HTML2'), {}, 'displayModeFull'));
-			_WidgetManager._RegisterWidget('_BlogView', new _WidgetInfo('Blog1', 'mainblogsec', null, document.getElementById('Blog1'), {
-				'cmtInteractionsEnabled' : false,
-				'lightboxEnabled' : true,
-				'lightboxModuleUrl' : 'https://www.blogger.com/static/v1/jsbin/2058145283-lbx.js',
-				'lightboxCssUrl' : 'https://www.blogger.com/static/v1/v-css/1185134592-lightbox_bundle.css'
-			}, 'displayModeFull'));
-			_WidgetManager._RegisterWidget('_PopularPostsView', new _WidgetInfo('PopularPosts1', 'sidebarbtop', null, document.getElementById('PopularPosts1'), {}, 'displayModeFull'));
-			_WidgetManager._RegisterWidget('_HTMLView', new _WidgetInfo('HTML1', 'sidebarbtop', null, document.getElementById('HTML1'), {}, 'displayModeFull'));
-			_WidgetManager._RegisterWidget('_LabelView', new _WidgetInfo('Label1', 'sidebarbtop', null, document.getElementById('Label1'), {}, 'displayModeFull'));
-			_WidgetManager._RegisterWidget('_HTMLView', new _WidgetInfo('HTML42', 'sidebarbtop', null, document.getElementById('HTML42'), {}, 'displayModeFull'));
-			_WidgetManager._RegisterWidget('_TextView', new _WidgetInfo('Text1', 'sidebarbtop', null, document.getElementById('Text1'), {}, 'displayModeFull'));
-			_WidgetManager._RegisterWidget('_BlogArchiveView', new _WidgetInfo('BlogArchive1', 'sidebarbtop', null, document.getElementById('BlogArchive1'), {
-				'languageDirection' : 'ltr',
-				'loadingMessage' : 'Loading...'
-			}, 'displayModeFull'));
-			_WidgetManager._RegisterWidget('_LinkListView', new _WidgetInfo('LinkList7', 'nbttopmenutop', null, document.getElementById('LinkList7'), {}, 'displayModeFull'));
-		</script>
 	</body>
 </html>
