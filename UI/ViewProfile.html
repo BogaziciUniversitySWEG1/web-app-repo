@@ -1,25 +1,17 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html dir="ltr" xmlns="http://www.w3.org/1999/xhtml" xmlns:b="http://www.google.com/2005/gml/b"
 xmlns:data="http://www.google.com/2005/gml/data" xmlns:expr="http://www.google.com/2005/gml/expr">
 	<head>
-		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-		<meta content="width=device-width, initial-scale=1" name="viewport" />
-		<link href="http://sorbet-theme.blogspot.com.tr/favicon.ico" rel="icon" type="image/x-icon" />
-		<link href="http://sorbet-theme.blogspot.com/" rel="canonical" />
-		<link rel="alternate" type="application/atom+xml" title="Sorbet - Atom" href="http://sorbet-theme.blogspot.com/feeds/posts/default" />
-		<link rel="alternate" type="application/rss+xml" title="Sorbet - RSS" href="http://sorbet-theme.blogspot.com/feeds/posts/default?alt=rss" />
-		<link rel="service.post" type="application/atom+xml" title="Sorbet - Atom" href="https://www.blogger.com/feeds/3762999460689474077/posts/default" />
-		<link rel="me" href="https://www.blogger.com/profile/03581916711991136601" />
-		<link rel="openid.server" href="https://www.blogger.com/openid-server.g" />
-		<link rel="openid.delegate" href="http://sorbet-theme.blogspot.com/" />
-		<link href="styles/css/cssdemo.css" media="all" rel="stylesheet" type="text/css">
-		<link href="styles/css/font-awesome.css" rel="stylesheet">
-		<title>Hasancan Akgündüz</title>
-		<link type="text/css" rel="stylesheet" href="styles/css/4235914959-widget_css_bundle.css">
-		<link type="text/css" rel="stylesheet" href="styles/css/authorization.css">
-		<link href="Styles/CSS/Site.css" rel="stylesheet" type="text/css" />
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <meta content="width=device-width, initial-scale=1" name="viewport" />
+        <link href="styles/css/cssdemo.css" media="all" rel="stylesheet" type="text/css" />
+        <link href="styles/css/font-awesome.css" rel="stylesheet" />
+        <title>Hasancan Akgündüz</title>
+        <link type="text/css" rel="stylesheet" href="styles/css/4235914959-widget_css_bundle.css" />
+        <link type="text/css" rel="stylesheet" href="styles/css/authorization.css" />
+        <link href="Styles/CSS/Site.css" rel="stylesheet" type="text/css" />
         <link href="Styles/CSS/layout.css" rel="stylesheet" type="text/css" />
-		<script src="CommonScripts/jquery.min.js" type="text/javascript"></script>
+        <script src="CommonScripts/jquery.min.js" type="text/javascript"></script>
 	</head>
 	<body class="home blog right-sidebar">
 		<div id="bpagewrap">
@@ -136,89 +128,40 @@ xmlns:data="http://www.google.com/2005/gml/data" xmlns:expr="http://www.google.c
 		</div>
 		<!-- #page -->
 		<script type="text/javascript">
-			//<![CDATA[
+            jQuery(document).ready(function ($) {
+                function navMenu() {
+                    var menuToggle = $('#menu-toggle');
+                    var searchToggle = $('#search-toggle');
+                    var searchNav = $('#search-toggle-nav');
 
-			jQuery(document).ready(function($) {
+                    function myToggleClass($myvar) {
+                        if ($myvar.hasClass('active')) {
+                            $myvar.removeClass('active');
+                        } else {
+                            $myvar.addClass('active');
+                        }
+                    }
 
-				function navMenu() {
+                    // Display/hide menu
+                    menuToggle.on('click', function () {
+                        myToggleClass($(this));
 
-					var sidebarToggle = $('#sidebar-toggle');
-					var menuToggle = $('#menu-toggle');
-					var socialLinksToggle = $('#social-links-toggle');
-					var searchToggle = $('#search-toggle');
+                        searchNav.hide();
 
-					var socialLinksNav = $('#social-links-toggle-nav');
-					var sidebarNav = $('#sidebar-toggle-nav');
-					var searchNav = $('#search-toggle-nav');
-					var menuNav = $('#menu-toggle-nav');
+                        searchToggle.removeClass('active');
+                    });
 
-					function myToggleClass($myvar) {
-						if ($myvar.hasClass('active')) {
-							$myvar.removeClass('active');
-						} else {
-							$myvar.addClass('active');
-						}
-					}
+                    // Display/hide search
+                    searchToggle.on('click', function () {
+                        searchNav.slideToggle();
+                        myToggleClass($(this));
 
-					// Display/hide sidebar
-					sidebarToggle.on('click', function() {
-						sidebarNav.slideToggle();
-						myToggleClass($(this));
+                        menuToggle.removeClass('active');
+                    });
+                }
 
-						socialLinksNav.hide();
-						menuNav.hide();
-						searchNav.hide();
-
-						searchToggle.removeClass('active');
-						menuToggle.removeClass('active');
-						socialLinksToggle.removeClass('active');
-					});
-					// Display/hide social links
-					socialLinksToggle.on('click', function() {
-						socialLinksNav.slideToggle();
-						myToggleClass($(this));
-
-						menuNav.hide();
-						searchNav.hide();
-						sidebarNav.hide();
-
-						searchToggle.removeClass('active');
-						menuToggle.removeClass('active');
-						sidebarToggle.removeClass('active');
-					});
-					// Display/hide menu
-					menuToggle.on('click', function() {
-						menuNav.slideToggle();
-						myToggleClass($(this));
-
-						searchNav.hide();
-						sidebarNav.hide();
-						socialLinksNav.hide();
-
-						searchToggle.removeClass('active');
-						sidebarToggle.removeClass('active');
-						socialLinksToggle.removeClass('active');
-					});
-					// Display/hide search
-					searchToggle.on('click', function() {
-						searchNav.slideToggle();
-						myToggleClass($(this));
-
-						sidebarNav.hide();
-						socialLinksNav.hide();
-						menuNav.hide();
-
-						sidebarToggle.removeClass('active');
-						menuToggle.removeClass('active');
-						socialLinksToggle.removeClass('active');
-					});
-				}
-
-
-				$(window).on('load', navMenu);
-			});
-
-			//]]>
+                $(window).on('load', navMenu);
+            });
 		</script>
 	</body>
 </html>
