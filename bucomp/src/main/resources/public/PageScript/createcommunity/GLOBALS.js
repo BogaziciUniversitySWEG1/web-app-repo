@@ -1,5 +1,6 @@
 ﻿(function () {
     var GLOBALS = {
+    	ServiceParameter: "api",
         CommunityId: -1,
         Title: "",
         Descrpition: "",

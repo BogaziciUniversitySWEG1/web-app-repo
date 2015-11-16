@@ -1,4 +1,4 @@
-﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html dir="ltr" xmlns="http://www.w3.org/1999/xhtml" xmlns:b="http://www.google.com/2005/gml/b"
       xmlns:data="http://www.google.com/2005/gml/data" xmlns:expr="http://www.google.com/2005/gml/expr">
 <head>
@@ -12,9 +12,7 @@
     <link href="Styles/CSS/Site.css" rel="stylesheet" type="text/css" />
     <link href="Styles/CSS/layout.css" rel="stylesheet" type="text/css" />
     <script src="CommonScripts/jquery.min.js" type="text/javascript"></script>
-    <script src="PageScript/CreateCommunity/DESIGN.js" type="text/javascript" />
-    <script src="PageScript/CreateCommunity/GLOBALS.js" type="text/javascript" />
-    <script src="PageScript/CreateCommunity/SP_BANK.js" type="text/javascript" />
+    <script src="CommonScripts/GUI_HELPER.js" type="text/javascript"></script>
 </head>
 <body class="home blog right-sidebar">
     <div id="bpagewrap">
@@ -123,7 +121,7 @@
                                                         <input type="radio" id="rbResourceAllowed" name="resource" value="2" class="form-control" style="display:inline !important; width:20px;" />Only allowed members
                                                     </div>
                                                     <div class="form-group">
-                                                        <input type="button" value="Create" class="search-submit" />
+                                                        <input type="button" value="Create" class="search-submit" onclick="SaveCommunity();" />
                                                     </div>
                                                     <div style="clear: both;"></div>
                                                 </div>
@@ -179,9 +177,14 @@
         <!-- #colophon -->
     </div>
     <!-- #page -->
-
+	
+	
+	
+    
+    
     <script type="text/javascript">
         jQuery(document).ready(function($) {
+        	SaveCommunity();
             function navMenu() {
                 var menuToggle = $('#menu-toggle');
                 var searchToggle = $('#search-toggle');
@@ -215,6 +218,15 @@
 
             $(window).on('load', navMenu);
         });
+        
+        function SaveCommunity(){
+    		alert("Save");
+    		DESIGN.SAVE("Deneme Title");
+    	}
     </script>
+    
+    <script src="PageScript/createcommunity/DESIGN.js" type="text/javascript"></script>
+    <script src="PageScript/createcommunity/GLOBALS.js" type="text/javascript"></script>
+    <script src="PageScript/createcommunity/SP_BANK.js" type="text/javascript"></script>
 </body>
 </html>
