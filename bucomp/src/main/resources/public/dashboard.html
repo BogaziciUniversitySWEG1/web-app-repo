@@ -23,7 +23,7 @@
                             <div id="header-inner">
                                 <div class="titlewrapper">
                                     <h1 class="site-title">
-                                        <a href="template.html">BuComp</a>
+                                        <a href="dashboard.html">BuComp</a>
                                     </h1>
                                 </div>
                                 <h2 class="site-description">BU Community Groups</h2>
@@ -32,27 +32,39 @@
                     </div>
                 </div>
                 <div class="togglesnbtdiv">
-                    <div class="togglenbtclass" id="menu-toggle" title="Home" onclick="window.location='index.html';">
+                    <div class="togglenbtclass" id="menu-toggle" title="Home" onclick="window.location='dashboard.html';">
                         <span class="screen-reader-text">Menu</span>
                     </div>
-                    <div class="togglenbtclass" id="search-toggle" title="login">
+                    <div class="togglenbtclass" id="user-toggle" title="User">
                         <span class="screen-reader-text">User</span>
                     </div>
                 </div>
             </div>
         </header>
         <!-- #masthead -->
-        <div class="panel" id="search-toggle-nav">
-            <div class="search-wrapper">
-                <label>
-                    <span class="screen-reader-text">User Name:</span>
-                    <input class="search-field" name="q" placeholder="Email" type="email" value="" />
-                    <span class="screen-reader-text">Password:</span>
-                    <input class="search-field" name="q" placeholder="Password" type="password" value="" />
-                </label>
-                <input class="search-submit" type="button" value="Login" />
-                <input class="search-submit" type="button" value="Register" />
-            </div>
+        <div class="panel" id="search-toggle-nav" style="display: block;">
+            <div class="main-navigation" id="site-navigation" role="navigation">
+                <div class="bwraptopmenu">
+                    <ul>
+                        <li class="current_page_item"><a href="#">My Profile</a></li>
+                        <li>
+                            <a href="#">Community</a>
+                            <ul class="children">
+                                <li><a href="#">Create New Community</a></li>
+                                <li><a href="#">My Communities</a></li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="#">Meetings</a>
+                            <ul class="children">
+                                <li><a href="#">Upcoming Meetings</a></li>
+                                <li><a href="#">Past Meetings</a></li>
+                                <li><a href="#">Create New Meeting</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div><!-- #site-navigation -->
         </div>
         <div class="bwrapsite-content" id="bwrapcontent">
             <div class="content-area" id="primarybwrap">
@@ -201,8 +213,6 @@
                                        id="Blog1_blog-pager-older-link" title="See More">See More&nbsp;→</a>
                                 </span>
                                 <a class="home-link" href="index.html">Home</a>
-                            </div>
-                            <div class="clear">
                             </div>
                         </div>
                     </div>
@@ -409,7 +419,7 @@
                 var sidebarToggle = $('#sidebar-toggle');
                 var menuToggle = $('#menu-toggle');
                 var socialLinksToggle = $('#social-links-toggle');
-                var searchToggle = $('#search-toggle');
+                var searchToggle = $('#user-toggle');
 
                 var socialLinksNav = $('#social-links-toggle-nav');
                 var sidebarNav = $('#sidebar-toggle-nav');
