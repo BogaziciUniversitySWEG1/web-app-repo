@@ -1,7 +1,7 @@
-﻿ 
+﻿
 (function () {
     var GUI_HELPER = {
-     
+
         //ALERT TİPLERİ
         ERROR: 'error',
         INFO: 'info',
@@ -149,7 +149,7 @@
                 return true;
             else
                 return false;
-        }, 
+        },
         EscapeSpecialCharALL: function (_value) {
             var newvalue = GUI_HELPER.EscapeSpecialCharBackSlash(_value);
             newvalue = GUI_HELPER.EscapeSpecialCharsByForLoop(newvalue, "\'", "\\'");
@@ -238,10 +238,10 @@
                 }
             }
             catch (err) {
-                GUI_HELPER.ALERT(2, "NOU!", err); 
+                GUI_HELPER.ALERT(2, "NOU!", err);
             }
 
-        }, 
+        },
         CLEAR_TBODY: function (id) {
             try {
                 var _tbodyOld = document.getElementById(id);
@@ -250,7 +250,7 @@
                 _tbody.setAttribute('id', id);
                 return _tbody;
             } catch (err) {
-                GUI_HELPER.ALERT("CLEAR_TBODY!",err , 'error');
+                GUI_HELPER.ALERT("CLEAR_TBODY!", err, 'error');
             }
         },
         CLEAR_TBODY_NORETURN: function (id) {
@@ -260,7 +260,7 @@
                 _tbodyOld.parentNode.replaceChild(_tbody, _tbodyOld);
                 _tbody.setAttribute('id', id);
             } catch (err) {
-                GUI_HELPER.ALERT(  "CLEAR_TBODY_NORETURN!", err, 'error');
+                GUI_HELPER.ALERT("CLEAR_TBODY_NORETURN!", err, 'error');
             }
 
         },
@@ -272,7 +272,7 @@
                 _table.setAttribute('id', id);
 
             } catch (err) {
-                GUI_HELPER.ALERT( "CLEAR_TABLE_NORETURN!", err, 'error');
+                GUI_HELPER.ALERT("CLEAR_TABLE_NORETURN!", err, 'error');
             }
         },
         CLEARDROPDOWN: function (_obj) {
@@ -283,7 +283,7 @@
                     select.removeChild(options[i]);
                 }
             } catch (err) {
-                GUI_HELPER.ALERT( "CLEARDROPDOWN!", err, 'error');
+                GUI_HELPER.ALERT("CLEARDROPDOWN!", err, 'error');
             }
         },
         IndexOfOneDimArr: function (_Array, _Item) {
@@ -305,7 +305,7 @@
 
             }
             catch (err) {
-                GUI_HELPER.ALERT("IndexOfOneDimArr!",err , 'error');
+                GUI_HELPER.ALERT("IndexOfOneDimArr!", err, 'error');
             }
         },
         IndexOfTwoDimArr: function (_Array, _Item) { // two dimensional array için
@@ -355,7 +355,7 @@
                 return index;
             }
             catch (err) {
-                GUI_HELPER.ALERT("IndexOfStr!", err, 'error'); 
+                GUI_HELPER.ALERT("IndexOfStr!", err, 'error');
             }
         },
         IndexOfStr_I: function (myString, word) {
@@ -383,10 +383,10 @@
                 return index;
             }
             catch (err) {
-                GUI_HELPER.ALERT("IndexOfStr_I!", err, 'error'); 
+                GUI_HELPER.ALERT("IndexOfStr_I!", err, 'error');
             }
         },
-         TRIMOFTEXT: function (itemtext) {
+        TRIMOFTEXT: function (itemtext) {
             var text = itemtext.replace(/(?:(?:^|\n)\s+|\s+(?:$|\n))/g, '').replace(/\s+/g, ' ');
             if (text.length > 0) {
                 return true;
@@ -418,6 +418,15 @@
             }
             else {
                 return false;
+            }
+        },
+        GetQueryStringParamByName: function (key) {
+            try {
+                key = key.replace(/[*+?^$.\[\]{}()|\\\/]/g, "\\$&"); // escape RegEx meta chars
+                var match = location.search.match(new RegExp("[?&]" + key + "=([^&]+)(&|$)"));
+                return match && decodeURIComponent(match[1].replace(/\+/g, " "));
+            } catch (e) {
+
             }
         }
     }
