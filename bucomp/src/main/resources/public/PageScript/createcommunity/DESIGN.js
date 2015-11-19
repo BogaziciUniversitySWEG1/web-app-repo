@@ -1,19 +1,12 @@
-﻿/// <reference path="../CommonScripts/GUI_HELPER.js" />
+/// <reference path="../CommonScripts/GUI_HELPER.js" />
 /// <reference path="SP_BANK.js" />
 /// <reference path="GLOBALS.js" />
 
 (function () {
     var DESIGN = { 
-        SAVE: function () {
+        SAVE: function (title, description, creationDate, createrUserId, accessType, joinType, postType, meetingCreationType, resourceAdditionType, tagList, invitationList, callback, callback_err) {
             try {
-               SP_BANK.SAVE("", DESIGN.LoginCallback, GUI_HELPER.SERVICE_CALLBACK_ERR);
-            } catch (err) {
-                GUI_HELPER.ALERT('test', err, GUI_HELPER.ERROR);
-            }
-        },
-        LoginCallback: function (data) {
-            try {
-               alert("Bitti");
+               SP_BANK.SAVE(title, description, creationDate, createrUserId, accessType, joinType, postType, meetingCreationType, resourceAdditionType, tagList, invitationList, callback, callback_err);
             } catch (err) {
                 GUI_HELPER.ALERT('test', err, GUI_HELPER.ERROR);
             }

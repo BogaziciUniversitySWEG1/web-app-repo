@@ -13,6 +13,7 @@
     <link href="Styles/CSS/layout.css" rel="stylesheet" type="text/css" />
     <script src="CommonScripts/jquery.min.js" type="text/javascript"></script>
     <script src="CommonScripts/GUI_HELPER.js" type="text/javascript"></script>
+    <script src="CommonScripts/Common.js" type="text/javascript"></script>
 </head>
 <body class="home blog right-sidebar">
     <div id="bpagewrap">
@@ -80,45 +81,43 @@
                                                     <div class="form-group">
                                                         <label for="txtSemantic">Semantic Tags</label>
                                                         <input type="text" id="txtSemantic" class="form-control" />
-                                                        <input type="button" value="Add Tag" class="search-submit" />
+                                                        <input type="button" value="Add Tag" class="search-submit" onclick="AddTag();" />
                                                     </div>
                                                     <div class="form-group">
                                                         <footer class="nbtentry-meta">
-                                                            <span class="nbttags-links">
-                                                                <a href="community.html?cid=2" rel="tag">Graphic Design</a>,
-                                                                <a href="community.html?cid=2" rel="tag">Motion Design</a>
+                                                            <span class="nbttags-links" id="tagSpan">
                                                             </span>
                                                         </footer>
                                                     </div>
                                                     <div class="form-group">
                                                         <label for="rbPublic">Visibility</label>
                                                         <br />
-                                                        <input type="radio" id="rbPublic" name="visibility" value="1" class="form-control" style="display:inline !important; width:20px;" />Public
-                                                        <input type="radio" id="rbMembers" name="visibility" value="2" class="form-control" style="display:inline !important; width:20px;" />Members Only
+                                                        <input type="radio" id="rbPublic" name="accessType" value="1" class="form-control" style="display:inline !important; width:20px;" />Public
+                                                        <input type="radio" id="rbMembers" name="accessType" value="2" class="form-control" style="display:inline !important; width:20px;" />Members Only
                                                     </div>
                                                     <div class="form-group">
                                                         <label for="rbApprovalYes">Requires Approval?</label>
                                                         <br />
-                                                        <input type="radio" id="rbApprovalYes" name="approval" value="1" class="form-control" style="display:inline !important; width:20px;" />Yes
-                                                        <input type="radio" id="rbApprovalNo" name="approval" value="2" class="form-control" style="display:inline !important; width:20px;" />No
+                                                        <input type="radio" id="rbApprovalYes" name="joinType" value="1" class="form-control" style="display:inline !important; width:20px;" />Yes
+                                                        <input type="radio" id="rbApprovalNo" name="joinType" value="2" class="form-control" style="display:inline !important; width:20px;" />No
                                                     </div>
                                                     <div class="form-group">
                                                         <label for="rbAuthorAll">Who Can Post Comment?</label>
                                                         <br />
-                                                        <input type="radio" id="rbAuthorAll" name="post" value="1" class="form-control" style="display:inline !important; width:20px;" />All joined members
-                                                        <input type="radio" id="rbAuthorAllowed" name="post" value="2" class="form-control" style="display:inline !important; width:20px;" />Only allowed members
+                                                        <input type="radio" id="rbAuthorAll" name="postType" value="1" class="form-control" style="display:inline !important; width:20px;" />All joined members
+                                                        <input type="radio" id="rbAuthorAllowed" name="postType" value="2" class="form-control" style="display:inline !important; width:20px;" />Only allowed members
                                                     </div>
                                                     <div class="form-group">
                                                         <label for="rbMeetingAll">Who Can Create Meeting?</label>
                                                         <br />
-                                                        <input type="radio" id="rbMeetingAll" name="meeting" value="1" class="form-control" style="display:inline !important; width:20px;" />All joined members
-                                                        <input type="radio" id="rbMeetingAllowed" name="meeting" value="2" class="form-control" style="display:inline !important; width:20px;" />Only allowed members
+                                                        <input type="radio" id="rbMeetingAll" name="meetingCreationType" value="1" class="form-control" style="display:inline !important; width:20px;" />All joined members
+                                                        <input type="radio" id="rbMeetingAllowed" name="meetingCreationType" value="2" class="form-control" style="display:inline !important; width:20px;" />Only allowed members
                                                     </div>
                                                     <div class="form-group">
                                                         <label for="rbResourceAll">Who Can Add Resource?</label>
                                                         <br />
-                                                        <input type="radio" id="rbResourceAll" name="resource" value="1" class="form-control" style="display:inline !important; width:20px;" />All joined members
-                                                        <input type="radio" id="rbResourceAllowed" name="resource" value="2" class="form-control" style="display:inline !important; width:20px;" />Only allowed members
+                                                        <input type="radio" id="rbResourceAll" name="resourceAdditionType" value="1" class="form-control" style="display:inline !important; width:20px;" />All joined members
+                                                        <input type="radio" id="rbResourceAllowed" name="resourceAdditionType" value="2" class="form-control" style="display:inline !important; width:20px;" />Only allowed members
                                                     </div>
                                                     <div class="form-group">
                                                         <input type="button" value="Create" class="search-submit" onclick="SaveCommunity();" />
@@ -144,17 +143,15 @@
                         <h2>Invited Members</h2>
                         <div class="widget-content popular-posts">
                             <div class="form-group">
-                                <input type="text" id="txtInvite" class="form-control" />
-                                <input type="button" value="Invite" class="search-submit" />
+                                <input type="text" id="txtInvitation" class="form-control" />
+                                <input type="button" value="Invite" class="search-submit" onclick="AddInvitation();" />
                             </div>
                             <div class="form-group">
-                                <select name="lstInvited" size="5" class="form-control" multiple=multiple>
-                                    <option>alperkaratepe@gmail.com</option>
-                                    <option>karasay88@gmail.com</option>
-                                    <option>emre.gurer@gmail.com</option>
-                                    <option>edemirel@gmail.com</option>
-                                    <option>akgunduz@gmail.com</option>
+                                <select id="lstInvitation" name="lstInvited" size="5" class="form-control" multiple=multiple>
                                 </select>
+                            </div>
+                            <div class="form-group">
+                                <input type="button" value="Remove Selected" class="search-submit" onclick="RemoveInvitation();" />
                             </div>
                             <div class="clear"></div>
                         </div>
@@ -183,8 +180,9 @@
     
     
     <script type="text/javascript">
+        var tagList = new Array();
+        var invitationList = new Array();
         jQuery(document).ready(function($) {
-        	SaveCommunity();
             function navMenu() {
                 var menuToggle = $('#menu-toggle');
                 var searchToggle = $('#search-toggle');
@@ -219,10 +217,79 @@
             $(window).on('load', navMenu);
         });
         
+        function AddTag(){
+            var tag = $("#txtSemantic").val();
+            tagList.push(tag);
+            RefreshTagList();
+            $("#txtSemantic").val("");
+        }
+        
+        function RemoveTag(tag){
+            var index = tagList.indexOf(tag);
+            tagList.splice(index,1);
+            RefreshTagList();
+        }
+        
+        function RefreshTagList(){
+            var tagContent = "";
+            for(var i = 0; i< tagList.length; i++){
+                tagContent = tagContent + "<img src='images/Delete.png' onclick='RemoveTag(\"" + tagList[i] + "\");' width='16' />";
+                tagContent = tagContent + "<a rel='tag'>" + tagList[i] + "</a>";
+                if(i<tagList.length-1){
+                    tagContent = tagContent + ", ";
+                }
+            }
+            $("#tagSpan").html(tagContent);
+        }
+        
+        function AddInvitation(){
+            var email = $("#txtInvitation").val();
+            if(IsEmail(email)){
+                invitationList.push(email);
+                $("#txtInvitation").val("");
+
+                $('#lstInvitation').append($('<option>', {
+                    value: email,
+                    text: email
+                }));
+            }else{
+                alert("Please enter a valid email address.");
+            }
+            
+        }
+        
+        function RemoveInvitation(){
+            var index = $("#lstInvitation option:selected").index();
+            if(index > -1){
+                invitationList.splice(index,1);
+                $("#lstInvitation option:selected").remove();
+            } else{
+                alert("Please select an email address.");
+            }
+            
+        }
+        
         function SaveCommunity(){
-    		alert("Save");
-    		DESIGN.SAVE("Deneme Title");
+            var title = $("#txtTitle").val();
+            var description = $("#txtDescription").val();
+            var createrUserId = "1";
+            var creationDate = "";
+            var accessType = $('input[name=accessType]:checked').val();
+            var joinType = $('input[name=joinType]:checked').val();
+            var postType = $('input[name=postType]:checked').val();
+            var meetingCreationType = $('input[name=meetingCreationType]:checked').val();
+            var resourceAdditionType = $('input[name=resourceAdditionType]:checked').val();
+            DESIGN.SAVE(title, description, creationDate, createrUserId, accessType, joinType, postType, meetingCreationType, resourceAdditionType, tagList, invitationList, SaveSuccess, SaveError);
     	}
+        
+        function SaveSuccess(msg){
+            alert("Successfully saved. Redirecting to community page.");
+            window.location = "community.html?cid=" + msg.communityId;
+        }
+        
+        function SaveError(){
+            alert("Error occured. Please contact to your system administrator.")
+        }
     </script>
     
     <script src="PageScript/createcommunity/DESIGN.js" type="text/javascript"></script>

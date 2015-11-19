@@ -1,13 +1,28 @@
 /// <reference path="GLOBALS.js" />
-﻿
+
 (function () {
     var SP_BANK = {
-        SAVE: function (title, callback, callback_err) {
+        SAVE: function (title, description, creationDate, createrUserId, accessType, joinType, postType, meetingCreationType, resourceAdditionType, tagList, invitationList, callback, callback_err) {
             try {
+                var jsonObj = new Object;
+                jsonObj.title = title;
+                jsonObj.description = description;
+                jsonObj.creationDate = creationDate;
+                jsonObj.createrUserId = createrUserId;
+                jsonObj.accessType = accessType;
+                jsonObj.joinType = joinType;
+                jsonObj.postType = postType;
+                jsonObj.meetingCreationType = meetingCreationType;
+                jsonObj.resourceAdditionType = resourceAdditionType;
+                jsonObj.tagList = tagList;
+                jsonObj.invitationList = invitationList;
+                
+                var jsonStr = JSON.stringify(jsonObj);
+                
                 $.ajax({
                     type: "POST",
                     url: GLOBALS.ServiceParameter + "/communities",
-                    data: "{\"title\":\"asdf\"}",
+                    data: jsonStr,
                     contentType: "application/json; charset=utf-8",
                     dataType: "json",
                     success: function (msg) {
