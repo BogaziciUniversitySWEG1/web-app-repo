@@ -722,7 +722,7 @@ line-height: 1.5em;
 h6, button,
 input[type="button"],
 input[type="reset"],
-input[type="submit"], .site-footer, .main-navigation, .secondary-navigation, a.nbtmore-link, .nbtentry-meta, .nbtentry-meta a, .pingback .edit-link,
+input[type="submit"], .site-footer, .main-navigation, .secondary-navigation, .nbtentry-meta, .nbtentry-meta a, .pingback .edit-link,
 .trackback .edit-link, #cancel-comment-reply-link, .reply, .comment-metadata, .comment-metadata a, .comment-form-author,
 .comment-form-email,
 .comment-form-url,
@@ -1754,8 +1754,11 @@ margin: 0 auto;
 a.nbtmore-link {
 font-size: 0.83333em;
 line-height: 1.8em;
-color: #9ba2af;
+color: #ffffff;
 text-decoration: none;
+background-color: #4d90fe;
+padding:5px;
+border-radius:5px;
 }
 
 a.nbtjoin-link {
