@@ -22,7 +22,7 @@ public class UserController {
 public static Map<Integer, User> userMap;
 	
 	//this block is created for test purpose.
-	private static Integer nextId = 0;
+	private static Integer nextId;
 	
 	static{
 		// Create initial communities and put into communityMap
@@ -53,10 +53,6 @@ public static Map<Integer, User> userMap;
 			return user;
 		}
 		// if create ...
-		if(user==null)
-			System.out.println("user is null");
-		else 
-			System.out.println("user is not null");
 		user.setUserId(nextId);
 		nextId = nextId + 1;
 		userMap.put(user.getUserId(), user);

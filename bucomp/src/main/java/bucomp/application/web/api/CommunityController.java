@@ -77,8 +77,13 @@ public class CommunityController {
 		}
 		// if create ...
 		community.setCommunityId(nextId);
-		User user = UserController.userMap.get(community.getUser().getUserId());
-		community.setUser(user);
+		User tmpUser = community.getUser();
+		if(tmpUser != null){
+			int userId = tmpUser.getUserId();
+			User user = UserController.userMap.get(userId);
+			community.setUser(user);
+		}
+		
 		nextId = nextId + 1;
 		communityMap.put(community.getCommunityId(), community);
 		return community;

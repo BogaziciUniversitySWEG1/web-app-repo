@@ -81,7 +81,7 @@
                                                     <span class="nbtpost-date" id="lblCommunityCreationDate"></span>
                                                     <span class="nbtbyline">
                                                         <span>
-                                                            <a href="community.html?cid=2" rel="author" title="author profile">Alper Karatepe</a>
+                                                            <a id="communityAuthor" rel="author" title="author profile"></a>
                                                         </span>
                                                     </span>
                                                     <span class="nbttags-links">
@@ -408,7 +408,8 @@
                 var creationDateString = GUI_HELPER.GetDayName(d.getDay()) + ", " + GUI_HELPER.GetMonthName(d.getMonth()) 
                     + " "+ d.getDate() + ", " + d.getFullYear();
                 $("#lblCommunityCreationDate").html(creationDateString);
-                //Tuesday, August 31, 2015
+                $("#communityAuthor").html(data.user.name + " " + data.user.surname);
+                $("#communityAuthor").attr("href","ViewProfile.html?uid=" + data.user.userId);
             }
             
             function ErrorFnc(){
