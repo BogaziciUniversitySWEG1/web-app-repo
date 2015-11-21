@@ -426,6 +426,7 @@
                 return match && decodeURIComponent(match[1].replace(/\+/g, " "));
             } catch (e) {
 
+            }
             },
         GetDayName: function(dayNumber){
             var days = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
