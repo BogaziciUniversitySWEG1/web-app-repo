@@ -55,28 +55,47 @@
         },
         FillUserById: function (data) {
             try {
-                GLOBALS.Name = data.Name;
-                GLOBALS.Surname = data.Surname;
-                GLOBALS.Email = data.Email;
-                GLOBALS.Password = data.Password;
-                GLOBALS.Location = data.Location;
-                GLOBALS.Education = data.Education;
-                GLOBALS.Profession = data.Profession;
-                GLOBALS.Hobbies = data.Hobbies;
-                GLOBALS.CvLink = data.CvLink;
-                GLOBALS.PhotoLink = data.PhotoLink;
-
-                document.getElementById('txtName').value = GLOBALS.Name;
-                document.getElementById('txtSurname').value = GLOBALS.Surname;
-                document.getElementById('txtEmail').value = GLOBALS.Email;
-                document.getElementById('txtPassword').value = GLOBALS.Password;
-                document.getElementById('txtLocation').value = GLOBALS.Location;
-                document.getElementById('txtEducation').value = GLOBALS.Education;
-                document.getElementById('txtProfession').value = GLOBALS.Profession;
-                document.getElementById('txtHobbies').value = GLOBALS.Hobbies;
-
-                document.getElementById("cvlink").setAttribute("href", GLOBALS.CvLink);
-                document.getElementById("imgProfile").setAttribute("src", GLOBALS.PhotoLink);
+                if(GUI_HELPER.NOU(data))
+                {
+                	var namesurname=data.name.split(' ');
+                	var name;
+                	var surname;
+                	if (namesurname.length>1)
+                	{
+                		surname=namesurname[namesurname.length-1];
+                		name= data.name.split(namesurname[namesurname.length-1])[0];
+                	}
+                	else
+                		name= data.name;	
+                	
+	                GLOBALS.Name = name;
+	                GLOBALS.Surname = surname;
+	                GLOBALS.Email = data.email;
+	                GLOBALS.Password = data.password;
+	                GLOBALS.Location = data.location;
+	                GLOBALS.Education = data.education;
+	                GLOBALS.Profession = data.profession;
+	                GLOBALS.Hobbies = data.hobbies;
+	                GLOBALS.CvLink = data.cvLink;
+	                GLOBALS.PhotoLink = data.photoLink;
+	
+	                document.getElementById('txtName').value = GLOBALS.Name;
+	                document.getElementById('txtSurname').value = GLOBALS.Surname;
+	                document.getElementById('txtEmail').value = GLOBALS.Email;
+	                document.getElementById('txtPassword').value = GLOBALS.Password;
+	                document.getElementById('txtLocation').value = GLOBALS.Location;
+	                document.getElementById('txtEducation').value = GLOBALS.Education;
+	                document.getElementById('txtProfession').value = GLOBALS.Profession;
+	                document.getElementById('txtHobbies').value = GLOBALS.Hobbies;
+	
+	                document.getElementById("cvlink").setAttribute("href", GLOBALS.CvLink);
+	                document.getElementById("imgProfile").setAttribute("src", GLOBALS.PhotoLink);
+	               }
+	                else {
+	                    GUI_HELPER.ALERT('Warning', "user not found. Please try again later.", GUI_HELPER.ERROR);
+	                	setTimeout(function () { window.location = "index.html?uid=" + GLOBALS.UserId }, 2500);
+                
+	                }
 
             } catch (err) {
                 GUI_HELPER.ALERT('Warning', err, GUI_HELPER.ERROR);

@@ -3,21 +3,34 @@
         REGISTER: function (UserId, Name, Surname, Email, Password, Location,
                                     Education, Profession, Hobbies, CvLink, PhotoLink, callback, callback_err) {
             try {
+            
+            	var obj= new Object; 
+            	obj.Name=Name;
+            	obj.Surname=Surname;
+            	obj.Email=Email;
+            	obj.Password=Password;
+            	obj.Location=Location;
+            	obj.Education=Education;
+            	obj.Profession=Profession;
+            	obj.Hobbies=Hobbies;
+            	obj.CvLink=CvLink;
+            	obj.PhotoLink=PhotoLink;
+            	var json =JSON.stringify(obj);
                 $.ajax({
                     type: "POST",
                     url: "/api/users",
-                    data: "{UserId:" + UserId + ",Name:'" + Name + "',Surname:'" + Surname + "',Email:'" + Email + "',Password:'" + Password + "',Location:'" + Location + "',Education:'" + Education + "',Profession:'" + Profession + "',Hobbies:'" + Hobbies + "',CvLink:'" + CvLink + "',PhotoLink:'" + PhotoLink + "'}",
-                    contentType: "application/json; charset=utf-8",
+                    data: json,
+					contentType: "application/json; charset=utf-8",
                     dataType: "json",
                     success: function (msg) {
                         if (msg == null) {
                             callback(null);
                         }
-                        else if (msg.status != 201) {
+                        else if (GUI_HELPER.NOU(msg.status)) {
                             callback_err(msg.status, 'REGISTER');
                         }
                         else {
-                            var _data = eval(msg.d);
+                            var _data = eval(msg);
                             callback(_data);
                         }
                     },
