@@ -1,5 +1,6 @@
 package bucomp.application.web.api;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import bucomp.application.model.User;
+import bucomp.application.model.Community;
 
 @RestController
 public class UserController {
@@ -29,13 +31,72 @@ public static Map<Integer, User> userMap;
 		
 		User u1 = new User();
 		u1.setEmail("alperkaratepe@gmail.com");
-		u1.setName("Alper Karatepe");
+		u1.setName("Alper");
+		u1.setSurname("Karatepe");
+		u1.setLocation("Ankara Turkey");
+		Community com1 = new Community();
+		com1.setTitle("Turkish Businessmen");
+		ArrayList<Community> communList = new ArrayList<Community>();
+		communList.add(com1);
+		u1.setCommunities(communList);
+		u1.setHobbies("Music, skiing");
+		u1.setPhotoLink("1.jpeg");
 		saveOrUpdate(u1);
 		
 		User u2 = new User();
-		u2.setEmail("karacay88@hmail.com");
-		u2.setName("Serkan Karaçay");
+		u2.setEmail("karacay88@gmail.com");
+		u2.setName("Serkan");
+		u2.setSurname("Karacay");
+		u2.setLocation("Istanbul Turkey");
+		Community com2 = new Community();
+		com2.setTitle("Galatasaray Fans");
+		ArrayList<Community> communList2 = new ArrayList<Community>();
+		communList2.add(com2);
+		u2.setCommunities(communList2);
+		u2.setHobbies("Football");
 		saveOrUpdate(u2);
+		
+		User u3 = new User();
+		u3.setEmail("hasancanakgunduz@gmail.com");
+		u3.setName("Hasancan");
+		u3.setSurname("Karacay");
+		u3.setLocation("Ordu Turkey");
+		Community com3 = new Community();
+		com3.setTitle("Fishing");
+		ArrayList<Community> communList3 = new ArrayList<Community>();
+		communList3.add(com3);
+		u3.setCommunities(communList3);
+		u3.setHobbies("Technology");
+		u3.setPhotoLink("3.jpeg");
+		saveOrUpdate(u3);
+		
+		User u4 = new User();
+		u4.setEmail("emregurer@gmail.com");
+		u4.setName("Emre");
+		u4.setSurname("Gurer");
+		u4.setLocation("Istanbul Turkey");
+		Community com4 = new Community();
+		com4.setTitle("Photography in Istanbul");
+		ArrayList<Community> communList4 = new ArrayList<Community>();
+		communList4.add(com4);
+		u4.setCommunities(communList4);
+		u4.setHobbies("apple products");
+		u4.setPhotoLink("4.jpeg");
+		saveOrUpdate(u4);
+		
+		User u5 = new User();
+		u5.setEmail("emredemirel@hotmail.com");
+		u5.setName("Emre");
+		u5.setSurname("Demirel");
+		u5.setLocation("Mugla Turkey");
+		Community com5 = new Community();
+		com5.setTitle("Java Techologies");
+		ArrayList<Community> communList5 = new ArrayList<Community>();
+		communList5.add(com5);
+		u5.setCommunities(communList5);
+		u5.setHobbies("Java");
+		u5.setPhotoLink("5.jpeg");
+		saveOrUpdate(u5);
 	}
 	private static User saveOrUpdate(User user) {
 		if(userMap == null) {

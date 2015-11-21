@@ -3,13 +3,14 @@
 /// <reference path="GLOBALS.js" />
 
 (function () {
-    var DESIGN = { 
-        test: function () {
-            try {
-               SP_BANK.TEST(paream1, DESIGN.LoginCallback, GUI_HELPER.SERVICE_CALLBACK_ERR);
-            } catch (err) {
-                GUI_HELPER.ALERT('test', err, GUI_HELPER.ERROR);
-            }
-        }
-    } if (!window.DESIGN) { window.DESIGN = DESIGN; }
+	var DESIGN = { 
+	        GetUser: function (userId, callback, callback_err) {
+	            try {
+	               SP_BANK.GetUser(userId, callback, callback_err);
+	            } catch (err) {
+	                callback_err();
+	            }
+	        }
+	    } 
+    if (!window.DESIGN) { window.DESIGN = DESIGN; }
 })();
