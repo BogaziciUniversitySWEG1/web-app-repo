@@ -276,9 +276,10 @@
         }
         
         function SaveCommunity(){
+            var userId = "1";
             var title = $("#txtTitle").val();
             var description = $("#txtDescription").val();
-            var createrUserId = "1";
+            var createrUserId = userId;
             var creationDate = (new Date).getTime();
             var accessType = $('input[name=accessType]:checked').val();
             var joinType = $('input[name=joinType]:checked').val();

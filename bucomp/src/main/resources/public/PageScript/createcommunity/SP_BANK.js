@@ -8,7 +8,6 @@
                 jsonObj.title = title;
                 jsonObj.description = description;
                 jsonObj.creationDate = creationDate;
-                //jsonObj.createrUserId = createrUserId;
                 jsonObj.user = new Object();
                 jsonObj.user.userId = createrUserId;
                 jsonObj.accessType = accessType;

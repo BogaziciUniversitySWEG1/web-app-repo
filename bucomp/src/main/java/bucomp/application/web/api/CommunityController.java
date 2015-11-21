@@ -36,8 +36,11 @@ public class CommunityController {
 		// Create initial communities and put into communityMap
 		
 		Community c1 = new Community();
-		c1.setTitle("My first community");
-		c1.setDescription("My first community's description.");
+		c1.setTitle("Accessible Online Learning Community");
+		String c1Description = "<p>Accessibility is often provided through accommodations. Schools are legally obligated to provide accommodations to enrolled students with identified disabilities, based on their needs—sign language interpreters in lectures for deaf students, digital copies of textbooks for students who are blind or have reading difficulties, extended time on exams for students who need more time due to cognitive or physical disabilities.</p>"
+				+ "<p>With online learning, the obligations are less clear—for example, with MOOCs, where students around the world are taking courses but are not enrolled at the sponsoring school or organization. Also, accommodations are not well established—sign language interpreters and note takers are typically accommodations for the physical classroom. How does an organization ensure they are meeting obligations and giving online students the support they need participate fully and to be successful?</p>"
+				+ "<p>This group will not publish Specifications.</p>";
+		c1.setDescription(c1Description);
 		c1.setCreationDate(new Date());
 		
 		User creator = new User();
@@ -64,6 +67,7 @@ public class CommunityController {
 		meeting.setLocation("Bilgisayar Mühendisliği Binası, A2");
 		meeting.setMeetingDate(new Date());
 		meeting.setMeetingId(1);
+		meeting.setTimeZone("GMT+2");
 		ArrayList<Meeting> meetings = new ArrayList<Meeting>();
 		meetings.add(meeting);
 		c1.setMeetings(meetings);
@@ -71,7 +75,8 @@ public class CommunityController {
 		saveOrUpdate(c1);
 
 		Community c2 = new Community();
-		c2.setTitle("My second community");
+		c2.setTitle("Activitypub Community");
+		c2.setDescription("A group to develop a social web API standard based on Atom Publication Protocol and ActivityStreams.");
 		c2.setCreationDate(new Date());
 		c2.setCommunitymembers(new ArrayList<Communitymember>());
 		saveOrUpdate(c2);
