@@ -89,7 +89,7 @@
             try {
                 if (GUI_HELPER.NOU(data)) {
                     GUI_HELPER.ALERT('Info', "Registration is succesfull.You will be redirected to the main page in 2 seconds!", GUI_HELPER.INFO);
-                    setTimeout(function () { window.location = "index.html?um=" + GLOBALS.Email }, 2500);
+                    setTimeout(function () { window.location = "dashboard.html?uid=" + data.userId }, 2500);
                 }
                 else {
                     GUI_HELPER.ALERT('Warning', "Registration fails. Please try again later.", GUI_HELPER.ERROR);
