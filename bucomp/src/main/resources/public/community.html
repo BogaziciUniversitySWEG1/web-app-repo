@@ -323,24 +323,7 @@
                     <div class="widget PopularPosts" id="PopularPosts2">
                         <h2>Members (15)</h2>
                         <div class="widget-content popular-posts">
-                            <ul class="members">
-                                <li>
-                                    <img alt="Alper Karatepe" title="Alper Karatepe" class="communityMemberPic" src="images/man-icon.png" width="40" height="40" />
-                                </li>
-                                <li>
-                                    <img alt="Hasan Can Akgunduz" title="Hasan Can Akgunduz" class="communityMemberPic" src="images/man-icon.png" width="40" height="40" />
-                                </li>
-                                <li>
-                                    <img alt="Mary Jane" title="Mary Jane" class="communityMemberPic" src="images/woman-icon.png" width="40" height="40" />
-                                </li>
-                                <li>
-                                    <div class="item-content">
-                                        <div class="item-snippet">
-                                            <a href="community.html">See all members...</a>
-                                        </div>
-                                    </div>
-                                    <div style="clear: both;"></div>
-                                </li>
+                            <ul class="members" id="members">
                             </ul>
                             <div class="clear"></div>
                         </div>
@@ -410,6 +393,38 @@
                 $("#lblCommunityCreationDate").html(creationDateString);
                 $("#communityAuthor").html(data.user.name + " " + data.user.surname);
                 $("#communityAuthor").attr("href","ViewProfile.html?uid=" + data.user.userId);
+                for(var i = 0; i< data.communitymembers.length; i++){
+                    var nameSurname = data.communitymembers[i].user.name + " " + data.communitymembers[i].user.surname;
+                    var photoLink = "photos/" + data.communitymembers[i].user.photoLink;
+                    if(data.communitymembers[i].user.photoLink == null){
+                        photoLink = "images/man-icon.png";
+                    }
+                    $("#members").append(
+                        $("<li>").append(
+                            $("<img>")
+                                .attr("alt", nameSurname)
+                                .attr("title", nameSurname)
+                                .attr("class","communityMemberPic")
+                                .attr("src", photoLink)
+                                .attr("width","40")
+                                .attr("height","40")
+                        )
+                    );
+                }
+                
+                $("#members").append(
+                    $("<li>").append(
+                        $("<div>").attr("class","item-content").append(
+                            $("<div>").attr("class","item-snippet").append(
+                                $("<a>").attr("href","community.html?cid=1").html("See all members...")
+                            )
+                        )
+                    )
+                );
+                
+                //<li><div class="item-content"><div class="item-snippet"><a href="community.html">See all members...</a></div></div></li>
+                
+                
             }
             
             function ErrorFnc(){
