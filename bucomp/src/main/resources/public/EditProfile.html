@@ -1,6 +1,6 @@
 ﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html dir="ltr" xmlns="http://www.w3.org/1999/xhtml" xmlns:b="http://www.google.com/2005/gml/b"
-      xmlns:data="http://www.google.com/2005/gml/data" xmlns:expr="http://www.google.com/2005/gml/expr">
+xmlns:data="http://www.google.com/2005/gml/data" xmlns:expr="http://www.google.com/2005/gml/expr">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <meta content="width=device-width, initial-scale=1" name="viewport" />
@@ -11,7 +11,12 @@
     <link type="text/css" rel="stylesheet" href="styles/css/authorization.css" />
     <link href="Styles/CSS/Site.css" rel="stylesheet" type="text/css" />
     <link href="Styles/CSS/layout.css" rel="stylesheet" type="text/css" />
+    <link href="CommonScripts/jeasyui/themes/color.css" rel="stylesheet" type="text/css" />
+    <link href="CommonScripts/jeasyui/themes/icon.css" rel="stylesheet" type="text/css" />
+    <link href="CommonScripts/jeasyui/themes/default/dialog.css" rel="stylesheet" type="text/css" />
+    <link href="CommonScripts/jeasyui/themes/default/easyui.css" rel="stylesheet" type="text/css" />
     <script src="CommonScripts/jquery.min.js" type="text/javascript"></script>
+    <script src="CommonScripts/jeasyui/jquery.easyui.min.js" type="text/javascript"></script>
 </head>
 <body class="home blog right-sidebar">
     <div id="bpagewrap">
@@ -44,15 +49,13 @@
                 <div class="bwraptopmenu">
                     <ul>
                         <li class="current_page_item"><a href="#">My Profile</a></li>
-                        <li>
-                            <a href="#">Community</a>
+                        <li><a href="#">Community</a>
                             <ul class="children">
                                 <li><a href="#">Create New Community</a></li>
                                 <li><a href="#">My Communities</a></li>
                             </ul>
                         </li>
-                        <li>
-                            <a href="#">Meetings</a>
+                        <li><a href="#">Meetings</a>
                             <ul class="children">
                                 <li><a href="#">Upcoming Meetings</a></li>
                                 <li><a href="#">Past Meetings</a></li>
@@ -61,7 +64,8 @@
                         </li>
                     </ul>
                 </div>
-            </div><!-- #site-navigation -->
+            </div>
+            <!-- #site-navigation -->
         </div>
         <!-- #masthead -->
         <div class="bwrapsite-content" id="bwrapcontent">
@@ -88,7 +92,7 @@
                                             </div>
                                             <div class="form-group">
                                                 <label for="txtEmail">Email Address</label>
-                                                <input type="text" id="txtEmail" class="form-control" />
+                                                <input type="text" id="txtEmail" disabled="disabled" class="form-control" />
                                             </div>
                                             <div class="form-group">
                                                 <label for="txtPassword">Password</label>
@@ -97,6 +101,14 @@
                                             <div class="form-group">
                                                 <label for="slLocation">Location</label>
                                                 <input type="text" id="txtLocation" class="form-control" />
+                                            </div>
+                                             <div class="form-group">
+                                                <label for="slEducation">Education</label>
+                                                <input type="text" id="txtEducation" class="form-control" />
+                                            </div>
+                                             <div class="form-group">
+                                                <label for="slProfession">Profession</label>
+                                                <input type="text" id="txtProfession" class="form-control" />
                                             </div>
                                             <div class="form-group">
                                                 <label for="txtHobbies">Hobbies</label>
@@ -108,13 +120,16 @@
                                                 <label for="profilePic">
                                                     <img src="images/man-icon.png" width="50" height="50" id="imgProfile" />
                                                 </label>
+                                             <input id="profilePic" type="file" onchange="DESIGN.INITIALIZE_PIC();" />
 
-                                                <input id="profilePic" type="file" />
                                             </div>
                                             <div class="form-group">
-                                                <label for="imgProfile">Short CV</label>
+                                                <label for="imgCv">Short CV</label>
                                                 <br />
-                                                <input type="file" />
+                                                 <label for="profileCV">
+                                                    <a id="cvlink" href=""></a>
+                                                </label>
+                                               <input  id="profileCV"  type="file" onchange="DESIGN.INITIALIZE_CV();" />
                                             </div>
                                             <div class="form-group-center">
                                                 <input type="button" value="Save" class="search-submit" />
@@ -123,7 +138,8 @@
                                             <div style="clear: both;"></div>
                                         </div>
                                     </article>
-                                    <div style="clear: both;"></div>
+                                    <div style="clear: both;">
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -135,7 +151,6 @@
             <div class="bwrapwidget-area" id="secondarybwrap" role="complementary">
                 <div class="sidebarbtop section" id="sidebarbtop">
                     <div class="widget PopularPosts" id="PopularPosts1">
-
                     </div>
                 </div>
             </div>
@@ -154,9 +169,13 @@
         </footer>
         <!-- #colophon -->
     </div>
+    <!-- #page -->
+    <script src="PageScript/EditProfile/GLOBALS.js" type="text/javascript"></script>
+    <script src="CommonScripts/GUI_HELPER.js" type="text/javascript"></script>
+    <script src="PageScript/EditProfile/SP_BANK.js" type="text/javascript"></script>
+    <script src="PageScript/EditProfile/DESIGN.js" type="text/javascript"></script>
     <script type="text/javascript">
-        //<![CDATA[
-
+        DESIGN.INITIALIZE();
         jQuery(document).ready(function ($) {
 
             function navMenu() {
@@ -236,8 +255,6 @@
             //DESIGN ilk fonksiyon buradan çağır
         });
 
-        //]]>
     </script>
-    <!-- #page -->
 </body>
 </html>

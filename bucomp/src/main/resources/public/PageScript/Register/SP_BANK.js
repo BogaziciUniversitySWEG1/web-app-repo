@@ -1,47 +1,35 @@
 ﻿(function () {
     var SP_BANK = {
-        TEST: function (param1, callback, callback_err) {
+        REGISTER: function (UserId, Name, Surname, Email, Password, Location,
+                                    Education, Profession, Hobbies, CvLink, PhotoLink, callback, callback_err) {
             try {
                 $.ajax({
                     type: "POST",
-                    url: ServiceParameter + "/TEST",
-                    data: "{param1:'" + param1 + "'}",
+                    url: "/api/users",
+                    data: "{UserId:" + UserId + ",Name:'" + Name + "',Surname:'" + Surname + "',Email:'" + Email + "',Password:'" + Password + "',Location:'" + Location + "',Education:'" + Education + "',Profession:'" + Profession + "',Hobbies:'" + Hobbies + "',CvLink:'" + CvLink + "',PhotoLink:'" + PhotoLink + "'}",
                     contentType: "application/json; charset=utf-8",
                     dataType: "json",
                     success: function (msg) {
-                        if (msg.d.length == 0 || msg.d == null) {
-                            if (typeof callback == 'function') {
-                                callback(null);
-                            }
+                        if (msg == null) {
+                            callback(null);
                         }
-                        else if (msg.d <= 0) {
-                            if (typeof callback_err == 'function') {
-                                callback_err(msg.d, 'TEST');
-                            }
+                        else if (msg.status != 201) {
+                            callback_err(msg.status, 'REGISTER');
                         }
                         else {
-                            var _data = eval("(" + msg.d + ")");
-                            if (typeof callback_err == 'function' && _data[0] != null && typeof _data[0].ErrorCode != 'undefined') {
-                                callback_err(_data, 'TEST');
-                            }
-                            else if (typeof callback == 'function') {
-                                callback(_data);
-                            }
+                            var _data = eval(msg.d);
+                            callback(_data);
                         }
                     },
                     error: function (msg) {
-                        if (typeof callback_err == 'function') {
-                            callback_err(-1, 'TEST');
-                        }
+                        callback_err(msg.status, 'REGISTER Fails. Reason: ' + (msg.statusText));
                     }
                 });
             }
             catch (err) {
-                if (typeof callback_err == 'function') {
-                    callback_err(-2, 'TEST');
-                }
+                callback_err(-2, 'REGISTER Fails. Reason: ' + err.Description);
             }
-        } 
+        }
     }
     if (!window.SP_BANK) { window.SP_BANK = SP_BANK; }
 })();
