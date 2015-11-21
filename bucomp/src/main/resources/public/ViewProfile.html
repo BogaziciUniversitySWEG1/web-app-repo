@@ -66,7 +66,7 @@ xmlns:data="http://www.google.com/2005/gml/data" xmlns:expr="http://www.google.c
 													<a name="4682800689275728420"></a>
 													<div class="form-group-center">
 													<br/>
-                                                        <img src="images/man-icon.png" width="80" height="80" id="imgProfile" />
+                                                        <img width="80" height="80" id="imgProfile" />
                                                     </div>
 													<header class="entry-header">
 														<h2 class="post-title entry-title" id="lblNameSurname"></h2>
@@ -91,9 +91,9 @@ xmlns:data="http://www.google.com/2005/gml/data" xmlns:expr="http://www.google.c
                                                         </div>
                                                         
                                                         <div class="form-group">
-                                                            <label for="imgProfile">Short CV</label>
+                                                            <label for="cvStr">Short CV</label>
 															<br/>
-                                                            <a href="pdfView">HasancanAkgunduz.pdf</a>
+                                                            <a href="" id="cvStr"></a>
                                                         </div>
 													</div>
 												</article>
@@ -177,7 +177,18 @@ xmlns:data="http://www.google.com/2005/gml/data" xmlns:expr="http://www.google.c
                     	communStr += data.communities[i].title;
                     }
                     $("#txtCommunities").attr("value",communStr);
-                    //if(data.photoLink)
+                    if(data.photoLink == null) {
+                    	$("#imgProfile").attr("src","images/man-icon.png");
+                    } else {
+                    	$("#imgProfile").attr("src","photos/" + data.photoLink);
+                    }
+                    
+                    if(data.cvlink == null) {
+                    	$("#cvStr").html("");
+                    } else {
+                    	$("#cvStr").html(data.cvlink);
+                    	$("#cvStr").attr("href","cvs/" + data.cvlink);
+                    }
                     
                     $("#txtHobbies").html(data.hobbies);
                     

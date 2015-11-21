@@ -41,6 +41,7 @@ public static Map<Integer, User> userMap;
 		u1.setCommunities(communList);
 		u1.setHobbies("Music, skiing");
 		u1.setPhotoLink("1.jpeg");
+		u1.setCVLink("1.pdf");
 		saveOrUpdate(u1);
 		
 		User u2 = new User();
@@ -59,7 +60,7 @@ public static Map<Integer, User> userMap;
 		User u3 = new User();
 		u3.setEmail("hasancanakgunduz@gmail.com");
 		u3.setName("Hasancan");
-		u3.setSurname("Karacay");
+		u3.setSurname("Akgunduz");
 		u3.setLocation("Ordu Turkey");
 		Community com3 = new Community();
 		com3.setTitle("Fishing");
@@ -68,6 +69,7 @@ public static Map<Integer, User> userMap;
 		u3.setCommunities(communList3);
 		u3.setHobbies("Technology");
 		u3.setPhotoLink("3.jpeg");
+		u3.setCVLink("3.pdf");
 		saveOrUpdate(u3);
 		
 		User u4 = new User();
@@ -82,6 +84,7 @@ public static Map<Integer, User> userMap;
 		u4.setCommunities(communList4);
 		u4.setHobbies("apple products");
 		u4.setPhotoLink("4.jpeg");
+		u4.setCVLink("4.pdf");
 		saveOrUpdate(u4);
 		
 		User u5 = new User();
@@ -96,6 +99,7 @@ public static Map<Integer, User> userMap;
 		u5.setCommunities(communList5);
 		u5.setHobbies("Java");
 		u5.setPhotoLink("5.jpeg");
+		u5.setCVLink("5.pdf");
 		saveOrUpdate(u5);
 	}
 	private static User saveOrUpdate(User user) {
