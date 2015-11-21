@@ -1,8 +1,3 @@
-<<<<<<< HEAD
-﻿
-=======
- 
->>>>>>> origin/master
 (function () {
     var GUI_HELPER = {
 
