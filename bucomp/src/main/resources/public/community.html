@@ -1,4 +1,4 @@
-﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html dir="ltr" xmlns="http://www.w3.org/1999/xhtml" xmlns:b="http://www.google.com/2005/gml/b"
       xmlns:data="http://www.google.com/2005/gml/data" xmlns:expr="http://www.google.com/2005/gml/expr">
 <head>
@@ -12,6 +12,8 @@
     <link href="Styles/CSS/Site.css" rel="stylesheet" type="text/css" />
     <link href="Styles/CSS/layout.css" rel="stylesheet" type="text/css" />
     <script src="CommonScripts/jquery.min.js" type="text/javascript"></script>
+    <script src="CommonScripts/GUI_HELPER.js" type="text/javascript"></script>
+    <script src="CommonScripts/Common.js" type="text/javascript"></script>
 </head>
 <body class="home blog right-sidebar">
     <div id="bpagewrap">
@@ -64,20 +66,19 @@
                                             <article class="post hentry">
                                                 <a name="4682800689275728420"></a>
                                                 <header class="entry-header">
-                                                    <h2 class="post-title entry-title"><a href="community.html?cid=1">Accessible Infographics</a></h2>
+                                                    <h2 class="post-title entry-title">
+                                                        <a id="lblTitle" href="#"></a>
+                                                    </h2>
                                                 </header>
                                                 <div class="post-header-line-1"></div>
                                                 <div class="post-body entry-content">
                                                     <div id="summary4682800689275728420">
-                                                        <img src="images/post-img-13.jpg" class="pbtthumbimg" />
-                                                        <div>
-                                                            The goal of the Accessible Infographics CG is to make information graphics, like bar charts and maps, as accessible as possible to all. The plan is to bring together experts and pioneers in the fields of data visualization and accessibility, to create use cases and requirements in a systematic manner, to devise and propose additions to SVG that improve accessible options for data in that and other graphics formats, and to document best practices and tutorials for making infographics accessible.
-                                                        </div>
+                                                        <div id="divDescription"></div>
                                                     </div>
                                                     <div style="clear: both;"></div>
                                                 </div>
                                                 <footer class="nbtentry-meta">
-                                                    <span class="nbtpost-date">Tuesday, August 31, 2015</span>
+                                                    <span class="nbtpost-date" id="lblCommunityCreationDate"></span>
                                                     <span class="nbtbyline">
                                                         <span>
                                                             <a href="community.html?cid=2" rel="author" title="author profile">Alper Karatepe</a>
@@ -394,9 +395,35 @@
                     menuToggle.removeClass('active');
                 });
             }
+            
+            function GetContent(){
+                var communityId = GetQueryStringValue("cid");
+                DESIGN.GetCommunity(communityId,FillPage,ErrorFnc);
+            }
+            
+            function FillPage(data){
+                $("#lblTitle").html(data.title);
+                $("#divDescription").html(data.description);
+                var d = new Date(data.creationDate);
+                var creationDateString = GUI_HELPER.GetDayName(d.getDay()) + ", " + GUI_HELPER.GetMonthName(d.getMonth()) 
+                    + " "+ d.getDate() + ", " + d.getFullYear();
+                $("#lblCommunityCreationDate").html(creationDateString);
+                //Tuesday, August 31, 2015
+            }
+            
+            function ErrorFnc(){
+                alert("An error has occured.");
+            }
 
             $(window).on('load', navMenu);
+            $(window).on('load', GetContent);
         });
+        
+        
     </script>
+    
+    <script src="PageScript/community/DESIGN.js" type="text/javascript"></script>
+    <script src="PageScript/community/GLOBALS.js" type="text/javascript"></script>
+    <script src="PageScript/community/SP_BANK.js" type="text/javascript"></script>
 </body>
 </html>

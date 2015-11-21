@@ -37,6 +37,7 @@ public class CommunityController {
 		
 		Community c1 = new Community();
 		c1.setTitle("My first community");
+		c1.setDescription("My first community's description.");
 		c1.setCreationDate(new Date());
 		c1.setCommunitymembers(new ArrayList<Communitymember>());
 		
@@ -76,6 +77,8 @@ public class CommunityController {
 		}
 		// if create ...
 		community.setCommunityId(nextId);
+		User user = UserController.userMap.get(community.getUser().getUserId());
+		community.setUser(user);
 		nextId = nextId + 1;
 		communityMap.put(community.getCommunityId(), community);
 		return community;

@@ -1,4 +1,4 @@
-﻿ 
+ 
 (function () {
     var GUI_HELPER = {
      
@@ -419,6 +419,14 @@
             else {
                 return false;
             }
+        },
+        GetDayName: function(dayNumber){
+            var days = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+            return days[dayNumber];
+        },
+        GetMonthName: function(monthNumber){
+            var months = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+            return months[monthNumber];
         }
     }
     if (!window.GUI_HELPER) { window.GUI_HELPER = GUI_HELPER; }

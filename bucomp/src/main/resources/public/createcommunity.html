@@ -102,6 +102,12 @@
                                                         <input type="radio" id="rbApprovalNo" name="joinType" value="2" class="form-control" style="display:inline !important; width:20px;" />No
                                                     </div>
                                                     <div class="form-group">
+                                                        <label for="rbAuthorAll">Who Can Create Topic?</label>
+                                                        <br />
+                                                        <input type="radio" id="rbTopicAll" name="topicCreationType" value="1" class="form-control" style="display:inline !important; width:20px;" />All joined members
+                                                        <input type="radio" id="rbTopicAllowed" name="topicCreationType" value="2" class="form-control" style="display:inline !important; width:20px;" />Only allowed members
+                                                    </div>
+                                                    <div class="form-group">
                                                         <label for="rbAuthorAll">Who Can Post Comment?</label>
                                                         <br />
                                                         <input type="radio" id="rbAuthorAll" name="postType" value="1" class="form-control" style="display:inline !important; width:20px;" />All joined members
@@ -273,13 +279,14 @@
             var title = $("#txtTitle").val();
             var description = $("#txtDescription").val();
             var createrUserId = "1";
-            var creationDate = "";
+            var creationDate = (new Date).getTime();
             var accessType = $('input[name=accessType]:checked').val();
             var joinType = $('input[name=joinType]:checked').val();
             var postType = $('input[name=postType]:checked').val();
             var meetingCreationType = $('input[name=meetingCreationType]:checked').val();
             var resourceAdditionType = $('input[name=resourceAdditionType]:checked').val();
-            DESIGN.SAVE(title, description, creationDate, createrUserId, accessType, joinType, postType, meetingCreationType, resourceAdditionType, tagList, invitationList, SaveSuccess, SaveError);
+            var topicCreationType = $('input[name=topicCreationType]:checked').val();
+            DESIGN.SAVE(title, description, creationDate, createrUserId, accessType, joinType, postType, meetingCreationType, resourceAdditionType, topicCreationType, tagList, invitationList, SaveSuccess, SaveError);
     	}
         
         function SaveSuccess(msg){
