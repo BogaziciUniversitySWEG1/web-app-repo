@@ -6,12 +6,14 @@ xmlns:data="http://www.google.com/2005/gml/data" xmlns:expr="http://www.google.c
         <meta content="width=device-width, initial-scale=1" name="viewport" />
         <link href="styles/css/cssdemo.css" media="all" rel="stylesheet" type="text/css" />
         <link href="styles/css/font-awesome.css" rel="stylesheet" />
-        <title>Hasancan Akgündüz</title>
+        <title id="lblName"></title>
         <link type="text/css" rel="stylesheet" href="styles/css/4235914959-widget_css_bundle.css" />
         <link type="text/css" rel="stylesheet" href="styles/css/authorization.css" />
         <link href="Styles/CSS/Site.css" rel="stylesheet" type="text/css" />
         <link href="Styles/CSS/layout.css" rel="stylesheet" type="text/css" />
         <script src="CommonScripts/jquery.min.js" type="text/javascript"></script>
+        <script src="CommonScripts/Common.js" type="text/javascript"></script>
+        <script src="CommonScripts/GUI_HELPER.js" type="text/javascript"></script>
 	</head>
 	<body class="home blog right-sidebar">
 		<div id="bpagewrap">
@@ -64,34 +66,34 @@ xmlns:data="http://www.google.com/2005/gml/data" xmlns:expr="http://www.google.c
 													<a name="4682800689275728420"></a>
 													<div class="form-group-center">
 													<br/>
-                                                        <img src="images/man-icon.png" width="80" height="80" id="imgProfile" />
+                                                        <img width="80" height="80" id="imgProfile" />
                                                     </div>
 													<header class="entry-header">
-														<h2 class="post-title entry-title">Hasancan Akgündüz</h2>
+														<h2 class="post-title entry-title" id="lblNameSurname"></h2>
 													</header>
 													<div class="post-header-line-1"></div>
 													<div class="post-body entry-content">
                                                         <div class="form-group">
                                                             <label for="txtEmail">Email Address</label>
-                                                            <input type="text" id="txtEmail" class="form-control" readonly="true" disabled="disabled" value="hasancan@gmail.com" />
+                                                            <input type="text" id="txtEmail" class="form-control" readonly="true" disabled="disabled" value="" />
                                                         </div>
                                                         <div class="form-group">
                                                             <label for="slLocation">Location</label>
-                                                            <input type="text" id="txtLocation" class="form-control" readonly="true" disabled="disabled" value="İstanbul, Turkey" />
+                                                            <input type="text" id="txtLocation" class="form-control" readonly="true" disabled="disabled" value="" />
                                                         </div>
 														<div class="form-group">
                                                             <label for="slUserCommunities">Communities</label>
-                                                            <input type="text" id="txtCommunities" class="form-control" readonly="true" disabled="disabled" value="Skiing in Turkey, Photography Tours in Aegean Region" />
+                                                            <input type="text" id="txtCommunities" class="form-control" readonly="true" disabled="disabled" value="" />
                                                         </div>
                                                         <div class="form-group">
                                                             <label for="txtHobbies">Hobbies</label>
-                                                            <textarea id="txtHobbies" class="form-control" readonly="true" disabled="disabled"  rows="10">Music, skiing, soccer, tennis, photography</textarea>
+                                                            <textarea id="txtHobbies" class="form-control" readonly="true" disabled="disabled"  rows="10"></textarea>
                                                         </div>
                                                         
                                                         <div class="form-group">
-                                                            <label for="imgProfile">Short CV</label>
+                                                            <label for="cvStr">Short CV</label>
 															<br/>
-                                                            <a href="pdfView">HasancanAkgunduz.pdf</a>
+                                                            <a href="" id="cvStr"></a>
                                                         </div>
 													</div>
 												</article>
@@ -159,9 +161,49 @@ xmlns:data="http://www.google.com/2005/gml/data" xmlns:expr="http://www.google.c
                         menuToggle.removeClass('active');
                     });
                 }
+                
+                function GetUser(){
+                    var userId = GetQueryStringValue("uid");
+                    DESIGN.GetUser(userId,FillPage,ErrorFnc);
+                }
+                
+                function FillPage(data){
+                    $("#lblName").html(data.name + " " + data.surname);
+                    $("#lblNameSurname").html(data.name + " " + data.surname);
+                    $("#txtEmail").attr("value",data.email);
+                    $("#txtLocation").attr("value",data.location);
+                    var communStr ="";
+                    for(var i=0; i<data.communities.length;i++) {
+                    	communStr += data.communities[i].title;
+                    }
+                    $("#txtCommunities").attr("value",communStr);
+                    if(data.photoLink == null) {
+                    	$("#imgProfile").attr("src","images/man-icon.png");
+                    } else {
+                    	$("#imgProfile").attr("src","photos/" + data.photoLink);
+                    }
+                    
+                    if(data.cvlink == null) {
+                    	$("#cvStr").html("");
+                    } else {
+                    	$("#cvStr").html(data.cvlink);
+                    	$("#cvStr").attr("href","cvs/" + data.cvlink);
+                    }
+                    
+                    $("#txtHobbies").html(data.hobbies);
+                    
+                }
+                
+                function ErrorFnc(){
+                    alert("An error has occured.");
+                }
 
                 $(window).on('load', navMenu);
+                $(window).on('load', GetUser);
             });
 		</script>
+		<script src="PageScript/viewProfile/DESIGN.js" type="text/javascript"></script>
+    <script src="PageScript/viewProfile/GLOBALS.js" type="text/javascript"></script>
+    <script src="PageScript/viewProfile/SP_BANK.js" type="text/javascript"></script>
 	</body>
 </html>

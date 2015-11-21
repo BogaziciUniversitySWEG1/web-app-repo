@@ -33,6 +33,8 @@ public class Community implements Serializable {
 	private int postType;
 
 	private int resourceAdditionType;
+	
+	private int topicCreationType;
 
 	private String title;
 
@@ -122,6 +124,14 @@ public class Community implements Serializable {
 
 	public void setResourceAdditionType(int resourceAdditionType) {
 		this.resourceAdditionType = resourceAdditionType;
+	}
+	
+	public int GetTopicCreationType(){
+		return this.topicCreationType;
+	}
+	
+	public void setTopicCreationType(int topicCreationType){
+		this.topicCreationType = topicCreationType;
 	}
 
 	public String getTitle() {

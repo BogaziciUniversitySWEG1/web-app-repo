@@ -4,9 +4,9 @@
 
 (function () {
     var DESIGN = { 
-        SAVE: function (title, description, creationDate, createrUserId, accessType, joinType, postType, meetingCreationType, resourceAdditionType, tagList, invitationList, callback, callback_err) {
+        SAVE: function (title, description, creationDate, createrUserId, accessType, joinType, postType, meetingCreationType, resourceAdditionType, topicCreationType, tagList, invitationList, callback, callback_err) {
             try {
-               SP_BANK.SAVE(title, description, creationDate, createrUserId, accessType, joinType, postType, meetingCreationType, resourceAdditionType, tagList, invitationList, callback, callback_err);
+               SP_BANK.SAVE(title, description, creationDate, createrUserId, accessType, joinType, postType, meetingCreationType, resourceAdditionType, topicCreationType, tagList, invitationList, callback, callback_err);
             } catch (err) {
                 GUI_HELPER.ALERT('test', err, GUI_HELPER.ERROR);
             }

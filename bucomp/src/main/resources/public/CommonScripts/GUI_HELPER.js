@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 ﻿
+=======
+ 
+>>>>>>> origin/master
 (function () {
     var GUI_HELPER = {
 
@@ -419,7 +423,7 @@
             else {
                 return false;
             }
-        },
+        }, 
         GetQueryStringParamByName: function (key) {
             try {
                 key = key.replace(/[*+?^$.\[\]{}()|\\\/]/g, "\\$&"); // escape RegEx meta chars
@@ -427,7 +431,14 @@
                 return match && decodeURIComponent(match[1].replace(/\+/g, " "));
             } catch (e) {
 
-            }
+            },
+        GetDayName: function(dayNumber){
+            var days = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+            return days[dayNumber];
+        },
+        GetMonthName: function(monthNumber){
+            var months = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+            return months[monthNumber]; 
         }
     }
     if (!window.GUI_HELPER) { window.GUI_HELPER = GUI_HELPER; }

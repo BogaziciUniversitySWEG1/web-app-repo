@@ -37,8 +37,27 @@ public class CommunityController {
 		
 		Community c1 = new Community();
 		c1.setTitle("My first community");
+		c1.setDescription("My first community's description.");
 		c1.setCreationDate(new Date());
-		c1.setCommunitymembers(new ArrayList<Communitymember>());
+		
+		User creator = new User();
+		creator = UserController.userMap.get(1);
+		c1.setUser(creator);
+		
+		ArrayList<Communitymember> members = new ArrayList<Communitymember>();
+		User user1 = new User();
+		user1 = UserController.userMap.get(1);
+		Communitymember member1 = new Communitymember();
+		member1.setUser(user1);
+		members.add(member1);
+		
+		User user2 = new User();
+		user2 = UserController.userMap.get(2);
+		Communitymember member2 = new Communitymember();
+		member2.setUser(user2);
+		members.add(member2);
+		
+		c1.setCommunitymembers(members);
 		
 		Meeting meeting = new Meeting();
 		meeting.setDuration(60);
@@ -76,6 +95,13 @@ public class CommunityController {
 		}
 		// if create ...
 		community.setCommunityId(nextId);
+		User tmpUser = community.getUser();
+		if(tmpUser != null){
+			int userId = tmpUser.getUserId();
+			User user = UserController.userMap.get(userId);
+			community.setUser(user);
+		}
+		
 		nextId = nextId + 1;
 		communityMap.put(community.getCommunityId(), community);
 		return community;
