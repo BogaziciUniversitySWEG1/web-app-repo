@@ -224,19 +224,6 @@ public class CommunityController {
 		}
 		return new ResponseEntity<Community>(HttpStatus.OK);
 	}
-
-	// Join Community
-	@RequestMapping(value = "/api/communities/membership", method = RequestMethod.POST, 
-			produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<Community> requestCommunityMembership(
-			@RequestParam(value = "communityId") Integer communityId,
-			@RequestParam(value = "userId") Integer userId) {
-
-		/**
-		 * TODO: To be implemented
-		 */
-		return new ResponseEntity<Community>(HttpStatus.NOT_IMPLEMENTED);
-	}
 	
 	@RequestMapping(value = "/api/communities/membership", method = RequestMethod.PUT, 
 			produces = MediaType.APPLICATION_JSON_VALUE)
