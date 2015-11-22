@@ -1,47 +1,39 @@
 ﻿(function () {
     var SP_BANK = {
-        TEST: function (param1, callback, callback_err) {
+        LOGIN: function (Email, Password, callback, callback_err) {
             try {
+            
+            	var obj= new Object;  
+            	obj.email=Email;
+            	obj.password=Password; 
+            	var json =JSON.stringify(obj);
                 $.ajax({
                     type: "POST",
-                    url: ServiceParameter + "/TEST",
-                    data: "{param1:'" + param1 + "'}",
-                    contentType: "application/json; charset=utf-8",
+                    url: "/api/login",
+                    data: json,
+					contentType: "application/json; charset=utf-8",
                     dataType: "json",
                     success: function (msg) {
-                        if (msg.d.length == 0 || msg.d == null) {
-                            if (typeof callback == 'function') {
-                                callback(null);
-                            }
+                        if (msg == null) {
+                            callback(null);
                         }
-                        else if (msg.d <= 0) {
-                            if (typeof callback_err == 'function') {
-                                callback_err(msg.d, 'TEST');
-                            }
+                        else if (GUI_HELPER.NOU(msg.status)) {
+                            callback_err(msg.status, 'REGISTER');
                         }
                         else {
-                            var _data = eval("(" + msg.d + ")");
-                            if (typeof callback_err == 'function' && _data[0] != null && typeof _data[0].ErrorCode != 'undefined') {
-                                callback_err(_data, 'TEST');
-                            }
-                            else if (typeof callback == 'function') {
-                                callback(_data);
-                            }
+                            var _data = eval(msg);
+                            callback(_data);
                         }
                     },
                     error: function (msg) {
-                        if (typeof callback_err == 'function') {
-                            callback_err(-1, 'TEST');
-                        }
+                        callback_err(msg.status, 'LOGIN Fails. Reason: ' + (msg.statusText));
                     }
                 });
             }
             catch (err) {
-                if (typeof callback_err == 'function') {
-                    callback_err(-2, 'TEST');
-                }
+                callback_err(-2, 'LOGIN Fails. Reason: ' + err.Description);
             }
-        } 
+        }
     }
     if (!window.SP_BANK) { window.SP_BANK = SP_BANK; }
 })();

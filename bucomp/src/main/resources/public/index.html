@@ -11,7 +11,13 @@
     <link type="text/css" rel="stylesheet" href="styles/css/authorization.css" />
     <link href="Styles/CSS/Site.css" rel="stylesheet" type="text/css" />
     <link href="Styles/CSS/layout.css" rel="stylesheet" type="text/css" />
+    <link href="CommonScripts/jeasyui/themes/color.css" rel="stylesheet" type="text/css" />
+    <link href="CommonScripts/jeasyui/themes/icon.css" rel="stylesheet" type="text/css" />
+    <link href="CommonScripts/jeasyui/themes/default/dialog.css" rel="stylesheet" type="text/css" />
+    <link href="CommonScripts/jeasyui/themes/default/easyui.css" rel="stylesheet" type="text/css" />
+
     <script src="CommonScripts/jquery.min.js" type="text/javascript"></script>
+    <script src="CommonScripts/jeasyui/jquery.easyui.min.js" type="text/javascript"></script>
 </head>
 <body class="home blog right-sidebar">
     <div id="bpagewrap">
@@ -46,11 +52,11 @@
             <div class="search-wrapper">
                 <label>
                     <span class="screen-reader-text">User Name:</span>
-                    <input class="search-field" name="q" placeholder="Email" type="email" value="" />
+                    <input class="search-field" name="q" placeholder="Email" type="email" value="" id="txtEmail" />
                     <span class="screen-reader-text">Password:</span>
-                    <input class="search-field" name="q" placeholder="Password" type="password" value="" />
+                    <input class="search-field" name="q" placeholder="Password" type="password" value="" id="txtPassword" />
                 </label>
-                <input class="search-submit" type="button" value="Login" />
+                <input class="search-submit" type="button" value="Login" onclick="DESIGN.LOGIN()"/>
                 <input class="search-submit" type="button" value="Register" onclick="window.location='register.html';"/>
             </div>
         </div>
@@ -400,6 +406,7 @@
         //]]>
     </script>
     <script src="PageScript/index/GLOBALS.js" type="text/javascript"></script>
+    <script src="CommonScripts/GUI_HELPER.js" type="text/javascript"></script>
     <script src="PageScript/index/SP_BANK.js" type="text/javascript"></script>
     <script src="PageScript/index/DESIGN.js" type="text/javascript"></script>
 </body>
