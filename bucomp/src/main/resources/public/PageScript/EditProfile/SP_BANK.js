@@ -1,4 +1,4 @@
-﻿(function () {
+(function () {
     var SP_BANK = {
         GET_USER_BY_ID: function (UserId, callback, callback_err) {
             try { 
@@ -31,17 +31,17 @@
                                     Education, Profession, Hobbies, CvLink, PhotoLink, callback, callback_err) {
             try {
             	var obj= new Object; 
-            	obj.UserId=UserId;
-            	obj.Name=Name;
-            	obj.Surname=Surname;
-            	obj.Email=Email;
-            	obj.Password=Password;
-            	obj.Location=Location;
-            	obj.Education=Education;
-            	obj.Profession=Profession;
-            	obj.Hobbies=Hobbies;
-            	obj.CvLink=CvLink;
-            	obj.PhotoLink=PhotoLink;
+            	obj.userId=UserId;
+            	obj.name=Name;
+            	obj.surname=Surname;
+            	obj.email=Email;
+            	obj.password=Password;
+            	obj.location=Location;
+            	obj.education=Education;
+            	obj.profession=Profession;
+            	obj.hobbies=Hobbies;
+            	obj.cvLink=CvLink;
+            	obj.photoLink=PhotoLink;
             	var json =JSON.stringify(obj);
                 $.ajax({
                     type: "POST",
