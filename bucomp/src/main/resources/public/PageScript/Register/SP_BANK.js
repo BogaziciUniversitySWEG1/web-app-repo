@@ -13,10 +13,9 @@
             	obj.education=Education;
             	obj.profession=Profession;
             	obj.hobbies=Hobbies;
-            	obj.cvLink=CvLink;
+            	obj.CVLink=CvLink;
             	obj.photoLink=PhotoLink;
             	var json =JSON.stringify(obj);
-                alert(json);
                 $.ajax({
                     type: "POST",
                     url: "/api/users",
