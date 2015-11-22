@@ -13,16 +13,20 @@ import org.springframework.web.bind.annotation.RestController;
 
 import bucomp.application.model.Community;
 import bucomp.application.model.Meeting;
+import bucomp.application.web.api.dao.CommunityDao;
+import bucomp.application.web.api.dao.CommunityDaoImpl;
 
 @RestController
 public class MeetingController {
+	
+	private CommunityDao communityDao = new CommunityDaoImpl();
 	
 	@RequestMapping(value = "/api/meetings/{communityId}", method = RequestMethod.GET, 
 			produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Collection<Meeting>> getCommunityMeetings(
 			@PathVariable("communityId") Integer communityId) {
 		
-		Community community = CommunityController.communityMap.get(communityId);
+		Community community = communityDao.getCommunityById(communityId);
 		
 		return new ResponseEntity<Collection<Meeting>>(community.getMeetings(), HttpStatus.OK);
 	}

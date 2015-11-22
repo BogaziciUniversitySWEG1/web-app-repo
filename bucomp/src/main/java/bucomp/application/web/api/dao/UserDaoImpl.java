@@ -29,12 +29,6 @@ public class UserDaoImpl implements UserDao {
 	}
 
 	@Override
-	public Collection<User> getUsers(String key) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
 	public User getUserById(Integer userId) {
 		return DatabaseServiceImpl.entitymanager.find(User.class, userId);
 	}

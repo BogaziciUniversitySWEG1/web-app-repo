@@ -11,8 +11,6 @@ public interface UserDao {
 
 	public boolean delete(Integer userId);
 
-	public Collection<User> getUsers(String key);
-
 	public User getUserById(Integer userId);
 
 	public User getUserByEmail(String email);

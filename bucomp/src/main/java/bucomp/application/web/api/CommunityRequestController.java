@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import bucomp.application.model.Communityrequest;
+import bucomp.application.web.api.dao.CommunityDao;
+import bucomp.application.web.api.dao.CommunityDaoImpl;
 import bucomp.application.web.api.dao.UserDao;
 import bucomp.application.web.api.dao.UserDaoImpl;
 
@@ -23,6 +25,7 @@ public class CommunityRequestController {
 	public static Map<Integer, Communityrequest> crMap;
 	
 	private UserDao userDao = new UserDaoImpl();
+	private CommunityDao communityDao = new CommunityDaoImpl();
 
 	private static Integer nextId = 0;
 
@@ -55,7 +58,7 @@ public class CommunityRequestController {
 			cr.setRequestDate(new Date());
 			cr.setStatus(0);
 			cr.setUser(userDao.getUserById(userId));
-			cr.setCommunity(CommunityController.communityMap.get(communityId));
+			cr.setCommunity(communityDao.getCommunityById(communityId));
 			crMap.put(cr.getCommunityRequestId(), cr);
 			return new ResponseEntity<String>(HttpStatus.OK);
 		} catch (Exception e) {
