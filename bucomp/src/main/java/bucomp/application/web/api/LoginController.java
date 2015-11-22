@@ -16,7 +16,7 @@ public class LoginController {
 	@RequestMapping(value = "/api/login", method = RequestMethod.POST,
 			consumes=MediaType.APPLICATION_JSON_VALUE, 
 			produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<User> createUser(@RequestBody User user) {
+	public ResponseEntity<User> login(@RequestBody User user) {
 		
 		User existingUser = UserController.getUserByEmail(user.getEmail());
 		if(existingUser == null || !user.getPassword().equals(existingUser.getPassword())) {
