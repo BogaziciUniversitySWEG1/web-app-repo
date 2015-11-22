@@ -124,6 +124,14 @@ public class CommunityController {
 	 * Request Mappings
 	 */
 
+	@RequestMapping(value = "/api/communities/count", method = RequestMethod.GET)
+	public ResponseEntity<Integer> getNumberOfCommunities() {
+		if(communityMap != null)
+			return new ResponseEntity<Integer>(communityMap.size(),HttpStatus.OK);
+		else
+			return new ResponseEntity<Integer>(HttpStatus.INTERNAL_SERVER_ERROR);
+	}
+	
 	// Get / Search communities
 	@RequestMapping(value = "/api/communities", method = RequestMethod.GET, 
 			produces = MediaType.APPLICATION_JSON_VALUE)
