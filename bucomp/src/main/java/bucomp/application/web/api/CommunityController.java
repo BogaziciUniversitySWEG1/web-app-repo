@@ -141,7 +141,13 @@ public class CommunityController {
 				 * TODO: Call db search method here, return retrieved result
 				 */
 				System.out.println("search key: " + key);
-				communities = communityMap.values(); // this will be changed
+				Collection<Community> result = new ArrayList<Community>();
+			    for(Community c: communityMap.values()){
+			        if(c.getDescription().indexOf(key)>0){
+			            result.add(c);
+			        }
+			    }
+			    communities = result;
 			}
 			if (userId != null) {
 				// offer community
@@ -281,6 +287,5 @@ public class CommunityController {
 		return new ResponseEntity<Resource>(resource, HttpStatus.NOT_IMPLEMENTED);
 		
 	}
-	
 	
 }
