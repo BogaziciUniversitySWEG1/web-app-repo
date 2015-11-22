@@ -18,8 +18,8 @@ public class LoginController {
 			produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<User> createUser(@RequestBody User user) {
 		
-		User existingUser = UserController.userMap.get(user.getUserId());
-		if(existingUser == null || user.getUserId() != existingUser.getUserId()) {
+		User existingUser = UserController.getUserByEmail(user.getEmail());
+		if(existingUser == null || !user.getPassword().equals(existingUser.getPassword())) {
 			return new ResponseEntity<User>(HttpStatus.NOT_ACCEPTABLE);
 		}
 		return new ResponseEntity<User>(existingUser, HttpStatus.OK);

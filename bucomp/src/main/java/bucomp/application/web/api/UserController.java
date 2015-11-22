@@ -15,8 +15,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import bucomp.application.model.User;
 import bucomp.application.model.Community;
+import bucomp.application.model.User;
 
 @RestController
 public class UserController {
@@ -33,6 +33,7 @@ public static Map<Integer, User> userMap;
 		u1.setEmail("alperkaratepe@gmail.com");
 		u1.setName("Alper");
 		u1.setSurname("Karatepe");
+		u1.setPassword("alper");
 		u1.setLocation("Ankara Turkey");
 		Community com1 = new Community();
 		com1.setTitle("Turkish Businessmen");
@@ -48,6 +49,7 @@ public static Map<Integer, User> userMap;
 		u2.setEmail("karacay88@gmail.com");
 		u2.setName("Serkan");
 		u2.setSurname("Karacay");
+		u2.setPassword("serkan");
 		u2.setLocation("Istanbul Turkey");
 		Community com2 = new Community();
 		com2.setTitle("Galatasaray Fans");
@@ -61,6 +63,7 @@ public static Map<Integer, User> userMap;
 		u3.setEmail("hasancanakgunduz@gmail.com");
 		u3.setName("Hasancan");
 		u3.setSurname("Akgunduz");
+		u3.setPassword("hasancan");
 		u3.setLocation("Ordu Turkey");
 		Community com3 = new Community();
 		com3.setTitle("Fishing");
@@ -76,6 +79,7 @@ public static Map<Integer, User> userMap;
 		u4.setEmail("emregurer@gmail.com");
 		u4.setName("Emre");
 		u4.setSurname("Gurer");
+		u4.setPassword("emre");
 		u4.setLocation("Istanbul Turkey");
 		Community com4 = new Community();
 		com4.setTitle("Photography in Istanbul");
@@ -101,6 +105,15 @@ public static Map<Integer, User> userMap;
 		u5.setPhotoLink("5.jpeg");
 		u5.setCVLink("5.pdf");
 		saveOrUpdate(u5);
+	}
+	public static User getUserByEmail(String email) {
+		for (Map.Entry<Integer, User> entry : userMap.entrySet())
+		{
+		    if(email.equals(entry.getValue().getEmail())) {
+		    	return entry.getValue();
+		    }
+		}
+		return null;
 	}
 	private static User saveOrUpdate(User user) {
 		if(userMap == null) {
