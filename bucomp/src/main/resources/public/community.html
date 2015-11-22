@@ -427,7 +427,8 @@
         }
         
         function CreateTopic(){
-            alert("This part will be available on the 2nd demo.");
+            var communityId = GetQueryStringValue("cid");
+            window.location = "createtopic.html?cid=" + communityId;
         }
         
         function CreateMeeting(){

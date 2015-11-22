@@ -1,4 +1,4 @@
-﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html dir="ltr" xmlns="http://www.w3.org/1999/xhtml" xmlns:b="http://www.google.com/2005/gml/b"
       xmlns:data="http://www.google.com/2005/gml/data" xmlns:expr="http://www.google.com/2005/gml/expr">
 <head>
@@ -50,7 +50,7 @@
                         <li>
                             <a href="#">Community</a>
                             <ul class="children">
-                                <li><a href="createcommunity.html">Create New Community</a></li>
+                                <li><a id="lnkCreateCommunity">Create New Community</a></li>
                                 <li><a href="#">My Communities</a></li>
                             </ul>
                         </li>
@@ -437,7 +437,15 @@
                     socialLinksToggle.removeClass('active');
                 });
             }
+            
+            function GetUser(){
+                var userId = GetQueryStringValue("uid");
+                var link = "createcommunity.html?uid=" + userId;
+                $("#lnkCreateCommunity").attr("href",link);
+            }
+            
             $(window).on('load', navMenu);
+            $(window).on('load', GetUser);
             //DESIGN ilk fonksiyon buradan çağır
         });
 

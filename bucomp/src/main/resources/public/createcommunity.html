@@ -276,7 +276,7 @@
         }
         
         function SaveCommunity(){
-            var userId = "1";
+            var userId = GetQueryStringValue("uid");
             var title = $("#txtTitle").val();
             var description = $("#txtDescription").val();
             var createrUserId = userId;
