@@ -24,11 +24,15 @@ import bucomp.application.model.Meeting;
 import bucomp.application.model.Resource;
 import bucomp.application.model.Role;
 import bucomp.application.model.User;
+import bucomp.application.web.api.dao.UserDao;
+import bucomp.application.web.api.dao.UserDaoImpl;
 
 @RestController
 public class CommunityController {
 
 	public static Map<Integer, Community> communityMap;
+	
+	private static UserDao userDao = new UserDaoImpl();
 	
 	// this block is created for test purpose.
 	private static Integer nextId;
@@ -44,18 +48,18 @@ public class CommunityController {
 		c1.setCreationDate(new Date());
 		
 		User creator = new User();
-		creator = UserController.userMap.get(1);
+		creator = userDao.getUserById(1);
 		c1.setUser(creator);
 		
 		ArrayList<Communitymember> members = new ArrayList<Communitymember>();
 		User user1 = new User();
-		user1 = UserController.userMap.get(1);
+		user1 = userDao.getUserById(1);
 		Communitymember member1 = new Communitymember();
 		member1.setUser(user1);
 		members.add(member1);
 		
 		User user2 = new User();
-		user2 = UserController.userMap.get(2);
+		user2 = userDao.getUserById(2);
 		Communitymember member2 = new Communitymember();
 		member2.setUser(user2);
 		members.add(member2);
@@ -103,7 +107,7 @@ public class CommunityController {
 		User tmpUser = community.getUser();
 		if(tmpUser != null){
 			int userId = tmpUser.getUserId();
-			User user = UserController.userMap.get(userId);
+			User user = userDao.getUserById(userId);
 			community.setUser(user);
 		}
 		
@@ -232,7 +236,7 @@ public class CommunityController {
 			@RequestParam(value = "userId") Integer userId) {
 		
 		Community community = communityMap.get(communityId);
-		User user = UserController.userMap.get(userId);
+		User user = userDao.getUserById(userId);
 		
 		Communitymember communityMember = new Communitymember();
 		communityMember.setUser(user);

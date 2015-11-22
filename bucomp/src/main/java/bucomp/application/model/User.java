@@ -4,18 +4,18 @@ import java.io.Serializable;
 import javax.persistence.*;
 import java.util.List;
 
-
 /**
  * The persistent class for the users database table.
  * 
  */
 @Entity
-@Table(name="users")
-@NamedQuery(name="User.findAll", query="SELECT u FROM User u")
+@Table(name = "users")
+@NamedQuery(name = "User.findAll", query = "SELECT u FROM User u")
 public class User implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int userId;
 
 	private String CVLink;
@@ -34,32 +34,32 @@ public class User implements Serializable {
 
 	private String surname;
 
-	//bi-directional many-to-one association to Community
-	@OneToMany(mappedBy="user")
+	// bi-directional many-to-one association to Community
+	@OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
 	private List<Community> communities;
 
-	//bi-directional many-to-one association to Communitymember
-	@OneToMany(mappedBy="user")
+	// bi-directional many-to-one association to Communitymember
+	@OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
 	private List<Communitymember> communitymembers;
 
-	//bi-directional many-to-one association to Communityoffer
-	@OneToMany(mappedBy="user")
+	// bi-directional many-to-one association to Communityoffer
+	@OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
 	private List<Communityoffer> communityoffers;
 
-	//bi-directional many-to-one association to Communityrequest
-	@OneToMany(mappedBy="user")
+	// bi-directional many-to-one association to Communityrequest
+	@OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
 	private List<Communityrequest> communityrequests;
 
-	//bi-directional many-to-one association to Meetingattendant
-	@OneToMany(mappedBy="user")
+	// bi-directional many-to-one association to Meetingattendant
+	@OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
 	private List<Meetingattendant> meetingattendants;
 
-	//bi-directional many-to-one association to Post
-	@OneToMany(mappedBy="user")
+	// bi-directional many-to-one association to Post
+	@OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
 	private List<Post> posts;
 
-	//bi-directional many-to-one association to Userrole
-	@OneToMany(mappedBy="user")
+	// bi-directional many-to-one association to Userrole
+	@OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
 	private List<Userrole> userroles;
 
 	public User() {
@@ -211,14 +211,16 @@ public class User implements Serializable {
 		this.communityrequests = communityrequests;
 	}
 
-	public Communityrequest addCommunityrequest(Communityrequest communityrequest) {
+	public Communityrequest addCommunityrequest(
+			Communityrequest communityrequest) {
 		getCommunityrequests().add(communityrequest);
 		communityrequest.setUser(this);
 
 		return communityrequest;
 	}
 
-	public Communityrequest removeCommunityrequest(Communityrequest communityrequest) {
+	public Communityrequest removeCommunityrequest(
+			Communityrequest communityrequest) {
 		getCommunityrequests().remove(communityrequest);
 		communityrequest.setUser(null);
 
@@ -233,14 +235,16 @@ public class User implements Serializable {
 		this.meetingattendants = meetingattendants;
 	}
 
-	public Meetingattendant addMeetingattendant(Meetingattendant meetingattendant) {
+	public Meetingattendant addMeetingattendant(
+			Meetingattendant meetingattendant) {
 		getMeetingattendants().add(meetingattendant);
 		meetingattendant.setUser(this);
 
 		return meetingattendant;
 	}
 
-	public Meetingattendant removeMeetingattendant(Meetingattendant meetingattendant) {
+	public Meetingattendant removeMeetingattendant(
+			Meetingattendant meetingattendant) {
 		getMeetingattendants().remove(meetingattendant);
 		meetingattendant.setUser(null);
 
