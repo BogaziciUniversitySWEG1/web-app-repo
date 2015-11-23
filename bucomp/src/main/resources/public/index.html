@@ -1,4 +1,4 @@
-﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html dir="ltr" xmlns="http://www.w3.org/1999/xhtml" xmlns:b="http://www.google.com/2005/gml/b"
       xmlns:data="http://www.google.com/2005/gml/data" xmlns:expr="http://www.google.com/2005/gml/expr">
 <head>
@@ -273,28 +273,49 @@
             }
             
             function FillCommunities(data){
-                for(var i = 0; i< 4; i++){
+                var communityCounter = 4;
+                if(data.length < 4){
+                    communityCounter = data.length;
+                }
+                for(var i = 0; i< communityCounter; i++){
                     //var nameSurname = data.communitymembers[i].user.name + " " + data.communitymembers[i].user.surname;
                     //var photoLink = "photos/" + data.communitymembers[i].user.photoLink;
                     //if(data.communitymembers[i].user.photoLink == null){
                     //    photoLink = "images/man-icon.png";
                     //}
+                    var title = data[i].title;
+                    var description = data[i].description;
+                    var membercount = data[i].communitymembers.length;
+                    var communitydetailpage = "community.html?cid=" + data[i].communityId;
                     $("#communityler").append('<div class="date-outer"><h2 class="date-header"><span>Sunday, September 5, 2010</span>'
                             + '</h2><div class="date-posts"><div class="post-outer"><article class="post hentry"><a name="4682800689275728420"></a>'
-                                        +'<header class="entry-header"><h2 class="post-title entry-title"><a href="community.html?cid=1" id="firstCommunityTitle"></a>'
+                                        +'<header class="entry-header"><h2 class="post-title entry-title"><a href="'
+                                        	+communitydetailpage
+                                        			+'">'
+                                        +title
+                                        +'</a>'
                                    +'</h2></header><div class="post-header-line-1"></div><div class="post-body entry-content">'
-                                       +'<div id="summary4682800689275728420"><div>The goal of the Accessible Infographics CG is to make information graphics, like bar charts and maps, as accessible as possible to all.</div></div>'
+                                       +'<div id="summary4682800689275728420"><div>'
+                                       +description
+                                       +'</div></div>'
                  +'<div style="float:right;padding-right:10px;margin-top:10px;">'
-                +' <a class="nbtmore-link" href="community.html?cid=1">Group Details</a></div>'
+                +' <a class="nbtmore-link" href="'
+                	+communitydetailpage
+                			+'">Group Details</a></div>'
                   +'<div style="float:right;padding-right:10px;margin-top:10px;">'
                                 +'<a class="nbtjoin-link" onclick="alert("Please login to join groups!")">Join</a>'
                              +'</div><div style="clear: both;"></div></div><footer class="nbtentry-meta">'
-                    +'<span class="nbtpost-date">Sunday, September 05, 2015</span><span class="nbtbyline"><span><a href="community.html?cid=1" rel="author" title="author profile">25 Participants</a></span></span><span class="nbttags-links"><a href="community.html?cid=1" rel="tag">Sports</a>, <a href="community.html?cid=1" rel="tag">Web Design</a></span>'
-                                        +'</footer></article><div style="clear: both;"></div></div></div></div>'
-                    		
-                    		
-                    		
-                    		
+                    +'<span class="nbtpost-date">'
+                    +'</span><span class="nbtbyline"><span><a href="'
+                    +communitydetailpage
+                    			+'" rel="author" title="author profile">'
+                    +membercount
+                    +'Participants</a></span></span><span class="nbttags-links"><a href="'
+                    	+communitydetailpage
+                    			+'" rel="tag">Sports</a>, <a href="'
+                    			+communitydetailpage
+                    						+'" rel="tag">Web Design</a></span>'
+                                        +'</footer></article><div style="clear: both;"></div></div></div></div>'	
                     		
                     );
                 }

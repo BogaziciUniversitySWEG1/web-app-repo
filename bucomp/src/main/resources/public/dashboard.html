@@ -40,6 +40,9 @@
                     <div class="togglenbtclass" id="user-toggle" title="User">
                         <span class="screen-reader-text">User</span>
                     </div>
+                    <div class="togglenbtclass" id="user-name-toggle" title="User">
+                        <span id="lblUserNameSurname"></span>
+                    </div>
                 </div>
             </div>
         </header>
@@ -48,7 +51,7 @@
             <div class="main-navigation" id="site-navigation" role="navigation">
                 <div class="bwraptopmenu">
                     <ul>
-                        <li class="current_page_item"><a href="ViewProfile.html?pid=1">My Profile</a></li>
+                        <li class="current_page_item"><a id="lnkProfile">My Profile</a></li>
                         <li>
                             <a href="#">Community</a>
                             <ul class="children">
@@ -311,13 +314,20 @@
                 var userId = GetQueryStringValue("uid");
                 var link = "createcommunity.html?uid=" + userId;
                 $("#lnkCreateCommunity").attr("href",link);
+                $("#lnkProfile").attr("href","EditProfile.html?uid=" + userId);
             }
             
             function GetContent(){
-                DESIGN.GetCommunitiesByUserId(UserId,FillCommunities,ErrorFnc);
+                var userId = GetQueryStringValue("uid");
+                DESIGN.GetCommunitiesByUserId(userId,FillCommunities,ErrorFnc);
+                DESIGN.GetUserInfo(userId, FillUserInfo, null);
             }
             
             function FillCommunities(data){
+            	if(data == null) {
+            		return;
+            	}
+            	
             	for(var i = 0; i< data.length; i++){
                     //var nameSurname = data.communitymembers[i].user.name + " " + data.communitymembers[i].user.surname;
                     //var photoLink = "photos/" + data.communitymembers[i].user.photoLink;
@@ -400,6 +410,11 @@
             function ErrorFnc(){
                 alert("An error has occured.");
             }
+                
+            function FillUserInfo(data){
+                var nameSurname = data.name + " " + data.surname;
+                $("#lblUserNameSurname").html(nameSurname);
+            }
             
             $(window).on('load', navMenu);
             $(window).on('load', GetUser);
@@ -416,8 +431,8 @@
         //]]>
     </script>
     <script src="CommonScripts/GUI_HELPER.js" type="text/javascript"></script>
-    <script src="PageScript/index/GLOBALS.js" type="text/javascript"></script>
-    <script src="PageScript/index/SP_BANK.js" type="text/javascript"></script>
-    <script src="PageScript/index/DESIGN.js" type="text/javascript"></script>
+    <script src="PageScript/dashboard/GLOBALS.js" type="text/javascript"></script>
+    <script src="PageScript/dashboard/SP_BANK.js" type="text/javascript"></script>
+    <script src="PageScript/dashboard/DESIGN.js" type="text/javascript"></script>
 </body>
 </html>
