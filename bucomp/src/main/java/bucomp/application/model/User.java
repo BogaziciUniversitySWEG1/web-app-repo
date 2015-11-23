@@ -34,9 +34,9 @@ public class User implements Serializable {
 
 	private String surname;
 
-	// bi-directional many-to-one association to Community
-	@OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
-	private List<Community> communities;
+//	// bi-directional many-to-one association to Community
+//	@OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
+//	private List<Community> communities;
 
 	// bi-directional many-to-one association to Communitymember
 	@OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
@@ -137,27 +137,27 @@ public class User implements Serializable {
 		this.surname = surname;
 	}
 
-	public List<Community> getCommunities() {
-		return this.communities;
-	}
+//	public List<Community> getCommunities() {
+//		return this.communities;
+//	}
+//
+//	public void setCommunities(List<Community> communities) {
+//		this.communities = communities;
+//	}
 
-	public void setCommunities(List<Community> communities) {
-		this.communities = communities;
-	}
-
-	public Community addCommunity(Community community) {
-		getCommunities().add(community);
-		community.setUser(this);
-
-		return community;
-	}
-
-	public Community removeCommunity(Community community) {
-		getCommunities().remove(community);
-		community.setUser(null);
-
-		return community;
-	}
+//	public Community addCommunity(Community community) {
+//		getCommunities().add(community);
+//		community.setUser(this);
+//
+//		return community;
+//	}
+//
+//	public Community removeCommunity(Community community) {
+//		getCommunities().remove(community);
+//		community.setUser(null);
+//
+//		return community;
+//	}
 
 	public List<Communitymember> getCommunitymembers() {
 		return this.communitymembers;
