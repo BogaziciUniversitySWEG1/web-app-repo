@@ -38,6 +38,13 @@
             } catch (err) {
                 GUI_HELPER.ALERT('Warning', err, GUI_HELPER.ERROR);
             }
+        },
+        GetCommunities: function (callback, callback_err) {
+            try {
+               SP_BANK.GetCommunities(callback, callback_err);
+            } catch (err) {
+                callback_err();
+            }
         }
     }
     if (!window.DESIGN) {
