@@ -261,7 +261,7 @@
                 <div class="sidebarbtop section" id="sidebarbtop">
                 <div class="widget Label" id="Div1">
 
-                        <input class="search-submit" type="button" onclick="window.location='register.html?opt=1';" value="Create Community" />
+                        <input id="btnCreateCommunity" class="search-submit" type="button" value="Create Community" onclick="NavigateToCommunity();" />
                     </div>
                     <div class="widget Label" id="Div2">
                         <h2>2110
@@ -450,6 +450,12 @@
             $(window).on('load', GetUser);
             //DESIGN ilk fonksiyon buradan çağır
         });
+        
+        function NavigateToCommunity(){
+            var userId = GetQueryStringValue("uid");
+            var link = "createcommunity.html?uid=" + userId;
+            window.location = link;
+        }
 
         //]]>
     </script>
