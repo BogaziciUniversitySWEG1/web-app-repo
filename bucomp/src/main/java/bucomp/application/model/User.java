@@ -34,14 +34,6 @@ public class User implements Serializable {
 
 	private String surname;
 
-//	// bi-directional many-to-one association to Community
-//	@OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
-//	private List<Community> communities;
-
-	// bi-directional many-to-one association to Communitymember
-	@OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
-	private List<Communitymember> communitymembers;
-
 	// bi-directional many-to-one association to Communityoffer
 	@OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
 	private List<Communityoffer> communityoffers;
@@ -131,50 +123,6 @@ public class User implements Serializable {
 
 	public void setSurname(String surname) {
 		this.surname = surname;
-	}
-
-//	public List<Community> getCommunities() {
-//		return this.communities;
-//	}
-//
-//	public void setCommunities(List<Community> communities) {
-//		this.communities = communities;
-//	}
-
-//	public Community addCommunity(Community community) {
-//		getCommunities().add(community);
-//		community.setUser(this);
-//
-//		return community;
-//	}
-//
-//	public Community removeCommunity(Community community) {
-//		getCommunities().remove(community);
-//		community.setUser(null);
-//
-//		return community;
-//	}
-
-	public List<Communitymember> getCommunitymembers() {
-		return this.communitymembers;
-	}
-
-	public void setCommunitymembers(List<Communitymember> communitymembers) {
-		this.communitymembers = communitymembers;
-	}
-
-	public Communitymember addCommunitymember(Communitymember communitymember) {
-		getCommunitymembers().add(communitymember);
-		communitymember.setUser(this);
-
-		return communitymember;
-	}
-
-	public Communitymember removeCommunitymember(Communitymember communitymember) {
-		getCommunitymembers().remove(communitymember);
-		communitymember.setUser(null);
-
-		return communitymember;
 	}
 
 	public List<Communityoffer> getCommunityoffers() {

@@ -20,10 +20,6 @@ public class Role implements Serializable {
 
 	private String roleName;
 
-	//bi-directional many-to-one association to Communitymember
-	@OneToMany(mappedBy="role")
-	private List<Communitymember> communitymembers;
-
 	//bi-directional many-to-one association to Meetingrole
 	@OneToMany(mappedBy="role")
 	private List<Meetingrole> meetingroles;
@@ -49,28 +45,6 @@ public class Role implements Serializable {
 
 	public void setRoleName(String roleName) {
 		this.roleName = roleName;
-	}
-
-	public List<Communitymember> getCommunitymembers() {
-		return this.communitymembers;
-	}
-
-	public void setCommunitymembers(List<Communitymember> communitymembers) {
-		this.communitymembers = communitymembers;
-	}
-
-	public Communitymember addCommunitymember(Communitymember communitymember) {
-		getCommunitymembers().add(communitymember);
-		communitymember.setRole(this);
-
-		return communitymember;
-	}
-
-	public Communitymember removeCommunitymember(Communitymember communitymember) {
-		getCommunitymembers().remove(communitymember);
-		communitymember.setRole(null);
-
-		return communitymember;
 	}
 
 	public List<Meetingrole> getMeetingroles() {

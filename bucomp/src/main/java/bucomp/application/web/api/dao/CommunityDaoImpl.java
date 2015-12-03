@@ -47,7 +47,6 @@ public class CommunityDaoImpl implements CommunityDao {
 			Community existingC = DatabaseServiceImpl.entitymanager.find(Community.class, c.getCommunityId());
 			DatabaseServiceImpl.entitymanager.getTransaction().begin();
 			existingC.setAccessType(c.getAccessType());
-			existingC.setCommunitymembers(c.getCommunitymembers());
 			existingC.setCommunityoffers(c.getCommunityoffers());
 			existingC.setCreationDate(c.getCreationDate());
 			existingC.setDescription(c.getDescription());

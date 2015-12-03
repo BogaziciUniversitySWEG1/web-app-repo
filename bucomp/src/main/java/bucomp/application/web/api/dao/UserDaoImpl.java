@@ -62,7 +62,6 @@ public class UserDaoImpl implements UserDao {
 			User existingUser = DatabaseServiceImpl.entitymanager.find(User.class, user.getUserId());
 			DatabaseServiceImpl.entitymanager.getTransaction().begin();
 			existingUser.setLocation(user.getLocation());
-			existingUser.setCommunitymembers(user.getCommunitymembers());
 			existingUser.setCommunityoffers(user.getCommunityoffers());
 			existingUser.setCVLink(user.getCVLink());
 			existingUser.setEmail(user.getEmail());

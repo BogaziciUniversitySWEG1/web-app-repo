@@ -46,10 +46,6 @@ public class Community implements Serializable {
 	@JoinColumn(name="CreaterUserId")
 	private User user;
 
-	//bi-directional many-to-one association to Communitymember
-	@OneToMany(mappedBy="community")
-	private List<Communitymember> communitymembers;
-
 	//bi-directional many-to-one association to Communityoffer
 	@OneToMany(mappedBy="community")
 	private List<Communityoffer> communityoffers;
@@ -147,28 +143,6 @@ public class Community implements Serializable {
 
 	public void setUser(User user) {
 		this.user = user;
-	}
-
-	public List<Communitymember> getCommunitymembers() {
-		return this.communitymembers;
-	}
-
-	public void setCommunitymembers(List<Communitymember> communitymembers) {
-		this.communitymembers = communitymembers;
-	}
-
-	public Communitymember addCommunitymember(Communitymember communitymember) {
-		getCommunitymembers().add(communitymember);
-		communitymember.setCommunity(this);
-
-		return communitymember;
-	}
-
-	public Communitymember removeCommunitymember(Communitymember communitymember) {
-		getCommunitymembers().remove(communitymember);
-		communitymember.setCommunity(null);
-
-		return communitymember;
 	}
 
 	public List<Communityoffer> getCommunityoffers() {

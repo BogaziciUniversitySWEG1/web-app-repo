@@ -1,7 +1,15 @@
 package bucomp.application.model;
 
 import java.io.Serializable;
-import javax.persistence.*;
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.NamedQuery;
+import javax.persistence.Table;
 
 
 /**
@@ -15,22 +23,14 @@ public class Communitymember implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int communityMemberId;
 
-	//bi-directional many-to-one association to Community
-	@ManyToOne
-	@JoinColumn(name="CommunityId")
-	private Community community;
+	private int CommunityId;
 
-	//bi-directional many-to-one association to Role
-	@ManyToOne
-	@JoinColumn(name="RoleId")
-	private Role role;
+	private int RoleId;
 
-	//bi-directional many-to-one association to User
-	@ManyToOne
-	@JoinColumn(name="UserId")
-	private User user;
+	private int UserId;
 
 	public Communitymember() {
 	}
@@ -43,28 +43,28 @@ public class Communitymember implements Serializable {
 		this.communityMemberId = communityMemberId;
 	}
 
-	public Community getCommunity() {
-		return this.community;
+	public int getCommunityId() {
+		return CommunityId;
 	}
 
-	public void setCommunity(Community community) {
-		this.community = community;
+	public void setCommunityId(int communityId) {
+		CommunityId = communityId;
 	}
 
-	public Role getRole() {
-		return this.role;
+	public int getRoleId() {
+		return RoleId;
 	}
 
-	public void setRole(Role role) {
-		this.role = role;
+	public void setRoleId(int roleId) {
+		RoleId = roleId;
 	}
 
-	public User getUser() {
-		return this.user;
+	public int getUserId() {
+		return UserId;
 	}
 
-	public void setUser(User user) {
-		this.user = user;
+	public void setUserId(int userId) {
+		UserId = userId;
 	}
 
 }

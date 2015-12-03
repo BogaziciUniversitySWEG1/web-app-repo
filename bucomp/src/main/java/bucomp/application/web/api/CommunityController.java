@@ -14,14 +14,19 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import bucomp.application.model.Community;
+import bucomp.application.model.Communitymember;
 import bucomp.application.model.Resource;
 import bucomp.application.web.api.dao.CommunityDao;
 import bucomp.application.web.api.dao.CommunityDaoImpl;
+import bucomp.application.web.api.dao.CommunityMemberDao;
+import bucomp.application.web.api.dao.CommunityMemberDaoImpl;
 
 @RestController
 public class CommunityController {
 
 	private CommunityDao dao = new CommunityDaoImpl();
+	private CommunityMemberDao cmDao = new CommunityMemberDaoImpl();
+	
 
 
 	/**
@@ -107,34 +112,6 @@ public class CommunityController {
 		}
 	}
 
-//	@RequestMapping(value = "/api/communities/membership", method = RequestMethod.PUT, 
-//			produces = MediaType.APPLICATION_JSON_VALUE)
-//	public ResponseEntity<Community> processMembershipRequest(
-//			@RequestParam(value = "communityId") Integer communityId,
-//			@RequestParam(value = "userId") Integer userId) {
-//
-//		Community community = communityMap.get(communityId);
-//		User user = userDao.getUserById(userId);
-//
-//		Communitymember communityMember = new Communitymember();
-//		communityMember.setUser(user);
-//		communityMember.setRole(new Role());
-//
-//		List<Communitymember> communityMembers = community
-//				.getCommunitymembers();
-//		if (communityMembers == null) {
-//			communityMembers = new ArrayList<Communitymember>();
-//		}
-//		communityMembers.add(communityMember);
-//
-//		community.setCommunitymembers(communityMembers);
-//
-//		saveOrUpdate(community);
-//
-//		return new ResponseEntity<Community>(HttpStatus.OK);
-//
-//	}
-
 	// Leave Community
 	@RequestMapping(value = "/api/communities/membership", method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Community> leaveCommunity(
@@ -163,6 +140,36 @@ public class CommunityController {
 		return new ResponseEntity<Resource>(resource,
 				HttpStatus.NOT_IMPLEMENTED);
 
+	}
+	
+	@RequestMapping(value = "/api/communityMembers/{communityId}", method = RequestMethod.GET, 
+			produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<Collection<Communitymember>> getCommunityMembers(
+			@PathVariable("communityId") Integer communityId) {
+
+		Collection<Communitymember> members = cmDao.getCommunityMembers(communityId);
+		if (members == null || members.size() == 0) {
+			return new ResponseEntity<Collection<Communitymember>>(members,	HttpStatus.NO_CONTENT);
+		}
+		return new ResponseEntity<Collection<Communitymember>>(members,	HttpStatus.OK);
+	}
+	
+	@RequestMapping(value = "/api/communityMembers", method = RequestMethod.POST)
+	public boolean addCommunityMember(
+			@RequestParam(value = "communityId") Integer communityId,
+			@RequestParam(value = "userId") Integer userId,
+			@RequestParam(value = "roleId") Integer roleId) {
+		
+		Communitymember cm = new Communitymember();
+		cm.setCommunityId(communityId);
+		cm.setUserId(userId);
+		cm.setRoleId(roleId);
+		
+		Communitymember savedCM = cmDao.saveCommunityMember(cm);
+		if (savedCM == null) {
+			return false;
+		}
+		return true;
 	}
 
 }
