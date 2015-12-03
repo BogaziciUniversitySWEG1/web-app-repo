@@ -46,10 +46,6 @@ public class User implements Serializable {
 	@OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
 	private List<Communityoffer> communityoffers;
 
-	// bi-directional many-to-one association to Communityrequest
-	@OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
-	private List<Communityrequest> communityrequests;
-
 	// bi-directional many-to-one association to Meetingattendant
 	@OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
 	private List<Meetingattendant> meetingattendants;
@@ -201,30 +197,6 @@ public class User implements Serializable {
 		communityoffer.setUser(null);
 
 		return communityoffer;
-	}
-
-	public List<Communityrequest> getCommunityrequests() {
-		return this.communityrequests;
-	}
-
-	public void setCommunityrequests(List<Communityrequest> communityrequests) {
-		this.communityrequests = communityrequests;
-	}
-
-	public Communityrequest addCommunityrequest(
-			Communityrequest communityrequest) {
-		getCommunityrequests().add(communityrequest);
-		communityrequest.setUser(this);
-
-		return communityrequest;
-	}
-
-	public Communityrequest removeCommunityrequest(
-			Communityrequest communityrequest) {
-		getCommunityrequests().remove(communityrequest);
-		communityrequest.setUser(null);
-
-		return communityrequest;
 	}
 
 	public List<Meetingattendant> getMeetingattendants() {

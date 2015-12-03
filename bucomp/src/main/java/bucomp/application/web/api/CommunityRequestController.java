@@ -2,8 +2,6 @@ package bucomp.application.web.api;
 
 import java.util.Collection;
 import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -14,56 +12,41 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import bucomp.application.model.Communityrequest;
-import bucomp.application.web.api.dao.CommunityDao;
-import bucomp.application.web.api.dao.CommunityDaoImpl;
-import bucomp.application.web.api.dao.UserDao;
-import bucomp.application.web.api.dao.UserDaoImpl;
+import bucomp.application.web.api.dao.CommunityRequestDao;
+import bucomp.application.web.api.dao.CommunityRequestDaoImpl;
 
 @RestController
 public class CommunityRequestController {
 
-	public static Map<Integer, Communityrequest> crMap;
+	private CommunityRequestDao dao = new CommunityRequestDaoImpl();	
 	
-	private UserDao userDao = new UserDaoImpl();
-	private CommunityDao communityDao = new CommunityDaoImpl();
-
-	private static Integer nextId = 0;
-
-	static {
-		if (crMap == null) {
-			crMap = new HashMap<Integer, Communityrequest>();
-		}
-	}
-	
-	@RequestMapping(value = "/api/communityJoinRequests", method = RequestMethod.GET, 
+	@RequestMapping(value = "/api/communityRequests", method = RequestMethod.GET, 
 			produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<Collection<Communityrequest>> getCommunityJoinRequests() {
+	public ResponseEntity<Collection<Communityrequest>> getCommunityRequests() {
 		
-		Collection<Communityrequest> crs = crMap.values();
+		Collection<Communityrequest> crs = dao.getAllCommunityRequests();
 		if(crs==null || crs.size()==0){
 			return new ResponseEntity<Collection<Communityrequest>>(crs, HttpStatus.NO_CONTENT);
 		}
-		return new ResponseEntity<Collection<Communityrequest>>(crMap.values(),	HttpStatus.OK);
+		
+		return new ResponseEntity<Collection<Communityrequest>>(crs,HttpStatus.OK);
 	}
 
 	// Join Community
-	@RequestMapping(value = "/api/communityJoinRequests", method = RequestMethod.POST)
-	public ResponseEntity<String> joinCommunity(
+	@RequestMapping(value = "/api/communityRequests", method = RequestMethod.POST)
+	public boolean joinCommunity(
 			@RequestParam(value = "communityId") Integer communityId,
 			@RequestParam(value = "userId") Integer userId) {
-		try {
-			// create community request
-			Communityrequest cr = new Communityrequest();
-			cr.setCommunityRequestId(++nextId);
-			cr.setRequestDate(new Date());
-			cr.setStatus(0);
-			cr.setUser(userDao.getUserById(userId));
-			cr.setCommunity(communityDao.getCommunityById(communityId));
-			crMap.put(cr.getCommunityRequestId(), cr);
-			return new ResponseEntity<String>(HttpStatus.OK);
-		} catch (Exception e) {
-			return new ResponseEntity<String>(HttpStatus.INTERNAL_SERVER_ERROR);
+		Communityrequest cr = new Communityrequest();
+		cr.setRequestDate(new Date());
+		cr.setUserId(userId);
+		cr.setCommunityId(communityId);
+		cr.setStatus(0);
+		Communityrequest savedCommunityReq = dao.saveCommunityRequest(cr);
+		if (savedCommunityReq == null) {
+			return false;
 		}
+		return true;
 	}
 
 }

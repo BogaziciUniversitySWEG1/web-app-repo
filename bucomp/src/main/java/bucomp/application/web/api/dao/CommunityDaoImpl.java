@@ -5,7 +5,6 @@ import java.util.List;
 
 import bucomp.application.model.Community;
 import bucomp.application.model.Communitymember;
-import bucomp.application.model.User;
 
 public class CommunityDaoImpl implements CommunityDao {
 
@@ -50,7 +49,6 @@ public class CommunityDaoImpl implements CommunityDao {
 			existingC.setAccessType(c.getAccessType());
 			existingC.setCommunitymembers(c.getCommunitymembers());
 			existingC.setCommunityoffers(c.getCommunityoffers());
-			existingC.setCommunityrequests(c.getCommunityrequests());
 			existingC.setCreationDate(c.getCreationDate());
 			existingC.setDescription(c.getDescription());
 			existingC.setJoinType(c.getJoinType());

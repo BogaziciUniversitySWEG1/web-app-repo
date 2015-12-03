@@ -54,10 +54,6 @@ public class Community implements Serializable {
 	@OneToMany(mappedBy="community")
 	private List<Communityoffer> communityoffers;
 
-	//bi-directional many-to-one association to Communityrequest
-	@OneToMany(mappedBy="community")
-	private List<Communityrequest> communityrequests;
-
 	//bi-directional many-to-one association to Meeting
 	@OneToMany(mappedBy="community")
 	private List<Meeting> meetings;
@@ -195,28 +191,6 @@ public class Community implements Serializable {
 		communityoffer.setCommunity(null);
 
 		return communityoffer;
-	}
-
-	public List<Communityrequest> getCommunityrequests() {
-		return this.communityrequests;
-	}
-
-	public void setCommunityrequests(List<Communityrequest> communityrequests) {
-		this.communityrequests = communityrequests;
-	}
-
-	public Communityrequest addCommunityrequest(Communityrequest communityrequest) {
-		getCommunityrequests().add(communityrequest);
-		communityrequest.setCommunity(this);
-
-		return communityrequest;
-	}
-
-	public Communityrequest removeCommunityrequest(Communityrequest communityrequest) {
-		getCommunityrequests().remove(communityrequest);
-		communityrequest.setCommunity(null);
-
-		return communityrequest;
 	}
 
 	public List<Meeting> getMeetings() {
