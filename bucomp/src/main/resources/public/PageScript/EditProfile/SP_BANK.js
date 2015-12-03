@@ -44,8 +44,8 @@
             	obj.photoLink=PhotoLink;
             	var json =JSON.stringify(obj);
                 $.ajax({
-                    type: "POST",
-                    url: "/api/users/",
+                    type: "PUT",
+                    url: "/api/users/"+UserId,
                     data: json,
 					contentType: "application/json; charset=utf-8",
                     dataType: "json",

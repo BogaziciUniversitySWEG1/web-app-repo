@@ -28,7 +28,7 @@ public class UserController {
 	@RequestMapping(value = "/api/users/search", method = RequestMethod.GET, 
 			produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Collection<User>> searchUser(@RequestParam(value="key", required = true) String key) {
-		
+		System.out.println("UserController.searchUser()");
 		Collection<User> users = null;
 		users = dao.searchUser(key);
 		if(users==null || users.size()==0) {
@@ -40,7 +40,7 @@ public class UserController {
 	@RequestMapping(value = "/api/users", method = RequestMethod.GET, 
 			produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Collection<User>> getAllUsers() {
-		
+		System.out.println("UserController.getAllUsers()");
 		Collection<User> users = null;
 		users = dao.getAllUsers();
 		if(users==null || users.size()==0) {
@@ -53,7 +53,7 @@ public class UserController {
 	@RequestMapping(value = "/api/users/{id}", method = RequestMethod.GET, 
 			produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<User> getUserById(@PathVariable("id") Integer id) {
-		
+		System.out.println("UserController.getUserById()");
 		User user = dao.getUserById(id);
 		if(user == null) {
 			return new ResponseEntity<User>(HttpStatus.NO_CONTENT);
@@ -66,7 +66,7 @@ public class UserController {
 			consumes=MediaType.APPLICATION_JSON_VALUE, 
 			produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<User> createUser(@RequestBody User user) {
-		
+		System.out.println("UserController.createUser()");
 		User savedUser = dao.saveUser(user);
 		if(savedUser == null) {
 			return new ResponseEntity<User>(HttpStatus.INTERNAL_SERVER_ERROR);
@@ -80,7 +80,7 @@ public class UserController {
 			consumes=MediaType.APPLICATION_JSON_VALUE, 
 			produces=MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<User> updateUser(@RequestBody User user){
-		
+		System.out.println("UserController.updateUser()");
 		User updatedUser = dao.updateUser(user);
 		if(updatedUser == null) {
 			return new ResponseEntity<User>(HttpStatus.INTERNAL_SERVER_ERROR);
@@ -92,6 +92,7 @@ public class UserController {
 	//delete user
 	@RequestMapping(value="api/users/{id}", method=RequestMethod.DELETE)
 	public ResponseEntity<User> deleteUser(@PathVariable("id") Integer id){
+		System.out.println("UserController.deleteUser()");
 		boolean isDeleted = dao.delete(id);
 		if(!isDeleted) {
 			return new ResponseEntity<User>(HttpStatus.INTERNAL_SERVER_ERROR);

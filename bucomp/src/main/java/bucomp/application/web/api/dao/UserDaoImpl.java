@@ -30,7 +30,11 @@ public class UserDaoImpl implements UserDao {
 
 	@Override
 	public User getUserById(Integer userId) {
-		return DatabaseServiceImpl.entitymanager.find(User.class, userId);
+		try{
+			return DatabaseServiceImpl.entitymanager.find(User.class, userId);			
+		} catch(Exception e){
+			return null;
+		}
 	}
 	
 	@SuppressWarnings("unchecked")

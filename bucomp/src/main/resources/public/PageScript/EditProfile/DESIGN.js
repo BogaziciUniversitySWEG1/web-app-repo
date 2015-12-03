@@ -109,6 +109,7 @@
             }
         },
         Update: function () {
+        	GLOBALS.UserId = GUI_HELPER.GetQueryStringParamByName("uid");
             try {
                 GLOBALS.Name = $('#txtName').val();
                 GLOBALS.Surname = $('#txtSurname').val();
@@ -153,7 +154,7 @@
                     GUI_HELPER.ALERT('Warning', 'Please upload your profile photo to the system!', GUI_HELPER.ERROR);
                 }
                 else {
-                    GLOBALS.UserId = -1;
+                    //GLOBALS.UserId = -1;
                     SP_BANK.UPDATE_USER(GLOBALS.UserId, GLOBALS.Name, GLOBALS.Surname, GLOBALS.Email, GLOBALS.Password, GLOBALS.Location,
                                     GLOBALS.Education, GLOBALS.Profession, GLOBALS.Hobbies, GLOBALS.CvLink, GLOBALS.PhotoLink, DESIGN.UPDATED_USER, GUI_HELPER.SERVICE_CALLBACK_ERR);
                 }
