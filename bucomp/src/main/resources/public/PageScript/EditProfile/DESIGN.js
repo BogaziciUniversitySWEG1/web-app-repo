@@ -66,16 +66,16 @@
 		                	var namesurname=data.name.split(' ');
 		                	var name;
 		                	var surname;
-		                	if (namesurname.length>1)
-		                	{
-		                		surname=namesurname[namesurname.length-1];
-		                		name= data.name.split(namesurname[namesurname.length-1])[0];
-		                	}
-		                	else
-		                		name= data.name;	
+//		                	if (namesurname.length>1)
+//		                	{
+//		                		surname=namesurname[namesurname.length-1];
+//		                		name= data.name.split(namesurname[namesurname.length-1])[0];
+//		                	}
+//		                	else
+//		                		name= data.name;	
 		                	
-			                GLOBALS.Name = name;
-			                GLOBALS.Surname = surname;
+			                GLOBALS.Name = data.name;
+			                GLOBALS.Surname = data.surname;
 			                GLOBALS.Email = data.email;
 			                GLOBALS.Password = data.password;
 			                GLOBALS.Location = data.location;
