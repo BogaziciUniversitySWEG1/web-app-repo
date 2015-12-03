@@ -9,5 +9,5 @@ public interface CommunityMemberDao {
 	public Collection<Communitymember> getCommunityMembers(int communityId);
 	
 	public Communitymember saveCommunityMember(Communitymember cm);
-	
+
 }

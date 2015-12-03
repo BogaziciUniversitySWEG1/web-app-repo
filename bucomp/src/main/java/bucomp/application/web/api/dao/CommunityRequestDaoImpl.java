@@ -41,15 +41,39 @@ public class CommunityRequestDaoImpl implements CommunityRequestDao {
 	}
 
 	@Override
-	public boolean approveCommunityRequest(Communityrequest cr) {
-		// TODO Auto-generated method stub
-		return false;
+	public boolean approveCommunityRequest(int userId, int communityId) {
+		try {
+			Communityrequest existingCR = DatabaseServiceImpl.entitymanager.createQuery(
+				    "SELECT c FROM Communityrequest c WHERE c.UserId = :userId AND c.CommunityId = :communityId",Communityrequest.class)
+				    .setParameter("userId", userId)
+				    .setParameter("communityId", communityId)
+				    .getSingleResult();
+			DatabaseServiceImpl.entitymanager.getTransaction().begin();
+			existingCR.setStatus(1);
+			DatabaseServiceImpl.entitymanager.getTransaction().commit();			
+			return true;
+		} catch(Exception e){
+			e.printStackTrace();
+			return false;
+		}
 	}
 
 	@Override
-	public boolean denyCommunityRequest(Communityrequest cr) {
-		// TODO Auto-generated method stub
-		return false;
+	public boolean denyCommunityRequest(int userId, int communityId) {
+		try {
+			Communityrequest existingCR = DatabaseServiceImpl.entitymanager.createQuery(
+				    "SELECT c FROM Communityrequest c WHERE c.UserId = :userId AND c.CommunityId = :communityId",Communityrequest.class)
+				    .setParameter("userId", userId)
+				    .setParameter("communityId", communityId)
+				    .getSingleResult();
+			DatabaseServiceImpl.entitymanager.getTransaction().begin();
+			existingCR.setStatus(2);
+			DatabaseServiceImpl.entitymanager.getTransaction().commit();			
+			return true;
+		} catch(Exception e){
+			e.printStackTrace();
+			return false;
+		}
 	}
 
 }

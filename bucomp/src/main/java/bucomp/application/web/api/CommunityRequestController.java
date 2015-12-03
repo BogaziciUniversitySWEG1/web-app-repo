@@ -11,7 +11,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import bucomp.application.model.Communitymember;
 import bucomp.application.model.Communityrequest;
+import bucomp.application.web.api.dao.CommunityMemberDao;
+import bucomp.application.web.api.dao.CommunityMemberDaoImpl;
 import bucomp.application.web.api.dao.CommunityRequestDao;
 import bucomp.application.web.api.dao.CommunityRequestDaoImpl;
 
@@ -19,6 +22,7 @@ import bucomp.application.web.api.dao.CommunityRequestDaoImpl;
 public class CommunityRequestController {
 
 	private CommunityRequestDao dao = new CommunityRequestDaoImpl();	
+	private CommunityMemberDao cmDao = new CommunityMemberDaoImpl();
 	
 	@RequestMapping(value = "/api/communityRequests", method = RequestMethod.GET, 
 			produces = MediaType.APPLICATION_JSON_VALUE)
@@ -32,7 +36,6 @@ public class CommunityRequestController {
 		return new ResponseEntity<Collection<Communityrequest>>(crs,HttpStatus.OK);
 	}
 
-	// Join Community
 	@RequestMapping(value = "/api/communityRequests", method = RequestMethod.POST)
 	public boolean joinCommunity(
 			@RequestParam(value = "communityId") Integer communityId,
@@ -47,6 +50,31 @@ public class CommunityRequestController {
 			return false;
 		}
 		return true;
+	}
+	
+	@RequestMapping(value = "/api/communityRequests/approve", method = RequestMethod.POST)
+	public boolean approveCommunityRequest(
+			@RequestParam(value = "communityId") Integer communityId,
+			@RequestParam(value = "userId") Integer userId) {
+		//Update request status
+		boolean step1 = dao.approveCommunityRequest(userId, communityId);
+		//add to member list
+		Communitymember cm = new Communitymember();
+		cm.setCommunityId(communityId);
+		cm.setUserId(userId);
+		cm.setRoleId(1);
+		boolean step2 = cmDao.saveCommunityMember(cm) != null ? true : false;
+		
+		return step1 && step2;  
+	}
+	
+	@RequestMapping(value = "/api/communityRequests/deny", method = RequestMethod.POST)
+	public boolean denyCommunityRequest(
+			@RequestParam(value = "communityId") Integer communityId,
+			@RequestParam(value = "userId") Integer userId) {
+		
+		return dao.denyCommunityRequest(userId, communityId);
+		
 	}
 
 }

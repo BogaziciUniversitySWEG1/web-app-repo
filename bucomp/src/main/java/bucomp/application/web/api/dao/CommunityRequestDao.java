@@ -12,8 +12,8 @@ public interface CommunityRequestDao {
 	
 	public Communityrequest saveCommunityRequest(Communityrequest cr);
 	
-	public boolean approveCommunityRequest(Communityrequest cr);
+	public boolean approveCommunityRequest(int userId, int communityId);
 	
-	public boolean denyCommunityRequest(Communityrequest cr);
+	public boolean denyCommunityRequest(int userId, int communityId);
 
 }
