@@ -1,8 +1,17 @@
 package bucomp.application.model;
 
 import java.io.Serializable;
-import javax.persistence.*;
 import java.util.Date;
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Lob;
+import javax.persistence.NamedQuery;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 
 /**
@@ -16,27 +25,22 @@ public class Post implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int postId;
 
 	private int associatedObjectId;
 
 	@Lob
-	private byte[] post;
+	private String post;
 
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date postDate;
 
 	private String title;
 
-	//bi-directional many-to-one association to Posttype
-	@ManyToOne
-	@JoinColumn(name="PostTypeId")
-	private Posttype posttype;
+	private int postTypeId;
 
-	//bi-directional many-to-one association to User
-	@ManyToOne
-	@JoinColumn(name="UserId")
-	private User user;
+	private int userId;
 
 	public Post() {
 	}
@@ -57,11 +61,11 @@ public class Post implements Serializable {
 		this.associatedObjectId = associatedObjectId;
 	}
 
-	public byte[] getPost() {
+	public String getPost() {
 		return this.post;
 	}
 
-	public void setPost(byte[] post) {
+	public void setPost(String post) {
 		this.post = post;
 	}
 
@@ -81,20 +85,20 @@ public class Post implements Serializable {
 		this.title = title;
 	}
 
-	public Posttype getPosttype() {
-		return this.posttype;
+	public int getPostTypeId() {
+		return postTypeId;
 	}
 
-	public void setPosttype(Posttype posttype) {
-		this.posttype = posttype;
+	public void setPostTypeId(int postTypeId) {
+		this.postTypeId = postTypeId;
 	}
 
-	public User getUser() {
-		return this.user;
+	public int getUserId() {
+		return userId;
 	}
 
-	public void setUser(User user) {
-		this.user = user;
+	public void setUserId(int userId) {
+		this.userId = userId;
 	}
 
 }

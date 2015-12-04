@@ -1,8 +1,11 @@
 package bucomp.application.model;
 
 import java.io.Serializable;
-import javax.persistence.*;
-import java.util.List;
+
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.NamedQuery;
+import javax.persistence.Table;
 
 
 /**
@@ -19,10 +22,6 @@ public class Posttype implements Serializable {
 	private int postTypeId;
 
 	private String postType;
-
-	//bi-directional many-to-one association to Post
-	@OneToMany(mappedBy="posttype")
-	private List<Post> posts;
 
 	public Posttype() {
 	}
@@ -41,28 +40,6 @@ public class Posttype implements Serializable {
 
 	public void setPostType(String postType) {
 		this.postType = postType;
-	}
-
-	public List<Post> getPosts() {
-		return this.posts;
-	}
-
-	public void setPosts(List<Post> posts) {
-		this.posts = posts;
-	}
-
-	public Post addPost(Post post) {
-		getPosts().add(post);
-		post.setPosttype(this);
-
-		return post;
-	}
-
-	public Post removePost(Post post) {
-		getPosts().remove(post);
-		post.setPosttype(null);
-
-		return post;
 	}
 
 }
