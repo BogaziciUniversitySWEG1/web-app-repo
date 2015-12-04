@@ -147,6 +147,7 @@ CREATE TABLE IF NOT EXISTS `BuComp`.`CommunityRequests` (
   `Status` INT(11) NULL DEFAULT '0' COMMENT 'Status of the request\n0- Waiting\n1- Approved\n2- Rejected',
   PRIMARY KEY (`CommunityRequestId`),
   UNIQUE INDEX `CommunityRequestId_UNIQUE` (`CommunityRequestId` ASC),
+  UNIQUE INDEX `CommunityId_UserId` (`CommunityId`, `UserId`),
   INDEX `FK_CR_01_idx` (`CommunityId` ASC),
   INDEX `FK_CR_02_idx` (`UserId` ASC),
   CONSTRAINT `FK_CR_01`
