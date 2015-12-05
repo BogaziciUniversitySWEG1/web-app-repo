@@ -20,13 +20,15 @@ import bucomp.application.web.api.dao.CommunityDao;
 import bucomp.application.web.api.dao.CommunityDaoImpl;
 import bucomp.application.web.api.dao.CommunityMemberDao;
 import bucomp.application.web.api.dao.CommunityMemberDaoImpl;
+import bucomp.application.web.api.dao.UserDao;
+import bucomp.application.web.api.dao.UserDaoImpl;
 
 @RestController
 public class CommunityController {
 
 	private CommunityDao dao = new CommunityDaoImpl();
 	private CommunityMemberDao cmDao = new CommunityMemberDaoImpl();
-	
+	private UserDao udao = new UserDaoImpl();
 
 
 	/**
@@ -162,7 +164,7 @@ public class CommunityController {
 		
 		Communitymember cm = new Communitymember();
 		cm.setCommunityId(communityId);
-		cm.setUserId(userId);
+		cm.setUser(udao.getUserById(userId));
 		cm.setRoleId(roleId);
 		
 		Communitymember savedCM = cmDao.saveCommunityMember(cm);

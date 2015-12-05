@@ -17,12 +17,15 @@ import bucomp.application.web.api.dao.CommunityMemberDao;
 import bucomp.application.web.api.dao.CommunityMemberDaoImpl;
 import bucomp.application.web.api.dao.CommunityRequestDao;
 import bucomp.application.web.api.dao.CommunityRequestDaoImpl;
+import bucomp.application.web.api.dao.UserDao;
+import bucomp.application.web.api.dao.UserDaoImpl;
 
 @RestController
 public class CommunityRequestController {
 
 	private CommunityRequestDao dao = new CommunityRequestDaoImpl();	
 	private CommunityMemberDao cmDao = new CommunityMemberDaoImpl();
+	private UserDao udao = new UserDaoImpl();
 	
 	@RequestMapping(value = "/api/communityRequests", method = RequestMethod.GET, 
 			produces = MediaType.APPLICATION_JSON_VALUE)
@@ -61,7 +64,7 @@ public class CommunityRequestController {
 		//add to member list
 		Communitymember cm = new Communitymember();
 		cm.setCommunityId(communityId);
-		cm.setUserId(userId);
+		cm.setUser(udao.getUserById(userId));
 		cm.setRoleId(1);
 		boolean step2 = cmDao.saveCommunityMember(cm) != null ? true : false;
 		

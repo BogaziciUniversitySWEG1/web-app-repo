@@ -3,6 +3,7 @@ package bucomp.application.model;
 import java.io.Serializable;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -30,7 +31,9 @@ public class Communitymember implements Serializable {
 
 	private int RoleId;
 
-	private int UserId;
+	@ManyToOne(fetch=FetchType.LAZY)
+	@JoinColumn(name="UserId")
+	private User user;
 
 	public Communitymember() {
 	}
@@ -59,12 +62,12 @@ public class Communitymember implements Serializable {
 		RoleId = roleId;
 	}
 
-	public int getUserId() {
-		return UserId;
+	public User getUser() {
+		return user;
 	}
 
-	public void setUserId(int userId) {
-		UserId = userId;
+	public void setUser(User user) {
+		this.user = user;
 	}
 
 }
