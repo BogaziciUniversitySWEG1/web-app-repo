@@ -71,4 +71,21 @@ public class MeetingDaoImpl implements MeetingDao {
 		return null;
 	}
 
+	@Override
+	@SuppressWarnings("unchecked")
+	public List<Meeting> getCommunityMeetings(Integer communityId) {
+		try {
+			DatabaseServiceImpl.entitymanager.getTransaction().begin();
+			// query to be updated 
+			List<Meeting> meetings = DatabaseServiceImpl.entitymanager
+					.createQuery("SELECT m FROM Meeting m where m.user.userId = " + communityId).getResultList();
+			DatabaseServiceImpl.entitymanager.getTransaction().commit();
+			return meetings;
+		} catch (Exception e) {
+			e.printStackTrace();
+			DatabaseServiceImpl.entitymanager.getTransaction().rollback();
+			return null;
+		}
+	}
+
 }
