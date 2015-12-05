@@ -42,6 +42,8 @@
                 var d = new Date(data[i].postDate);
                 var postDateStr = "on " + GUI_HELPER.GetDayName(d.getDay()) + ", " + GUI_HELPER.GetMonthName(d.getMonth()) 
                     + " "+ d.getDate() + ", " + d.getFullYear();
+                var userName = "by " + data[i].user.name + " " + data[i].user.surname;
+                var userLink = "ViewProfile.html?uid=" + data[i].user.userId;
                 $("#commentList").append(
                     $("<li>").append(
                         $("<a>").attr("class","related-post-item-title").attr("title",data[i].title).append(data[i].title)
@@ -57,13 +59,19 @@
                         ).append(
                             $("<span>").attr("class","nbtbyline").append(
                                 $("<span>").append(
-                                    $("<a>").attr("rel","author").attr("href","#").attr("title","author profile").append("by Emre Gürer")
+                                    $("<a>").attr("rel","author").attr("href",userLink).attr("title","author profile").append(userName)
                                 )
                             )
                         )
                     )
                 );
             }
+        },
+        ReturnToCommunity: function() {
+            var userId = GetQueryStringValue("uid");
+            var communityId = GetQueryStringValue("cid");
+            var url = "community.html?cid=" + communityId + "&uid=" + userId;
+            window.location = url;
         }
     }
     

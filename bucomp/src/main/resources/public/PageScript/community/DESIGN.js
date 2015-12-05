@@ -52,7 +52,10 @@
             else{
             	GLOBALS.UserId=-1;
             }
+            
             SP_BANK.GetCommunityMembers(communityId, DESIGN.FillMembers, null);
+            SP_BANK.GetCommunityTopics(communityId, DESIGN.FillTopics, null);
+            
             if(GLOBALS.UserId>-1){
             	GUI_HELPER.GetUserInfo(GLOBALS.UserId, DESIGN.FillUserInfo, null);
             	$("#btnJoinCommunity").attr("onclick","DESIGN.JoinCommunity();");
@@ -60,6 +63,49 @@
             else{
             	$("#btnJoinCommunity").attr("onclick","GUI_HELPER.ALERT('INFO','User cannot be found. Please Log in!',GUI_HELPER.WARNING);");
             }	
+        },
+        FillTopics: function(data) {
+            $("#topicList").html("");
+            for(var i=0; i< data.length; i++) {
+                var communityId = GetQueryStringValue("cid");
+                var userId = GetQueryStringValue("uid");
+                var topicId = data[i].topicId;
+                var topicUrl = "topic.html?cid=" + communityId + "&uid=" + userId + "&tid=" + topicId;
+                var topicDate = "";
+                if(data[i].creationDate != null) {
+                    var d = new Date(data[i].creationDate);
+                    topicDate = GUI_HELPER.GetDayName(d.getDay()) + ", " + GUI_HELPER.GetMonthName(d.getMonth()) 
+                        + " "+ d.getDate() + ", " + d.getFullYear();
+                }
+                var creatorName = "Emre Gürer";
+                var creatorUrl = "ViewProfile.html?uid=" + data[i].creatorUserId;
+                
+                $("#topicList").append(
+                    $("<li>").append(
+                        $("<a>").attr("class","related-post-item-title").attr("title",data[i].title).attr("href",topicUrl).append(data[i].title)
+                    ).append(
+                        $("<span>").attr("class","related-post-item-summary").append(
+                            $("<span>").attr("class","related-post-item-summary-text").append(data[i].description)
+                        ).append(
+                            $("<span>").attr("style","display:block;clear:both;")
+                        )
+                    ).append(
+                        $("<footer>").attr("class","nbtentry-meta").append(
+                            $("<span>").attr("class","nbtpost-date").append(topicDate)
+                        ).append(
+                            $("<span>").attr("class","nbtbyline").append(
+                                $("<span>").append(
+                                    $("<a>").attr("href",creatorUrl).attr("rel","author").attr("title","author profile").append(creatorName)
+                                )
+                            )
+                        ).append(
+                            $("<span>").attr("class","nbttags-links").append(
+                                $("<a>").attr("rel","tag").append("Deneme Tag")
+                            )
+                        )
+                    )
+                );
+            }
         },
         FillMembers: function(data) {
         if(GUI_HELPER.NOU(data)){

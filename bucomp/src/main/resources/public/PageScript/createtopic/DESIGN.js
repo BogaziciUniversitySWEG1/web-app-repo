@@ -4,13 +4,22 @@
 
 (function () {
     var DESIGN = { 
-        SAVE: function (title, description, communityId, callback, callback_err) {
-            try {
-               SP_BANK.SAVE(title, description, communityId, callback, callback_err);
-            } catch (err) {
-                GUI_HELPER.ALERT('test', err, GUI_HELPER.ERROR);
-            }
+        SAVE: function () {
+            var title = $("#txtTitle").val();
+            var description = $("#txtDescription").val();
+            var communityId = GetQueryStringValue("cid");
+            var userId = GetQueryStringValue("uid");
+            var creationDate = (new Date).getTime();
+            SP_BANK.SAVE(title, description, communityId, userId, creationDate, DESIGN.SaveSuccess, DESIGN.SaveError);
+        },
+        SaveSuccess: function(data) {
+            alert("Successfully saved. Redirecting to community page.");
+            window.location = "topic.html?cid=1&tid=" + data.topicId;
+        },
+        SaveError: function(data) {
+            alert("Error occured. Please contact to your system administrator.");
         }
     } 
+    
     if (!window.DESIGN) { window.DESIGN = DESIGN; }
 })();
