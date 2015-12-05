@@ -40,7 +40,7 @@
             	obj.education=Education;
             	obj.profession=Profession;
             	obj.hobbies=Hobbies;
-            	obj.cvLink=CvLink;
+            	obj.cvlink=CvLink;
             	obj.photoLink=PhotoLink;
             	var json =JSON.stringify(obj);
                 $.ajax({
