@@ -93,6 +93,8 @@ public class UserDaoImpl implements UserDao {
 			existingUser.setPassword(user.getPassword());
 			existingUser.setSurname(user.getSurname());
 			existingUser.setUserroles(user.getUserroles());
+			existingUser.setEducation(user.getEducation());
+			existingUser.setProfession(user.getProfession());
 
 			DatabaseServiceImpl.entitymanager.getTransaction().commit();
 			return user;
