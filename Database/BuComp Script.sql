@@ -483,8 +483,8 @@ DEFAULT CHARACTER SET = utf8;
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `BuComp`.`Topics` (
   `TopicId` INT(11) NOT NULL AUTO_INCREMENT,
-  `Title` VARCHAR(45) NULL DEFAULT NULL,
-  `Description` VARCHAR(45) NULL DEFAULT NULL,
+  `Title` VARCHAR(150) NULL DEFAULT NULL,
+  `Description` VARCHAR(1000) NULL DEFAULT NULL,
   `CommunityId` INT(11) NOT NULL,
   PRIMARY KEY (`TopicId`),
   UNIQUE INDEX `TopicId_UNIQUE` (`TopicId` ASC),
