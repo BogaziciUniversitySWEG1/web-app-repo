@@ -12,7 +12,7 @@ public interface MeetingDao {
 
 	public Meeting getMeetingById(Integer meetingId);
 
-	public Meeting getUserMeetings(int userId);
+	public List<Meeting> getUserMeetings(int userId);
 
 	public List<Meeting> getSpecificMeetings(int a, int b);
 
