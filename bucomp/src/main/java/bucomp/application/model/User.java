@@ -1,8 +1,16 @@
 package bucomp.application.model;
 
 import java.io.Serializable;
-import javax.persistence.*;
 import java.util.List;
+
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
 
 /**
  * The persistent class for the users database table.
@@ -33,6 +41,10 @@ public class User implements Serializable {
 	private String photoLink;
 
 	private String surname;
+	
+	private String education;
+	
+	private String profession;
 
 	// bi-directional many-to-one association to Communityoffer
 	@OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
@@ -187,6 +199,22 @@ public class User implements Serializable {
 		userrole.setUser(null);
 
 		return userrole;
+	}
+
+	public String getEducation() {
+		return education;
+	}
+
+	public void setEducation(String education) {
+		this.education = education;
+	}
+
+	public String getProfession() {
+		return profession;
+	}
+
+	public void setProfession(String profession) {
+		this.profession = profession;
 	}
 
 }

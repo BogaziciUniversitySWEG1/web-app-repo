@@ -1,6 +1,7 @@
 package bucomp.application.model;
 
 import java.io.Serializable;
+import java.util.Date;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -8,6 +9,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 
 /**
@@ -29,6 +32,12 @@ public class Topic implements Serializable {
 	private String Description;
 
 	private int CommunityId;
+	
+	private int CreatorUserId;
+	
+	@Temporal(TemporalType.TIMESTAMP)
+	private Date creationDate;
+	
 
 	public Topic() {
 	}
@@ -63,6 +72,22 @@ public class Topic implements Serializable {
 
 	public void setCommunityId(int CommunityId) {
 		this.CommunityId = CommunityId;
+	}
+
+	public int getCreatorUserId() {
+		return CreatorUserId;
+	}
+
+	public void setCreatorUserId(int creatorUserId) {
+		CreatorUserId = creatorUserId;
+	}
+
+	public Date getCreationDate() {
+		return creationDate;
+	}
+
+	public void setCreationDate(Date creationDate) {
+		this.creationDate = creationDate;
 	}
 	
 }
