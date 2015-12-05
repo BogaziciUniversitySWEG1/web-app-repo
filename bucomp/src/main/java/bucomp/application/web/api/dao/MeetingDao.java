@@ -18,4 +18,6 @@ public interface MeetingDao {
 	
 	public List<Meeting> getCommunityMeetings(Integer communityId);
 
+	public Meeting updateMeeting(Meeting m);
+
 }
