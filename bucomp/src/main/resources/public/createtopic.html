@@ -159,7 +159,9 @@
             var title = $("#txtTitle").val();
             var description = $("#txtDescription").val();
             var communityId = GetQueryStringValue("cid");
-            DESIGN.SAVE(title, description, communityId, SaveSuccess, SaveError);
+            var userId = GetQueryStringValue("uid");
+            var creationDate = (new Date).getTime();
+            DESIGN.SAVE(title, description, communityId, userId, creationDate, SaveSuccess, SaveError);
     	}
         
         function SaveSuccess(msg){

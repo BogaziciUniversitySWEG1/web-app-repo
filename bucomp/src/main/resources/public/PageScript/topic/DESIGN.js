@@ -6,8 +6,16 @@
     var DESIGN = { 
         GetContent: function() {
             var topicId = GetQueryStringValue("tid");
-            SP_BANK.GetComments(topicId, DESIGN.FillComments, null);
+            SP_BANK.GetContent(topicId, DESIGN.FillContent, null);
         }, 
+        FillContent: function(data) {
+            var topicId = GetQueryStringValue("tid");
+            $("#lblTitle").html(data.title);
+            $("#divDescription").html(data.description);
+            $("#communityAuthor").html("Emre Gürer");
+            $("#lblCommunityCreationDate").html("Tarih");
+            SP_BANK.GetComments(topicId, DESIGN.FillComments, null);
+        },
         PostComment: function() {
             var topicId = GetQueryStringValue("tid");
             var userId = GetQueryStringValue("uid");

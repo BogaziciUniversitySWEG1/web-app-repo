@@ -2,12 +2,14 @@
 
 (function () {
     var SP_BANK = {
-        SAVE: function (title, description, communityId, callback, callback_err) {
+        SAVE: function (title, description, communityId, userId, creationDate, callback, callback_err) {
             try {
                 var jsonObj = new Object;
-                jsonObj.title = title;
-                jsonObj.description = description;
-                jsonObj.communityId = communityId;
+                jsonObj.Title = title;
+                jsonObj.Description = description;
+                jsonObj.CommunityId = communityId;
+                jsonObj.CreatorUserId = userId;
+                jsonObj.creationDate = creationDate;
                 
                 var jsonStr = JSON.stringify(jsonObj);
                 

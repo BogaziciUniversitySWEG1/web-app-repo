@@ -2,6 +2,34 @@
 
 (function () {
     var SP_BANK = {
+        GetContent: function(topicId, callback, callback_err) {
+            try {
+                $.ajax({
+                    type: "GET",
+                    url: GLOBALS.ServiceParameter + "/topics/" + topicId,
+                    contentType: "application/json; charset=utf-8",
+                    success: function (msg) {
+                        if (msg == null) {
+                            if (typeof callback == 'function') {
+                                callback(null);
+                            }
+                        }
+                        else{
+                            var _data = eval(msg);
+                            callback(_data);
+                        }
+                    },
+                    error: function (msg) {
+                        if (typeof callback_err == 'function') {
+                            callback_err(msg);
+                        }
+                    }
+                });
+            }
+            catch(err) {
+                callback_err(err);
+            }
+        },
         PostComment: function(userId, postTypeId, title, post, associatedObjectId, postDate, callback, callback_err) {
             try {
                 var jsonObj = new Object;

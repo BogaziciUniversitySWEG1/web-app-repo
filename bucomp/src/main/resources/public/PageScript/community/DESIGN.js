@@ -38,11 +38,46 @@
             var communityId = GetQueryStringValue("cid");
             var userId = GetQueryStringValue("uid");
             
+            SP_BANK.GetCommunityTopics(communityId, DESIGN.FillTopics, null);
             SP_BANK.GetCommunityMembers(communityId, DESIGN.FillMembers, null);
             GUI_HELPER.GetUserInfo(userId, DESIGN.FillUserInfo, null);
         },
+        FillTopics: function(data) {
+            $("#topicList").html("");
+            var communityId = GetQueryStringValue("cid");
+            var userId = GetQueryStringValue("uid");
+            for(var i = 0; i< data.length; i++) {
+                var topicId = data[i].topicId;
+                var topicLink = "topic.html?cid=" + communityId + "&userId=" + userId + "&tid=" + topicId;
+                var topicDateStr = "Monday, November 23, 2015";
+                var creatorLink = "ViewProfile.html?uid=2";
+                var creatorName = "Emre Gürer";
+                $("#topicList").append(
+                    $("<li>").append(
+                        $("<a>").attr("class","related-post-item-title").attr("title",data[i].title).attr("href",topicLink).append(data[i].title)
+                    ).append(
+                        $("<span>").attr("class","related-post-item-summary").append(
+                            $("<span>").attr("class","related-post-item-summary-text").append(data[i].description)
+                        ).append(
+                            $("<span>").attr("style","display:block;clear:both;")
+                        )
+                    ).append(
+                        $("<footer>").attr("class","nbtentry-meta").append(
+                            $("<span>").attr("class","nbtpost-date").append(topicDateStr)
+                        ).append(
+                            $("<span>").attr("class","nbtbyline").append(
+                                $("<span>").append(
+                                    $("<a>").attr("href",creatorLink).attr("rel","author").attr("title","author profile").append(creatorName)
+                                )
+                            )
+                        )
+                    )
+                );
+            }
+        },
         FillMembers: function(data) {
             $("#lblMemberCount").html(data.length);
+            var userId = GetQueryStringValue("uid");
             for(var i = 0; i< data.length; i++){
                 var nameSurname = data[i].user.name + " " + data[i].user.surname;
                 var photoLink = "photos/" + data[i].user.photoLink;
@@ -61,6 +96,10 @@
                             .attr("onclick","DESIGN.ViewUser(" + data[i].user.userId + ");")
                     )
                 );
+                
+                if(userId == data[i].user.userId) {
+                    $("#btnJoinCommunity").hide();
+                }
             }
 
             $("#members").append(
