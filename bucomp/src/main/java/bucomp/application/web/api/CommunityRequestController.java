@@ -6,6 +6,7 @@ import java.util.Date;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -27,11 +28,11 @@ public class CommunityRequestController {
 	private CommunityMemberDao cmDao = new CommunityMemberDaoImpl();
 	private UserDao udao = new UserDaoImpl();
 	
-	@RequestMapping(value = "/api/communityRequests", method = RequestMethod.GET, 
+	@RequestMapping(value = "/api/communityRequests/{communityId}", method = RequestMethod.GET, 
 			produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<Collection<Communityrequest>> getCommunityRequests() {
+	public ResponseEntity<Collection<Communityrequest>> getCommunityRequests(@PathVariable("communityId") Integer communityId) {
 		
-		Collection<Communityrequest> crs = dao.getAllCommunityRequests();
+		Collection<Communityrequest> crs = dao.getCommunityRequests(communityId);
 		if(crs==null || crs.size()==0){
 			return new ResponseEntity<Collection<Communityrequest>>(crs, HttpStatus.NO_CONTENT);
 		}

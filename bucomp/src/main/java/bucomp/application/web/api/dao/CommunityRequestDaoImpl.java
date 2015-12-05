@@ -9,10 +9,10 @@ public class CommunityRequestDaoImpl implements CommunityRequestDao {
 
 	@Override
 	@SuppressWarnings("unchecked")
-	public Collection<Communityrequest> getAllCommunityRequests() {
+	public Collection<Communityrequest> getCommunityRequests(int communityId) {
 		try{
 			DatabaseServiceImpl.entitymanager.getTransaction().begin();
-			List<Communityrequest> crlist = DatabaseServiceImpl.entitymanager.createQuery("SELECT c FROM Communityrequest c").getResultList();
+			List<Communityrequest> crlist = DatabaseServiceImpl.entitymanager.createQuery("SELECT c FROM Communityrequest c where c.CommunityId=" + communityId).getResultList();
 			DatabaseServiceImpl.entitymanager.getTransaction().commit();			
 			return crlist;
 		} catch(Exception e){
@@ -20,12 +20,6 @@ public class CommunityRequestDaoImpl implements CommunityRequestDao {
 			DatabaseServiceImpl.entitymanager.getTransaction().rollback();
 			return null;
 		}
-	}
-
-	@Override
-	public Communityrequest getCommunityRequestById(int id) {
-		// TODO Auto-generated method stub
-		return null;
 	}
 
 	@Override

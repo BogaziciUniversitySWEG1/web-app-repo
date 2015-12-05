@@ -6,9 +6,7 @@ import bucomp.application.model.Communityrequest;
 
 public interface CommunityRequestDao {
 	
-	public Collection<Communityrequest> getAllCommunityRequests();
-	
-	public Communityrequest getCommunityRequestById(int id);
+	public Collection<Communityrequest> getCommunityRequests(int communityId);
 	
 	public Communityrequest saveCommunityRequest(Communityrequest cr);
 	
