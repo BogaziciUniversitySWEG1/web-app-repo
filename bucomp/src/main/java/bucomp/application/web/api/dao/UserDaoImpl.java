@@ -85,9 +85,9 @@ public class UserDaoImpl implements UserDao {
 			existingUser.setLocation(user.getLocation());
 			existingUser.setCommunityoffers(user.getCommunityoffers());
 			existingUser.setCVLink(user.getCVLink());
+			existingUser.setPhotoLink(user.getPhotoLink());
 			existingUser.setEmail(user.getEmail());
 			existingUser.setHobbies(user.getHobbies());
-			existingUser.setLocation(user.getLocation());
 			existingUser.setMeetingattendants(user.getMeetingattendants());
 			existingUser.setName(user.getName());
 			existingUser.setPassword(user.getPassword());
