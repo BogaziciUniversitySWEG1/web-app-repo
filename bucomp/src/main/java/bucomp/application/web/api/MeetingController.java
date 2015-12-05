@@ -15,55 +15,52 @@ import bucomp.application.model.Community;
 import bucomp.application.model.Meeting;
 import bucomp.application.web.api.dao.CommunityDao;
 import bucomp.application.web.api.dao.CommunityDaoImpl;
+import bucomp.application.web.api.dao.MeetingDao;
+import bucomp.application.web.api.dao.MeetingDaoImpl;
 
 @RestController
 public class MeetingController {
-	
+
 	private CommunityDao communityDao = new CommunityDaoImpl();
-	
-	@RequestMapping(value = "/api/meetings/{communityId}", method = RequestMethod.GET, 
-			produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<Collection<Meeting>> getCommunityMeetings(
-			@PathVariable("communityId") Integer communityId) {
-		
+	private MeetingDao meetingDao = new MeetingDaoImpl();
+
+	@RequestMapping(value = "/api/meetings/{communityId}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<Collection<Meeting>> getCommunityMeetings(@PathVariable("communityId") Integer communityId) {
 		Community community = communityDao.getCommunityById(communityId);
-		
+
 		return new ResponseEntity<Collection<Meeting>>(community.getMeetings(), HttpStatus.OK);
 	}
-	
-	@RequestMapping(value = "/api/meetings/{communityId}", method = RequestMethod.POST, 
-			consumes = MediaType.APPLICATION_JSON_VALUE, 
-			produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<Meeting> createMeeting(
-			@PathVariable("communityId") Integer communityId, @RequestBody Meeting meeting) {
 
-		/**
-		 * TODO: To be implemented
-		 */
-		return new ResponseEntity<Meeting>(meeting, HttpStatus.NOT_IMPLEMENTED);
+	@RequestMapping(value = "/api/meetings/{communityId}", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<Meeting> createMeeting(@PathVariable("communityId") Integer communityId,
+			@RequestBody Meeting meeting) {
+
+		meeting = meetingDao.saveMeeting(meeting);
+		if (meeting == null) {
+			return new ResponseEntity<Meeting>(HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+
+		return new ResponseEntity<Meeting>(meeting, HttpStatus.CREATED);
 
 	}
 
-	@RequestMapping(value = "api/meetings/{id}", method = RequestMethod.PUT, 
-			consumes = MediaType.APPLICATION_JSON_VALUE, 
-			produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<Meeting> updateMeeting(
-			@RequestBody Meeting meeting) {
-		
-		/**
-		 * TODO: To be implemented
-		 */
-		return new ResponseEntity<Meeting>(meeting, HttpStatus.NOT_IMPLEMENTED);
+	@RequestMapping(value = "api/meetings/{id}", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<Meeting> updateMeeting(@RequestBody Meeting meeting) {
+		meeting = this.meetingDao.updateMeeting(meeting);
+
+		if (meeting == null) {
+			return new ResponseEntity<Meeting>(HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+
+		return new ResponseEntity<Meeting>(meeting, HttpStatus.CREATED);
 	}
 
 	@RequestMapping(value = "api/meetings/{id}", method = RequestMethod.DELETE)
-	public ResponseEntity<Meeting> deleteMeeting(
-			@PathVariable("id") Integer id) {
-		
-		/**
-		 * TODO: To be implemented
-		 */
-		return new ResponseEntity<Meeting>(HttpStatus.NOT_IMPLEMENTED);
+	public ResponseEntity<Meeting> deleteMeeting(@PathVariable("id") Integer id) {
+		if (meetingDao.deleteMeeting(id)) {
+			return new ResponseEntity<Meeting>(HttpStatus.OK);
+		}
+		return new ResponseEntity<Meeting>(HttpStatus.INTERNAL_SERVER_ERROR);
 	}
 
 }

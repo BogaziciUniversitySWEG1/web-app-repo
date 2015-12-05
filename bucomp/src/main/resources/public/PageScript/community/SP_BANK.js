@@ -6,93 +6,87 @@
             try {
                 $.ajax({
                     type: "GET",
-                    url: GLOBALS.ServiceParameter + "/communities/" + communityId,
+                    url: "api/communities/" + communityId,
                     contentType: "application/json; charset=utf-8",
                     success: function (msg) {
-                        if (msg == null) {
-                            if (typeof callback == 'function') {
-                                callback(null);
-                            }
+                      	if (msg == null) {
+                            callback(null);
                         }
-                        else{
+                        else if (GUI_HELPER.NOU(msg.status)) {
+                            callback_err(msg.status, 'Get communities');
+                        }
+                        else {
                             var _data = eval(msg);
                             callback(_data);
                         }
                     },
                     error: function (msg) {
-                        if (typeof callback_err == 'function') {
-                            callback_err(msg);
-                        }
+                        callback_err(msg.status, 'Get communities Fails. Reason: ' + (msg.statusText));
                     }
                 });
             }
             catch (err) {
-                if (typeof callback_err == 'function') {
-                    callback_err(err);
-                }
+                 callback_err(-2, 'Get communities Fails. Reason: ' + err.Description);
             }
         },
         GetCommunityMembers: function(communityId, callback, callback_err) {
             try {
                 $.ajax({
                     type: "GET",
-                    url: GLOBALS.ServiceParameter + "/communityMembers/" + communityId,
+                    url: "api/communityMembers/" + communityId,
                     contentType: "application/json; charset=utf-8",
                     success: function (msg) {
-                        if (msg == null) {
-                            if (typeof callback == 'function') {
-                                callback(null);
-                            }
+                      	if (msg == null) {
+                            callback(null);
                         }
-                        else{
+                        else if (GUI_HELPER.NOU(msg.status)) {
+                            callback_err(msg.status, 'Get community Members');
+                        }
+                        else {
                             var _data = eval(msg);
                             callback(_data);
                         }
                     },
                     error: function (msg) {
-                        if (typeof callback_err == 'function') {
-                            callback_err(msg);
-                        }
+                        callback_err(msg.status, 'Get communityMembers Fails. Reason: ' + (msg.statusText));
                     }
                 });
             }
             catch (err) {
-                if (typeof callback_err == 'function') {
-                    callback_err(err);
-                }
+                callback_err(msg.status, 'Get communityMembers Fails. Reason: ' + (msg.statusText));
             }
         },
-        JoinCommunity: function (communityId, userId, roleId, callback, callback_err) {
+        JoinCommunity: function (communityId, userId, roleId, callback, callback_err) { 
             try {
-                var form = new FormData();
-                form.append("communityId", communityId);
-                form.append("userId", userId);
-                form.append("roleId", roleId);
-
-                var settings = {
-                    "async": true,
-                    "crossDomain": true,
-                    "url": "http://localhost:8080/api/communityMembers",
-                    "method": "POST",
-                    "headers": {
-                        "cache-control": "no-cache",
-                        "postman-token": "38db6183-c7ee-1717-6ce3-e1e485ec518d"
+            	var obj= new Object; 
+            	obj.communityId=communityId;
+            	obj.userId=userId; 
+            	var json =JSON.stringify(obj);
+                $.ajax({
+                    type: "POST",
+                    url: "/api/communityRequests/", 
+                    data:json,
+					contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    success: function (msg) {
+                       if (msg == null) {
+                            callback(null);
+                        }
+                        else if (GUI_HELPER.NOU(msg.status)) {
+                            callback_err(msg.status, 'JoinCommunity');
+                        }
+                        else {
+                            var _data = eval(msg);
+                            callback(_data);
+                        }
                     },
-                    "processData": false,
-                    "contentType": false,
-                    "mimeType": "multipart/form-data",
-                    "data": form
-                }
-
-                $.ajax(settings).done(function (response) {
-                  callback(response);
+                    error: function (msg) {
+                        callback_err(msg.status, 'JoinCommunityFails. Reason: ' + (msg.statusText));
+                    }
                 });
-    
             }
-            catch(err) {
-                if (typeof callback_err == 'function') {
-                    callback_err(err);
-                }
+            catch (err) {
+                callback_err(-2, 'JoinCommunity Fails. Reason: ' + err.Description);
             }
         },
         GetCommunityTopics: function(communityId, callback, callback_err) {
