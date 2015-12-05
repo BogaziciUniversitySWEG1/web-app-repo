@@ -12,10 +12,12 @@ public class CommunityMemberDaoImpl implements CommunityMemberDao {
 	public Collection<Communitymember> getCommunityMembers(int communityId) {
 		try{
 			DatabaseServiceImpl.entitymanager.getTransaction().begin();
-			List<Communitymember> members = DatabaseServiceImpl.entitymanager.createQuery("SELECT c FROM Communitymember c where CommunityId=" + communityId).getResultList();
+			List<Communitymember> members = DatabaseServiceImpl.entitymanager.createQuery("SELECT c FROM Communitymember c where c.CommunityId=" + communityId).getResultList();
 			DatabaseServiceImpl.entitymanager.getTransaction().commit();			
 			return members;
-		} catch(Exception e) {
+		} catch(Exception e){
+			e.printStackTrace();
+			DatabaseServiceImpl.entitymanager.getTransaction().rollback();
 			return null;
 		}
 	}
@@ -30,6 +32,7 @@ public class CommunityMemberDaoImpl implements CommunityMemberDao {
 			return cm;
 		} catch(Exception e){
 			e.printStackTrace();
+			DatabaseServiceImpl.entitymanager.getTransaction().rollback();
 			return null;
 		}
 	}

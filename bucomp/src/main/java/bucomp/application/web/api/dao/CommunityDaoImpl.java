@@ -16,10 +16,16 @@ public class CommunityDaoImpl implements CommunityDao {
 	@Override
 	@SuppressWarnings("unchecked")
 	public Collection<Community> getAllCommunities() {
-		DatabaseServiceImpl.entitymanager.getTransaction().begin();
-		List<Community> clist = DatabaseServiceImpl.entitymanager.createQuery("SELECT c FROM Community c").getResultList();
-		DatabaseServiceImpl.entitymanager.getTransaction().commit();
-		return clist;
+		try{
+			DatabaseServiceImpl.entitymanager.getTransaction().begin();
+			List<Community> clist = DatabaseServiceImpl.entitymanager.createQuery("SELECT c FROM Community c").getResultList();
+			DatabaseServiceImpl.entitymanager.getTransaction().commit();
+			return clist;
+		} catch(Exception e){
+			e.printStackTrace();
+			DatabaseServiceImpl.entitymanager.getTransaction().rollback();
+			return null;
+		}
 	}
 
 	@Override
@@ -37,6 +43,7 @@ public class CommunityDaoImpl implements CommunityDao {
 			return c;
 		} catch(Exception e){
 			e.printStackTrace();
+			DatabaseServiceImpl.entitymanager.getTransaction().rollback();
 			return null;
 		}
 	}
@@ -62,15 +69,22 @@ public class CommunityDaoImpl implements CommunityDao {
 			return c;
 		} catch(Exception e){
 			e.printStackTrace();
+			DatabaseServiceImpl.entitymanager.getTransaction().rollback();
 			return null;
 		}
 	}
 
 	@Override
 	public void deleteCommunity(Community c) {
-		DatabaseServiceImpl.entitymanager.getTransaction().begin();
-		DatabaseServiceImpl.entitymanager.remove(c);
-		DatabaseServiceImpl.entitymanager.getTransaction().commit();	
+		try{
+			DatabaseServiceImpl.entitymanager.getTransaction().begin();
+			DatabaseServiceImpl.entitymanager.remove(c);
+			DatabaseServiceImpl.entitymanager.getTransaction().commit();				
+		} catch(Exception e){
+			e.printStackTrace();
+			DatabaseServiceImpl.entitymanager.getTransaction().rollback();
+			return;
+		}
 	}
 
 	@Override
@@ -87,10 +101,16 @@ public class CommunityDaoImpl implements CommunityDao {
 
 	@Override
 	public Collection<Community> searchCommunity(String key) {
-		DatabaseServiceImpl.entitymanager.getTransaction().begin();
-		List<Community> clist = DatabaseServiceImpl.entitymanager.createQuery("SELECT c FROM Community c where c.title like '%" + key + "%' or c.description like '%" + key + "%'").getResultList();
-		DatabaseServiceImpl.entitymanager.getTransaction().commit();
-		return clist;
+		try {
+			DatabaseServiceImpl.entitymanager.getTransaction().begin();
+			List<Community> clist = DatabaseServiceImpl.entitymanager.createQuery("SELECT c FROM Community c where c.title like '%" + key + "%' or c.description like '%" + key + "%'").getResultList();
+			DatabaseServiceImpl.entitymanager.getTransaction().commit();
+			return clist;			
+		} catch(Exception e){
+			e.printStackTrace();
+			DatabaseServiceImpl.entitymanager.getTransaction().rollback();
+			return null;
+		}
 	}
 	
 	

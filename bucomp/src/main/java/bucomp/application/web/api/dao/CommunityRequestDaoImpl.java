@@ -15,7 +15,9 @@ public class CommunityRequestDaoImpl implements CommunityRequestDao {
 			List<Communityrequest> crlist = DatabaseServiceImpl.entitymanager.createQuery("SELECT c FROM Communityrequest c").getResultList();
 			DatabaseServiceImpl.entitymanager.getTransaction().commit();			
 			return crlist;
-		} catch(Exception e) {
+		} catch(Exception e){
+			e.printStackTrace();
+			DatabaseServiceImpl.entitymanager.getTransaction().rollback();
 			return null;
 		}
 	}
@@ -36,6 +38,7 @@ public class CommunityRequestDaoImpl implements CommunityRequestDao {
 			return cr;
 		} catch(Exception e){
 			e.printStackTrace();
+			DatabaseServiceImpl.entitymanager.getTransaction().rollback();
 			return null;
 		}
 	}
@@ -54,6 +57,7 @@ public class CommunityRequestDaoImpl implements CommunityRequestDao {
 			return true;
 		} catch(Exception e){
 			e.printStackTrace();
+			DatabaseServiceImpl.entitymanager.getTransaction().rollback();
 			return false;
 		}
 	}
@@ -72,6 +76,7 @@ public class CommunityRequestDaoImpl implements CommunityRequestDao {
 			return true;
 		} catch(Exception e){
 			e.printStackTrace();
+			DatabaseServiceImpl.entitymanager.getTransaction().rollback();
 			return false;
 		}
 	}

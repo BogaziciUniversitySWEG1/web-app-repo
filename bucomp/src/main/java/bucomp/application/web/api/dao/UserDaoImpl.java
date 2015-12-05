@@ -9,15 +9,16 @@ public class UserDaoImpl implements UserDao {
 
 	@Override
 	public User saveUser(User user) {
-		
+
 		try {
 			DatabaseServiceImpl.entitymanager.getTransaction().begin();
 			DatabaseServiceImpl.entitymanager.persist(user);
 			DatabaseServiceImpl.entitymanager.flush();
-			DatabaseServiceImpl.entitymanager.getTransaction().commit();			
+			DatabaseServiceImpl.entitymanager.getTransaction().commit();
 			return user;
-		} catch(Exception e){
+		} catch (Exception e) {
 			e.printStackTrace();
+			DatabaseServiceImpl.entitymanager.getTransaction().rollback();
 			return null;
 		}
 	}
@@ -30,36 +31,56 @@ public class UserDaoImpl implements UserDao {
 
 	@Override
 	public User getUserById(Integer userId) {
-		try{
-			return DatabaseServiceImpl.entitymanager.find(User.class, userId);			
-		} catch(Exception e){
+		try {
+			return DatabaseServiceImpl.entitymanager.find(User.class, userId);
+		} catch (Exception e) {
 			return null;
 		}
 	}
-	
+
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<User> getAllUsers() {
-		
-		DatabaseServiceImpl.entitymanager.getTransaction().begin();
-		List<User> userList = DatabaseServiceImpl.entitymanager.createQuery("SELECT u FROM User u").getResultList();
-		DatabaseServiceImpl.entitymanager.getTransaction().commit();
-		return userList;
+		try {
+			DatabaseServiceImpl.entitymanager.getTransaction().begin();
+			List<User> userList = DatabaseServiceImpl.entitymanager
+					.createQuery("SELECT u FROM User u").getResultList();
+			DatabaseServiceImpl.entitymanager.getTransaction().commit();
+			return userList;
+		} catch (Exception e) {
+			e.printStackTrace();
+			DatabaseServiceImpl.entitymanager.getTransaction().rollback();
+			return null;
+		}
 	}
 
 	@SuppressWarnings("unchecked")
 	@Override
 	public Collection<User> searchUser(String key) {
-		DatabaseServiceImpl.entitymanager.getTransaction().begin();
-		List<User> userList = DatabaseServiceImpl.entitymanager.createQuery("SELECT u FROM User u where u.name like '%" + key + "%' or u.surname like '%" + key + "%' or u.email like '%" + key + "%' or u.location like '%" + key + "%' or u.hobbies like '%" + key + "%' ").getResultList();
-		DatabaseServiceImpl.entitymanager.getTransaction().commit();
-		return userList;
+		try {
+			DatabaseServiceImpl.entitymanager.getTransaction().begin();
+			List<User> userList = DatabaseServiceImpl.entitymanager
+					.createQuery(
+							"SELECT u FROM User u where u.name like '%" + key
+									+ "%' or u.surname like '%" + key
+									+ "%' or u.email like '%" + key
+									+ "%' or u.location like '%" + key
+									+ "%' or u.hobbies like '%" + key + "%' ")
+					.getResultList();
+			DatabaseServiceImpl.entitymanager.getTransaction().commit();
+			return userList;
+		} catch (Exception e) {
+			e.printStackTrace();
+			DatabaseServiceImpl.entitymanager.getTransaction().rollback();
+			return null;
+		}
 	}
 
 	@Override
 	public User updateUser(User user) {
 		try {
-			User existingUser = DatabaseServiceImpl.entitymanager.find(User.class, user.getUserId());
+			User existingUser = DatabaseServiceImpl.entitymanager.find(
+					User.class, user.getUserId());
 			DatabaseServiceImpl.entitymanager.getTransaction().begin();
 			existingUser.setLocation(user.getLocation());
 			existingUser.setCommunityoffers(user.getCommunityoffers());
@@ -72,23 +93,30 @@ public class UserDaoImpl implements UserDao {
 			existingUser.setPassword(user.getPassword());
 			existingUser.setSurname(user.getSurname());
 			existingUser.setUserroles(user.getUserroles());
-			
-			DatabaseServiceImpl.entitymanager.getTransaction().commit();			
+
+			DatabaseServiceImpl.entitymanager.getTransaction().commit();
 			return user;
-		} catch(Exception e){
+		} catch (Exception e) {
 			e.printStackTrace();
+			DatabaseServiceImpl.entitymanager.getTransaction().rollback();
 			return null;
 		}
 	}
 
 	@Override
 	public User getUserByEmail(String email) {
-		
-		DatabaseServiceImpl.entitymanager.getTransaction().begin();
-		User user = (User) DatabaseServiceImpl.entitymanager.createQuery("SELECT u FROM User u where u.email='" + email + "'").getSingleResult();
-		DatabaseServiceImpl.entitymanager.getTransaction().commit();
-		return user;
-		
+		try {
+			DatabaseServiceImpl.entitymanager.getTransaction().begin();
+			User user = (User) DatabaseServiceImpl.entitymanager.createQuery(
+					"SELECT u FROM User u where u.email='" + email + "'")
+					.getSingleResult();
+			DatabaseServiceImpl.entitymanager.getTransaction().commit();
+			return user;
+		} catch (Exception e) {
+			e.printStackTrace();
+			DatabaseServiceImpl.entitymanager.getTransaction().rollback();
+			return null;
+		}
 	}
 
 }

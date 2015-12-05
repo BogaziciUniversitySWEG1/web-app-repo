@@ -17,6 +17,7 @@ public class PostDaoImpl implements PostDao {
 			return post;
 		} catch(Exception e){
 			e.printStackTrace();
+			DatabaseServiceImpl.entitymanager.getTransaction().rollback();
 			return null;
 		}
 	}
