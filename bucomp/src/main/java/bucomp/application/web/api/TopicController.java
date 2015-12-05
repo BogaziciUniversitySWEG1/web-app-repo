@@ -1,5 +1,8 @@
 package bucomp.application.web.api;
 
+import java.util.Collection;
+import java.util.List;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -44,6 +47,21 @@ public class TopicController {
 			return new ResponseEntity<Topic>(HttpStatus.NO_CONTENT);
 		}
 		return new ResponseEntity<Topic>(topic, HttpStatus.OK);
+	}
+	
+	/**
+	 * This method can be used to retrieve topic list of a community
+	 * @param communityId
+	 * @return Collection<Topic>
+	 */
+	@RequestMapping(value = "/api/topics/communityTopics/{communityId}", method = RequestMethod.GET, 
+			produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<Collection<Topic>> getCommunityTopics(@PathVariable("communityId") Integer communityId) {
+		List<Topic> topics = dao.getCommunityTopics(communityId);
+		if (topics == null) {
+			return new ResponseEntity<Collection<Topic>>(HttpStatus.NO_CONTENT);
+		}
+		return new ResponseEntity<Collection<Topic>>(topics, HttpStatus.OK);
 	}
 
 

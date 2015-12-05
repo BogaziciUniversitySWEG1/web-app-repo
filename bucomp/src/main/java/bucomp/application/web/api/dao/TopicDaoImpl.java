@@ -1,5 +1,7 @@
 package bucomp.application.web.api.dao;
 
+import java.util.List;
+
 import bucomp.application.model.Topic;
 
 
@@ -26,6 +28,21 @@ public class TopicDaoImpl implements TopicDao {
 			return DatabaseServiceImpl.entitymanager.find(Topic.class, topicId);			
 		} catch(Exception e){
 			e.printStackTrace();
+			return null;
+		}
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Topic> getCommunityTopics(Integer communityId) {
+		try{
+			DatabaseServiceImpl.entitymanager.getTransaction().begin();
+			List<Topic> topics = DatabaseServiceImpl.entitymanager.createQuery("SELECT t FROM Topic t where t.CommunityId = " + communityId).getResultList();
+			DatabaseServiceImpl.entitymanager.getTransaction().commit();			
+			return topics;
+		} catch(Exception e){
+			e.printStackTrace();
+			DatabaseServiceImpl.entitymanager.getTransaction().rollback();
 			return null;
 		}
 	}
