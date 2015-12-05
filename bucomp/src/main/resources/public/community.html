@@ -35,24 +35,39 @@
                     <div class="togglenbtclass" id="menu-toggle" title="Menu" onclick="window.location='dashboard.html';">
                         <span class="screen-reader-text">Menu</span>
                     </div>
-                    <div class="togglenbtclass" id="search-toggle" title="Search">
+                    <div class="togglenbtclass" id="user-toggle" title="User">
                         <span class="screen-reader-text">User</span>
+                    </div>
+                    <div class="togglenbtclass" id="user-name-toggle" title="User">
+                        <span id="lblUserNameSurname"></span>
                     </div>
                 </div>
             </div>
         </header>
         <!-- #masthead -->
-        <div class="panel" id="search-toggle-nav">
-            <div class="search-wrapper">
-                <label>
-                    <span class="screen-reader-text">User Name:</span>
-                    <input class="search-field" name="q" placeholder="Email" type="email" value="" />
-                    <span class="screen-reader-text">Password:</span>
-                    <input class="search-field" name="q" placeholder="Password" type="password" value="" />
-                </label>
-                <input class="search-submit" type="button" value="Login" />
-                <input class="search-submit" type="button" value="Register" />
-            </div>
+        <div class="panel" id="search-toggle-nav" style="display: block;">
+            <div class="main-navigation" id="site-navigation" role="navigation">
+                <div class="bwraptopmenu">
+                    <ul>
+                        <li class="current_page_item"><a id="lnkProfile">My Profile</a></li>
+                        <li>
+                            <a href="#">Community</a>
+                            <ul class="children">
+                                <li><a id="lnkCreateCommunity">Create New Community</a></li>
+                                <li><a href="#">My Communities</a></li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="#">Meetings</a>
+                            <ul class="children">
+                                <li><a href="#">Upcoming Meetings</a></li>
+                                <li><a href="#">Past Meetings</a></li>
+                                <li><a href="#">Create New Meeting</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div><!-- #site-navigation -->
         </div>
         <div class="bwrapsite-content" id="bwrapcontent">
             <div class="content-area" id="primarybwrap">
@@ -168,13 +183,13 @@
             <div class="bwrapwidget-area" id="secondarybwrap" role="complementary">
                 <div class="sidebarbtop section" id="sidebarbtop">
                     <div class="widget PopularPosts" id="PopularPosts1">
-                        <input type="button" value="Join Community" class="submit-search" onclick="JoinCommunity();" />
+                        <input type="button" id="btnJoinCommunity" value="Join Community" class="submit-search" />
                     </div>
                     <div class="widget PopularPosts" id="PopularPosts1">
-                        <input type="button" value="Create Topic" class="submit-search" onclick="CreateTopic();" />
+                        <input type="button" id="btnCreateTopic" value="Create Topic" class="submit-search" />
                     </div>
                     <div class="widget PopularPosts" id="PopularPosts1">
-                        <input type="button" value="Create Meeting" class="submit-search" onclick="CreateMeeting();" />
+                        <input type="button" id="btnCreateMeeting" value="Create Meeting" class="submit-search" />
                     </div>
                     <div class="widget PopularPosts" id="PopularPosts1">
                         <h2>Upcoming Events</h2>
@@ -302,117 +317,9 @@
                 });
             }
             
-            function GetContent(){
-                var communityId = GetQueryStringValue("cid");
-                DESIGN.GetCommunity(communityId,FillPage,ErrorFnc);
-            }
-            
-            function FillPage(data){
-                $("#lblTitle").html(data.title);
-                $("#divDescription").html(data.description);
-                var d = new Date(data.creationDate);
-                var creationDateString = GUI_HELPER.GetDayName(d.getDay()) + ", " + GUI_HELPER.GetMonthName(d.getMonth()) 
-                    + " "+ d.getDate() + ", " + d.getFullYear();
-                $("#lblCommunityCreationDate").html(creationDateString);
-                $("#communityAuthor").html(data.user.name + " " + data.user.surname);
-                $("#communityAuthor").attr("href","ViewProfile.html?uid=" + data.user.userId);
-                
-                FillMembers(data);
-                FillMeetings(data);
-                
-            }
-            
-            function FillMembers(data){
-                $("#lblMemberCount").html(data.communitymembers.length);
-                for(var i = 0; i< data.communitymembers.length; i++){
-                    var nameSurname = data.communitymembers[i].user.name + " " + data.communitymembers[i].user.surname;
-                    var photoLink = "photos/" + data.communitymembers[i].user.photoLink;
-                    if(data.communitymembers[i].user.photoLink == null){
-                        photoLink = "images/man-icon.png";
-                    }
-                    $("#members").append(
-                        $("<li>").append(
-                            $("<img>")
-                                .attr("alt", nameSurname)
-                                .attr("title", nameSurname)
-                                .attr("class","communityMemberPic")
-                                .attr("src", photoLink)
-                                .attr("width","40")
-                                .attr("height","40")
-                                .attr("onclick","ViewUser(" + data.communitymembers[i].user.userId + ");")
-                        )
-                    );
-                }
-                
-                $("#members").append(
-                    $("<li>").append(
-                        $("<div>").attr("class","item-content").append(
-                            $("<div>").attr("class","item-snippet").append(
-                                $("<a>").attr("href","community.html?cid=1").html("See all members...")
-                            )
-                        )
-                    )
-                );
-            }
-            
-            function FillMeetings(data){
-                for(var i = 0; i < data.meetings.length; i++){
-                    var meetingDate = new Date(data.meetings[i].meetingDate);
-                    var meetingStr = GUI_HELPER.GetDayName(meetingDate.getDay()) + ", " 
-                        + GUI_HELPER.GetMonthName(meetingDate.getMonth()) + " " 
-                        + meetingDate.getDate() + ", "
-                        + meetingDate.getFullYear() + " at "
-                        + meetingDate.getHours() + ":" 
-                        + meetingDate.getMinutes() + " ("
-                        + data.meetings[i].timeZone + "), "
-                        + data.meetings[i].location;
-                    
-                    $("#meetings").append(
-                        $("<li>").append(
-                            $("<div>").attr("class","item-content").append(
-                                $("<div>").attr("class","item-snippet").append(meetingStr)
-                            ).append(
-                                $("<div>").attr("style","clear: both;")
-                            )
-                        )
-                    );
-                }
-                
-                $("#meetings").append(
-                    $("<li>").append(
-                        $("<div>").attr("class","item-content").append(
-                            $("<div>").attr("class","item-snippet").append(
-                                $("<a>").attr("href","meetinglist.html?cid=" + data.communityId).html("See all...")
-                            )
-                        )
-                    )
-                );
-            }
-            
-            function ErrorFnc(){
-                alert("An error has occured.");
-            }
-            
             $(window).on('load', navMenu);
-            $(window).on('load', GetContent);
+            $(window).on('load', DESIGN.GetContent);
         });
-        
-        function ViewUser(userId){
-            window.location = "ViewProfile.html?uid=" + userId;
-        }
-        
-        function JoinCommunity(){
-            alert("This part will be available on the 2nd demo.");
-        }
-        
-        function CreateTopic(){
-            var communityId = GetQueryStringValue("cid");
-            window.location = "createtopic.html?cid=" + communityId;
-        }
-        
-        function CreateMeeting(){
-            alert("This part will be available on the 2nd demo.");
-        }
     </script>
     
     <script src="PageScript/community/DESIGN.js" type="text/javascript"></script>

@@ -435,6 +435,36 @@
         GetMonthName: function(monthNumber){
             var months = ['January','February','March','April','May','June','July','August','September','October','November','December'];
             return months[monthNumber]; 
+        },
+        GetUserInfo: function(userId, callback, callback_err){
+            try {
+                $.ajax({
+                    type: "GET",
+                    url: "api/users/" + userId,
+                    contentType: "application/json; charset=utf-8",
+                    success: function (msg) {
+                        if (msg == null) {
+                            if (typeof callback == 'function') {
+                                callback(null);
+                            }
+                        }
+                        else{
+                            var _data = eval(msg);
+                            callback(_data);
+                        }
+                    },
+                    error: function (msg) {
+                        if (typeof callback_err == 'function') {
+                            callback_err(msg);
+                        }
+                    }
+                });
+            }
+            catch (err) {
+                if (typeof callback_err == 'function') {
+                    callback_err(err);
+                }
+            }
         }
     }
     if (!window.GUI_HELPER) { window.GUI_HELPER = GUI_HELPER; }
