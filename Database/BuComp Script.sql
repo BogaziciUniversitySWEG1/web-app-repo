@@ -482,20 +482,27 @@ DEFAULT CHARACTER SET = utf8;
 -- Table `BuComp`.`Topics`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `BuComp`.`Topics` (
-  `TopicId` INT(11) NOT NULL AUTO_INCREMENT,
-  `Title` VARCHAR(150) NULL DEFAULT NULL,
-  `Description` VARCHAR(1000) NULL DEFAULT NULL,
-  `CommunityId` INT(11) NOT NULL,
+  `TopicId` int(11) NOT NULL AUTO_INCREMENT,
+  `Title` varchar(150) DEFAULT NULL,
+  `Description` varchar(1000) DEFAULT NULL,
+  `CommunityId` int(11) NOT NULL,
+  `CreatorUserId` int(11) NOT NULL,
+  `CreationDate` datetime DEFAULT NULL,
   PRIMARY KEY (`TopicId`),
-  UNIQUE INDEX `TopicId_UNIQUE` (`TopicId` ASC),
-  INDEX `TP_01_idx` (`CommunityId` ASC),
-  CONSTRAINT `TP_01`
-    FOREIGN KEY (`CommunityId`)
-    REFERENCES `BuComp`.`Communities` (`CommunityId`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8;
+  UNIQUE KEY `TopicId_UNIQUE` (`TopicId`),
+  KEY `TP_01_idx` (`CommunityId`),
+  KEY `TP_02_idx` (`CreatorUserId`),
+  CONSTRAINT `TP_01` 
+	FOREIGN KEY (`CommunityId`) 
+    REFERENCES `Communities` (`CommunityId`) 
+    ON DELETE NO ACTION 
+    ON UPDATE NO ACTION,
+  CONSTRAINT `TP_02` 
+	FOREIGN KEY (`CreatorUserId`) 
+    REFERENCES `Users` (`UserId`) 
+    ON DELETE NO ACTION 
+    ON UPDATE NO ACTION
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
 
 -- -----------------------------------------------------
