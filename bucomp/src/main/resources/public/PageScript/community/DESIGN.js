@@ -6,6 +6,14 @@
     var DESIGN = { 
         GetContent: function() {
             var communityId = GetQueryStringValue("cid");
+            var uid = GetQueryStringValue("uid");
+            if (GUI_HELPER.NOU(uid)&& uid!= ""){
+            	GLOBALS.UserId=uid;
+            }
+            else{
+            	GLOBALS.UserId=-1;
+            }
+            
             DESIGN.GetCommunity(communityId,DESIGN.FillPage,DESIGN.GetCommunityError);
         },
         GetCommunity: function (communityId, callback, callback_err) {
@@ -16,34 +24,52 @@
             }
         },
         FillPage: function(data) {
-            $("#lblTitle").html(data.title);
-            $("#divDescription").html(data.description);
-            var d = new Date(data.creationDate);
-            var creationDateString = GUI_HELPER.GetDayName(d.getDay()) + ", " + GUI_HELPER.GetMonthName(d.getMonth()) 
-                + " "+ d.getDate() + ", " + d.getFullYear();
-            $("#lblCommunityCreationDate").html(creationDateString);
-            $("#communityAuthor").html(data.user.name + " " + data.user.surname);
-            $("#communityAuthor").attr("href","ViewProfile.html?uid=" + data.user.userId);
+        	if(GUI_HELPER.NOU(data)){
+	            $("#lblTitle").html(data.title);
+	            $("#divDescription").html(data.description);
+	            var d = new Date(data.creationDate);
+	            var creationDateString = GUI_HELPER.GetDayName(d.getDay()) + ", " + GUI_HELPER.GetMonthName(d.getMonth()) 
+	                + " "+ d.getDate() + ", " + d.getFullYear();
+	            $("#lblCommunityCreationDate").html(creationDateString);
+	            $("#communityAuthor").html(data.user.name + " " + data.user.surname);
+	            $("#communityAuthor").attr("href","ViewProfile.html?uid=" + data.user.userId);
+	            
+	            $("#btnCreateTopic").attr("onclick","DESIGN.RedirectToTopicCreation();");
+	            
+	            if(data.topicCreationType == 2){
+	                $("#btnCreateTopic").hide();
+	            }
+	            if(data.meetingCreationType == 2){
+	                $("#btnCreateMeeting").hide();
+	            }
             
-            $("#btnJoinCommunity").attr("onclick","DESIGN.JoinCommunityClicked(" + data.joinType + ");");
-            $("#btnCreateTopic").attr("onclick","DESIGN.RedirectToTopicCreation();");
-            
-            if(data.topicCreationType == 2){
-                $("#btnCreateTopic").hide();
             }
-            if(data.meetingCreationType == 2){
-                $("#btnCreateMeeting").hide();
-            }
-            
             var communityId = GetQueryStringValue("cid");
             var userId = GetQueryStringValue("uid");
-            
+         	if (GUI_HELPER.NOU(userId)&& userId!= ""){
+            	GLOBALS.UserId=userId;
+            }
+            else{
+            	GLOBALS.UserId=-1;
+            }
             SP_BANK.GetCommunityMembers(communityId, DESIGN.FillMembers, null);
-            GUI_HELPER.GetUserInfo(userId, DESIGN.FillUserInfo, null);
+            if(GLOBALS.UserId>-1){
+            	GUI_HELPER.GetUserInfo(GLOBALS.UserId, DESIGN.FillUserInfo, null);
+            	$("#btnJoinCommunity").attr("onclick","DESIGN.JoinCommunity();");
+            }
+            else{
+            	$("#btnJoinCommunity").attr("onclick","GUI_HELPER.ALERT('INFO','User cannot be found. Please Log in!',GUI_HELPER.WARNING);");
+            }	
         },
         FillMembers: function(data) {
+        if(GUI_HELPER.NOU(data)){
             $("#lblMemberCount").html(data.length);
+            GLOBALS.Members= data;
+            $("#btnJoinCommunity").attr("style","display:block;"); 
             for(var i = 0; i< data.length; i++){
+            	if (GLOBALS.UserId==data[i].user.userid ){
+            		$("#btnJoinCommunity").attr("style","display:none;");
+            	}
                 var nameSurname = data[i].user.name + " " + data[i].user.surname;
                 var photoLink = "photos/" + data[i].user.photoLink;
                 if(data[i].user.photoLink == null){
@@ -72,6 +98,9 @@
                     )
                 )
             );
+         }
+         else{
+         }   
         },
         FillMeetings: function(data) {
             for(var i = 0; i < data.meetings.length; i++){
@@ -138,11 +167,11 @@
             SP_BANK.JoinCommunity(userId, communityId, roleId, DESIGN.JoinSuccess, DESIGN.JoinError);
         },
         JoinSuccess: function(data) {
-            alert("Congratulations! You have been a member of the community.")
-            window.location = window.location;
+            GUI_HELPER.ALERT("Info","Your join request is sent to owner of the community. When the request is approved, you will be a member of the community",GUI_HELPER.INFO);
+            
         },
         JoinError: function(data) {
-          alert("An error has been occured. Please contact to community owner.");  
+        	GUI_HELPER.ALERT("Alert","An error has been occured. Please contact to community owner.",GUI_HELPER.WARNING);
         },
         ShowRequestModal: function() {
             
