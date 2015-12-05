@@ -30,7 +30,6 @@ public class Post implements Serializable {
 
 	private int associatedObjectId;
 
-	@Lob
 	private String post;
 
 	@Temporal(TemporalType.TIMESTAMP)

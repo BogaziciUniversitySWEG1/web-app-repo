@@ -38,28 +38,33 @@ public class PostDaoImpl implements PostDao {
 	}
 
 	@Override
-	public List<Post> getCommunityPosts() {
-		// TODO Auto-generated method stub
-		return null;
+	@SuppressWarnings("unchecked")
+	public List<Post> getSpecificPosts(int postTypeId, int associatedObjectId) {
+		try{
+			DatabaseServiceImpl.entitymanager.getTransaction().begin();
+			List<Post> posts = DatabaseServiceImpl.entitymanager.createQuery("SELECT p FROM Post p where p.postTypeId = " + postTypeId + " AND p.associatedObjectId =" + associatedObjectId).getResultList();
+			DatabaseServiceImpl.entitymanager.getTransaction().commit();			
+			return posts;
+		} catch(Exception e){
+			e.printStackTrace();
+			DatabaseServiceImpl.entitymanager.getTransaction().rollback();
+			return null;
+		}
 	}
 
 	@Override
-	public List<Post> getUserPosts() {
-		// TODO Auto-generated method stub
-		return null;
+	@SuppressWarnings("unchecked")
+	public List<Post> getUserPosts(int userId) {
+		try{
+			DatabaseServiceImpl.entitymanager.getTransaction().begin();
+			List<Post> posts = DatabaseServiceImpl.entitymanager.createQuery("SELECT p FROM Post p where p.userId = " + userId).getResultList();
+			DatabaseServiceImpl.entitymanager.getTransaction().commit();			
+			return posts;
+		} catch(Exception e){
+			e.printStackTrace();
+			DatabaseServiceImpl.entitymanager.getTransaction().rollback();
+			return null;
+		}
 	}
-
-	@Override
-	public List<Post> getMeetingPosts() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public Post updatePost(Post post) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
 
 }

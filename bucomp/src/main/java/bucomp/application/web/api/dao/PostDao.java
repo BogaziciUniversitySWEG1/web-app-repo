@@ -12,11 +12,7 @@ public interface PostDao {
 
 	public Post getPostById(Integer postId);
 
-	public List<Post> getCommunityPosts();
+	public List<Post> getUserPosts(int userId);
 
-	public List<Post> getUserPosts();
-
-	public List<Post> getMeetingPosts();
-
-	public Post updatePost(Post post);
+	public List<Post> getSpecificPosts(int postTypeId, int associatedObjectId);
 }
