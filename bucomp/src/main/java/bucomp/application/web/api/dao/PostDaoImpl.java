@@ -57,7 +57,7 @@ public class PostDaoImpl implements PostDao {
 	public List<Post> getUserPosts(int userId) {
 		try{
 			DatabaseServiceImpl.entitymanager.getTransaction().begin();
-			List<Post> posts = DatabaseServiceImpl.entitymanager.createQuery("SELECT p FROM Post p where p.userId = " + userId).getResultList();
+			List<Post> posts = DatabaseServiceImpl.entitymanager.createQuery("SELECT p FROM Post p where p.user.userId = " + userId).getResultList();
 			DatabaseServiceImpl.entitymanager.getTransaction().commit();			
 			return posts;
 		} catch(Exception e){
