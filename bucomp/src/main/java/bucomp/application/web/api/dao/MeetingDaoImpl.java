@@ -1,0 +1,117 @@
+package bucomp.application.web.api.dao;
+
+import java.util.List;
+
+import bucomp.application.model.Meeting;
+
+public class MeetingDaoImpl implements MeetingDao {
+
+	@Override
+	public Meeting saveMeeting(Meeting meeting) {
+		try {
+			DatabaseServiceImpl.entitymanager.getTransaction().begin();
+			DatabaseServiceImpl.entitymanager.persist(meeting);
+			DatabaseServiceImpl.entitymanager.flush();
+			DatabaseServiceImpl.entitymanager.getTransaction().commit();
+			return meeting;
+		} catch (Exception e) {
+			e.printStackTrace();
+			DatabaseServiceImpl.entitymanager.getTransaction().rollback();
+			return null;
+		}
+	}
+
+	@Override
+	public boolean deleteMeeting(Integer meetingId) {
+
+		Meeting meeting = this.getMeetingById(meetingId);
+		try {
+			DatabaseServiceImpl.entitymanager.getTransaction().begin();
+			DatabaseServiceImpl.entitymanager.remove(meeting);
+			DatabaseServiceImpl.entitymanager.flush();
+			DatabaseServiceImpl.entitymanager.getTransaction().commit();
+			return true;
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			DatabaseServiceImpl.entitymanager.getTransaction().rollback();
+			return false;
+		}
+	}
+
+	@Override
+	public Meeting getMeetingById(Integer meetingId) {
+		try {
+			return DatabaseServiceImpl.entitymanager.find(Meeting.class, meetingId);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+
+	@Override
+	@SuppressWarnings("unchecked")
+	public List<Meeting> getUserMeetings(int userId) {
+		try {
+			DatabaseServiceImpl.entitymanager.getTransaction().begin();
+			List<Meeting> meetings = DatabaseServiceImpl.entitymanager
+					.createQuery("SELECT m FROM Meeting m where m.user.userId = " + userId).getResultList();
+			DatabaseServiceImpl.entitymanager.getTransaction().commit();
+			return meetings;
+		} catch (Exception e) {
+			e.printStackTrace();
+			DatabaseServiceImpl.entitymanager.getTransaction().rollback();
+			return null;
+		}
+	}
+
+	@Override
+	public List<Meeting> getSpecificMeetings(int a, int b) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	@SuppressWarnings("unchecked")
+	public List<Meeting> getCommunityMeetings(Integer communityId) {
+		try {
+			DatabaseServiceImpl.entitymanager.getTransaction().begin();
+			// query to be updated
+			List<Meeting> meetings = DatabaseServiceImpl.entitymanager
+					.createQuery("SELECT m FROM Meeting m where m.user.userId = " + communityId).getResultList();
+			DatabaseServiceImpl.entitymanager.getTransaction().commit();
+			return meetings;
+		} catch (Exception e) {
+			e.printStackTrace();
+			DatabaseServiceImpl.entitymanager.getTransaction().rollback();
+			return null;
+		}
+	}
+
+	@Override
+	public Meeting updateMeeting(Meeting m) {
+		try {
+			Meeting existingMeeting = DatabaseServiceImpl.entitymanager.find(Meeting.class, m.getMeetingId());
+			DatabaseServiceImpl.entitymanager.getTransaction().begin();
+			existingMeeting.setCommunity(m.getCommunity());
+			existingMeeting.setDuration(m.getDuration());
+			existingMeeting.setIRCLink(m.getIRCLink());
+			existingMeeting.setLocation(m.getLocation());
+			existingMeeting.setMeetingattendants(m.getMeetingattendants());
+			existingMeeting.setMeetingDate(m.getMeetingDate());
+			existingMeeting.setMeetingnotes(m.getMeetingnotes());
+			existingMeeting.setMeetingresources(m.getMeetingresources());
+			existingMeeting.setMeetingroles(m.getMeetingroles());
+			existingMeeting.setMeetingtype(m.getMeetingtype());
+			existingMeeting.setTimeZone(m.getTimeZone());
+
+			DatabaseServiceImpl.entitymanager.getTransaction().commit();
+			return m;
+		} catch (Exception e) {
+			e.printStackTrace();
+			DatabaseServiceImpl.entitymanager.getTransaction().rollback();
+			return null;
+		}
+	}
+
+}
