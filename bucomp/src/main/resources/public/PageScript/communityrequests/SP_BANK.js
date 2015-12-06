@@ -38,7 +38,7 @@
                             callback(null);
                         }
                         else if (GUI_HELPER.NOU(msg.status)) {
-                            callback_err(msg.status, 'Get communities');
+                            callback_err(msg.status, 'GetUsers');
                         }
                         else {
                             var _data = eval(msg);
@@ -46,19 +46,19 @@
                         }
                     },
                     error: function (msg) {
-                        callback_err(msg.status, 'Get communities Fails. Reason: ' + (msg.statusText));
+                        callback_err(msg.status, 'Get Users Fails. Reason: ' + (msg.statusText));
                     }
                 });
             }
             catch (err) {
-                 callback_err(-2, 'Get communities Fails. Reason: ' + err.Description);
+                 callback_err(-2, 'Get Users Fails. Reason: ' + err.Description);
             }
         },
         GetCommunityRequest: function (communityId, callback, callback_err) {
             try {
                 $.ajax({
                     type: "GET",
-                    url: "/api/communityRequests", 
+                    url: "/api/communityRequests/"+communityId, 
                     contentType: "application/json; charset=utf-8",
                     dataType: "json",
                     success: function (msg) {
@@ -99,7 +99,7 @@
                             callback(null);
                         }
                         else if (GUI_HELPER.NOU(msg.status)) {
-                            callback_err(msg.status, 'GetCommunityRequest');
+                            callback_err(msg.status, 'ApproveRequest');
                         }
                         else {
                             var _data = eval(msg);
@@ -107,7 +107,7 @@
                         }
                     },
                     error: function (msg) {
-                        callback_err(msg.status, 'GetCommunityRequest Fails. Reason: ' + (msg.statusText));
+                        callback_err(msg.status, 'ApproveRequest Fails. Reason: ' + (msg.statusText));
                     }
                 });
             }
@@ -132,7 +132,7 @@
                             callback(null);
                         }
                         else if (GUI_HELPER.NOU(msg.status)) {
-                            callback_err(msg.status, 'GetCommunityRequest');
+                            callback_err(msg.status, 'DenyRequest');
                         }
                         else {
                             var _data = eval(msg);
@@ -140,12 +140,12 @@
                         }
                     },
                     error: function (msg) {
-                        callback_err(msg.status, 'GetCommunityRequest Fails. Reason: ' + (msg.statusText));
+                        callback_err(msg.status, 'DenyRequest Fails. Reason: ' + (msg.statusText));
                     }
                 });
             }
             catch (err) {
-               callback_err(msg.status, 'GetCommunityRequest Fails. Reason: ' + (err.statusText));
+               callback_err(msg.status, 'DenyRequest Fails. Reason: ' + (err.statusText));
             }
         } 
     }

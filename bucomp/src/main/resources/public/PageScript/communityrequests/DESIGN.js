@@ -125,7 +125,8 @@
 						} 
 						
 						var td_requestDate =  document.createElement('td');
-						td_requestDate.innerHTML=_data[i].requestDate;
+						var d = new Date(_data[i].requestDate);
+						td_requestDate.innerHTML=d.toLocaleDateString();
 						td_requestDate.setAttribute("id","d"+_data[i].requestDate); 
 						
 						tr.appendChild(td_communityRequestId);
