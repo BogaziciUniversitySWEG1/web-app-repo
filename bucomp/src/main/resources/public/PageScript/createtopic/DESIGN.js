@@ -21,6 +21,20 @@
         },
         SaveError: function(data) {
             alert("Error occured. Please contact to your system administrator.");
+        },
+        CANCEL: function() {
+            var communityId = GetQueryStringValue("cid");
+            var userId = GetQueryStringValue("uid");
+            var url = "community.html?cid=" + communityId + "&uid=" + userId;
+            window.location = url;
+        },
+        GetUserInfo: function() {
+            var userId = GetQueryStringValue("uid");
+            GUI_HELPER.GetUserInfo(userId, DESIGN.FillUserInfo, null);
+        },
+        FillUserInfo: function(data) {
+            var nameSurname = data.name + " " + data.surname;
+            $("#lblUserNameSurname").html(nameSurname);
         }
     } 
     
