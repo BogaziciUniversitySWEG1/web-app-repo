@@ -4,42 +4,34 @@
     var SP_BANK = {
         SAVE: function (title, description, communityId, userId, creationDate, callback, callback_err) {
             try {
-                var jsonObj = new Object;
-                jsonObj.title = title;
-                jsonObj.description = description;
-                jsonObj.communityId = communityId;
-                jsonObj.creatorUserId = userId;
-                jsonObj.creationDate = creationDate;
+                var form = new FormData();
+                form.append("title", title);
+                form.append("description", description);
+                form.append("communityId", communityId);
+                form.append("creatorUserId", userId);
                 
-                var jsonStr = JSON.stringify(jsonObj);
-                
-                $.ajax({
-                    type: "POST",
-                    url: GLOBALS.ServiceParameter + "/topics",
-                    data: jsonStr,
-                    contentType: "application/json; charset=utf-8",
-                    dataType: "json",
-                    success: function (msg) {
-                        if (msg == null) {
-                            if (typeof callback == 'function') {
-                                callback(null);
-                            }
-                        }
-                        else{
-                            var _data = eval(msg);
-                            callback(_data);
-                        }
+                var settings = {
+                    "async": true,
+                    "crossDomain": true,
+                    "url": "api/topics",
+                    "method": "POST",
+                    "headers": {
+                        "cache-control": "no-cache",
+                        "postman-token": "38db6183-c7ee-1717-6ce3-e1e485ec518d"
                     },
-                    error: function (msg) {
-                        if (typeof callback_err == 'function') {
-                            callback_err(-1, 'TEST');
-                        }
-                    }
+                    "processData": false,
+                    "contentType": false,
+                    "mimeType": "multipart/form-data",
+                    "data": form
+                }
+                
+                $.ajax(settings).done(function (response) {
+                    callback(response); 
                 });
             }
             catch (err) {
                 if (typeof callback_err == 'function') {
-                    callback_err(-2, 'TEST');
+                    callback_err(err);
                 }
             }
         } 

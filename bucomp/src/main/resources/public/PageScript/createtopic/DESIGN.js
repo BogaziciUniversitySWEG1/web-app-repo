@@ -15,7 +15,8 @@
         SaveSuccess: function(data) {
             var communityId = GetQueryStringValue("cid");
             var userId = GetQueryStringValue("uid");
-            var url = "topic.html?cid=" + communityId + "&uid=" + userId + "&tid=" + data.topicId;
+            jsonObj = JSON.parse(data);
+            var url = "topic.html?cid=" + communityId + "&uid=" + userId + "&tid=" + jsonObj.topicId;
             alert("Successfully saved. Redirecting to community page.");
             window.location = url;
         },
