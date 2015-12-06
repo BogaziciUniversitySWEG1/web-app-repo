@@ -83,7 +83,7 @@
                                                             <a id="communityAuthor" rel="author" title="author profile"></a>
                                                         </span>
                                                     </span>
-                                                    <span class="nbttags-links">
+                                                    <span class="nbttags-links" id="tagList">
                                                         <a href="community.html?cid=2" rel="tag">Graphic Design</a>,
                                                         <a href="community.html?cid=2" rel="tag">Motion Design</a>
                                                     </span>
@@ -120,10 +120,10 @@
                                                             <input type="text" id="txtCommentTitle" class="commentField" placeholder="Enter your title..." />
                                                         </div>
                                                         <div class="form-group">
-                                                            <textarea name="commentBody" rows="4" cols="50" id="commentBodyField" class="commentField" placeholder="Enter your comment..."></textarea>
+                                                            <textarea name="commentBody" rows="10" cols="50" id="commentBodyField" class="commentField" placeholder="Enter your comment..."></textarea>
                                                         </div>
                                                         <div class="form-group">
-                                                            <input type="button" class="search-submit" value="Publish" onclick="DESIGN.PostComment();" />
+                                                            <input type="button" class="search-submit" value="Post" onclick="DESIGN.PostComment();" />
                                                         </div>
                                                     </div>
                                                 </div>
@@ -141,6 +141,9 @@
                     <div class="sidebarbtop section" id="sidebarbtop">
                         <div class="widget PopularPosts" id="PopularPosts1">
                             <input type="button" value="Add Resource" class="submit-search" onclick="AddResource();" />
+                        </div>
+                        <div class="widget PopularPosts" id="PopularPosts2">
+                            <input type="button" value="Return to Community" class="submit-search" onclick="DESIGN.ReturnToCommunity();" />
                         </div>
                         <div class="widget PopularPosts" id="PopularPosts2">
                             <h2>Resources</h2>

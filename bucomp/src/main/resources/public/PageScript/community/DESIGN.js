@@ -52,7 +52,10 @@
             else{
             	GLOBALS.UserId=-1;
             }
+            
             SP_BANK.GetCommunityMembers(communityId, DESIGN.FillMembers, null);
+            SP_BANK.GetCommunityTopics(communityId, DESIGN.FillTopics, null);
+            
             if(GLOBALS.UserId>-1){
             	GUI_HELPER.GetUserInfo(GLOBALS.UserId, DESIGN.FillUserInfo, null);
             	$("#btnJoinCommunity").attr("onclick","DESIGN.JoinCommunity();");
@@ -61,46 +64,90 @@
             	$("#btnJoinCommunity").attr("onclick","GUI_HELPER.ALERT('INFO','User cannot be found. Please Log in!',GUI_HELPER.WARNING);");
             }	
         },
-        FillMembers: function(data) {
-        if(GUI_HELPER.NOU(data)){
-            $("#lblMemberCount").html(data.length);
-            GLOBALS.Members= data;
-            $("#btnJoinCommunity").attr("style","display:block;"); 
-            for(var i = 0; i< data.length; i++){
-            	if (GLOBALS.UserId==data[i].user.userid ){
-            		$("#btnJoinCommunity").attr("style","display:none;");
-            	}
-                var nameSurname = data[i].user.name + " " + data[i].user.surname;
-                var photoLink = "photos/" + data[i].user.photoLink;
-                if(data[i].user.photoLink == null){
-                    photoLink = "images/man-icon.png";
+        FillTopics: function(data) {
+            $("#topicList").html("");
+            for(var i=0; i< data.length; i++) {
+                var communityId = GetQueryStringValue("cid");
+                var userId = GetQueryStringValue("uid");
+                var topicId = data[i].topicId;
+                var topicUrl = "topic.html?cid=" + communityId + "&uid=" + userId + "&tid=" + topicId;
+                var topicDate = "";
+                if(data[i].creationDate != null) {
+                    var d = new Date(data[i].creationDate);
+                    topicDate = GUI_HELPER.GetDayName(d.getDay()) + ", " + GUI_HELPER.GetMonthName(d.getMonth()) 
+                        + " "+ d.getDate() + ", " + d.getFullYear();
                 }
-                $("#members").append(
+                var creatorName = "Emre Gürer";
+                var creatorUrl = "ViewProfile.html?uid=" + data[i].creatorUserId;
+                
+                $("#topicList").append(
                     $("<li>").append(
-                        $("<img>")
-                            .attr("alt", nameSurname)
-                            .attr("title", nameSurname)
-                            .attr("class","communityMemberPic")
-                            .attr("src", photoLink)
-                            .attr("width","40")
-                            .attr("height","40")
-                            .attr("onclick","DESIGN.ViewUser(" + data[i].user.userId + ");")
+                        $("<a>").attr("class","related-post-item-title").attr("title",data[i].title).attr("href",topicUrl).append(data[i].title)
+                    ).append(
+                        $("<span>").attr("class","related-post-item-summary").append(
+                            $("<span>").attr("class","related-post-item-summary-text").append(data[i].description)
+                        ).append(
+                            $("<span>").attr("style","display:block;clear:both;")
+                        )
+                    ).append(
+                        $("<footer>").attr("class","nbtentry-meta").append(
+                            $("<span>").attr("class","nbtpost-date").append(topicDate)
+                        ).append(
+                            $("<span>").attr("class","nbtbyline").append(
+                                $("<span>").append(
+                                    $("<a>").attr("href",creatorUrl).attr("rel","author").attr("title","author profile").append(creatorName)
+                                )
+                            )
+                        ).append(
+                            $("<span>").attr("class","nbttags-links").append(
+                                $("<a>").attr("rel","tag").append("Deneme Tag")
+                            )
+                        )
                     )
                 );
             }
+        },
+        FillMembers: function(data) {
+            if(GUI_HELPER.NOU(data)){
+                $("#lblMemberCount").html(data.length);
+                GLOBALS.Members= data;
+                $("#btnJoinCommunity").attr("style","display:block;"); 
+                for(var i = 0; i< data.length; i++){
+                    if (GLOBALS.UserId==data[i].user.userid ){
+                        $("#btnJoinCommunity").attr("style","display:none;");
+                    }
+                    var nameSurname = data[i].user.name + " " + data[i].user.surname;
+                    var photoLink = "photos/" + data[i].user.photoLink;
+                    if(data[i].user.photoLink == null){
+                        photoLink = "images/man-icon.png";
+                    }
+                    $("#members").append(
+                        $("<li>").append(
+                            $("<img>")
+                                .attr("alt", nameSurname)
+                                .attr("title", nameSurname)
+                                .attr("class","communityMemberPic")
+                                .attr("src", photoLink)
+                                .attr("width","40")
+                                .attr("height","40")
+                                .attr("onclick","DESIGN.ViewUser(" + data[i].user.userId + ");")
+                        )
+                    );
+                }
 
-            $("#members").append(
-                $("<li>").append(
-                    $("<div>").attr("class","item-content").append(
-                        $("<div>").attr("class","item-snippet").append(
-                            $("<a>").attr("href","community.html?cid=1").html("See all members...")
+                $("#members").append(
+                    $("<li>").append(
+                        $("<div>").attr("class","item-content").append(
+                            $("<div>").attr("class","item-snippet").append(
+                                $("<a>").attr("href","community.html?cid=1").html("See all members...")
+                            )
                         )
                     )
-                )
-            );
-         }
-         else{
-         }   
+                );
+             }
+             else{
+                 $("#lblMemberCount").html("0");
+             }   
         },
         FillMeetings: function(data) {
             for(var i = 0; i < data.meetings.length; i++){

@@ -71,4 +71,47 @@ public class MeetingDaoImpl implements MeetingDao {
 		return null;
 	}
 
+	@Override
+	@SuppressWarnings("unchecked")
+	public List<Meeting> getCommunityMeetings(Integer communityId) {
+		try {
+			DatabaseServiceImpl.entitymanager.getTransaction().begin();
+			// query to be updated
+			List<Meeting> meetings = DatabaseServiceImpl.entitymanager
+					.createQuery("SELECT m FROM Meeting m where m.user.userId = " + communityId).getResultList();
+			DatabaseServiceImpl.entitymanager.getTransaction().commit();
+			return meetings;
+		} catch (Exception e) {
+			e.printStackTrace();
+			DatabaseServiceImpl.entitymanager.getTransaction().rollback();
+			return null;
+		}
+	}
+
+	@Override
+	public Meeting updateMeeting(Meeting m) {
+		try {
+			Meeting existingMeeting = DatabaseServiceImpl.entitymanager.find(Meeting.class, m.getMeetingId());
+			DatabaseServiceImpl.entitymanager.getTransaction().begin();
+			existingMeeting.setCommunity(m.getCommunity());
+			existingMeeting.setDuration(m.getDuration());
+			existingMeeting.setIRCLink(m.getIRCLink());
+			existingMeeting.setLocation(m.getLocation());
+			existingMeeting.setMeetingattendants(m.getMeetingattendants());
+			existingMeeting.setMeetingDate(m.getMeetingDate());
+			existingMeeting.setMeetingnotes(m.getMeetingnotes());
+			existingMeeting.setMeetingresources(m.getMeetingresources());
+			existingMeeting.setMeetingroles(m.getMeetingroles());
+			existingMeeting.setMeetingtype(m.getMeetingtype());
+			existingMeeting.setTimeZone(m.getTimeZone());
+
+			DatabaseServiceImpl.entitymanager.getTransaction().commit();
+			return m;
+		} catch (Exception e) {
+			e.printStackTrace();
+			DatabaseServiceImpl.entitymanager.getTransaction().rollback();
+			return null;
+		}
+	}
+
 }

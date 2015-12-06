@@ -15,5 +15,9 @@ public interface MeetingDao {
 	public List<Meeting> getUserMeetings(int userId);
 
 	public List<Meeting> getSpecificMeetings(int a, int b);
+	
+	public List<Meeting> getCommunityMeetings(Integer communityId);
+
+	public Meeting updateMeeting(Meeting m);
 
 }

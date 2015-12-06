@@ -3,16 +3,21 @@ package bucomp.application.web.api;
 import java.util.Collection;
 import java.util.Date;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import bucomp.application.mail.SMTPMailSender;
 import bucomp.application.model.Communitymember;
 import bucomp.application.model.Communityrequest;
+import bucomp.application.web.api.dao.CommunityDao;
+import bucomp.application.web.api.dao.CommunityDaoImpl;
 import bucomp.application.web.api.dao.CommunityMemberDao;
 import bucomp.application.web.api.dao.CommunityMemberDaoImpl;
 import bucomp.application.web.api.dao.CommunityRequestDao;
@@ -22,16 +27,20 @@ import bucomp.application.web.api.dao.UserDaoImpl;
 
 @RestController
 public class CommunityRequestController {
+	
+	@Autowired
+	SMTPMailSender smtpMailSender;
 
 	private CommunityRequestDao dao = new CommunityRequestDaoImpl();	
 	private CommunityMemberDao cmDao = new CommunityMemberDaoImpl();
 	private UserDao udao = new UserDaoImpl();
+	private CommunityDao comDao = new CommunityDaoImpl();
 	
-	@RequestMapping(value = "/api/communityRequests", method = RequestMethod.GET, 
+	@RequestMapping(value = "/api/communityRequests/{communityId}", method = RequestMethod.GET, 
 			produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<Collection<Communityrequest>> getCommunityRequests() {
+	public ResponseEntity<Collection<Communityrequest>> getCommunityRequests(@PathVariable("communityId") Integer communityId) {
 		
-		Collection<Communityrequest> crs = dao.getAllCommunityRequests();
+		Collection<Communityrequest> crs = dao.getCommunityRequests(communityId);
 		if(crs==null || crs.size()==0){
 			return new ResponseEntity<Collection<Communityrequest>>(crs, HttpStatus.NO_CONTENT);
 		}
@@ -52,6 +61,12 @@ public class CommunityRequestController {
 		if (savedCommunityReq == null) {
 			return false;
 		}
+		//send email to community owner
+		StringBuilder text = new StringBuilder("User " + udao.getUserById(userId).getName() + " " + udao.getUserById(userId).getSurname()); 
+		text.append(" requested to join your community: " + comDao.getCommunityById(communityId).getTitle() + ".");
+		text.append("\n");
+		text.append("Please respond this request by approving or denying it.");
+		smtpMailSender.send(comDao.getCommunityById(communityId).getUser().getEmail(), "[PROJECT.BUCOMP] - Incoming Join Request", text.toString());
 		return true;
 	}
 	

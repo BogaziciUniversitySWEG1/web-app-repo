@@ -32,27 +32,42 @@
                     </div>
                 </div>
                 <div class="togglesnbtdiv">
-                    <div class="togglenbtclass" id="menu-toggle" title="Menu" onclick="window.location='index.html';">
+                    <div class="togglenbtclass" id="menu-toggle" title="Menu" onclick="window.location='dashboard.html';">
                         <span class="screen-reader-text">Menu</span>
                     </div>
-                    <div class="togglenbtclass" id="search-toggle" title="Search">
+                    <div class="togglenbtclass" id="user-toggle" title="User">
                         <span class="screen-reader-text">User</span>
+                    </div>
+                    <div class="togglenbtclass" id="user-name-toggle" title="User">
+                        <span id="lblUserNameSurname"></span>
                     </div>
                 </div>
             </div>
         </header>
         <!-- #masthead -->
-        <div class="panel" id="search-toggle-nav">
-            <div class="search-wrapper">
-                <label>
-                    <span class="screen-reader-text">User Name:</span>
-                    <input class="search-field" name="q" placeholder="Email" type="email" value="" />
-                    <span class="screen-reader-text">Password:</span>
-                    <input class="search-field" name="q" placeholder="Password" type="password" value="" />
-                </label>
-                <input class="search-submit" type="button" value="Login" />
-                <input class="search-submit" type="button" value="Register" />
-            </div>
+        <div class="panel" id="search-toggle-nav" style="display: block;">
+            <div class="main-navigation" id="site-navigation" role="navigation">
+                <div class="bwraptopmenu">
+                    <ul>
+                        <li class="current_page_item"><a id="lnkProfile">My Profile</a></li>
+                        <li>
+                            <a href="#">Community</a>
+                            <ul class="children">
+                                <li><a id="lnkCreateCommunity">Create New Community</a></li>
+                                <li><a href="#">My Communities</a></li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="#">Meetings</a>
+                            <ul class="children">
+                                <li><a href="#">Upcoming Meetings</a></li>
+                                <li><a href="#">Past Meetings</a></li>
+                                <li><a href="#">Create New Meeting</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div><!-- #site-navigation -->
         </div>
         <div class="bwrapsite-content" id="bwrapcontent">
             <div class="content-area" id="primarybwrap">
@@ -79,7 +94,8 @@
                                                         <textarea id="txtDescription" class="form-control" rows="10"></textarea>
                                                     </div>
                                                     <div class="form-group">
-                                                        <input type="button" value="Create" class="search-submit" onclick="SaveTopic();" />
+                                                        <input type="button" value="Create" class="search-submit" onclick="DESIGN.SAVE();" />
+                                                        <input type="button" value="Cancel" class="search-submit" onclick="DESIGN.CANCEL();" />
                                                     </div>
                                                     <div style="clear: both;"></div>
                                                 </div>
@@ -153,23 +169,8 @@
             }
 
             $(window).on('load', navMenu);
+            $(window).on('load', DESIGN.GetUserInfo);
         });
-        
-        function SaveTopic(){
-            var title = $("#txtTitle").val();
-            var description = $("#txtDescription").val();
-            var communityId = GetQueryStringValue("cid");
-            DESIGN.SAVE(title, description, communityId, SaveSuccess, SaveError);
-    	}
-        
-        function SaveSuccess(msg){
-            alert("Successfully saved. Redirecting to community page.");
-            window.location = "topic.html?cid=1&tid=" + msg.topicId;
-        }
-        
-        function SaveError(){
-            alert("Error occured. Please contact to your system administrator.")
-        }
     </script>
     
     <script src="PageScript/createtopic/DESIGN.js" type="text/javascript"></script>
