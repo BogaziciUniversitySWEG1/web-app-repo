@@ -4,8 +4,6 @@ import java.util.List;
 
 import javax.persistence.EntityTransaction;
 
-import org.springframework.beans.factory.annotation.Autowired;
-
 import bucomp.application.model.Meeting;
 
 public class MeetingDaoImpl implements MeetingDao {

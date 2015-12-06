@@ -5,8 +5,6 @@ import java.util.List;
 
 import javax.persistence.EntityTransaction;
 
-import org.springframework.beans.factory.annotation.Autowired;
-
 import bucomp.application.model.User;
 
 public class UserDaoImpl implements UserDao {
