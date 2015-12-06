@@ -17,10 +17,10 @@ public class Application {
 
 	public static void main(String[] args) {
 		SpringApplication.run(Application.class, args);
-//		DBPediaWS dpDbPediaWS = new DBPediaWS();
-//		List<DbpediaClassModel> ls = dpDbPediaWS.getCategories("Berlin,Adam");
-//		for (DbpediaClassModel d : ls) {
-//			System.out.println(d.getLabel() + " -- " + d.getUri());
-//		}
+		// DBPediaWS dpDbPediaWS = new DBPediaWS();
+		// List<DbpediaClassModel> ls = dpDbPediaWS.getCategories("Bogazici");
+		// for (DbpediaClassModel d : ls) {
+		// System.out.println(d.getLabel() + " -- " + d.getUri());
+		// }
 	}
 }

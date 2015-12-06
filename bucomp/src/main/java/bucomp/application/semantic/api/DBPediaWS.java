@@ -32,7 +32,7 @@ public class DBPediaWS {
 		for (int i = 0; i < tagList.length; i++) {
 			client = Client.create();
 			webResource = client.resource(
-					"http://lookup.dbpedia.org/api/search.asmx/PrefixSearch?QueryClass=&MaxHits=5&QueryString="
+					"http://localhost:1111/api/search/KeywordSearch?QueryString="
 					
 							+ tagList[i]);
 
