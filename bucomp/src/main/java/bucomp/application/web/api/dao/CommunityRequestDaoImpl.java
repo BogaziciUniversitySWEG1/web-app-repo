@@ -3,21 +3,25 @@ package bucomp.application.web.api.dao;
 import java.util.Collection;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
+
 import bucomp.application.model.Communityrequest;
 
 public class CommunityRequestDaoImpl implements CommunityRequestDao {
 
+	DatabaseServiceImpl dbService = new DatabaseServiceImpl();
+	
 	@Override
 	@SuppressWarnings("unchecked")
 	public Collection<Communityrequest> getCommunityRequests(int communityId) {
 		try{
-			DatabaseServiceImpl.entitymanager.getTransaction().begin();
-			List<Communityrequest> crlist = DatabaseServiceImpl.entitymanager.createQuery("SELECT c FROM Communityrequest c where c.CommunityId=" + communityId).getResultList();
-			DatabaseServiceImpl.entitymanager.getTransaction().commit();			
+			dbService.getEntitymanager().getTransaction().begin();
+			List<Communityrequest> crlist = dbService.getEntitymanager().createQuery("SELECT c FROM Communityrequest c where c.CommunityId=" + communityId).getResultList();
+			dbService.getEntitymanager().getTransaction().commit();			
 			return crlist;
 		} catch(Exception e){
 			e.printStackTrace();
-			DatabaseServiceImpl.entitymanager.getTransaction().rollback();
+			dbService.getEntitymanager().getTransaction().rollback();
 			return null;
 		}
 	}
@@ -25,14 +29,14 @@ public class CommunityRequestDaoImpl implements CommunityRequestDao {
 	@Override
 	public Communityrequest saveCommunityRequest(Communityrequest cr) {
 		try {
-			DatabaseServiceImpl.entitymanager.getTransaction().begin();
-			DatabaseServiceImpl.entitymanager.persist(cr);
-			DatabaseServiceImpl.entitymanager.flush();
-			DatabaseServiceImpl.entitymanager.getTransaction().commit();
+			dbService.getEntitymanager().getTransaction().begin();
+			dbService.getEntitymanager().persist(cr);
+			dbService.getEntitymanager().flush();
+			dbService.getEntitymanager().getTransaction().commit();
 			return cr;
 		} catch(Exception e){
 			e.printStackTrace();
-			DatabaseServiceImpl.entitymanager.getTransaction().rollback();
+			dbService.getEntitymanager().getTransaction().rollback();
 			return null;
 		}
 	}
@@ -40,18 +44,18 @@ public class CommunityRequestDaoImpl implements CommunityRequestDao {
 	@Override
 	public boolean approveCommunityRequest(int userId, int communityId) {
 		try {
-			Communityrequest existingCR = DatabaseServiceImpl.entitymanager.createQuery(
+			Communityrequest existingCR = dbService.getEntitymanager().createQuery(
 				    "SELECT c FROM Communityrequest c WHERE c.UserId = :userId AND c.CommunityId = :communityId",Communityrequest.class)
 				    .setParameter("userId", userId)
 				    .setParameter("communityId", communityId)
 				    .getSingleResult();
-			DatabaseServiceImpl.entitymanager.getTransaction().begin();
+			dbService.getEntitymanager().getTransaction().begin();
 			existingCR.setStatus(1);
-			DatabaseServiceImpl.entitymanager.getTransaction().commit();			
+			dbService.getEntitymanager().getTransaction().commit();			
 			return true;
 		} catch(Exception e){
 			e.printStackTrace();
-			DatabaseServiceImpl.entitymanager.getTransaction().rollback();
+			dbService.getEntitymanager().getTransaction().rollback();
 			return false;
 		}
 	}
@@ -59,18 +63,18 @@ public class CommunityRequestDaoImpl implements CommunityRequestDao {
 	@Override
 	public boolean denyCommunityRequest(int userId, int communityId) {
 		try {
-			Communityrequest existingCR = DatabaseServiceImpl.entitymanager.createQuery(
+			Communityrequest existingCR = dbService.getEntitymanager().createQuery(
 				    "SELECT c FROM Communityrequest c WHERE c.UserId = :userId AND c.CommunityId = :communityId",Communityrequest.class)
 				    .setParameter("userId", userId)
 				    .setParameter("communityId", communityId)
 				    .getSingleResult();
-			DatabaseServiceImpl.entitymanager.getTransaction().begin();
+			dbService.getEntitymanager().getTransaction().begin();
 			existingCR.setStatus(2);
-			DatabaseServiceImpl.entitymanager.getTransaction().commit();			
+			dbService.getEntitymanager().getTransaction().commit();			
 			return true;
 		} catch(Exception e){
 			e.printStackTrace();
-			DatabaseServiceImpl.entitymanager.getTransaction().rollback();
+			dbService.getEntitymanager().getTransaction().rollback();
 			return false;
 		}
 	}

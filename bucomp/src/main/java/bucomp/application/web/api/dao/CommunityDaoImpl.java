@@ -3,11 +3,15 @@ package bucomp.application.web.api.dao;
 import java.util.Collection;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
+
 import bucomp.application.model.Community;
 import bucomp.application.model.Communitymember;
 
 public class CommunityDaoImpl implements CommunityDao {
-
+	
+	DatabaseServiceImpl dbService = new DatabaseServiceImpl();
+	
 	@Override
 	public int getCommunityCount() {
 		return getAllCommunities().size();
@@ -17,33 +21,33 @@ public class CommunityDaoImpl implements CommunityDao {
 	@SuppressWarnings("unchecked")
 	public Collection<Community> getAllCommunities() {
 		try{
-			DatabaseServiceImpl.entitymanager.getTransaction().begin();
-			List<Community> clist = DatabaseServiceImpl.entitymanager.createQuery("SELECT c FROM Community c").getResultList();
-			DatabaseServiceImpl.entitymanager.getTransaction().commit();
+			dbService.getEntitymanager().getTransaction().begin();
+			List<Community> clist = dbService.getEntitymanager().createQuery("SELECT c FROM Community c").getResultList();
+			dbService.getEntitymanager().getTransaction().commit();
 			return clist;
 		} catch(Exception e){
 			e.printStackTrace();
-			DatabaseServiceImpl.entitymanager.getTransaction().rollback();
+			dbService.getEntitymanager().getTransaction().rollback();
 			return null;
 		}
 	}
 
 	@Override
 	public Community getCommunityById(int id) {
-		return DatabaseServiceImpl.entitymanager.find(Community.class, id);
+		return dbService.getEntitymanager().find(Community.class, id);
 	}
 
 	@Override
 	public Community saveCommunity(Community c) {
 		try {
-			DatabaseServiceImpl.entitymanager.getTransaction().begin();
-			DatabaseServiceImpl.entitymanager.persist(c);
-			DatabaseServiceImpl.entitymanager.flush();
-			DatabaseServiceImpl.entitymanager.getTransaction().commit();			
+			dbService.getEntitymanager().getTransaction().begin();
+			dbService.getEntitymanager().persist(c);
+			dbService.getEntitymanager().flush();
+			dbService.getEntitymanager().getTransaction().commit();			
 			return c;
 		} catch(Exception e){
 			e.printStackTrace();
-			DatabaseServiceImpl.entitymanager.getTransaction().rollback();
+			dbService.getEntitymanager().getTransaction().rollback();
 			return null;
 		}
 	}
@@ -51,8 +55,8 @@ public class CommunityDaoImpl implements CommunityDao {
 	@Override
 	public Community updateCommunity(Community c) {
 		try {
-			Community existingC = DatabaseServiceImpl.entitymanager.find(Community.class, c.getCommunityId());
-			DatabaseServiceImpl.entitymanager.getTransaction().begin();
+			Community existingC = dbService.getEntitymanager().find(Community.class, c.getCommunityId());
+			dbService.getEntitymanager().getTransaction().begin();
 			existingC.setAccessType(c.getAccessType());
 			existingC.setCommunityoffers(c.getCommunityoffers());
 			existingC.setCreationDate(c.getCreationDate());
@@ -65,11 +69,11 @@ public class CommunityDaoImpl implements CommunityDao {
 			existingC.setTitle(c.getTitle());
 			existingC.setUser(c.getUser());
 			
-			DatabaseServiceImpl.entitymanager.getTransaction().commit();			
+			dbService.getEntitymanager().getTransaction().commit();			
 			return c;
 		} catch(Exception e){
 			e.printStackTrace();
-			DatabaseServiceImpl.entitymanager.getTransaction().rollback();
+			dbService.getEntitymanager().getTransaction().rollback();
 			return null;
 		}
 	}
@@ -77,12 +81,12 @@ public class CommunityDaoImpl implements CommunityDao {
 	@Override
 	public void deleteCommunity(Community c) {
 		try{
-			DatabaseServiceImpl.entitymanager.getTransaction().begin();
-			DatabaseServiceImpl.entitymanager.remove(c);
-			DatabaseServiceImpl.entitymanager.getTransaction().commit();				
+			dbService.getEntitymanager().getTransaction().begin();
+			dbService.getEntitymanager().remove(c);
+			dbService.getEntitymanager().getTransaction().commit();				
 		} catch(Exception e){
 			e.printStackTrace();
-			DatabaseServiceImpl.entitymanager.getTransaction().rollback();
+			dbService.getEntitymanager().getTransaction().rollback();
 			return;
 		}
 	}
@@ -99,16 +103,17 @@ public class CommunityDaoImpl implements CommunityDao {
 		
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public Collection<Community> searchCommunity(String key) {
 		try {
-			DatabaseServiceImpl.entitymanager.getTransaction().begin();
-			List<Community> clist = DatabaseServiceImpl.entitymanager.createQuery("SELECT c FROM Community c where c.title like '%" + key + "%' or c.description like '%" + key + "%'").getResultList();
-			DatabaseServiceImpl.entitymanager.getTransaction().commit();
+			dbService.getEntitymanager().getTransaction().begin();
+			List<Community> clist = dbService.getEntitymanager().createQuery("SELECT c FROM Community c where c.title like '%" + key + "%' or c.description like '%" + key + "%'").getResultList();
+			dbService.getEntitymanager().getTransaction().commit();
 			return clist;			
 		} catch(Exception e){
 			e.printStackTrace();
-			DatabaseServiceImpl.entitymanager.getTransaction().rollback();
+			dbService.getEntitymanager().getTransaction().rollback();
 			return null;
 		}
 	}

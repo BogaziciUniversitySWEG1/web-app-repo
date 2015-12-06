@@ -2,39 +2,49 @@ package bucomp.application.web.api.dao;
 
 import java.util.List;
 
+import javax.persistence.EntityTransaction;
+
+import org.springframework.beans.factory.annotation.Autowired;
+
 import bucomp.application.model.Meeting;
 
 public class MeetingDaoImpl implements MeetingDao {
+	
+	DatabaseServiceImpl dbService = new DatabaseServiceImpl();
 
 	@Override
 	public Meeting saveMeeting(Meeting meeting) {
+		EntityTransaction etx = null;
 		try {
-			DatabaseServiceImpl.entitymanager.getTransaction().begin();
-			DatabaseServiceImpl.entitymanager.persist(meeting);
-			DatabaseServiceImpl.entitymanager.flush();
-			DatabaseServiceImpl.entitymanager.getTransaction().commit();
+			etx = dbService.getEntitymanager().getTransaction();
+			etx.begin();
+			dbService.getEntitymanager().persist(meeting);
+			dbService.getEntitymanager().flush();
+			etx.commit();
 			return meeting;
 		} catch (Exception e) {
 			e.printStackTrace();
-			DatabaseServiceImpl.entitymanager.getTransaction().rollback();
+			if(etx!=null)
+				etx.rollback();
 			return null;
 		}
 	}
 
 	@Override
 	public boolean deleteMeeting(Integer meetingId) {
-
+		EntityTransaction etx = null;
 		Meeting meeting = this.getMeetingById(meetingId);
 		try {
-			DatabaseServiceImpl.entitymanager.getTransaction().begin();
-			DatabaseServiceImpl.entitymanager.remove(meeting);
-			DatabaseServiceImpl.entitymanager.flush();
-			DatabaseServiceImpl.entitymanager.getTransaction().commit();
+			etx = dbService.getEntitymanager().getTransaction();
+			etx.begin();
+			dbService.getEntitymanager().remove(meeting);
+			dbService.getEntitymanager().flush();
+			etx.commit();
 			return true;
-
 		} catch (Exception e) {
 			e.printStackTrace();
-			DatabaseServiceImpl.entitymanager.getTransaction().rollback();
+			if(etx!=null)
+				etx.rollback();
 			return false;
 		}
 	}
@@ -42,7 +52,7 @@ public class MeetingDaoImpl implements MeetingDao {
 	@Override
 	public Meeting getMeetingById(Integer meetingId) {
 		try {
-			return DatabaseServiceImpl.entitymanager.find(Meeting.class, meetingId);
+			return dbService.getEntitymanager().find(Meeting.class, meetingId);
 		} catch (Exception e) {
 			e.printStackTrace();
 			return null;
@@ -52,15 +62,18 @@ public class MeetingDaoImpl implements MeetingDao {
 	@Override
 	@SuppressWarnings("unchecked")
 	public List<Meeting> getUserMeetings(int userId) {
+		EntityTransaction etx = null;
 		try {
-			DatabaseServiceImpl.entitymanager.getTransaction().begin();
-			List<Meeting> meetings = DatabaseServiceImpl.entitymanager
+			etx = dbService.getEntitymanager().getTransaction();
+			etx.begin();
+			List<Meeting> meetings = dbService.getEntitymanager()
 					.createQuery("SELECT m FROM Meeting m where m.user.userId = " + userId).getResultList();
-			DatabaseServiceImpl.entitymanager.getTransaction().commit();
+			etx.commit();
 			return meetings;
 		} catch (Exception e) {
 			e.printStackTrace();
-			DatabaseServiceImpl.entitymanager.getTransaction().rollback();
+			if(etx!=null)
+				etx.rollback();
 			return null;
 		}
 	}
@@ -74,25 +87,30 @@ public class MeetingDaoImpl implements MeetingDao {
 	@Override
 	@SuppressWarnings("unchecked")
 	public List<Meeting> getCommunityMeetings(Integer communityId) {
+		EntityTransaction etx = null;
 		try {
-			DatabaseServiceImpl.entitymanager.getTransaction().begin();
+			etx = dbService.getEntitymanager().getTransaction();
+			etx.begin();
 			// query to be updated
-			List<Meeting> meetings = DatabaseServiceImpl.entitymanager
+			List<Meeting> meetings = dbService.getEntitymanager()
 					.createQuery("SELECT m FROM Meeting m where m.user.userId = " + communityId).getResultList();
-			DatabaseServiceImpl.entitymanager.getTransaction().commit();
+			etx.commit();
 			return meetings;
 		} catch (Exception e) {
 			e.printStackTrace();
-			DatabaseServiceImpl.entitymanager.getTransaction().rollback();
+			if(etx!=null)
+				etx.rollback();
 			return null;
 		}
 	}
 
 	@Override
 	public Meeting updateMeeting(Meeting m) {
+		EntityTransaction etx = null;
 		try {
-			Meeting existingMeeting = DatabaseServiceImpl.entitymanager.find(Meeting.class, m.getMeetingId());
-			DatabaseServiceImpl.entitymanager.getTransaction().begin();
+			Meeting existingMeeting = dbService.getEntitymanager().find(Meeting.class, m.getMeetingId());
+			etx = dbService.getEntitymanager().getTransaction();
+			etx.begin();
 			existingMeeting.setCommunity(m.getCommunity());
 			existingMeeting.setDuration(m.getDuration());
 			existingMeeting.setIRCLink(m.getIRCLink());
@@ -105,11 +123,12 @@ public class MeetingDaoImpl implements MeetingDao {
 			existingMeeting.setMeetingtype(m.getMeetingtype());
 			existingMeeting.setTimeZone(m.getTimeZone());
 
-			DatabaseServiceImpl.entitymanager.getTransaction().commit();
+			etx.commit();
 			return m;
 		} catch (Exception e) {
 			e.printStackTrace();
-			DatabaseServiceImpl.entitymanager.getTransaction().rollback();
+			if(etx!=null)
+				etx.rollback();
 			return null;
 		}
 	}

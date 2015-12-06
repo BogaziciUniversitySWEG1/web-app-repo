@@ -3,22 +3,30 @@ package bucomp.application.web.api.dao;
 import java.util.Collection;
 import java.util.List;
 
+import javax.persistence.EntityTransaction;
+
+import org.springframework.beans.factory.annotation.Autowired;
+
 import bucomp.application.model.User;
 
 public class UserDaoImpl implements UserDao {
+	
+	DatabaseServiceImpl dbService = new DatabaseServiceImpl();
 
 	@Override
 	public User saveUser(User user) {
-
+		EntityTransaction etx = null;
 		try {
-			DatabaseServiceImpl.entitymanager.getTransaction().begin();
-			DatabaseServiceImpl.entitymanager.persist(user);
-			DatabaseServiceImpl.entitymanager.flush();
-			DatabaseServiceImpl.entitymanager.getTransaction().commit();
+			etx = dbService.getEntitymanager().getTransaction();
+			etx.begin();
+			dbService.getEntitymanager().persist(user);
+			dbService.getEntitymanager().flush();
+			etx.commit();
 			return user;
 		} catch (Exception e) {
 			e.printStackTrace();
-			DatabaseServiceImpl.entitymanager.getTransaction().rollback();
+			if(etx!=null)
+				etx.rollback();
 			return null;
 		}
 	}
@@ -32,7 +40,7 @@ public class UserDaoImpl implements UserDao {
 	@Override
 	public User getUserById(Integer userId) {
 		try {
-			return DatabaseServiceImpl.entitymanager.find(User.class, userId);
+			return dbService.getEntitymanager().find(User.class, userId);
 		} catch (Exception e) {
 			return null;
 		}
@@ -41,15 +49,18 @@ public class UserDaoImpl implements UserDao {
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<User> getAllUsers() {
+		EntityTransaction etx = null;
 		try {
-			DatabaseServiceImpl.entitymanager.getTransaction().begin();
-			List<User> userList = DatabaseServiceImpl.entitymanager
+			etx = dbService.getEntitymanager().getTransaction();
+			etx.begin();
+			List<User> userList = dbService.getEntitymanager()
 					.createQuery("SELECT u FROM User u").getResultList();
-			DatabaseServiceImpl.entitymanager.getTransaction().commit();
+			etx.commit();
 			return userList;
 		} catch (Exception e) {
 			e.printStackTrace();
-			DatabaseServiceImpl.entitymanager.getTransaction().rollback();
+			if(etx!=null)
+				etx.rollback();
 			return null;
 		}
 	}
@@ -57,9 +68,11 @@ public class UserDaoImpl implements UserDao {
 	@SuppressWarnings("unchecked")
 	@Override
 	public Collection<User> searchUser(String key) {
+		EntityTransaction etx = null;
 		try {
-			DatabaseServiceImpl.entitymanager.getTransaction().begin();
-			List<User> userList = DatabaseServiceImpl.entitymanager
+			etx = dbService.getEntitymanager().getTransaction();
+			etx.begin();
+			List<User> userList = dbService.getEntitymanager()
 					.createQuery(
 							"SELECT u FROM User u where u.name like '%" + key
 									+ "%' or u.surname like '%" + key
@@ -67,21 +80,24 @@ public class UserDaoImpl implements UserDao {
 									+ "%' or u.location like '%" + key
 									+ "%' or u.hobbies like '%" + key + "%' ")
 					.getResultList();
-			DatabaseServiceImpl.entitymanager.getTransaction().commit();
+			etx.commit();
 			return userList;
 		} catch (Exception e) {
 			e.printStackTrace();
-			DatabaseServiceImpl.entitymanager.getTransaction().rollback();
+			if(etx!=null)
+				etx.rollback();
 			return null;
 		}
 	}
 
 	@Override
 	public User updateUser(User user) {
+		EntityTransaction etx = null;
 		try {
-			User existingUser = DatabaseServiceImpl.entitymanager.find(
+			User existingUser = dbService.getEntitymanager().find(
 					User.class, user.getUserId());
-			DatabaseServiceImpl.entitymanager.getTransaction().begin();
+			etx = dbService.getEntitymanager().getTransaction();
+			etx.begin();
 			existingUser.setLocation(user.getLocation());
 			existingUser.setCommunityoffers(user.getCommunityoffers());
 			existingUser.setCVLink(user.getCVLink());
@@ -96,27 +112,31 @@ public class UserDaoImpl implements UserDao {
 			existingUser.setEducation(user.getEducation());
 			existingUser.setProfession(user.getProfession());
 
-			DatabaseServiceImpl.entitymanager.getTransaction().commit();
+			etx.commit();
 			return user;
 		} catch (Exception e) {
 			e.printStackTrace();
-			DatabaseServiceImpl.entitymanager.getTransaction().rollback();
+			if(etx!=null)
+				etx.rollback();
 			return null;
 		}
 	}
 
 	@Override
 	public User getUserByEmail(String email) {
+		EntityTransaction etx = null;
 		try {
-			DatabaseServiceImpl.entitymanager.getTransaction().begin();
-			User user = (User) DatabaseServiceImpl.entitymanager.createQuery(
+			etx = dbService.getEntitymanager().getTransaction();
+			etx.begin();
+			User user = (User) dbService.getEntitymanager().createQuery(
 					"SELECT u FROM User u where u.email='" + email + "'")
 					.getSingleResult();
-			DatabaseServiceImpl.entitymanager.getTransaction().commit();
+			etx.commit();
 			return user;
 		} catch (Exception e) {
 			e.printStackTrace();
-			DatabaseServiceImpl.entitymanager.getTransaction().rollback();
+			if(etx!=null)
+				etx.rollback();
 			return null;
 		}
 	}
