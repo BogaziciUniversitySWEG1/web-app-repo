@@ -86,6 +86,14 @@ public class CommunityController {
 			return new ResponseEntity<Community>(
 					HttpStatus.INTERNAL_SERVER_ERROR);
 		}
+		
+		//Insert a raw into community members table
+		Communitymember cm = new Communitymember();
+		cm.setCommunityId(community.getCommunityId());
+		cm.setRoleId(3);
+		cm.setUser(udao.getUserById(community.getUser().getUserId()));
+		cmDao.saveCommunityMember(cm);
+		
 		return new ResponseEntity<Community>(savedCommunity, HttpStatus.CREATED);
 	}
 
