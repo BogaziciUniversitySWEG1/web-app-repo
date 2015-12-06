@@ -28,7 +28,7 @@ public class CommunityRequestDaoImpl implements CommunityRequestDao {
 			DatabaseServiceImpl.entitymanager.getTransaction().begin();
 			DatabaseServiceImpl.entitymanager.persist(cr);
 			DatabaseServiceImpl.entitymanager.flush();
-			DatabaseServiceImpl.entitymanager.getTransaction().commit();			
+			DatabaseServiceImpl.entitymanager.getTransaction().commit();
 			return cr;
 		} catch(Exception e){
 			e.printStackTrace();

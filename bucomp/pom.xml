@@ -49,6 +49,12 @@
 			<artifactId>gson</artifactId>
 			<version>2.3.1</version>
 		</dependency>
+
+		<!-- mail dependencies -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-mail</artifactId>
+		</dependency>
 	</dependencies>
 
 	<properties>
