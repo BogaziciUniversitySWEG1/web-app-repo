@@ -51,21 +51,27 @@ public class CommunityRequestController {
 	@RequestMapping(value = "/api/communityRequests", method = RequestMethod.POST)
 	public boolean joinCommunity(
 			@RequestParam(value = "communityId") Integer communityId,
-			@RequestParam(value = "userId") Integer userId) {
+			@RequestParam(value = "userId") Integer userId,
+			@RequestParam(value = "explanation") String explanation) {
 		Communityrequest cr = new Communityrequest();
 		cr.setRequestDate(new Date());
 		cr.setUserId(userId);
 		cr.setCommunityId(communityId);
 		cr.setStatus(0);
+		cr.setExplanation(explanation);
 		Communityrequest savedCommunityReq = dao.saveCommunityRequest(cr);
 		if (savedCommunityReq == null) {
 			return false;
 		}
 		//send email to community owner
-		StringBuilder text = new StringBuilder("User " + udao.getUserById(userId).getName() + " " + udao.getUserById(userId).getSurname()); 
-		text.append(" requested to join your community: " + comDao.getCommunityById(communityId).getTitle() + ".");
-		text.append("\n");
-		text.append("Please respond this request by approving or denying it.");
+		StringBuilder text = new StringBuilder("Following join request is waiting for your action.");
+		text.append("\nUser\t: " + udao.getUserById(userId).getName() + " " + udao.getUserById(userId).getSurname()); 
+		text.append("\nCommunity\t: " + comDao.getCommunityById(communityId).getTitle());
+		text.append("\nExplanation\t:" + explanation);
+		text.append("\n\nPlease respond this request by approving or denying it.");
+		/**
+		 * TODO: approve and deny links may be inserted here.
+		 */
 		smtpMailSender.send(comDao.getCommunityById(communityId).getUser().getEmail(), "[PROJECT.BUCOMP] - Incoming Join Request", text.toString());
 		return true;
 	}

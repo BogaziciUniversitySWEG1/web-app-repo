@@ -90,7 +90,7 @@ public class CommunityController {
 		//Insert a raw into community members table
 		Communitymember cm = new Communitymember();
 		cm.setCommunityId(community.getCommunityId());
-		cm.setRoleId(3);
+		cm.setRoleId(3); // roles table - Communit Owner role
 		cm.setUser(udao.getUserById(community.getUser().getUserId()));
 		cmDao.saveCommunityMember(cm);
 		

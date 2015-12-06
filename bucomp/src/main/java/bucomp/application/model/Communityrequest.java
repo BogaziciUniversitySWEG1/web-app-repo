@@ -35,6 +35,8 @@ public class Communityrequest implements Serializable {
 	private int CommunityId;
 
 	private int UserId;
+	
+	private String explanation;
 
 	public Communityrequest() {
 	}
@@ -77,6 +79,14 @@ public class Communityrequest implements Serializable {
 
 	public void setUserId(int userId) {
 		UserId = userId;
+	}
+
+	public String getExplanation() {
+		return explanation;
+	}
+
+	public void setExplanation(String explanation) {
+		this.explanation = explanation;
 	}
 
 
