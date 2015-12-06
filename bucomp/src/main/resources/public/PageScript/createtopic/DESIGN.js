@@ -13,8 +13,11 @@
             SP_BANK.SAVE(title, description, communityId, userId, creationDate, DESIGN.SaveSuccess, DESIGN.SaveError);
         },
         SaveSuccess: function(data) {
+            var communityId = GetQueryStringValue("cid");
+            var userId = GetQueryStringValue("uid");
+            var url = "topic.html?cid=" + communityId + "&uid=" + userId + "&tid=" + data.topicId;
             alert("Successfully saved. Redirecting to community page.");
-            window.location = "topic.html?cid=1&tid=" + data.topicId;
+            window.location = url;
         },
         SaveError: function(data) {
             alert("Error occured. Please contact to your system administrator.");

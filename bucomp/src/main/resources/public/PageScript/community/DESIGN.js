@@ -108,45 +108,46 @@
             }
         },
         FillMembers: function(data) {
-        if(GUI_HELPER.NOU(data)){
-            $("#lblMemberCount").html(data.length);
-            GLOBALS.Members= data;
-            $("#btnJoinCommunity").attr("style","display:block;"); 
-            for(var i = 0; i< data.length; i++){
-            	if (GLOBALS.UserId==data[i].user.userid ){
-            		$("#btnJoinCommunity").attr("style","display:none;");
-            	}
-                var nameSurname = data[i].user.name + " " + data[i].user.surname;
-                var photoLink = "photos/" + data[i].user.photoLink;
-                if(data[i].user.photoLink == null){
-                    photoLink = "images/man-icon.png";
+            if(GUI_HELPER.NOU(data)){
+                $("#lblMemberCount").html(data.length);
+                GLOBALS.Members= data;
+                $("#btnJoinCommunity").attr("style","display:block;"); 
+                for(var i = 0; i< data.length; i++){
+                    if (GLOBALS.UserId==data[i].user.userid ){
+                        $("#btnJoinCommunity").attr("style","display:none;");
+                    }
+                    var nameSurname = data[i].user.name + " " + data[i].user.surname;
+                    var photoLink = "photos/" + data[i].user.photoLink;
+                    if(data[i].user.photoLink == null){
+                        photoLink = "images/man-icon.png";
+                    }
+                    $("#members").append(
+                        $("<li>").append(
+                            $("<img>")
+                                .attr("alt", nameSurname)
+                                .attr("title", nameSurname)
+                                .attr("class","communityMemberPic")
+                                .attr("src", photoLink)
+                                .attr("width","40")
+                                .attr("height","40")
+                                .attr("onclick","DESIGN.ViewUser(" + data[i].user.userId + ");")
+                        )
+                    );
                 }
+
                 $("#members").append(
                     $("<li>").append(
-                        $("<img>")
-                            .attr("alt", nameSurname)
-                            .attr("title", nameSurname)
-                            .attr("class","communityMemberPic")
-                            .attr("src", photoLink)
-                            .attr("width","40")
-                            .attr("height","40")
-                            .attr("onclick","DESIGN.ViewUser(" + data[i].user.userId + ");")
-                    )
-                );
-            }
-
-            $("#members").append(
-                $("<li>").append(
-                    $("<div>").attr("class","item-content").append(
-                        $("<div>").attr("class","item-snippet").append(
-                            $("<a>").attr("href","community.html?cid=1").html("See all members...")
+                        $("<div>").attr("class","item-content").append(
+                            $("<div>").attr("class","item-snippet").append(
+                                $("<a>").attr("href","community.html?cid=1").html("See all members...")
+                            )
                         )
                     )
-                )
-            );
-         }
-         else{
-         }   
+                );
+             }
+             else{
+                 $("#lblMemberCount").html("0");
+             }   
         },
         FillMeetings: function(data) {
             for(var i = 0; i < data.meetings.length; i++){

@@ -10,10 +10,13 @@
         }, 
         FillContent: function(data) {
             var topicId = GetQueryStringValue("tid");
+            var d = new Date(data.creationDate);
+            var creationDateString = GUI_HELPER.GetDayName(d.getDay()) + ", " + GUI_HELPER.GetMonthName(d.getMonth()) 
+	                + " "+ d.getDate() + ", " + d.getFullYear();
             $("#lblTitle").html(data.title);
             $("#divDescription").html(data.description);
             $("#communityAuthor").html("Emre Gürer");
-            $("#lblCommunityCreationDate").html("Tarih");
+            $("#lblCommunityCreationDate").html(creationDateString);
             SP_BANK.GetComments(topicId, DESIGN.FillComments, null);
         },
         PostComment: function() {
