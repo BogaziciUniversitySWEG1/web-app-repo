@@ -220,6 +220,10 @@
                 $("#btnAddResource").hide();
                 SP_BANK.CheckCommunityRequest(communityId, DESIGN.CheckCommunityRequest, null);
             }
+            
+            if(GLOBALS.isOwner == false) {
+                $("#btnRequests").hide();
+            }
         },
         CheckCommunityRequest: function(data) {
             var userId = GetQueryStringValue("uid");
@@ -298,6 +302,11 @@
             var userId = GetQueryStringValue("uid");
             var communityId = GetQueryStringValue("cid");
             window.location = "createmeeting.html?uid=" + userId + "&cid=" + communityId;
+        },
+        RedirectToCommunityRequests: function() {
+            var userId = GetQueryStringValue("uid");
+            var communityId = GetQueryStringValue("cid");
+            window.location = "communityrequests.html?uid=" + userId + "&cid=" + communityId;
         }
     } 
     if (!window.DESIGN) { window.DESIGN = DESIGN; }
