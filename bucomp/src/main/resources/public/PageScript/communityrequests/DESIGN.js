@@ -14,7 +14,7 @@
             	GLOBALS.UserId=-1;
             } 
          	 
-         	 
+            SP_BANK.GetCommunity(communityId,DESIGN.FillCommunity,GUI_HELPER.SERVICE_CALLBACK_ERR);
             SP_BANK.GetCommunityRequest(communityId,DESIGN.FillRequest,GUI_HELPER.SERVICE_CALLBACK_ERR);
             
             
@@ -23,9 +23,7 @@
         }, 
         FillCommunity: function(data) {
         	if(GUI_HELPER.NOU(data)){
-        	setTimeout(function(){
-        		document.getElementById('c'+data.communityId).innerHTML=data.description;
-        	},500); 
+                $("#lblTitle").html(data.title);
             } 
         }, 
         FillUser: function(data) {
@@ -54,29 +52,29 @@
 				
 				var th1= document.createElement('th');
 				th1.innerHTML="Request No";
-				 
-				var th3= document.createElement('th');
-				th3.innerHTML="Community";
 				
 				var th4= document.createElement('th');
 				th4.innerHTML="User";
+                 
+                 var th5 = document.createElement('th');
+                 th5.innerHTML = "Explanation";
 				
-				var th5= document.createElement('th');
-				th5.innerHTML="Request Date";
-				 
 				var th6= document.createElement('th');
-				th6.innerHTML="Status";
-				
-				
+				th6.innerHTML="Request Date";
+				 
 				var th7= document.createElement('th');
-				th7.innerHTML="Operation";
+				th7.innerHTML="Status";
 				
-				thead.appendChild(th1); 
-				thead.appendChild(th3);
+				
+				var th8= document.createElement('th');
+				th8.innerHTML="Operation";
+				
+				thead.appendChild(th1);
 				thead.appendChild(th4);
 				thead.appendChild(th5);
 				thead.appendChild(th6);
 				thead.appendChild(th7);
+                thead.appendChild(th8);
 				table.appendChild(thead);
 				
 				for(var i =0; i< _data.length; i++){
@@ -89,13 +87,7 @@
 						td_communityRequestId.innerHTML=_data[i].communityRequestId;
 						td_communityRequestId.setAttribute("id","i"+_data[i].communityRequestId);
 						
-						var td_communityId =  document.createElement('td');
-						//td_communityId.innerHTML= GLOBALS.Community[_data[i].communityId].description;
-						td_communityId.setAttribute("id","c"+_data[i].communityId);
-						var cid=_data[i].communityId;
-						 SP_BANK.GetCommunity(cid,DESIGN.FillCommunity,GUI_HELPER.SERVICE_CALLBACK_ERR);  
-						
-						
+                        
 						var td_userId =  document.createElement('td');
 						td_userId.innerHTML=_data[i].userId;
 						td_userId.setAttribute("id","u"+_data[i].userId);
@@ -123,6 +115,10 @@
 							td_opt.innerHTML="Denied";
 							td_status.innerHTML="<img style=\"width:20px;cursor: pointer;\" src=\"../../images/thick.png\" title=\"Approve\" onclick=\"DESIGN.SET_STATUS(1,"+_data[i].communityId+","+_data[i].userId+");\">";
 						} 
+                        
+                        var td_explanation = document.createElement('td');
+                        td_explanation.innerHTML = _data[i].explanation;
+                        td_explanation.setAttribute("id", "e" + _data[i].communityRequestId);
 						
 						var td_requestDate =  document.createElement('td');
 						var d = new Date(_data[i].requestDate);
@@ -130,8 +126,8 @@
 						td_requestDate.setAttribute("id","d"+_data[i].requestDate); 
 						
 						tr.appendChild(td_communityRequestId);
-						tr.appendChild(td_communityId);
 						tr.appendChild(td_userId);
+                        tr.appendChild(td_explanation);
 						tr.appendChild(td_requestDate); 
 						tr.appendChild(td_opt);
 						tr.appendChild(td_status);
