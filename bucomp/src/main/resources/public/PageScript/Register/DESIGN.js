@@ -1,4 +1,4 @@
-﻿/// <reference path="../CommonScripts/GUI_HELPER.js" />
+/// <reference path="../CommonScripts/GUI_HELPER.js" />
 /// <reference path="SP_BANK.js" />
 /// <reference path="GLOBALS.js" />
 
