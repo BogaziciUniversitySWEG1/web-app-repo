@@ -28,10 +28,10 @@
 		<class>bucomp.application.model.User</class>
 		<class>bucomp.application.model.Topic</class>
 		<properties>
-			<property name="javax.persistence.jdbc.password" value="root" />
-			<property name="javax.persistence.jdbc.user" value="root" />
+			<property name="javax.persistence.jdbc.password" value="qZi6wKzSta" />
+			<property name="javax.persistence.jdbc.user" value="sql498926" />
 			<property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver" />
-			<property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/bucomp" />
+			<property name="javax.persistence.jdbc.url" value="jdbc:mysql://sql4.freemysqlhosting.net:3306/sql498926" />
 			<property name="eclipselink.ddl-generation" value="none" />
 			<property name="eclipselink.logging.level" value="FINE" />
 			<property name="eclipselink.allow-zero-id" value="true"/>
