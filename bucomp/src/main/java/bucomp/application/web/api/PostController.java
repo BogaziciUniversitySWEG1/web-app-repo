@@ -32,7 +32,8 @@ public class PostController {
 	 * @param post
 	 * @return <Post>
 	 */
-	@RequestMapping(value = "/api/posts", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value = "/api/posts", method = RequestMethod.POST, 
+			produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Post> createNewPost(
 			@RequestParam(value = "post") String post,
 			@RequestParam(value = "postTypeId") Integer postTypeId,

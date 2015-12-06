@@ -4,9 +4,12 @@ import java.io.Serializable;
 import java.util.Date;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -33,7 +36,9 @@ public class Topic implements Serializable {
 
 	private int CommunityId;
 	
-	private int CreatorUserId;
+	@ManyToOne(fetch=FetchType.LAZY)
+	@JoinColumn(name="CreatorUserId")
+	private User user;
 	
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date creationDate;
@@ -74,20 +79,20 @@ public class Topic implements Serializable {
 		this.CommunityId = CommunityId;
 	}
 
-	public int getCreatorUserId() {
-		return CreatorUserId;
-	}
-
-	public void setCreatorUserId(int creatorUserId) {
-		CreatorUserId = creatorUserId;
-	}
-
 	public Date getCreationDate() {
 		return creationDate;
 	}
 
 	public void setCreationDate(Date creationDate) {
 		this.creationDate = creationDate;
+	}
+
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
 	}
 	
 }
