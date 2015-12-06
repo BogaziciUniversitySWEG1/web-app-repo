@@ -1,6 +1,10 @@
 ﻿(function () {
     var GLOBALS = {
-        Id: -1  
+        UserId: '',
+        CommunityId: '',
+        Hour:'',
+        Location: '',
+        Duration:'' 
     }
     if (!window.GLOBALS) { window.GLOBALS = GLOBALS; }
 })();
