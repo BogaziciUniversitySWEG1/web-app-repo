@@ -138,10 +138,13 @@
                         <input type="button" id="btnJoinCommunity" value="Join Community" class="submit-search" />
                     </div>
                     <div class="widget PopularPosts" id="PopularPosts1">
-                        <input type="button" id="btnCreateTopic" value="Create Topic" class="submit-search" />
+                        <input type="button" id="btnCreateTopic" value="Create Topic" class="submit-search" onclick="DESIGN.RedirectToTopicCreation();" />
                     </div>
                     <div class="widget PopularPosts" id="PopularPosts1">
-                        <input type="button" id="btnCreateMeeting" value="Create Meeting" class="submit-search" />
+                        <input type="button" id="btnCreateMeeting" value="Create Meeting" class="submit-search" onclick="DESIGN.RedirectToMeetingCreation();" />
+                    </div>
+                    <div class="widget PopularPosts" id="PopularPosts1">
+                        <input type="button" id="btnAddResource" value="Add Resource" class="submit-search" onclick="DESIGN.RedirectToResourceAddition();" />
                     </div>
                     <div class="widget PopularPosts" id="PopularPosts1">
                         <h2>Upcoming Events</h2>
@@ -277,5 +280,21 @@
     <script src="PageScript/community/DESIGN.js" type="text/javascript"></script>
     <script src="PageScript/community/GLOBALS.js" type="text/javascript"></script>
     <script src="PageScript/community/SP_BANK.js" type="text/javascript"></script>
+    
+    <div id="divRequest" style="display:none;">
+        <div class="post-body entry-content">
+            <div class="form-group">
+                <label for="txtExplanation">Joining to the community requires approval of the administrator. You can type your explanation.</label>
+            </div>
+            <div class="form-group">
+                <label for="txtExplanation">Explanation</label>
+                <textarea id="txtExplanation" cols="100" rows="10"></textarea>
+            </div>
+            <div class="form-group">
+                <input type="button" value="Send Request" class="search-submit" onclick="DESIGN.SendJoinRequest();" />
+                <input type="button" value="Cancel" class="search-submit" onclick="DESIGN.CancelJoinRequest();" />
+            </div>
+        </div>
+    </div>
 </body>
 </html>
