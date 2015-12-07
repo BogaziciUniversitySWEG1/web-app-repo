@@ -106,7 +106,6 @@ public class CommunityRequestController {
 			//send email to requestor
 			StringBuilder text = new StringBuilder("<html><body>");
 			text.append("Your join request for community \""+comDao.getCommunityById(communityId).getTitle()+"\" is approved.");
-			text.append("Please <a href=\"http://localhost:8080\">login</a> to see details of community.");
 			text.append("<br></body></html>");
 			smtpMailSender.send(udao.getUserById(userId).getEmail(), "[PROJECT.BUCOMP] - Join Request Approved", text.toString());
 			return true;
@@ -140,7 +139,6 @@ public class CommunityRequestController {
 			//send email to requestor
 			StringBuilder text = new StringBuilder("<html><body>");
 			text.append("Your join request for community \""+comDao.getCommunityById(communityId).getTitle()+"\" is denied.");
-			text.append("Please <a href=\"http://localhost:8080\">login</a> to check similar communities");
 			text.append("<br></body></html>");
 			smtpMailSender.send(udao.getUserById(userId).getEmail(), "[PROJECT.BUCOMP] - Join Request Approved", text.toString());
 		}
