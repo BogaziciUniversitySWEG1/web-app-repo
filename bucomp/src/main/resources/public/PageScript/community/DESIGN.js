@@ -253,7 +253,7 @@
         },
         CreateMeeting: function() {
             var communityId = GetQueryStringValue("cid");
-            window.location = "createmeeting.html?cid=" + communityId;
+            window.location = "createmeeeting.html?cid=" + communityId;
         },
         JoinCommunity: function() {
             var userId = GetQueryStringValue("uid");
@@ -301,7 +301,7 @@
         RedirectToMeetingCreation: function() {
             var userId = GetQueryStringValue("uid");
             var communityId = GetQueryStringValue("cid");
-            window.location = "createmeeting.html?uid=" + userId + "&cid=" + communityId;
+            window.location = "createmeeeting.html?uid=" + userId + "&cid=" + communityId;
         },
         RedirectToCommunityRequests: function() {
             var userId = GetQueryStringValue("uid");

@@ -35,7 +35,7 @@ public class MeetingController {
 		return new ResponseEntity<Collection<Meeting>>(community.getMeetings(), HttpStatus.OK);
 	}
 
-	@RequestMapping(value = "/api/meetings/{communityId}", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value = "/api/meetings/{communityId}", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Meeting> createMeeting(@PathVariable("communityId") Integer communityId,
 			@RequestParam(value = "userId") Integer userId,
 			@RequestParam(value = "communityIdToSave") Integer communityIdToSave,

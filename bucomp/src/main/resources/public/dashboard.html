@@ -64,7 +64,7 @@
                             <ul class="children">
                                 <li><a href="#">Upcoming Meetings</a></li>
                                 <li><a href="#">Past Meetings</a></li>
-                                <li><a href="#">Create New Meeting</a></li>
+                                <li><a href="" id="createnewmeeting">Create New Meeting</a></li>
                             </ul>
                         </li>
                     </ul>
@@ -317,6 +317,13 @@
                 $("#lnkProfile").attr("href","EditProfile.html?uid=" + userId);
             }
             
+            function GetCreateNewMeetingPage(){
+                var userId = GetQueryStringValue("uid");
+                var communityId = GetQueryStringValue("cid");
+                var link = "createmeeeting.html?uid=" + userId + "&cid=" +communityId;
+                $("#createnewmeeting").attr("href",link);
+            }
+            
             function GetContent(){
                 var userId = GetQueryStringValue("uid");
                 DESIGN.GetCommunitiesByUserId(userId,FillCommunities,ErrorFnc);
@@ -419,6 +426,7 @@
             $(window).on('load', navMenu);
             $(window).on('load', GetUser);
             $(window).on('load', GetContent);
+            $(window).on('load', GetCreateNewMeetingPage);
             //DESIGN ilk fonksiyon buradan çağır
         });
         
