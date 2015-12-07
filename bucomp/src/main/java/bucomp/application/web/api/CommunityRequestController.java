@@ -64,14 +64,16 @@ public class CommunityRequestController {
 			return false;
 		}
 		//send email to community owner
-		StringBuilder text = new StringBuilder("Following join request is waiting for your action.");
-		text.append("\nUser\t: " + udao.getUserById(userId).getName() + " " + udao.getUserById(userId).getSurname()); 
-		text.append("\nCommunity\t: " + comDao.getCommunityById(communityId).getTitle());
-		text.append("\nExplanation\t:" + explanation);
-		text.append("\n\nPlease respond this request by approving or denying it.");
-		/**
-		 * TODO: approve and deny links may be inserted here.
-		 */
+		StringBuilder text = new StringBuilder("<html><body>");
+		text.append("Following join request is waiting for your action.");
+		text.append("<br>Requestor : " + udao.getUserById(userId).getName() + " " + udao.getUserById(userId).getSurname()); 
+		text.append("<br>Community : " + comDao.getCommunityById(communityId).getTitle());
+		text.append("<br>Explanation :" + explanation);
+		text.append("<br><br>Please respond this request by ");
+		text.append("<a href=\"http://localhost:8080/api/communityRequests/approve?communityId="+communityId+"&userId="+userId+"\">approving</a> or ");
+		text.append("<a href=\"http://localhost:8080/api/communityRequests/deny?communityId="+communityId+"&userId="+userId+"\">denying</a> it.");
+		text.append("<br></body></html>");
+
 		smtpMailSender.send(comDao.getCommunityById(communityId).getUser().getEmail(), "[PROJECT.BUCOMP] - Incoming Join Request", text.toString());
 		return true;
 	}
@@ -86,7 +88,7 @@ public class CommunityRequestController {
 		Communitymember cm = new Communitymember();
 		cm.setCommunityId(communityId);
 		cm.setUser(udao.getUserById(userId));
-		cm.setRoleId(1);
+		cm.setRoleId(4); //community member role id in roles table
 		boolean step2 = cmDao.saveCommunityMember(cm) != null ? true : false;
 		
 		return step1 && step2;  
@@ -94,6 +96,32 @@ public class CommunityRequestController {
 	
 	@RequestMapping(value = "/api/communityRequests/deny", method = RequestMethod.POST)
 	public boolean denyCommunityRequest(
+			@RequestParam(value = "communityId") Integer communityId,
+			@RequestParam(value = "userId") Integer userId) {
+		
+		return dao.denyCommunityRequest(userId, communityId);
+		
+	}
+	
+	
+	@RequestMapping(value = "/api/communityRequests/approve", method = RequestMethod.GET)
+	public boolean approveCommunityRequestByEmail(
+			@RequestParam(value = "communityId") Integer communityId,
+			@RequestParam(value = "userId") Integer userId) {
+		//Update request status
+		boolean step1 = dao.approveCommunityRequest(userId, communityId);
+		//add to member list
+		Communitymember cm = new Communitymember();
+		cm.setCommunityId(communityId);
+		cm.setUser(udao.getUserById(userId));
+		cm.setRoleId(4); //community member role id in roles table
+		boolean step2 = cmDao.saveCommunityMember(cm) != null ? true : false;
+		
+		return step1 && step2;  
+	}
+	
+	@RequestMapping(value = "/api/communityRequests/deny", method = RequestMethod.GET)
+	public boolean denyCommunityRequestByEmail(
 			@RequestParam(value = "communityId") Integer communityId,
 			@RequestParam(value = "userId") Integer userId) {
 		
