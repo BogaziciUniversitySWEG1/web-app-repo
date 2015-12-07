@@ -182,7 +182,7 @@
 						
                 }
                 else {
-                    GUI_HELPER.ALERT(' GetCommunityRequest', 'not found', GUI_HELPER.INFO);
+                    GUI_HELPER.ALERT(' GetCommunityRequest', 'There is not a join request for this community!', GUI_HELPER.INFO);
                 }
             } catch (err) {
                 GUI_HELPER.ALERT('GetCommunityRequest', err, GUI_HELPER.ERROR);
