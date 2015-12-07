@@ -47,6 +47,7 @@
   
 				var _communityId=-1;		
 				var table= document.getElementById('tblRequests');
+                 table.innerHTML = "";
 				
 				var thead= document.createElement('thead');
 				

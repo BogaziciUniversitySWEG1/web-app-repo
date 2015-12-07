@@ -25,4 +25,6 @@ public interface CommunityDao {
 	
 	public Collection<Community> searchCommunity(String key);
 
+	public Collection<Community> getUserCommunities(int userId);
+
 }

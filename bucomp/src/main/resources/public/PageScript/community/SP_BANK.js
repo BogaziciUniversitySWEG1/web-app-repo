@@ -56,6 +56,33 @@
                 callback_err(msg.status, 'Get communityMembers Fails. Reason: ' + (msg.statusText));
             }
         },
+        GetCommunityMeetings: function(communityId, callback, callback_err) {
+            try {
+                $.ajax({
+                    type: "GET",
+                    url: "api/meetings/" + communityId,
+                    contentType: "application/json; charset=utf-8",
+                    success: function (msg) {
+                      	if (msg == null) {
+                            callback(null);
+                        }
+                        else if (GUI_HELPER.NOU(msg.status)) {
+                            callback_err(msg.status, 'Get community Meetings');
+                        }
+                        else {
+                            var _data = eval(msg);
+                            callback(_data);
+                        }
+                    },
+                    error: function (msg) {
+                        callback_err(msg.status, 'Get communityMeetings Fails. Reason: ' + (msg.statusText));
+                    }
+                });
+            }
+            catch (err) {
+                callback_err(msg.status, 'Get communityMembers Fails. Reason: ' + (msg.statusText));
+            }
+        },
         JoinCommunity: function (userId, communityId, roleId, callback, callback_err) { 
             try {
                 var form = new FormData();

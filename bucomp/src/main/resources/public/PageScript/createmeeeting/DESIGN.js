@@ -9,8 +9,13 @@
                 GLOBALS.Hour = $('#txtHour').val();
                 GLOBALS.Location = $('#txtLocation').val();
                 GLOBALS.Duration = $('#txtDuration').val();
+                GLOBALS.Date = $('#txtDate').val();
                 
-                if (GLOBALS.Hour == '') {
+                if (GLOBALS.Date == '') {
+                    GUI_HELPER.ALERT('Warning', 'Please fill the Hour area!', GUI_HELPER.ERROR);
+                    return;
+               
+                } else if (GLOBALS.Hour == '') {
                     GUI_HELPER.ALERT('Warning', 'Please fill the Hour area!', GUI_HELPER.ERROR);
                     return;
                
@@ -24,10 +29,13 @@
                     return;
                 }
                 
-                if($('#txtAllmembers').checked == ) {
-                	SP_BANK.GETCOMMUNITYMEMBERS(GLOBALS.CommunityId, DESIGN.GOT_COMMUNITY_MEMBERS, GUI_HELPER.SERVICE_CALLBACK_ERR);
-                }
-                
+                //if($('#txtAllmembers').checked == ) {
+                	//SP_BANK.GETCOMMUNITYMEMBERS(GLOBALS.CommunityId, DESIGN.GOT_COMMUNITY_MEMBERS, GUI_HELPER.SERVICE_CALLBACK_ERR);
+                //}
+                //GLOBALS.Members= data;
+            	GLOBALS.UserId = GetQueryStringValue("uid");
+                GLOBALS.CommunityId = GetQueryStringValue("cid");
+                SP_BANK.CREATEMEETING(DESIGN.CREATED_MEETING, GUI_HELPER.SERVICE_CALLBACK_ERR); 
                     
             } catch (err) {
                 GUI_HELPER.ALERT('Warning', err, GUI_HELPER.ERROR);
