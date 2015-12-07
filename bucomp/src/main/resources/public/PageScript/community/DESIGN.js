@@ -61,11 +61,16 @@
             
             SP_BANK.GetCommunityMembers(communityId, DESIGN.FillMembers, null);
             SP_BANK.GetCommunityMeetings(communityId, DESIGN.FillMeetings, null);
-            SP_BANK.GetCommunityTopics(communityId, DESIGN.FillTopics, null);	
-            GUI_HELPER.GetUserInfo(userId, DESIGN.FillUserInfo, null);
+            SP_BANK.GetCommunityTopics(communityId, DESIGN.FillTopics, null);
+            if(userId != "") {
+                GUI_HELPER.GetUserInfo(userId, DESIGN.FillUserInfo, null);
+            }
         },
         FillTopics: function(data) {
             $("#topicList").html("");
+            if(data == null) {
+                return;
+            }
             for(var i=0; i< data.length; i++) {
                 var communityId = GetQueryStringValue("cid");
                 var userId = GetQueryStringValue("uid");
@@ -113,29 +118,36 @@
                 GLOBALS.Members= data;
                 $("#btnJoinCommunity").attr("style","display:block;"); 
                 for(var i = 0; i< data.length; i++){
-                    if (GLOBALS.UserId==data[i].user.userId ){
+                    if (data[i].user != null && GLOBALS.UserId==data[i].user.userId ){
                         GLOBALS.isMember = true;
                         if(data[i].roleId == 3) {
                             GLOBALS.isOwner = true;
                         }
                     }
-                    var nameSurname = data[i].user.name + " " + data[i].user.surname;
-                    var photoLink = "photos/" + data[i].user.photoLink;
-                    if(data[i].user.photoLink == null){
-                        photoLink = "images/man-icon.png";
+                    
+                    if (data[i].user != null) {
+                        var nameSurname = data[i].user.name + " " + data[i].user.surname;
+                        var photoLink = "photos/" + data[i].user.photoLink;
+                        if(data[i].user.photoLink == null){
+                            photoLink = "images/man-icon.png";
+                        }
+                        
+                        $("#members").append(
+                            $("<li>").append(
+                                $("<img>")
+                                    .attr("alt", nameSurname)
+                                    .attr("title", nameSurname)
+                                    .attr("class","communityMemberPic")
+                                    .attr("src", photoLink)
+                                    .attr("width","40")
+                                    .attr("height","40")
+                                    .attr("onclick","DESIGN.ViewUser(" + data[i].user.userId + ");")
+                            )
+                        );
                     }
-                    $("#members").append(
-                        $("<li>").append(
-                            $("<img>")
-                                .attr("alt", nameSurname)
-                                .attr("title", nameSurname)
-                                .attr("class","communityMemberPic")
-                                .attr("src", photoLink)
-                                .attr("width","40")
-                                .attr("height","40")
-                                .attr("onclick","DESIGN.ViewUser(" + data[i].user.userId + ");")
-                        )
-                    );
+                    
+                    
+                    
                 }
 
                 $("#members").append(
@@ -155,6 +167,9 @@
             DESIGN.ShowHideButtons();
         },
         FillMeetings: function(data) {
+            if(data == null) {
+                return;
+            }
             for(var i = 0; i < data.length; i++){
                 var meetingDate = new Date(data[i].meetingDate);
                 var meetingStr = GUI_HELPER.GetDayName(meetingDate.getDay()) + ", " 
@@ -193,6 +208,7 @@
         },
         ShowHideButtons: function() {
             var communityId = GetQueryStringValue("cid");
+            var userId = GetQueryStringValue("uid");
             
             if(GLOBALS.canCreateTopic == false && !GLOBALS.isOwner) {
                 $("#btnCreateTopic").hide();
@@ -215,7 +231,12 @@
             if(GLOBALS.isMember == true) {
                 $("#btnJoinCommunity").hide();
             } else {
-                $("#btnJoinCommunity").show();
+                if(userId == "") {
+                    $("#btnJoinCommunity").hide();
+                } else {
+                    $("#btnJoinCommunity").show();
+                }
+                
                 $("#btnCreateTopic").hide();
                 $("#btnCreateMeeting").hide();
                 $("#btnAddResource").hide();

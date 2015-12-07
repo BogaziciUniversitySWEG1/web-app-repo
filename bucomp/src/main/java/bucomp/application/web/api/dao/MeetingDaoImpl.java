@@ -91,7 +91,7 @@ public class MeetingDaoImpl implements MeetingDao {
 			etx.begin();
 			// query to be updated
 			List<Meeting> meetings = dbService.getEntitymanager().createQuery(
-					"SELECT m FROM Meeting m where m.communityId = " + communityId + "order by m.meetingDate DESC")
+					"SELECT m FROM Meeting m where m.communityId = " + communityId + " order by m.meetingDate DESC")
 					.getResultList();
 			etx.commit();
 			return meetings;
