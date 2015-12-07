@@ -7,7 +7,7 @@ import javax.persistence.EntityTransaction;
 import bucomp.application.model.Meeting;
 
 public class MeetingDaoImpl implements MeetingDao {
-	
+
 	DatabaseServiceImpl dbService = new DatabaseServiceImpl();
 
 	@Override
@@ -22,7 +22,7 @@ public class MeetingDaoImpl implements MeetingDao {
 			return meeting;
 		} catch (Exception e) {
 			e.printStackTrace();
-			if(etx!=null)
+			if (etx != null)
 				etx.rollback();
 			return null;
 		}
@@ -41,7 +41,7 @@ public class MeetingDaoImpl implements MeetingDao {
 			return true;
 		} catch (Exception e) {
 			e.printStackTrace();
-			if(etx!=null)
+			if (etx != null)
 				etx.rollback();
 			return false;
 		}
@@ -70,7 +70,7 @@ public class MeetingDaoImpl implements MeetingDao {
 			return meetings;
 		} catch (Exception e) {
 			e.printStackTrace();
-			if(etx!=null)
+			if (etx != null)
 				etx.rollback();
 			return null;
 		}
@@ -90,13 +90,14 @@ public class MeetingDaoImpl implements MeetingDao {
 			etx = dbService.getEntitymanager().getTransaction();
 			etx.begin();
 			// query to be updated
-			List<Meeting> meetings = dbService.getEntitymanager()
-					.createQuery("SELECT m FROM Meeting m where m.communityId = " + communityId).getResultList();
+			List<Meeting> meetings = dbService.getEntitymanager().createQuery(
+					"SELECT m FROM Meeting m where m.communityId = " + communityId + "order by m.meetingDate DESC")
+					.getResultList();
 			etx.commit();
 			return meetings;
 		} catch (Exception e) {
 			e.printStackTrace();
-			if(etx!=null)
+			if (etx != null)
 				etx.rollback();
 			return null;
 		}
@@ -109,7 +110,7 @@ public class MeetingDaoImpl implements MeetingDao {
 			Meeting existingMeeting = dbService.getEntitymanager().find(Meeting.class, m.getMeetingId());
 			etx = dbService.getEntitymanager().getTransaction();
 			etx.begin();
-			//existingMeeting.setCommunity(m.getCommunity());
+			// existingMeeting.setCommunity(m.getCommunity());
 			existingMeeting.setDuration(m.getDuration());
 			existingMeeting.setIRCLink(m.getIRCLink());
 			existingMeeting.setLocation(m.getLocation());
@@ -125,7 +126,7 @@ public class MeetingDaoImpl implements MeetingDao {
 			return m;
 		} catch (Exception e) {
 			e.printStackTrace();
-			if(etx!=null)
+			if (etx != null)
 				etx.rollback();
 			return null;
 		}
