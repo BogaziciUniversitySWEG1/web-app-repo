@@ -1,9 +1,11 @@
 ﻿(function () {
     var GLOBALS = {
+    	ServiceParameter: "api",
         UserId: '',
         CommunityId: '',
         Hour:'',
         Location: '',
+        Date: '',
         Members: new Array() ,
         Duration:'' 
     }
