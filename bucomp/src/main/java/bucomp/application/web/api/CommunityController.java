@@ -40,6 +40,18 @@ public class CommunityController {
 		return new ResponseEntity<Integer>(dao.getCommunityCount(),
 				HttpStatus.OK);
 	}
+	
+	@RequestMapping(value = "/api/communities/userCommunities/{userId}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<Collection<Community>> getUserCommunities(
+			@PathVariable("userId") Integer userId) {
+		Collection<Community> communities = dao.getUserCommunities(userId);
+		if (communities == null || communities.size() == 0) {
+			return new ResponseEntity<Collection<Community>>(communities,
+					HttpStatus.NO_CONTENT);
+		}
+		return new ResponseEntity<Collection<Community>>(communities,
+				HttpStatus.OK);
+	}
 
 	// Get / Search communities
 	@RequestMapping(value = "/api/communities", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)

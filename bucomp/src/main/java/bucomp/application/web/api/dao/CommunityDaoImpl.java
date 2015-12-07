@@ -34,6 +34,24 @@ public class CommunityDaoImpl implements CommunityDao {
 			return null;
 		}
 	}
+	
+	@Override
+	@SuppressWarnings("unchecked")
+	public Collection<Community> getUserCommunities(int userId) {
+		EntityTransaction etx = null;
+		try{
+			etx = dbService.getEntitymanager().getTransaction();
+			etx.begin();
+			List<Community> clist = dbService.getEntitymanager().createQuery("SELECT c FROM Community c where c.user.userId="+userId).getResultList();
+			etx.commit();
+			return clist;
+		} catch(Exception e){
+			e.printStackTrace();
+			if(etx!=null)
+				etx.rollback();
+			return null;
+		}
+	}
 
 	@Override
 	public Community getCommunityById(int id) {
