@@ -6,7 +6,7 @@
             try {
                 $.ajax({
                     type: "GET",
-                    url: GLOBALS.ServiceParameter + "/communities/" + userId,
+                    url: GLOBALS.ServiceParameter + "/communities/userCommunities/" + userId,
                     contentType: "application/json; charset=utf-8",
                     success: function (msg) {
                         if (msg == null) {

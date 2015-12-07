@@ -280,7 +280,7 @@
                     //    photoLink = "images/man-icon.png";
                     //}
                     var title = data[i].title;
-                    var description = data[i].description;
+                    var description = data[i].description.substring(100);
                     var membercount = 5; // todo
                     var communitydetailpage = "community.html?cid=" + data[i].communityId;
                     $("#communityler").append('<div class="date-outer"><h2 class="date-header"><span>Sunday, September 5, 2010</span>'
