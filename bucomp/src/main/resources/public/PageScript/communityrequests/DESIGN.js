@@ -5,6 +5,46 @@
 (function () {
     var DESIGN = { 
     	GetContent: function() {
+    		GUI_HELPER.SET_LOADER("open");
+            var communityId = GetQueryStringValue("cid");
+            var uid = GetQueryStringValue("uid");
+            if (GUI_HELPER.NOU(uid)&& uid!= ""){
+            	GLOBALS.UserId=uid;
+            }
+            else{
+            	GLOBALS.UserId=-1;
+            } 
+         	$('#lnkCreateCommunity').attr('href','createcommunity.html?uid='+GLOBALS.UserId); 
+         	$('#lnkMyCommunity').attr('href','dashboard.html?uid='+GLOBALS.UserId);  
+         	$('#lnkCreateMeeting').attr('href','createmeeeting.html?uid='+GLOBALS.UserId); 
+         	$('#lnkProfile').attr('href','ViewProfile.html?uid='+GLOBALS.UserId); 
+            SP_BANK.GetCommunity(communityId,DESIGN.FillCommunity,GUI_HELPER.SERVICE_CALLBACK_ERR);
+            SP_BANK.GetCommunityRequest(communityId,DESIGN.FillRequest,GUI_HELPER.SERVICE_CALLBACK_ERR);
+            
+            
+         	 //SP_BANK.GetCommunity(communityId,DESIGN.FillCommunity,GUI_HELPER.SERVICE_CALLBACK_ERR); 
+         	 //SP_BANK.GetUsers(GLOBALS.UserId,DESIGN.FillUser,GUI_HELPER.SERVICE_CALLBACK_ERR);
+        }, 
+        GetContentCallBackApprove: function() {
+        	GUI_HELPER.ALERT('Info','Request is approved!',GUI_HELPER.INFO);	
+            var communityId = GetQueryStringValue("cid");
+            var uid = GetQueryStringValue("uid");
+            if (GUI_HELPER.NOU(uid)&& uid!= ""){
+            	GLOBALS.UserId=uid;
+            }
+            else{
+            	GLOBALS.UserId=-1;
+            } 
+         	 
+            SP_BANK.GetCommunity(communityId,DESIGN.FillCommunity,GUI_HELPER.SERVICE_CALLBACK_ERR);
+            SP_BANK.GetCommunityRequest(communityId,DESIGN.FillRequest,GUI_HELPER.SERVICE_CALLBACK_ERR);
+            
+            
+         	 //SP_BANK.GetCommunity(communityId,DESIGN.FillCommunity,GUI_HELPER.SERVICE_CALLBACK_ERR); 
+         	 //SP_BANK.GetUsers(GLOBALS.UserId,DESIGN.FillUser,GUI_HELPER.SERVICE_CALLBACK_ERR);
+        }, 
+        GetContentCallBackDeny: function() {
+        	GUI_HELPER.ALERT('Info','Request is denied!',GUI_HELPER.INFO);	
             var communityId = GetQueryStringValue("cid");
             var uid = GetQueryStringValue("uid");
             if (GUI_HELPER.NOU(uid)&& uid!= ""){
@@ -29,20 +69,23 @@
         FillUser: function(data) {
         	if(GUI_HELPER.NOU(data)){
 	          setTimeout(function(){
-	          	document.getElementById('u'+data.userId).innerHTML=data.name+' '+data.name+' ('+data.email+')' ;
+	          	document.getElementById('u'+data.userId).innerHTML=data.name+' '+data.surname+' ('+data.email+')' ;
 	          	},500); 
             } 
         }, 
         SET_STATUS: function(type,communityid,userid) {
         	 if(type==1){
-        	 	SP_BANK.ApproveRequest(communityid,userid,DESIGN.GetContent,GUI_HELPER.SERVICE_CALLBACK_ERR); 
+        		 GUI_HELPER.SET_LOADER("open");
+        	 	SP_BANK.ApproveRequest(communityid,userid,DESIGN.GetContentCallBackApprove,GUI_HELPER.SERVICE_CALLBACK_ERR); 
         	 }
         	 else if(type==2){
-        	 	SP_BANK.DenyRequest(communityid,userid,DESIGN.GetContent,GUI_HELPER.SERVICE_CALLBACK_ERR); 
+        		 GUI_HELPER.SET_LOADER("open");
+        	 	SP_BANK.DenyRequest(communityid,userid,DESIGN.GetContentCallBackDeny,GUI_HELPER.SERVICE_CALLBACK_ERR); 
         	 }
         },
         FillRequest: function (_data) {
             try {
+            	GUI_HELPER.SET_LOADER("close");
              if (GUI_HELPER.NOU(_data)) {
   
 				var _communityId=-1;		

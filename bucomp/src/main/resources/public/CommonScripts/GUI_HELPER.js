@@ -21,7 +21,7 @@
             }
             $.messager.alert(title, hata, type);
             if (type == GUI_HELPER.ERROR && GUI_HELPER.NOU(hata)) {
-
+            	//GUI_HELPER.SET_LOADER("open");
                 var _number = "";
                 if (GUI_HELPER.NOU(hata.number)) {
                     _number = hata.number.toString();
@@ -465,6 +465,21 @@
                     callback_err(err);
                 }
             }
+        },
+        SET_LOADER:function(type){
+        	try{
+        		if(document.getElementById('loadingDiv')){
+        			if(type=="open"){
+    					document.getElementById('loadingDiv').style.display="";
+        			}
+        			else{
+    					document.getElementById('loadingDiv').style.display="none";
+        			}
+        		}
+        	}
+        	 catch (e) {
+
+             }
         }
     }
     if (!window.GUI_HELPER) { window.GUI_HELPER = GUI_HELPER; }
