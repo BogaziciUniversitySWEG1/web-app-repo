@@ -19,7 +19,9 @@
                         }
                     },
                     error: function (msg) {
+                    	if(msg.statusText!="OK"){
                         callback_err(msg.status, 'Get communities Fails. Reason: ' + (msg.statusText));
+                    	}
                     }
                 });
             }
