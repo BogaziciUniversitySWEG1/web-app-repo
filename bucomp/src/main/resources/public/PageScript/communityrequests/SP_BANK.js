@@ -1,4 +1,4 @@
-﻿(function () {
+(function () {
     var SP_BANK = {
         GetCommunity: function (communityId, callback, callback_err) {
             try {
@@ -84,68 +84,60 @@
         } ,
         ApproveRequest: function (communityId,userid, callback, callback_err) {
             try {
-            	var obj= new Object; 
-            	obj.communityId=communityId;
-            	obj.userid=userid; 
-            	var json =JSON.stringify(obj);
-                $.ajax({
-                    type: "POST",
-                    url: "/api/communityRequests/approve", 
-                    contentType: "application/json; charset=utf-8",
-                    dataType: "json",
-                    data: json,
-                    success: function (msg) {
-                       if (msg == null) {
-                            callback(null);
-                        }
-                        else if (GUI_HELPER.NOU(msg.status)) {
-                            callback_err(msg.status, 'ApproveRequest');
-                        }
-                        else {
-                            var _data = eval(msg);
-                            callback(_data);
-                        }
+                var form = new FormData();
+                form.append("communityId", communityId);
+                form.append("userId", userid);
+                
+                var settings = {
+                    "async": true,
+                    "crossDomain": true,
+                    "url": "api/communityRequests/approve",
+                    "method": "POST",
+                    "headers": {
+                        "cache-control": "no-cache",
+                        "postman-token": "38db6183-c7ee-1717-6ce3-e1e485ec518d"
                     },
-                    error: function (msg) {
-                        callback_err(msg.status, 'ApproveRequest Fails. Reason: ' + (msg.statusText));
-                    }
+                    "processData": false,
+                    "contentType": false,
+                    "mimeType": "multipart/form-data",
+                    "data": form
+                }
+                
+                $.ajax(settings).done(function (response) {
+                    callback(response); 
                 });
             }
             catch (err) {
-               callback_err(msg.status, 'GetCommunityRequest Fails. Reason: ' + (msg.statusText));
+               callback_err(err);
             }
         } ,
         DenyRequest: function (communityId,userid, callback, callback_err) {
             try {
-            	var obj= new Object; 
-            	obj.communityId=communityId;
-            	obj.userId=userid; 
-            	var json =JSON.stringify(obj);
-                $.ajax({
-                    type: "POST",
-                    url: "api/communityRequests/deny", 
-                    contentType: "application/json; charset=utf-8",
-                    dataType: "json",
-                    data: json,
-                    success: function (msg) {
-                       if (msg == null) {
-                            callback(null);
-                        }
-                        else if (GUI_HELPER.NOU(msg.status)) {
-                            callback_err(msg.status, 'DenyRequest');
-                        }
-                        else {
-                            var _data = eval(msg);
-                            callback(_data);
-                        }
+                var form = new FormData();
+                form.append("communityId", communityId);
+                form.append("userId", userid);
+                
+                var settings = {
+                    "async": true,
+                    "crossDomain": true,
+                    "url": "api/communityRequests/deny",
+                    "method": "POST",
+                    "headers": {
+                        "cache-control": "no-cache",
+                        "postman-token": "38db6183-c7ee-1717-6ce3-e1e485ec518d"
                     },
-                    error: function (msg) {
-                        callback_err(msg.status, 'DenyRequest Fails. Reason: ' + (msg.statusText));
-                    }
+                    "processData": false,
+                    "contentType": false,
+                    "mimeType": "multipart/form-data",
+                    "data": form
+                }
+                
+                $.ajax(settings).done(function (response) {
+                    callback(response); 
                 });
             }
             catch (err) {
-               callback_err(msg.status, 'DenyRequest Fails. Reason: ' + (err.statusText));
+               callback_err(err);
             }
         } 
     }

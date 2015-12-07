@@ -60,6 +60,7 @@
             }
             
             SP_BANK.GetCommunityMembers(communityId, DESIGN.FillMembers, null);
+            SP_BANK.GetCommunityMeetings(communityId, DESIGN.FillMeetings, null);
             SP_BANK.GetCommunityTopics(communityId, DESIGN.FillTopics, null);	
             GUI_HELPER.GetUserInfo(userId, DESIGN.FillUserInfo, null);
         },
@@ -154,16 +155,16 @@
             DESIGN.ShowHideButtons();
         },
         FillMeetings: function(data) {
-            for(var i = 0; i < data.meetings.length; i++){
-                var meetingDate = new Date(data.meetings[i].meetingDate);
+            for(var i = 0; i < data.length; i++){
+                var meetingDate = new Date(data[i].meetingDate);
                 var meetingStr = GUI_HELPER.GetDayName(meetingDate.getDay()) + ", " 
                     + GUI_HELPER.GetMonthName(meetingDate.getMonth()) + " " 
                     + meetingDate.getDate() + ", "
                     + meetingDate.getFullYear() + " at "
                     + meetingDate.getHours() + ":" 
                     + meetingDate.getMinutes() + " ("
-                    + data.meetings[i].timeZone + "), "
-                    + data.meetings[i].location;
+                    + data[i].timeZone + "), "
+                    + data[i].location;
 
                 $("#meetings").append(
                     $("<li>").append(
