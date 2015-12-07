@@ -91,7 +91,7 @@ public class MeetingDaoImpl implements MeetingDao {
 			etx.begin();
 			// query to be updated
 			List<Meeting> meetings = dbService.getEntitymanager()
-					.createQuery("SELECT m FROM Meeting m where m.user.userId = " + communityId).getResultList();
+					.createQuery("SELECT m FROM Meeting m where m.communityId = " + communityId).getResultList();
 			etx.commit();
 			return meetings;
 		} catch (Exception e) {
@@ -109,7 +109,7 @@ public class MeetingDaoImpl implements MeetingDao {
 			Meeting existingMeeting = dbService.getEntitymanager().find(Meeting.class, m.getMeetingId());
 			etx = dbService.getEntitymanager().getTransaction();
 			etx.begin();
-			existingMeeting.setCommunity(m.getCommunity());
+			//existingMeeting.setCommunity(m.getCommunity());
 			existingMeeting.setDuration(m.getDuration());
 			existingMeeting.setIRCLink(m.getIRCLink());
 			existingMeeting.setLocation(m.getLocation());

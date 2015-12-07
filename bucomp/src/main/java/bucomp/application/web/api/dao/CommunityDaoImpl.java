@@ -71,7 +71,7 @@ public class CommunityDaoImpl implements CommunityDao {
 			existingC.setDescription(c.getDescription());
 			existingC.setJoinType(c.getJoinType());
 			existingC.setMeetingCreationType(c.getMeetingCreationType());
-			existingC.setMeetings(c.getMeetings());
+			//existingC.setMeetings(c.getMeetings());
 			existingC.setPostType(c.getPostType());
 			existingC.setResourceAdditionType(c.getResourceAdditionType());
 			existingC.setTitle(c.getTitle());

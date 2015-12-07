@@ -1,9 +1,20 @@
 package bucomp.application.model;
 
 import java.io.Serializable;
-import javax.persistence.*;
 import java.util.Date;
 import java.util.List;
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 
 /**
@@ -17,6 +28,7 @@ public class Meeting implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int meetingId;
 
 	private int duration;
@@ -46,10 +58,7 @@ public class Meeting implements Serializable {
 	@OneToMany(mappedBy="meeting")
 	private List<Meetingrole> meetingroles;
 
-	//bi-directional many-to-one association to Community
-	@ManyToOne
-	@JoinColumn(name="CommunityId")
-	private Community community;
+	private int communityId;
 
 	//bi-directional many-to-one association to Meetingtype
 	@ManyToOne
@@ -195,20 +204,20 @@ public class Meeting implements Serializable {
 		return meetingrole;
 	}
 
-	public Community getCommunity() {
-		return this.community;
-	}
-
-	public void setCommunity(Community community) {
-		this.community = community;
-	}
-
 	public Meetingtype getMeetingtype() {
 		return this.meetingtype;
 	}
 
 	public void setMeetingtype(Meetingtype meetingtype) {
 		this.meetingtype = meetingtype;
+	}
+
+	public int getCommunityId() {
+		return communityId;
+	}
+
+	public void setCommunityId(int communityId) {
+		this.communityId = communityId;
 	}
 
 }

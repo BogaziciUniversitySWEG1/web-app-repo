@@ -1,8 +1,11 @@
 package bucomp.application.model;
 
 import java.io.Serializable;
-import javax.persistence.*;
-import java.util.List;
+
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.NamedQuery;
+import javax.persistence.Table;
 
 
 /**
@@ -19,10 +22,6 @@ public class Meetingtype implements Serializable {
 	private int meetingTypeId;
 
 	private String meetingType;
-
-	//bi-directional many-to-one association to Meeting
-	@OneToMany(mappedBy="meetingtype")
-	private List<Meeting> meetings;
 
 	public Meetingtype() {
 	}
@@ -41,28 +40,6 @@ public class Meetingtype implements Serializable {
 
 	public void setMeetingType(String meetingType) {
 		this.meetingType = meetingType;
-	}
-
-	public List<Meeting> getMeetings() {
-		return this.meetings;
-	}
-
-	public void setMeetings(List<Meeting> meetings) {
-		this.meetings = meetings;
-	}
-
-	public Meeting addMeeting(Meeting meeting) {
-		getMeetings().add(meeting);
-		meeting.setMeetingtype(this);
-
-		return meeting;
-	}
-
-	public Meeting removeMeeting(Meeting meeting) {
-		getMeetings().remove(meeting);
-		meeting.setMeetingtype(null);
-
-		return meeting;
 	}
 
 }
