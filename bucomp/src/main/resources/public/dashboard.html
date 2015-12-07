@@ -343,7 +343,8 @@
                     //}
                     var title = data[i].title;
 
-                    var description = data[i].description;
+                    var description = data[i].description.substring(0,200);
+                    description = description + "...";
 
                     var membercount = 5; // todo
 
