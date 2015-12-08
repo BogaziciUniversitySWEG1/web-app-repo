@@ -38,9 +38,16 @@ public class Meeting implements Serializable {
 	private String location;
 
 	@Temporal(TemporalType.TIMESTAMP)
-	private Date meetingDate;
+	private Date startTime;
+	
+	@Temporal(TemporalType.TIMESTAMP)
+	private Date endTime;
 
 	private String timeZone;
+	
+	private String agenda;
+	
+	private int status;
 
 	//bi-directional many-to-one association to Meetingattendant
 	@OneToMany(mappedBy="meeting")
@@ -98,14 +105,6 @@ public class Meeting implements Serializable {
 
 	public void setLocation(String location) {
 		this.location = location;
-	}
-
-	public Date getMeetingDate() {
-		return this.meetingDate;
-	}
-
-	public void setMeetingDate(Date meetingDate) {
-		this.meetingDate = meetingDate;
 	}
 
 	public String getTimeZone() {
@@ -218,6 +217,38 @@ public class Meeting implements Serializable {
 
 	public void setCommunityId(int communityId) {
 		this.communityId = communityId;
+	}
+
+	public String getAgenda() {
+		return agenda;
+	}
+
+	public void setAgenda(String agenda) {
+		this.agenda = agenda;
+	}
+
+	public Date getStartTime() {
+		return startTime;
+	}
+
+	public void setStartTime(Date startTime) {
+		this.startTime = startTime;
+	}
+
+	public Date getEndTime() {
+		return endTime;
+	}
+
+	public void setEndTime(Date endTime) {
+		this.endTime = endTime;
+	}
+
+	public int getStatus() {
+		return status;
+	}
+
+	public void setStatus(int status) {
+		this.status = status;
 	}
 
 }
