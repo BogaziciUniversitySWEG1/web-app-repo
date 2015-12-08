@@ -48,6 +48,8 @@ public class Meeting implements Serializable {
 	private String agenda;
 	
 	private int status;
+	
+	private int meetingOrganizerUserId;
 
 	//bi-directional many-to-one association to Meetingattendant
 	@OneToMany(mappedBy="meeting")
@@ -249,6 +251,14 @@ public class Meeting implements Serializable {
 
 	public void setStatus(int status) {
 		this.status = status;
+	}
+
+	public int getMeetingOrganizerUserId() {
+		return meetingOrganizerUserId;
+	}
+
+	public void setMeetingOrganizerUserId(int meetingOrganizerUserId) {
+		this.meetingOrganizerUserId = meetingOrganizerUserId;
 	}
 
 }
