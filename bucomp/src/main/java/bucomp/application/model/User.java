@@ -12,6 +12,8 @@ import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import bucomp.application.chatroom.ChatRoom;
+
 /**
  * The persistent class for the users database table.
  * 
@@ -23,7 +25,7 @@ public class User implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-    @GeneratedValue(strategy=GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int userId;
 
 	private String CVLink;
@@ -41,9 +43,9 @@ public class User implements Serializable {
 	private String photoLink;
 
 	private String surname;
-	
+
 	private String education;
-	
+
 	private String profession;
 
 	// bi-directional many-to-one association to Communityoffer
