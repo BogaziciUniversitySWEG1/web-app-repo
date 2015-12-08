@@ -31,8 +31,6 @@ public class Meeting implements Serializable {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int meetingId;
 
-	private int duration;
-
 	private String IRCLink;
 
 	private String location;
@@ -84,15 +82,7 @@ public class Meeting implements Serializable {
 	public void setMeetingId(int meetingId) {
 		this.meetingId = meetingId;
 	}
-
-	public int getDuration() {
-		return this.duration;
-	}
-
-	public void setDuration(int duration) {
-		this.duration = duration;
-	}
-
+	
 	public String getIRCLink() {
 		return this.IRCLink;
 	}

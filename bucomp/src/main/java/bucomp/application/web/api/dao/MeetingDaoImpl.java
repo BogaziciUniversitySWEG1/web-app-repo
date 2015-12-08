@@ -116,12 +116,9 @@ public class MeetingDaoImpl implements MeetingDao {
 			Meeting existingMeeting = dbService.getEntitymanager().find(Meeting.class, m.getMeetingId());
 			etx = dbService.getEntitymanager().getTransaction();
 			etx.begin();
-			// existingMeeting.setCommunity(m.getCommunity());
-			existingMeeting.setDuration(m.getDuration());
 			existingMeeting.setIRCLink(m.getIRCLink());
 			existingMeeting.setLocation(m.getLocation());
 			existingMeeting.setMeetingattendants(m.getMeetingattendants());
-			//existingMeeting.setMeetingDate(m.getMeetingDate());
 			existingMeeting.setMeetingnotes(m.getMeetingnotes());
 			existingMeeting.setMeetingresources(m.getMeetingresources());
 			existingMeeting.setMeetingroles(m.getMeetingroles());
