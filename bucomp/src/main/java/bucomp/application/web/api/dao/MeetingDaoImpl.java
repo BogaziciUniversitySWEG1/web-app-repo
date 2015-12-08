@@ -115,7 +115,7 @@ public class MeetingDaoImpl implements MeetingDao {
 			existingMeeting.setIRCLink(m.getIRCLink());
 			existingMeeting.setLocation(m.getLocation());
 			existingMeeting.setMeetingattendants(m.getMeetingattendants());
-			existingMeeting.setMeetingDate(m.getMeetingDate());
+			//existingMeeting.setMeetingDate(m.getMeetingDate());
 			existingMeeting.setMeetingnotes(m.getMeetingnotes());
 			existingMeeting.setMeetingresources(m.getMeetingresources());
 			existingMeeting.setMeetingroles(m.getMeetingroles());
