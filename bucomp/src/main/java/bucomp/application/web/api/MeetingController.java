@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import bucomp.application.model.Meeting;
@@ -22,10 +23,17 @@ public class MeetingController {
 
 	private MeetingDao meetingDao = new MeetingDaoImpl();
 
+	/**
+	 * 
+	 * @param communityId
+	 * @param status: -1: All Meetings, 0: Not started, 1:active, 2:finished, 3: cancelled
+	 * @return
+	 */
 	@RequestMapping(value = "/api/meetings/{communityId}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Collection<Meeting>> getCommunityMeetings(
-			@PathVariable("communityId") Integer communityId) {
-		List<Meeting> meetings = meetingDao.getCommunityMeetings(communityId);
+			@PathVariable("communityId") Integer communityId,
+			@RequestParam(value = "status") int status) {
+		List<Meeting> meetings = meetingDao.getCommunityMeetings(communityId,status);
 		if (meetings == null) {
 			return new ResponseEntity<Collection<Meeting>>(
 					HttpStatus.NO_CONTENT);
