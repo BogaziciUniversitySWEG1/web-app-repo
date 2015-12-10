@@ -1,4 +1,4 @@
-﻿/// <reference path="../CommonScripts/GUI_HELPER.js" />
+/// <reference path="../CommonScripts/GUI_HELPER.js" />
 /// <reference path="SP_BANK.js" />
 /// <reference path="GLOBALS.js" />
 
@@ -83,7 +83,7 @@
 			                GLOBALS.Profession = data.profession;
 			                GLOBALS.Hobbies = data.hobbies;
 			                GLOBALS.CvLink = data.cvLink;
-			                GLOBALS.PhotoLink = data.photoLink;
+			                GLOBALS.PhotoLink = "photos/" + data.photoLink;
 			
 			                document.getElementById('txtName').value = GLOBALS.Name;
 			                document.getElementById('txtSurname').value = GLOBALS.Surname;

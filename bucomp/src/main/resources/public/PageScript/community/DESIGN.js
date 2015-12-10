@@ -60,7 +60,7 @@
             }
             
             SP_BANK.GetCommunityMembers(communityId, DESIGN.FillMembers, null);
-            SP_BANK.GetCommunityMeetings(communityId, DESIGN.FillMeetings, null);
+            SP_BANK.GetCommunityMeetings(communityId, -1, DESIGN.FillMeetings, null);
             SP_BANK.GetCommunityTopics(communityId, DESIGN.FillTopics, null);
             if(userId != "") {
                 GUI_HELPER.GetUserInfo(userId, DESIGN.FillUserInfo, null);

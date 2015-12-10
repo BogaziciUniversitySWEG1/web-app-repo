@@ -14,61 +14,13 @@
     <script src="CommonScripts/jquery.min.js" type="text/javascript"></script>
     <script src="CommonScripts/GUI_HELPER.js" type="text/javascript"></script>
     <script src="CommonScripts/Common.js" type="text/javascript"></script>
+    <script src="CommonScripts/navigation.js" type="text/javascript"></script>
 </head>
 <body class="home blog right-sidebar">
     <div id="bpagewrap">
-        <header class="site-header" id="masthead" role="banner">
-            <div class="site-header-wrapper">
-                <div class="bwrapsite-branding">
-                    <div class="headersec section" id="headersec">
-                        <div class="widget Header" id="Header1">
-                            <div id="header-inner">
-                                <div class="titlewrapper">
-                                    <h1 class="site-title"><a href="index.html">BuComp</a></h1>
-                                </div>
-                                <h2 class="site-description">BU Community Groups</h2>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="togglesnbtdiv">
-                    <div class="togglenbtclass" id="menu-toggle" title="Menu" onclick="window.location='dashboard.html';">
-                        <span class="screen-reader-text">Menu</span>
-                    </div>
-                    <div class="togglenbtclass" id="user-toggle" title="User">
-                        <span class="screen-reader-text">User</span>
-                    </div>
-                    <div class="togglenbtclass" id="user-name-toggle" title="User">
-                        <span id="lblUserNameSurname"></span>
-                    </div>
-                </div>
-            </div>
-        </header>
+        <header class="site-header" id="masthead" role="banner"></header>
         <!-- #masthead -->
-        <div class="panel" id="search-toggle-nav" style="display: block;">
-            <div class="main-navigation" id="site-navigation" role="navigation">
-                <div class="bwraptopmenu">
-                    <ul>
-                        <li class="current_page_item"><a id="lnkProfile">My Profile</a></li>
-                        <li>
-                            <a href="#">Community</a>
-                            <ul class="children">
-                                <li><a id="lnkCreateCommunity">Create New Community</a></li>
-                                <li><a href="#">My Communities</a></li>
-                            </ul>
-                        </li>
-                        <li>
-                            <a href="#">Meetings</a>
-                            <ul class="children">
-                                <li><a href="#">Upcoming Meetings</a></li>
-                                <li><a href="#">Past Meetings</a></li>
-                                <li><a href="#">Create New Meeting</a></li>
-                            </ul>
-                        </li>
-                    </ul>
-                </div>
-            </div><!-- #site-navigation -->
-        </div>
+        <div class="panel" id="search-toggle-nav" style="display: block;"></div>
         <div class="bwrapsite-content" id="bwrapcontent">
             <div class="content-area" id="primarybwrap">
                 <div class="bwrapsite-main" id="mainbwrap" role="main">
@@ -199,38 +151,6 @@
 
     <script type="text/javascript">
         jQuery(document).ready(function($) {
-            function navMenu() {
-                var menuToggle = $('#menu-toggle');
-                var searchToggle = $('#search-toggle');
-                var searchNav = $('#search-toggle-nav');
-
-                function myToggleClass($myvar) {
-                    if ($myvar.hasClass('active')) {
-                        $myvar.removeClass('active');
-                    } else {
-                        $myvar.addClass('active');
-                    }
-                }
-
-                // Display/hide menu
-                menuToggle.on('click', function() {
-                    myToggleClass($(this));
-
-                    searchNav.hide();
-
-                    searchToggle.removeClass('active');
-                });
-
-                // Display/hide search
-                searchToggle.on('click', function() {
-                    searchNav.slideToggle();
-                    myToggleClass($(this));
-
-                    menuToggle.removeClass('active');
-                });
-            }
-
-            $(window).on('load', navMenu);
             $(window).on('load', DESIGN.GetUserInfo);
         });
     </script>

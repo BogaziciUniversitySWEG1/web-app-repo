@@ -56,11 +56,11 @@
                 callback_err(msg.status, 'Get communityMembers Fails. Reason: ' + (msg.statusText));
             }
         },
-        GetCommunityMeetings: function(communityId, callback, callback_err) {
+        GetCommunityMeetings: function(communityId, status, callback, callback_err) {
             try {
                 $.ajax({
                     type: "GET",
-                    url: "api/meetings/" + communityId,
+                    url: "api/meetings/" + communityId + "?status=" + status,
                     contentType: "application/json; charset=utf-8",
                     success: function (msg) {
                       	if (msg == null) {

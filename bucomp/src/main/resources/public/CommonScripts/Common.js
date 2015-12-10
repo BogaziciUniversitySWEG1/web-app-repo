@@ -1,6 +1,9 @@
 function GetQueryStringValue(key){
     var url = window.location.href;
     var hashes = url.split("?")[1];
+    if(hashes == undefined) {
+        return "";
+    }
     var hash = hashes.split('&');
     
     for (var i = 0; i < hash.length; i++) {

@@ -1,4 +1,4 @@
-﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html dir="ltr" xmlns="http://www.w3.org/1999/xhtml" xmlns:b="http://www.google.com/2005/gml/b"
 xmlns:data="http://www.google.com/2005/gml/data" xmlns:expr="http://www.google.com/2005/gml/expr">
 <head>
@@ -17,56 +17,13 @@ xmlns:data="http://www.google.com/2005/gml/data" xmlns:expr="http://www.google.c
     <link href="CommonScripts/jeasyui/themes/default/easyui.css" rel="stylesheet" type="text/css" />
     <script src="CommonScripts/jquery.min.js" type="text/javascript"></script>
     <script src="CommonScripts/jeasyui/jquery.easyui.min.js" type="text/javascript"></script>
+    <script src="CommonScripts/Common.js" type="text/javascript"></script>
+    <script src="CommonScripts/navigation.js" type="text/javascript"></script>
 </head>
 <body class="home blog right-sidebar">
     <div id="bpagewrap">
-        <header class="site-header" id="masthead" role="banner">
-            <div class="site-header-wrapper">
-                <div class="bwrapsite-branding">
-                    <div class="headersec section" id="headersec">
-                        <div class="widget Header" id="Header1">
-                            <div id="header-inner">
-                                <div class="titlewrapper">
-                                    <h1 class="site-title"><a href="index.html">BuComp</a></h1>
-                                </div>
-                                <h2 class="site-description">BU Community Groups</h2>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="togglesnbtdiv">
-                    <div class="togglenbtclass" id="menu-toggle" title="Menu" onclick="window.location='index.html';">
-                        <span class="screen-reader-text">Menu</span>
-                    </div>
-                    <div class="togglenbtclass" id="user-toggle" title="User">
-                        <span class="screen-reader-text">User</span>
-                    </div>
-                </div>
-            </div>
-        </header>
-        <div class="panel" id="search-toggle-nav">
-            <div class="main-navigation" id="site-navigation" role="navigation">
-                <div class="bwraptopmenu">
-                    <ul>
-                        <li class="current_page_item"><a href="#">My Profile</a></li>
-                        <li><a href="#">Community</a>
-                            <ul class="children">
-                                <li><a href="#">Create New Community</a></li>
-                                <li><a href="#">My Communities</a></li>
-                            </ul>
-                        </li>
-                        <li><a href="#">Meetings</a>
-                            <ul class="children">
-                                <li><a href="#">Upcoming Meetings</a></li>
-                                <li><a href="#">Past Meetings</a></li>
-                                <li><a href="#">Create New Meeting</a></li>
-                            </ul>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-            <!-- #site-navigation -->
-        </div>
+        <header class="site-header" id="masthead" role="banner"></header>
+        <div class="panel" id="search-toggle-nav"></div>
         <!-- #masthead -->
         <div class="bwrapsite-content" id="bwrapcontent">
             <div class="content-area" id="primarybwrap">
@@ -177,82 +134,7 @@ xmlns:data="http://www.google.com/2005/gml/data" xmlns:expr="http://www.google.c
     <script type="text/javascript">
         DESIGN.INITIALIZE();
         jQuery(document).ready(function ($) {
-
-            function navMenu() {
-
-                var sidebarToggle = $('#sidebar-toggle');
-                var menuToggle = $('#menu-toggle');
-                var socialLinksToggle = $('#social-links-toggle');
-                var searchToggle = $('#user-toggle');
-
-                var socialLinksNav = $('#social-links-toggle-nav');
-                var sidebarNav = $('#sidebar-toggle-nav');
-                var searchNav = $('#search-toggle-nav');
-                var menuNav = $('#menu-toggle-nav');
-
-                function myToggleClass($myvar) {
-                    if ($myvar.hasClass('active')) {
-                        $myvar.removeClass('active');
-                    } else {
-                        $myvar.addClass('active');
-                    }
-                }
-
-                // Display/hide sidebar
-                sidebarToggle.on('click', function () {
-                    sidebarNav.slideToggle();
-                    myToggleClass($(this));
-
-                    socialLinksNav.hide();
-                    menuNav.hide();
-                    searchNav.hide();
-
-                    searchToggle.removeClass('active');
-                    menuToggle.removeClass('active');
-                    socialLinksToggle.removeClass('active');
-                });
-                // Display/hide social links
-                socialLinksToggle.on('click', function () {
-                    socialLinksNav.slideToggle();
-                    myToggleClass($(this));
-
-                    menuNav.hide();
-                    searchNav.hide();
-                    sidebarNav.hide();
-
-                    searchToggle.removeClass('active');
-                    menuToggle.removeClass('active');
-                    sidebarToggle.removeClass('active');
-                });
-                // Display/hide menu
-                menuToggle.on('click', function () {
-                    menuNav.slideToggle();
-                    myToggleClass($(this));
-
-                    searchNav.hide();
-                    sidebarNav.hide();
-                    socialLinksNav.hide();
-
-                    searchToggle.removeClass('active');
-                    sidebarToggle.removeClass('active');
-                    socialLinksToggle.removeClass('active');
-                });
-                // Display/hide search
-                searchToggle.on('click', function () {
-                    searchNav.slideToggle();
-                    myToggleClass($(this));
-
-                    sidebarNav.hide();
-                    socialLinksNav.hide();
-                    menuNav.hide();
-
-                    sidebarToggle.removeClass('active');
-                    menuToggle.removeClass('active');
-                    socialLinksToggle.removeClass('active');
-                });
-            }
-            $(window).on('load', navMenu);
-            //DESIGN ilk fonksiyon buradan çağır
+            
         });
 
     </script>
