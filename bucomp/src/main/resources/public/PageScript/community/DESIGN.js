@@ -65,6 +65,7 @@
             SP_BANK.GetCommunityMembers(communityId, DESIGN.FillMembers, null);
             SP_BANK.GetCommunityMeetings(communityId, -1, DESIGN.FillMeetings, null);
             SP_BANK.GetCommunityTopics(communityId, DESIGN.FillTopics, null);
+            SP_BANK.GetCommunityTags(communityId, DESIGN.FillTags, null);
             if(userId != "") {
                 GUI_HELPER.GetUserInfo(userId, DESIGN.FillUserInfo, null);
             }
@@ -208,6 +209,20 @@
                     )
                 )
             );
+        },
+        FillTags: function(data) {
+            if(data != null) {
+                $("#spnTags").html("");
+                for(var i = 0; i < data.length; i++) {
+                    var tag = data[i].tag;
+                    if(i < data.length-1) {
+                        tag = tag + ", ";
+                    }
+                    $("#spnTags").append(
+                        $("<a>").attr("rel","tag").append(tag)
+                    );
+                }
+            }
         },
         FillUserInfo: function(data) {
             var nameSurname = data.name + " " + data.surname;
