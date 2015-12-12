@@ -30,7 +30,6 @@ public class CommunityController {
 	private CommunityMemberDao cmDao = new CommunityMemberDaoImpl();
 	private UserDao udao = new UserDaoImpl();
 
-
 	/**
 	 * Request Mappings
 	 */

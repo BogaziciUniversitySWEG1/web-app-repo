@@ -1,9 +1,16 @@
 package bucomp.application.model;
 
 import java.io.Serializable;
-import javax.persistence.*;
 import java.util.Date;
-import java.util.List;
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.NamedQuery;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 
 /**
@@ -17,16 +24,15 @@ public class Tag implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int tagId;
 
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date creationDate;
 
 	private String tag;
-
-	//bi-directional many-to-one association to Tagrelation
-	@OneToMany(mappedBy="tag")
-	private List<Tagrelation> tagrelations;
+	
+	private String semantic;
 
 	public Tag() {
 	}
@@ -55,26 +61,12 @@ public class Tag implements Serializable {
 		this.tag = tag;
 	}
 
-	public List<Tagrelation> getTagrelations() {
-		return this.tagrelations;
+	public String getSemantic() {
+		return semantic;
 	}
 
-	public void setTagrelations(List<Tagrelation> tagrelations) {
-		this.tagrelations = tagrelations;
-	}
-
-	public Tagrelation addTagrelation(Tagrelation tagrelation) {
-		getTagrelations().add(tagrelation);
-		tagrelation.setTag(this);
-
-		return tagrelation;
-	}
-
-	public Tagrelation removeTagrelation(Tagrelation tagrelation) {
-		getTagrelations().remove(tagrelation);
-		tagrelation.setTag(null);
-
-		return tagrelation;
+	public void setSemantic(String semantic) {
+		this.semantic = semantic;
 	}
 
 }
