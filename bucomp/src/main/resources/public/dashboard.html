@@ -158,6 +158,7 @@
             		return;
             	}
                 
+                var userId = GetQueryStringValue("uid");
                 $("#lblCommunityCount").html(data.length);
             	
             	for(var i = 0; i< data.length; i++){
@@ -173,7 +174,7 @@
 
                     var membercount = 5; // todo
 
-                    var communitydetailpage = "community.html?cid=" + data[i].communityId;
+                    var communitydetailpage = "community.html?cid=" + data[i].communityId + "&uid=" + userId;
 
                     $("#communityler").append('<div class="date-outer"><h2 class="date-header"><span>Sunday, September 5, 2010</span>'
 
