@@ -164,42 +164,4 @@ public class CommunityDaoImpl implements CommunityDao {
 		}
 	}
 
-	@Override
-	public Map<String, Integer> getNumberOfTagOccurences() {
-
-		Collection<Community> allCommunities = this.getAllCommunities();
-
-		Set<String> tagSet = new TreeSet<String>();
-		ArrayList<String> tagNameList = new ArrayList<String>();
-
-		Map<String, Integer> myMap = new HashMap<String, Integer>();
-
-		for (Community community : allCommunities) {
-			if (community.getTagsList() != null) {
-				for (Tag tag : community.getTagsList()) {
-					tagSet.add(tag.getTag() != null ? tag.getTag() : "");
-					tagNameList.add(tag.getTag() != null ? tag.getTag() : "");
-				}
-			}
-		}
-		for (String tagName : tagSet) {
-			myMap.put(tagName, 0);
-		}
-		for (String s : tagSet) {
-			myMap.put(s, Collections.frequency(tagNameList, s));
-		}
-		
-		printMap(myMap);
-		return myMap;
-	}
-	
-	public static void printMap(Map mp) {
-	    Iterator it = mp.entrySet().iterator();
-	    while (it.hasNext()) {
-	        Map.Entry pair = (Map.Entry)it.next();
-	        System.out.println(pair.getKey() + " = " + pair.getValue());
-	        it.remove(); 
-	    }
-	}
-
 }
