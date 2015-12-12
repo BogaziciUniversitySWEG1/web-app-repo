@@ -1,4 +1,4 @@
-﻿/* DEFAULTS
+/* DEFAULTS
 ----------------------------------------------------------*/
 
 body   
@@ -1303,7 +1303,7 @@ margin: 0 3.375px;
 }
 }
 .togglesnbtdiv #menu-toggle:before {
-background-color: #f45145;
+background-color: #4d90fe;
 content: "\f015";
 font-family: FontAwesome;
 font-size: 1.27778em;
@@ -1337,7 +1337,12 @@ background-color: #b1e8e6;
 content: "\f007";
 font-family: FontAwesome;
 }
-
+.togglesnbtdiv #logout-toggle:before {
+line-height: 50px;
+background-color: #f45145;
+content: "\f011";
+font-family: FontAwesome;
+}
 
 .search-wrapper #search-toggle-2:before {
 content: "\f002";

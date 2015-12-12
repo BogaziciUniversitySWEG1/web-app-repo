@@ -69,6 +69,10 @@ function CreateHeader() {
                         $("<span>").attr("class", "screen-reader-text").append("User")
                     )
                 ).append(
+                    $("<div>").attr("class","togglenbtclass").attr("id","logout-toggle").attr("title","Logout").append(
+                        $("<span>").attr("class","screen-reader-text").append("Logout")
+                    )
+                ).append(
                     $("<div>").attr("class", "togglenbtclass").attr("id", "user-name-toggle").attr("title", "User").append(
                         $("<span>").attr("id", "lblUserNameSurname")
                     )
@@ -133,6 +137,7 @@ function navMenu() {
     var menuToggle = $('#menu-toggle');
     var searchToggle = $('#user-toggle');
     var searchNav = $('#search-toggle-nav');
+    var logoutToggle = $('#logout-toggle');
 
     function myToggleClass($myvar) {
         if ($myvar.hasClass('active')) {
@@ -154,6 +159,11 @@ function navMenu() {
         searchNav.slideToggle();
         myToggleClass($(this));
         menuToggle.removeClass('active');
+    });
+    
+    // Logout
+    logoutToggle.on('click', function () {
+        window.location = "index.html";
     });
 }
 
