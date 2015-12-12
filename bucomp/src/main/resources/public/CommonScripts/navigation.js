@@ -218,7 +218,7 @@ function Login() {
             GUI_HELPER.ALERT('Warning', 'Please fill the Password area!', GUI_HELPER.ERROR);
         }
         else {
-            GUI_HELPER.LOGIN(Email, Password, LoggedUser, GUI_HELPER.SERVICE_CALLBACK_ERR);
+            GUI_HELPER.LOGIN(Email, Password, LoggedUser, LoginFailed);
         }
     } catch (err) {
         GUI_HELPER.ALERT('Warning', err, GUI_HELPER.ERROR);
@@ -237,4 +237,8 @@ function LoggedUser(data) {
     } catch (err) {
         GUI_HELPER.ALERT('Warning', err, GUI_HELPER.ERROR);
     }
+}
+
+function LoginFailed() {
+    GUI_HELPER.ALERT("", 'Invalid username or password.', GUI_HELPER.ERROR);
 }
