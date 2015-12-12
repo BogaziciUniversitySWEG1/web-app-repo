@@ -164,7 +164,21 @@
                     var title = data[i].title;
                     var description = data[i].description.substring(0,200);
                     description = description + "...";
-                    var membercount = 5; // todo
+                    var membercount = data[i].memberCount;
+                    
+                    var tags = "";
+                    for(var j = 0; j < data[i].tagsList.length; j++) {
+                        var tagItem = "<a rel=\"tag\">" + data[i].tagsList[j].tag + "</a>";
+                        tags = tags + tagItem;
+                        if(j < data[i].tagsList.length - 1) {
+                            tags = tags + ", ";
+                        }
+                    }
+                    
+                    var d = new Date(data[i].creationDate);
+                    var creationDateString = GUI_HELPER.GetDayName(d.getDay()) + ", " + GUI_HELPER.GetMonthName(d.getMonth()) 
+                        + " "+ d.getDate() + ", " + d.getFullYear();
+                    
                     var communitydetailpage = "community.html?cid=" + data[i].communityId;
                     $("#communityler").append('<div class="date-outer"><h2 class="date-header"><span>Sunday, September 5, 2010</span>'
                             + '</h2><div class="date-posts"><div class="post-outer"><article class="post hentry"><a name="4682800689275728420"></a>'
@@ -185,15 +199,14 @@
                                 +'<a class="nbtjoin-link" onclick="alert("Please login to join groups!")">Join</a>'
                              +'</div><div style="clear: both;"></div></div><footer class="nbtentry-meta">'
                     +'<span class="nbtpost-date">'
+                        + creationDateString
                     +'</span><span class="nbtbyline"><span><a href="'
                     +communitydetailpage
                     			+'" rel="author" title="author profile">'
                     +membercount
-                    +'Participants</a></span></span><span class="nbttags-links"><a href="'
-                    	+communitydetailpage
-                    			+'" rel="tag">Sports</a>, <a href="'
-                    			+communitydetailpage
-                    						+'" rel="tag">Web Design</a></span>'
+                    +' Participants</a></span></span><span class="nbttags-links">'
+                    + tags
+                    +'</span>'
                                         +'</footer></article><div style="clear: both;"></div></div></div></div>'	
                     		
                     );
