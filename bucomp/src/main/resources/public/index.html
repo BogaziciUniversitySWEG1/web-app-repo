@@ -88,25 +88,7 @@
                             Popular Group Tags
                         </h2>
                         <div class="widget-content list-label-widget-content">
-                            <ul>
-                                <li>
-                                    <a dir="ltr" href="community.html?=ccid=1">Entertainment</a> <span dir="ltr">(1)</span>
-                                </li>
-                                <li>
-                                    <a dir="ltr" href="community.html?=ccid=2">Graphic Design</a> <span dir="ltr">(3)</span>
-                                </li>
-                                <li>
-                                    <a dir="ltr" href="community.html?=ccid=3">Motion Design</a> <span dir="ltr">(3)</span>
-                                </li>
-                                <li>
-                                    <a dir="ltr" href="community.html?=ccid=4">Print Design</a> <span dir="ltr">(1)</span>
-                                </li>
-                                <li>
-                                    <a dir="ltr" href="community.html?=ccid=5">Web Design</a> <span dir="ltr">(4)</span>
-                                </li>
-                            </ul>
-                            <div class="clear">
-                            </div>
+                            <ul id="popularTags"></ul>
                             <div class="clear">
                             </div>
                         </div>
@@ -156,11 +138,6 @@
                     communityCounter = data.length;
                 }
                 for(var i = 0; i< communityCounter; i++){
-                    //var nameSurname = data.communitymembers[i].user.name + " " + data.communitymembers[i].user.surname;
-                    //var photoLink = "photos/" + data.communitymembers[i].user.photoLink;
-                    //if(data.communitymembers[i].user.photoLink == null){
-                    //    photoLink = "images/man-icon.png";
-                    //}
                     var title = data[i].title;
                     var description = data[i].description.substring(0,200);
                     description = description + "...";
@@ -182,6 +159,13 @@
                     var uid = GetQueryStringValue("uid");
                     var communitydetailpage = "community.html?cid=" + data[i].communityId + "&uid=" + uid;
                     
+                    var joinButton = '<a class="nbtjoin-link" onclick="JoinCommunity(' + data[i].communityId + ',' + data[i].joinType + ');">Join</a>';
+                    for(var j=0; j < data[i].memberList.length; j++) {
+                        if(uid == data[i].memberList[j]) {
+                            joinButton = "";
+                        }
+                    }
+                    
                     $("#communityler").append('<div class="date-outer"><h2 class="date-header"><span>Sunday, September 5, 2010</span>'
                             + '</h2><div class="date-posts"><div class="post-outer"><article class="post hentry"><a name="4682800689275728420"></a>'
                                         +'<header class="entry-header"><h2 class="post-title entry-title"><a href="'
@@ -198,7 +182,7 @@
                 	+communitydetailpage
                 			+'">Community Details</a></div>'
                   +'<div style="float:right;padding-right:10px;margin-top:10px;">'
-                                +'<a class="nbtjoin-link" onclick="alert("Please login to join groups!")">Join</a>'
+                                + joinButton
                              +'</div><div style="clear: both;"></div></div><footer class="nbtentry-meta">'
                     +'<span class="nbtpost-date">'
                         + creationDateString
@@ -212,6 +196,8 @@
                     		
                     );
                 }
+                
+                DESIGN.GetPopularTags();
             }
             
             function ErrorFnc(){
@@ -221,6 +207,14 @@
             $(window).on('load', GetContent);
             //DESIGN ilk fonksiyon buradan çağır
         });
+        
+        function JoinCommunity(communityId,joinType) {
+            if(joinType == 2) {
+                DESIGN.JoinCommunity(communityId);
+            } else {
+                DESIGN.ShowRequestModal(communityId);
+            }
+        }
 
         //]]>
     </script>
@@ -228,5 +222,23 @@
     <script src="CommonScripts/GUI_HELPER.js" type="text/javascript"></script>
     <script src="PageScript/index/SP_BANK.js" type="text/javascript"></script>
     <script src="PageScript/index/DESIGN.js" type="text/javascript"></script>
+    
+    <div id="divRequest" style="display:none;">
+        <div class="post-body entry-content">
+            <div class="form-group">
+                <label for="txtExplanation">Joining to the community requires approval of the administrator. You can type your explanation.</label>
+            </div>
+            <div class="form-group">
+                <label for="txtExplanation">Explanation</label>
+                <textarea id="txtExplanation" cols="100" rows="10"></textarea>
+            </div>
+            <div class="form-group">
+                <input type="button" value="Send Request" class="search-submit" onclick="DESIGN.SendJoinRequest();" />
+                <input type="button" value="Cancel" class="search-submit" onclick="DESIGN.CancelJoinRequest();" />
+            </div>
+        </div>
+    </div>
+    
+    <span id="spnCommunityId" style="display:none;"></span>
 </body>
 </html>
