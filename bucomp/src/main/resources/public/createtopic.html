@@ -46,6 +46,17 @@
                                                         <textarea id="txtDescription" class="form-control" rows="10"></textarea>
                                                     </div>
                                                     <div class="form-group">
+                                                        <label for="txtTag">Tags</label>
+                                                        <input type="text" id="txtTag" class="form-control" />
+                                                        <input type="button" value="Add Tag" class="search-submit" onclick="DESIGN.AddTag();" />
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <footer class="nbtentry-meta">
+                                                            <span class="nbttags-links" id="tagSpan">
+                                                            </span>
+                                                        </footer>
+                                                    </div>
+                                                    <div class="form-group">
                                                         <input type="button" value="Create" class="search-submit" onclick="DESIGN.SAVE();" />
                                                         <input type="button" value="Cancel" class="search-submit" onclick="DESIGN.CANCEL();" />
                                                     </div>

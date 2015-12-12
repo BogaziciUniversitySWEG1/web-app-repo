@@ -88,6 +88,16 @@
                 }
                 var creatorName = data[i].user.name + " " + data[i].user.surname;
                 var creatorUrl = "ViewProfile.html?uid=" + userId + "&vid=" + data[i].user.userId;
+                var tagStr = "";
+                if(data[i].tagList != null) {
+                    for(var j = 0; j < data[i].tagList.length; j++) {
+                        if(j>0) { 
+                            tagStr = tagStr + ", "; 
+                        }
+
+                        tagStr = tagStr + "<a rel=\"tag\">" + data[i].tagList[j].tag + "</a>";
+                    }
+                }
                 
                 $("#topicList").append(
                     $("<li>").append(
@@ -108,9 +118,7 @@
                                 )
                             )
                         ).append(
-                            $("<span>").attr("class","nbttags-links").append(
-                                $("<a>").attr("rel","tag").append("Deneme Tag")
-                            )
+                            $("<span>").attr("class","nbttags-links").append(tagStr)
                         )
                     )
                 );

@@ -17,6 +17,16 @@
             $("#divDescription").html(data.description);
             $("#communityAuthor").html("Emre Gürer");
             $("#lblCommunityCreationDate").html(creationDateString);
+            $("#tagList").html("");
+            for(var i = 0; i < data.tagList.length; i++) {
+                if(i > 0) {
+                    $("#tagList").append(", ")
+                }
+                
+                $("#tagList").append(
+                    $("<a>").attr("rel","tag").append(data.tagList[i].tag)
+                );
+            }
             SP_BANK.GetComments(topicId, DESIGN.FillComments, null);
         },
         PostComment: function() {
