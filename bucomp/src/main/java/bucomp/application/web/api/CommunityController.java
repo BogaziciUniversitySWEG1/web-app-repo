@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Iterator;
+import java.util.List;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -227,6 +228,8 @@ public class CommunityController {
 			}
 		}
 		Collections.sort(tagCountsList);
+		
+
 
 		return new ResponseEntity<Collection<TagCountDTO>>(tagCountsList, HttpStatus.OK);
 	}
