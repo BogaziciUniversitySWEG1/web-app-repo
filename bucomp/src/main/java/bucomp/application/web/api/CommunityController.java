@@ -58,6 +58,12 @@ public class CommunityController {
 			Community community = (Community) iterator.next();
 			community.setMemberCount(cmDao.getCommunityMembers(community.getCommunityId()).size());
 			community.setTagsList(new ArrayList<Tag>(tdao.getCommunityTags(community.getCommunityId())));
+			ArrayList<Integer> cmIDList = new ArrayList<Integer>();
+			for (Iterator<Communitymember> cmi = cmDao.getCommunityMembers(community.getCommunityId()).iterator(); cmi.hasNext();) {
+				Communitymember cm = cmi.next();
+				cmIDList.add(cm.getUser().getUserId());
+			}
+			community.setMemberList(cmIDList);
 		}
 		return new ResponseEntity<Collection<Community>>(communities, HttpStatus.OK);
 	}
@@ -73,6 +79,12 @@ public class CommunityController {
 			Community community = (Community) iterator.next();
 			community.setMemberCount(cmDao.getCommunityMembers(community.getCommunityId()).size());
 			community.setTagsList(new ArrayList<Tag>(tdao.getCommunityTags(community.getCommunityId())));
+			ArrayList<Integer> cmIDList = new ArrayList<Integer>();
+			for (Iterator<Communitymember> cmi = cmDao.getCommunityMembers(community.getCommunityId()).iterator(); cmi.hasNext();) {
+				Communitymember cm = cmi.next();
+				cmIDList.add(cm.getUser().getUserId());
+			}
+			community.setMemberList(cmIDList);
 		}
 		return new ResponseEntity<Collection<Community>>(communities, HttpStatus.OK);
 	}
@@ -98,6 +110,12 @@ public class CommunityController {
 		}
 		community.setMemberCount(cmDao.getCommunityMembers(community.getCommunityId()).size());
 		community.setTagsList(new ArrayList<Tag>(tdao.getCommunityTags(community.getCommunityId())));
+		ArrayList<Integer> cmIDList = new ArrayList<Integer>();
+		for (Iterator<Communitymember> cmi = cmDao.getCommunityMembers(community.getCommunityId()).iterator(); cmi.hasNext();) {
+			Communitymember cm = cmi.next();
+			cmIDList.add(cm.getUser().getUserId());
+		}
+		community.setMemberList(cmIDList);
 		return new ResponseEntity<Community>(community, HttpStatus.OK);
 	}
 
