@@ -23,10 +23,50 @@
                 callback_err();
             }
         },
+        GetUpcomingEventsS:function(communityId){
+        	try{
+        		SP_BANK.GetUpcomingEvents(parseInt(communityId),DESIGN.FillUpcomingEvents,DESIGN.GetCommunityError);
+        	} catch (err) {
+                
+            } 
+        },
+        FillUpcomingEvents:function(data){
+        	try{
+        		if(GUI_HELPER.NOU(data)){
+        			var content="<ul>";
+
+					$('#upcomingEventsDiv').html("");
+        			for(var i=0;i<data.length;i++){
+        				if(GUI_HELPER.NOU(data[i])){
+        					var meetingPlace= data[i].location;
+        					var meetingstarttime=new Date(data[i].startTime);
+        					var meetingendtime=new Date(data[i].endTime);
+        					var timezone= data[i].timeZone;
+        					var meetingid=data[i].meetingId;
+        					content+="<li><div class='item-content' id ='upcomingMeetingDiv"+meetingid+"'><div class='item-snippet'>";
+        					content+=" Meeting On "+ meetingstarttime;
+        					content+=" At "+ meetingPlace;
+        					content+=" </div></div><div style='clear: both;'></div></li> " ;
+        				}
+        				
+        				if(i==data.length-1){
+        					
+        					content+=" </ul> ";
+        					$('#upcomingEventsDiv').html(content);
+        				}
+        			}
+        		}
+        		else{
+        			$('#upcomingEventsDiv').html("<ul><li><div class='item-content'><div class='item-snippet'>There is not any upcoming events...</div></div><div style='clear: both;'></div></li></ul>");
+        		}
+        	}catch (err) {
+                callback_err();
+            }
+        },
         FillPage: function(data) {
             var communityId = GetQueryStringValue("cid");
             var userId = GetQueryStringValue("uid");
-            
+            DESIGN.GetUpcomingEventsS(communityId);
         	if(GUI_HELPER.NOU(data)){
 	            $("#lblTitle").html(data.title);
 	            $("#divDescription").html(data.description);
