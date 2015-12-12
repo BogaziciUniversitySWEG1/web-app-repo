@@ -1,6 +1,7 @@
 package bucomp.application.model;
 
 import java.io.Serializable;
+
 import javax.persistence.*;
 
 
@@ -15,6 +16,7 @@ public class Tagrelation implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int tagRelationId;
 
 	private int taggedObjectId;
