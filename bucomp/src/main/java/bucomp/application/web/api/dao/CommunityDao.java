@@ -1,9 +1,12 @@
 package bucomp.application.web.api.dao;
 
 import java.util.Collection;
+import java.util.List;
+import java.util.Map;
 
 import bucomp.application.model.Community;
 import bucomp.application.model.Communitymember;
+import bucomp.application.model.Tag;
 
 public interface CommunityDao {
 	
@@ -25,6 +28,7 @@ public interface CommunityDao {
 	
 	public Collection<Community> searchCommunity(String key);
 
-	public Collection<Community> getUserCommunities(int userId);
+	public Collection<Community> getUserCommunities(int userId);	
+
 
 }
