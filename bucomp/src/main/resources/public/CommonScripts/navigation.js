@@ -205,8 +205,8 @@ function FillUserInfo(data){
 
 function Login() {
     try { 
-        var Email = $('#txtEmail').val();
-        var Password = $('#txtPassword').val(); 
+        var Email = $('#txtEmailForLogin').val();
+        var Password = $('#txtPasswordForLogin').val(); 
 
         if (Email == '') {
             GUI_HELPER.ALERT('Warning', 'Please fill the Email area!', GUI_HELPER.ERROR);
