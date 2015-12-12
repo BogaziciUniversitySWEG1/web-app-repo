@@ -97,6 +97,9 @@
             } catch (err) {
                 GUI_HELPER.ALERT('Warning', err, GUI_HELPER.ERROR);
             }
+        },
+        Cancel: function() {
+            window.location = "index.html";
         }
     }
     if (!window.DESIGN) {

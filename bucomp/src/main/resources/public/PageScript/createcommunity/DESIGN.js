@@ -67,6 +67,19 @@
         },
         AddInvitation: function() {
             var email = $("#txtInvitation").val();
+            var emailExists = false;
+            $("#lstInvitation option").each(function() {
+               if($(this).text() == email) {
+                   emailExists = true;
+               }
+            });
+            
+            if(emailExists == true) {
+                alert("Email address exists.");
+                $("#txtInvitation").val("");
+                return;
+            }
+            
             if(IsEmail(email)){
                 GLOBALS.invitationList.push(email);
                 $("#txtInvitation").val("");

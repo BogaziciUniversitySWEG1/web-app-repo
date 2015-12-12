@@ -24,6 +24,9 @@
             }
         },
         FillPage: function(data) {
+            var communityId = GetQueryStringValue("cid");
+            var userId = GetQueryStringValue("uid");
+            
         	if(GUI_HELPER.NOU(data)){
 	            $("#lblTitle").html(data.title);
 	            $("#divDescription").html(data.description);
@@ -32,7 +35,7 @@
 	                + " "+ d.getDate() + ", " + d.getFullYear();
 	            $("#lblCommunityCreationDate").html(creationDateString);
 	            $("#communityAuthor").html(data.user.name + " " + data.user.surname);
-	            $("#communityAuthor").attr("href","ViewProfile.html?uid=" + data.user.userId);
+	            $("#communityAuthor").attr("href","ViewProfile.html?uid=" + userId + "&vid=" + data.user.userId);
 	            
 	            if(data.topicCreationType == 1){
                     GLOBALS.canCreateTopic = true;
@@ -82,8 +85,8 @@
                     topicDate = GUI_HELPER.GetDayName(d.getDay()) + ", " + GUI_HELPER.GetMonthName(d.getMonth()) 
                         + " "+ d.getDate() + ", " + d.getFullYear();
                 }
-                var creatorName = "Emre Gürer";
-                var creatorUrl = "ViewProfile.html?uid=" + data[i].creatorUserId;
+                var creatorName = data[i].user.name + " " + data[i].user.surname;
+                var creatorUrl = "ViewProfile.html?uid=" + userId + "&vid=" + data[i].user.userId;
                 
                 $("#topicList").append(
                     $("<li>").append(
@@ -149,12 +152,16 @@
                     
                     
                 }
+                
+                var communityId = GetQueryStringValue("cid");
+                var userId = GetQueryStringValue("uid");
+                var membersHtml = "communitymembers.html?cid=" + communityId + "&uid=" + userId;
 
                 $("#members").append(
                     $("<li>").append(
                         $("<div>").attr("class","item-content").append(
                             $("<div>").attr("class","item-snippet").append(
-                                $("<a>").attr("href","community.html?cid=1").html("See all members...")
+                                $("<a>").attr("href", membersHtml).html("See all members...")
                             )
                         )
                     )
@@ -260,7 +267,8 @@
             alert("An error has occured.");
         },
         ViewUser: function(userId) {
-            window.location = "ViewProfile.html?uid=" + userId;
+            var uid = GetQueryStringValue("uid");
+            window.location = "ViewProfile.html?uid=" + uid + "&vid=" + userId;
         },
         JoinCommunityClicked: function(joinType) {
             if(joinType == 1) {

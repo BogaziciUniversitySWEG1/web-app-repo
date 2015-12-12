@@ -53,8 +53,10 @@
                         <input id="btnCreateCommunity" class="search-submit" type="button" value="Create Community" onclick="NavigateToCommunity();" />
                     </div>
                     <div class="widget Label" id="Div2">
-                        <h2>2110
-                        Communities found</h2>
+                        <h2>
+                            <span id="lblCommunityCount"></span>
+                            Communities found
+                        </h2>
                     </div>
                     <div class="widget HTML" id="HTML42">
                         <div class="search-wrapper">
@@ -122,14 +124,6 @@
                 <div class="nbttopmenutop section" id="nbttopmenutop">
                     <div class="widget LinkList" id="LinkList7">
                         <div class="widget-content">
-                            <ul>
-                                <li><a href="index.html">Home</a></li>
-                                <li><a href="about.html">About</a></li>
-                                <li><a href="support.html">Support</a></li>
-                                <li><a href="contact.html">Contact</a></li>
-                            </ul>
-                            <div class="clear">
-                            </div>
                             <div class="clear">
                             </div>
                         </div>
@@ -163,6 +157,8 @@
             	if(data == null) {
             		return;
             	}
+                
+                $("#lblCommunityCount").html(data.length);
             	
             	for(var i = 0; i< data.length; i++){
                     //var nameSurname = data.communitymembers[i].user.name + " " + data.communitymembers[i].user.surname;
