@@ -28,17 +28,19 @@
                         <div class="widget Blog" id="Blog1">
                             <div class="blog-posts hfeed" >
                             
-                                <h2 align="center">MY COMMUNITIES</h2><br></br>
+                                <h2 align="center" id="headerDiv">MY COMMUNITIES</h2>
+                                 <h4 align="center" id="headeralertDiv">MY COMMUNITIES</h4>
+                                 <br></br>
                                 <div id="communityler"></div>
                                 </div>
                             <div style="clear: both;">
                             </div>
                             <div class="blog-pager" id="blog-pager">
                                 <span id="blog-pager-older-link">
-                                    <a class="blog-pager-older-link" href="index.html?page=2"
-                                       id="Blog1_blog-pager-older-link" title="See More">See More&nbsp;→</a>
+                                    <a class="blog-pager-older-link" href="index.html?page=2" 
+                                       id="seemorelink" title="See More">See More&nbsp;→</a>
                                 </span>
-                                <a class="home-link" href="index.html">Home</a>
+                                <a class="home-link" id="homelink" href="index.html">Home</a>
                             </div>
                         </div>
                     </div>
@@ -155,9 +157,13 @@
             
             function FillCommunities(data){
             	if(data == null) {
+            		document.getElementById('headeralertDiv').innerHTML="You have not created any community yet. You can use Create Community button to create one.";
+            		document.getElementById('seemorelink').style.display="none";
+            		document.getElementById('headerDiv').style.display="none";
+            		document.getElementById('homelink').style.display="none";
             		return;
             	}
-                
+                document.getElementById('headeralertDiv').style.display="none";
                 var userId = GetQueryStringValue("uid");
                 $("#lblCommunityCount").html(data.length);
             	

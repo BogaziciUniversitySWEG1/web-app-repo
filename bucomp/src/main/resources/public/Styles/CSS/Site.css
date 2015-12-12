@@ -750,7 +750,7 @@ vertical-align: text-bottom;
 .entry-format, .hentry:before {
 font-size: 2.61111em;
 line-height: 1.14894em;
-background: #f45145;
+background: #B6D1FE;
 border-radius: 50%;
 color: white;
 display: block;
@@ -1699,7 +1699,7 @@ z-index: 4;
 }
 .hentry {
 background-color: white;
-border-top: 8px solid #f45145;
+border-top: 8px solid #B6D1FE;
 margin: 0 0 81px;
 padding: 27px 27px 22px;
 position: relative;
@@ -1716,7 +1716,7 @@ height: 0;
 z-index: 1;
 }
 .hentry:before {
-content: "\f0c1";
+content: "\f0e6";
 z-index: 2;
 font-family: FontAwesome;
 }
