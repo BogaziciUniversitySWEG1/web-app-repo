@@ -90,25 +90,7 @@
                             Popular Community Tags
                         </h2>
                         <div class="widget-content list-label-widget-content">
-                            <ul>
-                                <li>
-                                    <a dir="ltr" href="community.html?=ccid=1">Entertainment</a> <span dir="ltr">(1)</span>
-                                </li>
-                                <li>
-                                    <a dir="ltr" href="community.html?=ccid=2">Graphic Design</a> <span dir="ltr">(3)</span>
-                                </li>
-                                <li>
-                                    <a dir="ltr" href="community.html?=ccid=3">Motion Design</a> <span dir="ltr">(3)</span>
-                                </li>
-                                <li>
-                                    <a dir="ltr" href="community.html?=ccid=4">Print Design</a> <span dir="ltr">(1)</span>
-                                </li>
-                                <li>
-                                    <a dir="ltr" href="community.html?=ccid=5">Web Design</a> <span dir="ltr">(4)</span>
-                                </li>
-                            </ul>
-                            <div class="clear">
-                            </div>
+                            <ul id="popularTags"></ul>
                             <div class="clear">
                             </div>
                         </div>
@@ -252,6 +234,8 @@
                     		
                     );
                 }
+                
+                DESIGN.GetPopularTags();
             }
             
             function ErrorFnc(){
