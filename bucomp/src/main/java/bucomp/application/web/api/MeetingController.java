@@ -2,6 +2,7 @@ package bucomp.application.web.api;
 
 import java.text.ParseException;
 import java.util.Collection;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 
@@ -62,6 +63,9 @@ public class MeetingController {
 		//add invitees
 		for (Iterator iterator = meeting.getInviteeList().iterator(); iterator.hasNext();) {
 			MeetingInvitee meetingInvitee = (MeetingInvitee) iterator.next();
+			meetingInvitee.setMeetingId(savedMeeting.getMeetingId());
+			meetingInvitee.setInviteSentDate(new Date());
+			meetingInvitee.setStatus(0);
 			midao.saveMeetingInvitee(meetingInvitee);
 			//send email to meeting invitee
 			// To be implemented
