@@ -28,14 +28,13 @@ public class TagController {
 	private TagTypeDao ttdao = new TagTypeDaoImpl();
 	private TagRelationsDao trdao = new TagRelationsDaoImpl();
 
-	// Create new community
 	@RequestMapping(value = "/api/tags/communityTags/{communityId}", method = RequestMethod.POST, 
 			consumes = MediaType.APPLICATION_JSON_VALUE)
 	public boolean createCommunityTags(@PathVariable("communityId") Integer communityId,
 			@RequestBody Collection<Tag> tags) {
 		
-		for (Iterator iterator = tags.iterator(); iterator.hasNext();) {
-			Tag tag = (Tag) iterator.next();
+		for (Iterator<Tag> iterator = tags.iterator(); iterator.hasNext();) {
+			Tag tag = iterator.next();
 			System.out.println(tag.getTag());
 			if(dao.getTagByName(tag.getTag()) == null) {
 				tag = dao.saveTag(tag);
@@ -64,5 +63,70 @@ public class TagController {
 		return new ResponseEntity<Collection<Tag>>(tags,HttpStatus.OK);
 	}
 	
+	@RequestMapping(value = "/api/tags/topicTags/{topicId}", method = RequestMethod.POST, 
+			consumes = MediaType.APPLICATION_JSON_VALUE)
+	public boolean createTopicTags(@PathVariable("topicId") Integer topicId,
+			@RequestBody Collection<Tag> tags) {
+		
+		for (Iterator<Tag> iterator = tags.iterator(); iterator.hasNext();) {
+			Tag tag = iterator.next();
+			if(dao.getTagByName(tag.getTag()) == null) {
+				tag = dao.saveTag(tag);
+			} else {
+				tag = dao.getTagByName(tag.getTag());
+			}
+			
+			Tagrelation tr = new Tagrelation();
+			tr.setTag(tag);
+			tr.setTaggedObjectId(topicId);
+			tr.setTagtype(ttdao.getTagTypeById(4));
+			trdao.saveTagRelation(tr);
+		}
+		return true;
+	}
+	
+	@RequestMapping(value = "/api/tags/meetingTags/{meetingId}", method = RequestMethod.POST, 
+			consumes = MediaType.APPLICATION_JSON_VALUE)
+	public boolean createMeetingTags(@PathVariable("meetingId") Integer meetingId,
+			@RequestBody Collection<Tag> tags) {
+		
+		for (Iterator<Tag> iterator = tags.iterator(); iterator.hasNext();) {
+			Tag tag = iterator.next();
+			if(dao.getTagByName(tag.getTag()) == null) {
+				tag = dao.saveTag(tag);
+			} else {
+				tag = dao.getTagByName(tag.getTag());
+			}
+			
+			Tagrelation tr = new Tagrelation();
+			tr.setTag(tag);
+			tr.setTaggedObjectId(meetingId);
+			tr.setTagtype(ttdao.getTagTypeById(2));
+			trdao.saveTagRelation(tr);
+		}
+		return true;
+	}
+	
+	@RequestMapping(value = "/api/tags/recourceTags/{resourceId}", method = RequestMethod.POST, 
+			consumes = MediaType.APPLICATION_JSON_VALUE)
+	public boolean createResourceTags(@PathVariable("resourceId") Integer resourceId,
+			@RequestBody Collection<Tag> tags) {
+		
+		for (Iterator<Tag> iterator = tags.iterator(); iterator.hasNext();) {
+			Tag tag = iterator.next();
+			if(dao.getTagByName(tag.getTag()) == null) {
+				tag = dao.saveTag(tag);
+			} else {
+				tag = dao.getTagByName(tag.getTag());
+			}
+			
+			Tagrelation tr = new Tagrelation();
+			tr.setTag(tag);
+			tr.setTaggedObjectId(resourceId);
+			tr.setTagtype(ttdao.getTagTypeById(3));
+			trdao.saveTagRelation(tr);
+		}
+		return true;
+	}
 
 }

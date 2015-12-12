@@ -2,6 +2,7 @@ package bucomp.application.model;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -14,6 +15,7 @@ import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 
 
 /**
@@ -42,6 +44,9 @@ public class Topic implements Serializable {
 	
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date creationDate;
+	
+	@Transient
+	private List<Tag> tagList;
 	
 
 	public Topic() {
@@ -93,6 +98,14 @@ public class Topic implements Serializable {
 
 	public void setUser(User user) {
 		this.user = user;
+	}
+
+	public List<Tag> getTagList() {
+		return tagList;
+	}
+
+	public void setTagList(List<Tag> tagList) {
+		this.tagList = tagList;
 	}
 	
 }

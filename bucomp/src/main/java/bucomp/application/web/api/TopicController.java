@@ -1,5 +1,6 @@
 package bucomp.application.web.api;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
@@ -13,7 +14,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import bucomp.application.model.Tag;
 import bucomp.application.model.Topic;
+import bucomp.application.web.api.dao.TagDao;
+import bucomp.application.web.api.dao.TagDaoImpl;
 import bucomp.application.web.api.dao.TopicDao;
 import bucomp.application.web.api.dao.TopicDaoImpl;
 import bucomp.application.web.api.dao.UserDao;
@@ -24,6 +28,7 @@ public class TopicController {
 
 	private TopicDao dao = new TopicDaoImpl();
 	private UserDao userdao = new UserDaoImpl();
+	private TagDao tagdao = new TagDaoImpl();
 
 	@RequestMapping(value = "/api/topics", method = RequestMethod.POST, 
 			produces = MediaType.APPLICATION_JSON_VALUE)
@@ -62,6 +67,7 @@ public class TopicController {
 		if (topic == null) {
 			return new ResponseEntity<Topic>(HttpStatus.NO_CONTENT);
 		}
+		topic.setTagList( new ArrayList<Tag>(tagdao.getTopicTags(topic.getTopicId())));
 		return new ResponseEntity<Topic>(topic, HttpStatus.OK);
 	}
 	

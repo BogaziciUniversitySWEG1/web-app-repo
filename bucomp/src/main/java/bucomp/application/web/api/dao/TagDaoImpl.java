@@ -79,5 +79,26 @@ public class TagDaoImpl implements TagDao {
 			return null;
 		}
 	}
+	
+	@SuppressWarnings("unchecked")
+	@Override
+	public Collection<Tag> getTopicTags(Integer topicId) {
+		EntityTransaction etx = null;
+		try {
+			etx = dbService.getEntitymanager().getTransaction();
+			etx.begin();
+			List<Tag> tags = dbService
+					.getEntitymanager()
+					.createQuery(
+							"SELECT t FROM Tag t where t.tagId in (select tr.tag.tagId from Tagrelation tr where tr.tagtype.tagTypeId=4 AND tr.taggedObjectId=" +topicId+ ")").getResultList();
+			etx.commit();
+			return tags;
+		} catch (Exception e) {
+			e.printStackTrace();
+			if (etx != null)
+				etx.rollback();
+			return null;
+		}
+	}
 
 }

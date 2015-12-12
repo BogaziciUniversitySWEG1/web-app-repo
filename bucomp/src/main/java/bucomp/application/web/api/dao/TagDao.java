@@ -14,4 +14,6 @@ public interface TagDao {
 
 	public Collection<Tag> getCommunityTags(Integer communityId);
 
+	public Collection<Tag> getTopicTags(Integer topicId);
+
 }
