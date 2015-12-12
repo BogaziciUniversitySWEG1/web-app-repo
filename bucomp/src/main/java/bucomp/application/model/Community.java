@@ -56,6 +56,9 @@ public class Community implements Serializable {
 	@Transient
 	private List<Tag> tagsList;
 	
+	@Transient
+	private List<Integer> memberList;
+	
 
 	// bi-directional many-to-one association to User
 	@ManyToOne
@@ -197,6 +200,14 @@ public class Community implements Serializable {
 
 	public void setTagsList(List<Tag> tagsList) {
 		this.tagsList = tagsList;
+	}
+
+	public List<Integer> getMemberList() {
+		return memberList;
+	}
+
+	public void setMemberList(List<Integer> memberList) {
+		this.memberList = memberList;
 	}
 
 }
