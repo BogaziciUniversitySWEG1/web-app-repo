@@ -90,11 +90,11 @@ function CreateMenu() {
                 $("<label>").append(
                     $("<span>").attr("class", "screen-reader-text").append("User Name:")
                 ).append(
-                    $("<input>").attr("class", "search-field").attr("name", "q").attr("placeholder", "Email").attr("type", "email").attr("value", "").attr("id", "txtEmail")
+                    $("<input>").attr("class", "search-field").attr("name", "q").attr("placeholder", "Email").attr("type", "email").attr("value", "").attr("id", "txtEmailForLogin")
                 ).append(
                     $("<span>").attr("class", "screen-reader-text").append("Password:")
                 ).append(
-                    $("<input>").attr("class", "search-field").attr("name", "q").attr("placeholder", "Password").attr("type", "password").attr("value", "").attr("id", "txtPassword")
+                    $("<input>").attr("class", "search-field").attr("name", "q").attr("placeholder", "Password").attr("type", "password").attr("value", "").attr("id", "txtPasswordForLogin")
                 )
             ).append(
                 $("<input>").attr("class","search-submit").attr("type","button").attr("value","Login").attr("onclick","Login();")
