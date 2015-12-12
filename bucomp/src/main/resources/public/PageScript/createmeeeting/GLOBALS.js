@@ -7,7 +7,16 @@
         Location: '',
         Date: '',
         Members: new Array() ,
-        Duration:'' 
+        Duration:'',
+        Map:null,
+        MapLocation:null,
+        MapDivStatus:0,
+        Marker:null,
+        Lat:null,
+        Long:null,
+        GeoLocation:null,
+        Geocoder:null
+        
     }
     if (!window.GLOBALS) { window.GLOBALS = GLOBALS; }
 })();
