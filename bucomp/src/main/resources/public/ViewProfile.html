@@ -97,39 +97,8 @@ xmlns:data="http://www.google.com/2005/gml/data" xmlns:expr="http://www.google.c
 		<!-- #page -->
 		<script type="text/javascript">
             jQuery(document).ready(function ($) {
-                function navMenu() {
-                    var menuToggle = $('#menu-toggle');
-                    var searchToggle = $('#search-toggle');
-                    var searchNav = $('#search-toggle-nav');
-
-                    function myToggleClass($myvar) {
-                        if ($myvar.hasClass('active')) {
-                            $myvar.removeClass('active');
-                        } else {
-                            $myvar.addClass('active');
-                        }
-                    }
-
-                    // Display/hide menu
-                    menuToggle.on('click', function () {
-                        myToggleClass($(this));
-
-                        searchNav.hide();
-
-                        searchToggle.removeClass('active');
-                    });
-
-                    // Display/hide search
-                    searchToggle.on('click', function () {
-                        searchNav.slideToggle();
-                        myToggleClass($(this));
-
-                        menuToggle.removeClass('active');
-                    });
-                }
-                
                 function GetUser(){
-                    var userId = GetQueryStringValue("uid");
+                    var userId = GetQueryStringValue("vid");
                     DESIGN.GetUser(userId,FillPage,ErrorFnc);
                 }
                 
