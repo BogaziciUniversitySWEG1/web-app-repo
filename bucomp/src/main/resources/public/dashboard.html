@@ -53,8 +53,10 @@
                         <input id="btnCreateCommunity" class="search-submit" type="button" value="Create Community" onclick="NavigateToCommunity();" />
                     </div>
                     <div class="widget Label" id="Div2">
-                        <h2>2110
-                        Communities found</h2>
+                        <h2>
+                            <span id="lblCommunityCount"></span>
+                            Communities found
+                        </h2>
                     </div>
                     <div class="widget HTML" id="HTML42">
                         <div class="search-wrapper">
@@ -155,6 +157,8 @@
             	if(data == null) {
             		return;
             	}
+                
+                $("#lblCommunityCount").html(data.length);
             	
             	for(var i = 0; i< data.length; i++){
                     //var nameSurname = data.communitymembers[i].user.name + " " + data.communitymembers[i].user.surname;
