@@ -199,7 +199,8 @@
                     )
                 );
             }
-
+            console.log("before if");
+            if (data.communityId){
             $("#meetings").append(
                 $("<li>").append(
                     $("<div>").attr("class","item-content").append(
@@ -209,6 +210,11 @@
                     )
                 )
             );
+            }
+           else {
+                $("#meetings").html("No meetings scheduled...");
+                    
+            }
         },
         FillTags: function(data) {
             if(data != null) {
