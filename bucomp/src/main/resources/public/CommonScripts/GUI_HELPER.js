@@ -514,6 +514,15 @@
                 callback_err(-2, 'LOGIN Fails. Reason: ' + err.Description);
             }
         },
+        GO_BACK_PAGE:function(){
+        	try{
+        		window.location=document.referrer; 
+        	}
+            catch (err) {
+                callback_err(-2, 'Go back fails: ' + err.Description);
+            }
+        	
+        }
     }
     if (!window.GUI_HELPER) { window.GUI_HELPER = GUI_HELPER; }
 })();

@@ -11,6 +11,14 @@
                     GLOBALS.CommunityId = GetQueryStringValue("cid"); 
                     $('#timezone').timezones();
                     DESIGN.GOT_COMMUNITY_MEMBERS(); 
+                    setTimeout(function(){
+                    	var text1 = '(GMT +02:00) Europe/Istanbul';
+                    	$("#timezone option").filter(function() {
+                    	    //may want to use $.trim in here
+                    	    return $(this).text() == text1; 
+                    	}).attr('selected', true);
+                    	
+                    },2000)
     			} catch (err) {
                     GUI_HELPER.ALERT('Warning', err, GUI_HELPER.ERROR);
                 }
@@ -136,6 +144,10 @@
 	        },
 	        FILL_MEMBERS:function(data){
 	        	try{
+	        		if(!GUI_HELPER.NOU(data)){
+	        			GUI_HELPER.ALERT('Warning', 'Community member list can not be found!', GUI_HELPER.ERROR);
+	        			return;
+	        		}	
 	        		GLOBALS.Members=data;
 	        		GLOBALS.MembersList=new Array();
 	        		GLOBALS.InvitedMembers=new Array();
@@ -234,8 +246,15 @@
         	}
         	catch (err) {
                 GUI_HELPER.ALERT('Warning', err, GUI_HELPER.ERROR);
-            }
-        	
+            } 
+        },
+        CANCEL:function(){
+        	try{
+        		GUI_HELPER.CONFIRM('Cancel?','Are you sure to cancel creating meeting?', GUI_HELPER.GO_BACK_PAGE);
+        	}
+        	catch (err) {
+                GUI_HELPER.ALERT('Warning', err, GUI_HELPER.ERROR);
+            } 
         	
         }
     }
