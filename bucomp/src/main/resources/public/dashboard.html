@@ -176,7 +176,16 @@
                     var creationDateString = GUI_HELPER.GetDayName(d.getDay()) + ", " + GUI_HELPER.GetMonthName(d.getMonth()) 
                         + " "+ d.getDate() + ", " + d.getFullYear();
 
-                    var membercount = 5; // todo
+                    var membercount = data[i].memberCount;
+                    
+                    var tags = "";
+                    for(var j = 0; j < data[i].tagsList.length; j++) {
+                        var tagItem = "<a rel=\"tag\">" + data[i].tagsList[j].tag + "</a>";
+                        tags = tags + tagItem;
+                        if(j < data[i].tagsList.length - 1) {
+                            tags = tags + ",";
+                        }
+                    }
 
                     var communitydetailpage = "community.html?cid=" + data[i].communityId + "&uid=" + userId;
 
@@ -223,15 +232,11 @@
 
                     +membercount
 
-                    +'Participants</a></span></span><span class="nbttags-links"><a href="'
+                    +' Participants</a></span></span><span class="nbttags-links">'
 
-                    	+communitydetailpage
+                    	+ tags
 
-                    			+'" rel="tag">Sports</a>, <a href="'
-
-                    			+communitydetailpage
-
-                    						+'" rel="tag">Web Design</a></span>'
+                    						+'</span>'
 
                                         +'</footer></article><div style="clear: both;"></div></div></div></div>'
                     		
