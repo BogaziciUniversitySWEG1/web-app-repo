@@ -52,8 +52,10 @@
             <div class="bwrapwidget-area" id="secondarybwrap" role="complementary">
                 <div class="sidebarbtop section" id="sidebarbtop">
                     <div class="widget Label" id="Div2">
-                        <h2>2110
-                        Groups found </h2>
+                        <h2>
+                            <span id="lblCommunityCount"></span>
+                            Communities found 
+                        </h2>
                     </div>
                     
                     <div class="widget HTML" id="HTML42">
@@ -149,6 +151,7 @@
             
             function FillCommunities(data){
                 var communityCounter = 4;
+                $("#lblCommunityCount").html(data.length);
                 if(data.length < 4){
                     communityCounter = data.length;
                 }
