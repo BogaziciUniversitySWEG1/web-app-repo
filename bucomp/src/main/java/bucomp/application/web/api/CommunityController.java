@@ -133,7 +133,7 @@ public class CommunityController {
 		cm.setRoleId(3); // roles table - Communit Owner role
 		cm.setUser(udao.getUserById(community.getUser().getUserId()));
 		cmDao.saveCommunityMember(cm);
-
+		savedCommunity.setUser(udao.getUserById(community.getUser().getUserId()));
 		return new ResponseEntity<Community>(savedCommunity, HttpStatus.CREATED);
 	}
 
