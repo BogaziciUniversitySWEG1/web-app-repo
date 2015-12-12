@@ -1,6 +1,8 @@
 package bucomp.application.web.api;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Iterator;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -16,10 +18,13 @@ import org.springframework.web.multipart.MultipartFile;
 import bucomp.application.model.Community;
 import bucomp.application.model.Communitymember;
 import bucomp.application.model.Resource;
+import bucomp.application.model.Tag;
 import bucomp.application.web.api.dao.CommunityDao;
 import bucomp.application.web.api.dao.CommunityDaoImpl;
 import bucomp.application.web.api.dao.CommunityMemberDao;
 import bucomp.application.web.api.dao.CommunityMemberDaoImpl;
+import bucomp.application.web.api.dao.TagDao;
+import bucomp.application.web.api.dao.TagDaoImpl;
 import bucomp.application.web.api.dao.UserDao;
 import bucomp.application.web.api.dao.UserDaoImpl;
 
@@ -29,6 +34,7 @@ public class CommunityController {
 	private CommunityDao dao = new CommunityDaoImpl();
 	private CommunityMemberDao cmDao = new CommunityMemberDaoImpl();
 	private UserDao udao = new UserDaoImpl();
+	private TagDao tdao = new TagDaoImpl();
 
 	/**
 	 * Request Mappings
@@ -48,6 +54,11 @@ public class CommunityController {
 			return new ResponseEntity<Collection<Community>>(communities,
 					HttpStatus.NO_CONTENT);
 		}
+		for (Iterator iterator = communities.iterator(); iterator.hasNext();) {
+			Community community = (Community) iterator.next();
+			community.setMemberCount(cmDao.getCommunityMembers(community.getCommunityId()).size());
+			community.setTagsList(new ArrayList<Tag>(tdao.getCommunityTags(community.getCommunityId())));
+		}
 		return new ResponseEntity<Collection<Community>>(communities,
 				HttpStatus.OK);
 	}
@@ -59,6 +70,11 @@ public class CommunityController {
 		if (communities == null || communities.size() == 0) {
 			return new ResponseEntity<Collection<Community>>(communities,
 					HttpStatus.NO_CONTENT);
+		}
+		for (Iterator iterator = communities.iterator(); iterator.hasNext();) {
+			Community community = (Community) iterator.next();
+			community.setMemberCount(cmDao.getCommunityMembers(community.getCommunityId()).size());
+			community.setTagsList(new ArrayList<Tag>(tdao.getCommunityTags(community.getCommunityId())));
 		}
 		return new ResponseEntity<Collection<Community>>(communities,
 				HttpStatus.OK);
@@ -85,6 +101,8 @@ public class CommunityController {
 		if (community == null) {
 			return new ResponseEntity<Community>(HttpStatus.NO_CONTENT);
 		}
+		community.setMemberCount(cmDao.getCommunityMembers(community.getCommunityId()).size());
+		community.setTagsList(new ArrayList<Tag>(tdao.getCommunityTags(community.getCommunityId())));
 		return new ResponseEntity<Community>(community, HttpStatus.OK);
 	}
 

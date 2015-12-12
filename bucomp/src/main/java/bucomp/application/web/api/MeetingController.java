@@ -2,6 +2,7 @@ package bucomp.application.web.api;
 
 import java.text.ParseException;
 import java.util.Collection;
+import java.util.Iterator;
 import java.util.List;
 
 import org.springframework.http.HttpStatus;
@@ -15,13 +16,17 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import bucomp.application.model.Meeting;
+import bucomp.application.model.MeetingInvitee;
 import bucomp.application.web.api.dao.MeetingDao;
 import bucomp.application.web.api.dao.MeetingDaoImpl;
+import bucomp.application.web.api.dao.MeetingInviteeDao;
+import bucomp.application.web.api.dao.MeetingInviteeDaoImpl;
 
 @RestController
 public class MeetingController {
 
 	private MeetingDao meetingDao = new MeetingDaoImpl();
+	private MeetingInviteeDao midao = new MeetingInviteeDaoImpl();
 
 	/**
 	 * 
@@ -38,6 +43,10 @@ public class MeetingController {
 			return new ResponseEntity<Collection<Meeting>>(
 					HttpStatus.NO_CONTENT);
 		}
+		for (Iterator iterator = meetings.iterator(); iterator.hasNext();) {
+			Meeting meeting = (Meeting) iterator.next();
+			meeting.setInviteeList(midao.getMeetingInvitees(meeting.getMeetingId()));
+		}
 		return new ResponseEntity<Collection<Meeting>>(meetings, HttpStatus.OK);
 	}
 
@@ -50,6 +59,14 @@ public class MeetingController {
 		if (savedMeeting == null) {
 			return new ResponseEntity<Meeting>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
+		//add invitees
+		for (Iterator iterator = meeting.getInviteeList().iterator(); iterator.hasNext();) {
+			MeetingInvitee meetingInvitee = (MeetingInvitee) iterator.next();
+			midao.saveMeetingInvitee(meetingInvitee);
+			//send email to meeting invitee
+			// To be implemented
+		}
+		savedMeeting.setInviteeList(midao.getMeetingInvitees(savedMeeting.getMeetingId()));
 		return new ResponseEntity<Meeting>(savedMeeting, HttpStatus.CREATED);
 	}
 

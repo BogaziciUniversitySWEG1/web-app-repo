@@ -171,6 +171,10 @@
 
                     var description = data[i].description.substring(0,200);
                     description = description + "...";
+                    
+                    var d = new Date(data[i].creationDate);
+                    var creationDateString = GUI_HELPER.GetDayName(d.getDay()) + ", " + GUI_HELPER.GetMonthName(d.getMonth()) 
+                        + " "+ d.getDate() + ", " + d.getFullYear();
 
                     var membercount = 5; // todo
 
@@ -205,13 +209,11 @@
 
                 			+'">Community Details</a></div>'
 
-                  +'<div style="float:right;padding-right:10px;margin-top:10px;">'
-
-                                +'<a class="nbtjoin-link" onclick="alert("Please login to join communities!")">Join</a>'
-
-                             +'</div><div style="clear: both;"></div></div><footer class="nbtentry-meta">'
+                    +'<div style="clear: both;"></div></div><footer class="nbtentry-meta">'
 
                     +'<span class="nbtpost-date">'
+                                              
+                    + creationDateString
 
                     +'</span><span class="nbtbyline"><span><a href="'
 

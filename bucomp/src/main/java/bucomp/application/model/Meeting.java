@@ -1,6 +1,7 @@
 package bucomp.application.model;
 
 import java.io.Serializable;
+import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 
@@ -15,6 +16,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 
 
 /**
@@ -48,6 +50,9 @@ public class Meeting implements Serializable {
 	private int status;
 	
 	private int meetingOrganizerUserId;
+	
+	@Transient
+	private List<MeetingInvitee> inviteeList;
 
 	//bi-directional many-to-one association to Meetingattendant
 	@OneToMany(mappedBy="meeting")
@@ -250,5 +255,14 @@ public class Meeting implements Serializable {
 	public void setMeetingOrganizerUserId(int meetingOrganizerUserId) {
 		this.meetingOrganizerUserId = meetingOrganizerUserId;
 	}
+
+	public List<MeetingInvitee> getInviteeList() {
+		return inviteeList;
+	}
+
+	public void setInviteeList(List<MeetingInvitee> inviteeList) {
+		this.inviteeList = inviteeList;
+	}
+
 
 }
