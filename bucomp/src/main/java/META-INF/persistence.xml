@@ -27,6 +27,7 @@
 		<class>bucomp.application.model.Userrole</class>
 		<class>bucomp.application.model.User</class>
 		<class>bucomp.application.model.Topic</class>
+		<class>bucomp.application.model.MeetingInvitee</class>
 		<properties>
 			<property name="javax.persistence.jdbc.password" value="qZi6wKzSta" />
 			<property name="javax.persistence.jdbc.user" value="sql498926" />
