@@ -17,12 +17,24 @@
                 var meetingCreationType = $('input[name=meetingCreationType]:checked').val();
                 var resourceAdditionType = $('input[name=resourceAdditionType]:checked').val();
                 var topicCreationType = $('input[name=topicCreationType]:checked').val();
-               SP_BANK.SAVE(title, description, creationDate, createrUserId, accessType, joinType, postType, meetingCreationType, resourceAdditionType, topicCreationType, GLOBALS.tagList, GLOBALS.invitationList, DESIGN.SaveSuccess, DESIGN.SaveError);
+               SP_BANK.SAVE(title, description, creationDate, createrUserId, accessType, joinType, postType, meetingCreationType, resourceAdditionType, topicCreationType, DESIGN.SaveSuccess, DESIGN.SaveError);
             } catch (err) {
                 GUI_HELPER.ALERT('test', err, GUI_HELPER.ERROR);
             }
         },
         SaveSuccess: function(data) {
+            GLOBALS.CommunityId = data.communityId;
+            DESIGN.SaveTags(GLOBALS.CommunityId);
+        },
+        SaveTags: function(communityId) {
+            SP_BANK.SaveTags(communityId, GLOBALS.tagList, DESIGN.SaveTagsSuccess, DESIGN.SaveTagsError);
+        },
+        SaveTagsSuccess: function(data) {
+            var userId = GetQueryStringValue("uid");
+            alert("Successfully saved. Redirecting to community page.");
+            window.location = "community.html?cid=" + GLOBALS.CommunityId + "&uid=" + userId;
+        },
+        SaveTagsError: function(data) {
             var userId = GetQueryStringValue("uid");
             alert("Successfully saved. Redirecting to community page.");
             window.location = "community.html?cid=" + data.communityId + "&uid=" + userId;
@@ -34,14 +46,6 @@
             var userId = GetQueryStringValue("uid");
             var url = "dashboard.html?uid=" + userId;
             window.location = url;
-        },
-        GetUserInfo: function() {
-            var userId = GetQueryStringValue("uid");
-            GUI_HELPER.GetUserInfo(userId, DESIGN.FillUserInfo, null);
-        },
-        FillUserInfo: function(data) {
-            var nameSurname = data.name + " " + data.surname;
-            $("#lblUserNameSurname").html(nameSurname);
         },
         AddTag: function() {
             var tag = $("#txtSemantic").val();
