@@ -2,6 +2,7 @@ package bucomp.application.web.api;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Iterator;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -53,6 +54,11 @@ public class CommunityController {
 			return new ResponseEntity<Collection<Community>>(communities,
 					HttpStatus.NO_CONTENT);
 		}
+		for (Iterator iterator = communities.iterator(); iterator.hasNext();) {
+			Community community = (Community) iterator.next();
+			community.setMemberCount(cmDao.getCommunityMembers(community.getCommunityId()).size());
+			community.setTagsList(new ArrayList<Tag>(tdao.getCommunityTags(community.getCommunityId())));
+		}
 		return new ResponseEntity<Collection<Community>>(communities,
 				HttpStatus.OK);
 	}
@@ -64,6 +70,11 @@ public class CommunityController {
 		if (communities == null || communities.size() == 0) {
 			return new ResponseEntity<Collection<Community>>(communities,
 					HttpStatus.NO_CONTENT);
+		}
+		for (Iterator iterator = communities.iterator(); iterator.hasNext();) {
+			Community community = (Community) iterator.next();
+			community.setMemberCount(cmDao.getCommunityMembers(community.getCommunityId()).size());
+			community.setTagsList(new ArrayList<Tag>(tdao.getCommunityTags(community.getCommunityId())));
 		}
 		return new ResponseEntity<Collection<Community>>(communities,
 				HttpStatus.OK);
