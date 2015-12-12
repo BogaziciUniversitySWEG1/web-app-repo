@@ -209,11 +209,17 @@
         });
         
         function JoinCommunity(communityId,joinType) {
-            if(joinType == 2) {
-                DESIGN.JoinCommunity(communityId);
+            var uid = GetQueryStringValue("uid");
+            if(uid == "") {
+                alert("You should log in to the system.")
             } else {
-                DESIGN.ShowRequestModal(communityId);
+                if(joinType == 2) {
+                    DESIGN.JoinCommunity(communityId);
+                } else {
+                    DESIGN.ShowRequestModal(communityId);
+                }
             }
+            
         }
 
         //]]>
