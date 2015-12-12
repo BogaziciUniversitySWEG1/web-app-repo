@@ -2,8 +2,10 @@
     var SP_BANK = {
         CREATEMEETING: function(callback, callback_err) {
         	try {
+ 
+                
                 var jsonObj = new Object;
-                jsonObj.IRCLink = "";  
+                jsonObj.IRCLink = GLOBALS.IRCLink;  
                 jsonObj.location = GLOBALS.Location; //
                 jsonObj.startTime =GLOBALS.HourStart; // 
                 jsonObj.endTime =GLOBALS.HourEnd;  //
@@ -11,6 +13,7 @@
                 jsonObj.agenda = GLOBALS.Agenda; //
                 jsonObj.status = GLOBALS.Status; 
                 jsonObj.meetingOrganizerUserId = GLOBALS.UserId; 
+                jsonObj.inviteeList = GLOBALS.InvitedMembersObj;
                 jsonObj.meetingattendants = null;
                 jsonObj.meetingnotes = null;
                 jsonObj.meetingresources = null;

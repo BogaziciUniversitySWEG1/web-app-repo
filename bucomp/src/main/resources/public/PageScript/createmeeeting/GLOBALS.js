@@ -7,7 +7,7 @@
         HourEnd:'',
         Location: '',
         Date: '',
-        Members: new Array() ,
+        Members:null,
         Duration:'',
         Map:null,
         MapLocation:null,
@@ -20,7 +20,11 @@
         TimeZone:null,
         Agenda:null,
         Status:0,
-        MeetingType:null
+        MeetingType:null,
+        InvitedMembers:null,
+        InvitedMembersObj:'',
+        MembersList:null,
+        IRCLink:''
         
     }
     if (!window.GLOBALS) { window.GLOBALS = GLOBALS; }
