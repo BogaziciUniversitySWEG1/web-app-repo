@@ -3,7 +3,8 @@
     	ServiceParameter: "api",
         UserId: '',
         CommunityId: '',
-        Hour:'',
+        HourStart:'',
+        HourEnd:'',
         Location: '',
         Date: '',
         Members: new Array() ,
@@ -15,7 +16,11 @@
         Lat:null,
         Long:null,
         GeoLocation:null,
-        Geocoder:null
+        Geocoder:null,
+        TimeZone:null,
+        Agenda:null,
+        Status:0,
+        MeetingType:null
         
     }
     if (!window.GLOBALS) { window.GLOBALS = GLOBALS; }

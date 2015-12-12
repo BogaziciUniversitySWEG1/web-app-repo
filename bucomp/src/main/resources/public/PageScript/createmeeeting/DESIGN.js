@@ -56,6 +56,7 @@
         Createmeeting: function () {
             try {
                 GLOBALS.Hour = $('#txtHour').val();
+                GLOBALS.TimeZone= $("#timezone option:selected").text();
                 GLOBALS.Location = $('#txtLocation').val();
                 GLOBALS.Duration = $('#txtDuration').val();
                 GLOBALS.Date = $('#txtDate').val();

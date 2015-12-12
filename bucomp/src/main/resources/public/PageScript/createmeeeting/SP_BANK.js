@@ -3,13 +3,20 @@
         CREATEMEETING: function(callback, callback_err) {
         	try {
                 var jsonObj = new Object;
-                jsonObj.communityId = GLOBALS.CommunityId;
-                jsonObj.duration = GLOBALS.Duration;
-                jsonObj.location = GLOBALS.Location;
-                jsonObj.meetingtype = 3; // todo
-                jsonObj.IRCLink = ""; // todo
-                jsonObj.timeZone = ""; // todo
-                jsonObj.meetingDate = GLOBALS.Date; // todo
+                jsonObj.IRCLink = "";  
+                jsonObj.location = GLOBALS.Location; //
+                jsonObj.startTime =GLOBALS.HourStart; // 
+                jsonObj.endTime =GLOBALS.HourEnd;  //
+                jsonObj.timeZone =GLOBALS.TimeZone;  //
+                jsonObj.agenda = GLOBALS.Agenda; //
+                jsonObj.status = GLOBALS.Status; 
+                jsonObj.meetingOrganizerUserId = GLOBALS.UserId; 
+                jsonObj.meetingattendants = null;
+                jsonObj.meetingnotes = null;
+                jsonObj.meetingresources = null;
+                jsonObj.meetingroles = null;
+                jsonObj.communityId = GLOBALS.CommunityId; 
+                jsonObj.meetingtype = GLOBALs.MeetingType;  // 
                 
                 var jsonStr = JSON.stringify(jsonObj);
                 

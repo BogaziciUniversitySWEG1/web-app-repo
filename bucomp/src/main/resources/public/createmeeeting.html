@@ -16,10 +16,11 @@
     <link href="CommonScripts/jeasyui/themes/default/dialog.css" rel="stylesheet" type="text/css" />
     <link href="CommonScripts/jeasyui/themes/default/easyui.css" rel="stylesheet" type="text/css" />
 
-    <script src="CommonScripts/jquery.min.js" type="text/javascript"></script>
+    <script src="http://code.jquery.com/jquery-1.11.1.min.js" type="text/javascript"></script>
     <script src="CommonScripts/jeasyui/jquery.easyui.min.js" type="text/javascript"></script>
     <script src="CommonScripts/Common.js" type="text/javascript"></script>
     <script src="CommonScripts/navigation.js" type="text/javascript"></script>
+    <script src="CommonScripts/timezones.full.js" type="text/javascript"></script>
     <script src="https://maps.googleapis.com/maps/api/js"></script>
     
 </head>
@@ -41,31 +42,60 @@
                                             <h2 class="post-title entry-title">Create Meeting</h2>
                                         </header>
                                         <div class="post-header-line-1"></div>
-                                        <div class="post-body entry-content">
-                                            <div class="form-group">
-                                                <label for="txtDate">Date</label>
-                                                <input type="date" id="txtDate" class="form-control" />
+                                        <div class="post-body entry-content"> 
+                                            <div class="form-group">   
+                                        			<label for="txtStartHour">Start Date and Time</label>  
+                                        			 <input type="datetime-local" placeholder="hours:minutes" id="txtStartHour" class="form-control"/>
+                                                  
                                             </div>
-                                            <div class="form-group">
-                                                <label for="txtHour">Hour</label>
-                                                <input type="text" id="txtHour" class="form-control" />
+                                            
+                                            <div class="form-group">    
+                                                			<label for="txtEndHour">End Date and Time</label>  
+                                                			 <input type="datetime-local" placeholder="hours:minutes" id="txtEndHour" class="form-control" />
+                                             </div>
+                                             
+                                            <div class="form-group">    
+                                                			<label for="timezone">Time Zone</label> 
+                                                			 <select class="form-control" id="timezone"></select>
+                                            
                                             </div>
+                                            
+                                            <div class="form-group">
+                                                <label for="txtDuration">Duration</label>
+                                                <input type="number" id="txtDuration" class="form-control" />
+                                            </div>
+                                            
                                             <div class="form-group">
                                                 <label for="txtLocation">Location</label>
                                                 <input type="text" id="txtLocation" class="form-control" style="width:80%;" />
                                                 <input type="input" id="btnOpenCloseMap" value="Open Map" onclick="DESIGN.OPENCLOSEMAP();" class="form-control" style="width: 10%;position: absolute;margin: -45px 0px 0px 80%;cursor: pointer;"/>
                                             </div>
+                                            
                                              <div id="mapcontentdiv" style="display: none;padding : 5px; height:400px;">
 										         <div id="map" style="width:100%; height:400px;"></div>
-										    </div>
-                                            <div class="form-group">
-                                                <label for="txtDuration">Duration</label>
-                                                <input type="text" id="txtDuration" class="form-control" />
+										    </div> 
+                                            <div class="form-group">    
+                                                			<label for="txtagenda">Agenda</label> 
+                                                			 <textarea class="form-control" rows="10" id="txtagenda"></textarea>
+                                            
                                             </div>
-<!--                                             <div class="form-group"> -->
-<!--                                                 <label for="txtAgenda">Agenda</label> -->
-<!--                                                 <textarea id="txtAgenda" class="form-control" rows="5"></textarea> -->
-<!--                                             </div> todo --> 
+                                            
+                                            <div class="form-group">    
+                                                			<label for="meetingtype">Meeting Type </label> 
+                                                			 <select class="form-control" id="meetingtype">
+                                                			 <option value="1">Online Meeting</option>
+                                                			 <option value="2">IRC Meeting</option>
+                                                			 <option value="3">Face to face Meeting</option>
+                                                			 <option value="4">Event</option>
+                                                			 </select>
+                                            
+                                            </div>
+                                            
+                                            <div class="form-group">    
+                                                			<label for="txtirclink">IRC Link</label>  
+                                                			 <input type="text" id="txtirclink" class="form-control" />
+                                             </div>
+                                             
                                             <div class="form-group">
                                                 <label for="txtAllmembers">Attendants</label>
                                                 <input type="checkbox" name="txtAllmembers" checked/>All members
@@ -117,6 +147,9 @@
     
     
     <script type="text/javascript">
+    
+    	$('#timezone').timezones();
+    
     	//DESIGN.INITIALIZE();
     </script>
     
