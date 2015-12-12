@@ -149,12 +149,16 @@
                     
                     
                 }
+                
+                var communityId = GetQueryStringValue("cid");
+                var userId = GetQueryStringValue("uid");
+                var membersHtml = "communitymembers.html?cid=" + communityId + "&uid=" + userId;
 
                 $("#members").append(
                     $("<li>").append(
                         $("<div>").attr("class","item-content").append(
                             $("<div>").attr("class","item-snippet").append(
-                                $("<a>").attr("href","community.html?cid=1").html("See all members...")
+                                $("<a>").attr("href", membersHtml).html("See all members...")
                             )
                         )
                     )
