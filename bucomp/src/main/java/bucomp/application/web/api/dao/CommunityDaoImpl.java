@@ -43,8 +43,7 @@ public class CommunityDaoImpl implements CommunityDao {
 		try {
 			etx = dbService.getEntitymanager().getTransaction();
 			etx.begin();
-			List<Community> clist = dbService.getEntitymanager()
-					.createQuery("SELECT c FROM Community c where c.user.userId=" + userId).getResultList();
+			List<Community> clist = dbService.getEntitymanager().createQuery("SELECT c FROM Community c where c.communityId in (select cm.CommunityId from Communitymember cm where cm.user.userId=" + userId + ")").getResultList();
 			etx.commit();
 			return clist;
 		} catch (Exception e) {
