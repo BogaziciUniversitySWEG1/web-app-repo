@@ -41,12 +41,13 @@
         },
         FillComments: function(data) {
             $("#commentList").html("");
+            var userId = GetQueryStringValue("uid");
             for(var i = 0; i< data.length; i++) {
                 var d = new Date(data[i].postDate);
                 var postDateStr = "on " + GUI_HELPER.GetDayName(d.getDay()) + ", " + GUI_HELPER.GetMonthName(d.getMonth()) 
                     + " "+ d.getDate() + ", " + d.getFullYear();
                 var userName = "by " + data[i].user.name + " " + data[i].user.surname;
-                var userLink = "ViewProfile.html?uid=" + data[i].user.userId;
+                var userLink = "ViewProfile.html?uid=" + userId + "&vid=" + data[i].user.userId;
                 $("#commentList").append(
                     $("<li>").append(
                         $("<a>").attr("class","related-post-item-title").attr("title",data[i].title).append(data[i].title)

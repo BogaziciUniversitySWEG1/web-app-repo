@@ -14,10 +14,7 @@
             else{
             	GLOBALS.UserId=-1;
             } 
-         	$('#lnkCreateCommunity').attr('href','createcommunity.html?uid='+GLOBALS.UserId); 
-         	$('#lnkMyCommunity').attr('href','dashboard.html?uid='+GLOBALS.UserId);  
-         	$('#lnkCreateMeeting').attr('href','createmeeeting.html?uid='+GLOBALS.UserId); 
-         	$('#lnkProfile').attr('href','ViewProfile.html?uid='+GLOBALS.UserId); 
+         	
             SP_BANK.GetCommunity(communityId,DESIGN.FillCommunity,GUI_HELPER.SERVICE_CALLBACK_ERR);
             SP_BANK.GetCommunityRequest(communityId,DESIGN.FillRequest,GUI_HELPER.SERVICE_CALLBACK_ERR);
             
