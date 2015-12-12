@@ -44,8 +44,8 @@ public class MeetingController {
 			return new ResponseEntity<Collection<Meeting>>(
 					HttpStatus.NO_CONTENT);
 		}
-		for (Iterator iterator = meetings.iterator(); iterator.hasNext();) {
-			Meeting meeting = (Meeting) iterator.next();
+		for (Iterator<Meeting> iterator = meetings.iterator(); iterator.hasNext();) {
+			Meeting meeting = iterator.next();
 			meeting.setInviteeList(midao.getMeetingInvitees(meeting.getMeetingId()));
 		}
 		return new ResponseEntity<Collection<Meeting>>(meetings, HttpStatus.OK);
@@ -61,8 +61,8 @@ public class MeetingController {
 			return new ResponseEntity<Meeting>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 		//add invitees
-		for (Iterator iterator = meeting.getInviteeList().iterator(); iterator.hasNext();) {
-			MeetingInvitee meetingInvitee = (MeetingInvitee) iterator.next();
+		for (Iterator<MeetingInvitee> iterator = meeting.getInviteeList().iterator(); iterator.hasNext();) {
+			MeetingInvitee meetingInvitee = iterator.next();
 			meetingInvitee.setMeetingId(savedMeeting.getMeetingId());
 			meetingInvitee.setInviteSentDate(new Date());
 			meetingInvitee.setStatus(0);
