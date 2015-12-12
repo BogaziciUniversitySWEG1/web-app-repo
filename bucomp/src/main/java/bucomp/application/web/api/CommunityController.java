@@ -226,6 +226,7 @@ public class CommunityController {
 				tagCountsList.add(tc);
 			}
 		}
+		Collections.sort(tagCountsList);
 
 		return new ResponseEntity<Collection<TagCountDTO>>(tagCountsList, HttpStatus.OK);
 	}

@@ -1,20 +1,12 @@
 package bucomp.application.web.api.dao;
 
-import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
-import java.util.Set;
-import java.util.TreeSet;
 
 import javax.persistence.EntityTransaction;
 
 import bucomp.application.model.Community;
 import bucomp.application.model.Communitymember;
-import bucomp.application.model.Tag;
 
 public class CommunityDaoImpl implements CommunityDao {
 

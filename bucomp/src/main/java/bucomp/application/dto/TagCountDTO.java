@@ -1,6 +1,6 @@
 package bucomp.application.dto;
 
-public class TagCountDTO {
+public class TagCountDTO implements Comparable<TagCountDTO> {
 
 	private String tagName;
 	private int tagCount;
@@ -16,5 +16,10 @@ public class TagCountDTO {
 	}
 	public void setTagCount(int tagCount) {
 		this.tagCount = tagCount;
+	}
+	@Override
+	public int compareTo(TagCountDTO arg0) {
+		// TODO Auto-generated method stub
+		return this.getTagCount()-arg0.getTagCount();
 	}
 }
