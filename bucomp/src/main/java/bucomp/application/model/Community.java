@@ -15,6 +15,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 
 /**
  * The persistent class for the communities database table.
@@ -48,6 +49,13 @@ public class Community implements Serializable {
 	private int topicCreationType;
 
 	private String title;
+	
+	@Transient
+	private int memberCount;
+	
+	@Transient
+	private List<Tag> tagsList;
+	
 
 	// bi-directional many-to-one association to User
 	@ManyToOne
@@ -173,6 +181,22 @@ public class Community implements Serializable {
 
 	public int getTopicCreationType() {
 		return topicCreationType;
+	}
+
+	public int getMemberCount() {
+		return memberCount;
+	}
+
+	public void setMemberCount(int memberCount) {
+		this.memberCount = memberCount;
+	}
+
+	public List<Tag> getTagsList() {
+		return tagsList;
+	}
+
+	public void setTagsList(List<Tag> tagsList) {
+		this.tagsList = tagsList;
 	}
 
 }
