@@ -7,8 +7,10 @@
                 var jsonObj = new Object;
                 jsonObj.IRCLink = GLOBALS.IRCLink;  
                 jsonObj.location = GLOBALS.Location; //
-                jsonObj.startTime =GLOBALS.HourStart; // 
-                jsonObj.endTime =GLOBALS.HourEnd;  //
+                var sd = new Date(GLOBALS.HourStart);
+                jsonObj.startTime =(sd).getTime(); // 
+                var ed = new Date(GLOBALS.HourEnd);
+                jsonObj.endTime =(ed).getTime();  //
                 jsonObj.timeZone =GLOBALS.TimeZone;  //
                 jsonObj.agenda = GLOBALS.Agenda; //
                 jsonObj.status = GLOBALS.Status; 
@@ -19,7 +21,7 @@
                 jsonObj.meetingresources = null;
                 jsonObj.meetingroles = null;
                 jsonObj.communityId = GLOBALS.CommunityId; 
-                jsonObj.meetingtype = GLOBALs.MeetingType;  // 
+                jsonObj.meetingTypeId = parseInt(GLOBALS.MeetingType);  // 
                 
                 var jsonStr = JSON.stringify(jsonObj);
                 

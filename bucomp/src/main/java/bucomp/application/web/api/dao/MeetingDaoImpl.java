@@ -122,7 +122,7 @@ public class MeetingDaoImpl implements MeetingDao {
 			existingMeeting.setMeetingnotes(m.getMeetingnotes());
 			existingMeeting.setMeetingresources(m.getMeetingresources());
 			existingMeeting.setMeetingroles(m.getMeetingroles());
-			existingMeeting.setMeetingtype(m.getMeetingtype());
+			//existingMeeting.setMeetingtype(m.getMeetingtype());
 			existingMeeting.setTimeZone(m.getTimeZone());
 
 			etx.commit();

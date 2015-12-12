@@ -103,7 +103,9 @@
 	                    GUI_HELPER.ALERT('Warning', 'Please fill the Meeting Type area!', GUI_HELPER.ERROR);
 	                    return;
 	                } 
-	                 
+	                var find = ',';
+	                var re = new RegExp(find, 'g');
+	                GLOBALS.Location = GLOBALS.Location.replace(re, '');
 	                SP_BANK.CREATEMEETING(DESIGN.CREATED_MEETING, GUI_HELPER.SERVICE_CALLBACK_ERR); 
 	                    
 	            } catch (err) {
@@ -174,18 +176,14 @@
 	        	try{
 	        		GLOBALS.InvitedMembers[userid]=email;
 	        		var invitedMembersContent = ""; 
-	        		GLOBALS.InvitedMembersObj='{';
+	        		GLOBALS.InvitedMembersObj=[];
 	                for(var i = 0; i< GLOBALS.InvitedMembers.length; i++){
 	                	if(GUI_HELPER.NOU(GLOBALS.InvitedMembers[i])){
 	                		invitedMembersContent = invitedMembersContent + "<img src='images/Delete.png' onclick='DESIGN.REMOVE_INVITEES(" + i+ ");' width='16' />";
 	                		invitedMembersContent = invitedMembersContent + "<a rel='tag'>" + GLOBALS.InvitedMembers[i] + "</a>";
-	                		if(GLOBALS.InvitedMembersObj=='{')
-	        					GLOBALS.InvitedMembersObj+='"userId":'+i+'';
-	        				else
-	        					GLOBALS.InvitedMembersObj+=',"userId":'+i+'';
+	                		GLOBALS.InvitedMembersObj.push({'userId':i})
 	                	}
-	                	if(i==GLOBALS.InvitedMembers.length-1){
-	                		GLOBALS.InvitedMembersObj+='}';
+	                	if(i==GLOBALS.InvitedMembers.length-1){ 
 	                    	invitedMembersContent = invitedMembersContent + ", ";
 	                    	$("#invitedMembersSpan").html(invitedMembersContent);
 	                    }

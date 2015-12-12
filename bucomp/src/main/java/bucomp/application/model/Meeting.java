@@ -71,11 +71,16 @@ public class Meeting implements Serializable {
 	private List<Meetingrole> meetingroles;
 
 	private int communityId;
+ 
+	private int  meetingTypeId;
 
-	//bi-directional many-to-one association to Meetingtype
-	@ManyToOne
-	@JoinColumn(name="MeetingTypeId")
-	private Meetingtype meetingtype;
+	public int getMeetingTypeId() {
+		return meetingTypeId;
+	}
+
+	public void setMeetingTypeId(int meetingTypeId) {
+		this.meetingTypeId = meetingTypeId;
+	}
 
 	public Meeting() {
 	}
@@ -198,14 +203,6 @@ public class Meeting implements Serializable {
 		meetingrole.setMeeting(null);
 
 		return meetingrole;
-	}
-
-	public Meetingtype getMeetingtype() {
-		return this.meetingtype;
-	}
-
-	public void setMeetingtype(Meetingtype meetingtype) {
-		this.meetingtype = meetingtype;
 	}
 
 	public int getCommunityId() {
