@@ -83,21 +83,24 @@
             <div class="bwrapwidget-area" id="secondarybwrap" role="complementary">
                 <div class="sidebarbtop section" id="sidebarbtop">
                     <div class="widget PopularPosts" id="PopularPosts1">
-                        <input type="button" id="btnJoinCommunity" value="Join Community" class="submit-search" />
+                        <input type="button" id="btnJoinCommunity" value="Join Community" class="submit-search" style="display:none;" />
                     </div>
                     <div class="widget PopularPosts" id="PopularPosts2">
-                        <input type="button" id="btnCreateTopic" value="Create Topic" class="submit-search" onclick="DESIGN.RedirectToTopicCreation();" />
+                        <input type="button" id="btnCreateTopic" value="Create Topic" class="submit-search" onclick="DESIGN.RedirectToTopicCreation();" style="display:none;" />
                     </div>
                     <div class="widget PopularPosts" id="PopularPosts3">
-                        <input type="button" id="btnCreateMeeting" value="Create Meeting" class="submit-search" onclick="DESIGN.RedirectToMeetingCreation();" />
+                        <input type="button" id="btnCreateMeeting" value="Create Meeting" class="submit-search" onclick="DESIGN.RedirectToMeetingCreation();" style="display:none;" />
                     </div>
                     <div class="widget PopularPosts" id="PopularPosts4">
-                        <input type="button" id="btnAddResource" value="Add Resource" class="submit-search" onclick="DESIGN.RedirectToResourceAddition();" />
+                        <input type="button" id="btnCreateEvent" value="Create Event" class="submit-search" onclick="DESIGN.RedirectToEventCreation();" style="display:none;" />
                     </div>
                     <div class="widget PopularPosts" id="PopularPosts5">
-                        <input type="button" id="btnRequests" value="Community Requests" class="submit-search" onclick="DESIGN.RedirectToCommunityRequests();" />
+                        <input type="button" id="btnAddResource" value="Add Resource" class="submit-search" onclick="DESIGN.RedirectToResourceAddition();" style="display:none;" />
                     </div>
                     <div class="widget PopularPosts" id="PopularPosts6">
+                        <input type="button" id="btnRequests" value="Community Requests" class="submit-search" onclick="DESIGN.RedirectToCommunityRequests();" style="display:none;" />
+                    </div>
+                    <div class="widget PopularPosts" id="PopularPosts7">
                         <h2>Upcoming Events</h2>
                         <div class="widget-content popular-posts" id="upcomingEventsDiv">
                             <ul>

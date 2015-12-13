@@ -164,8 +164,12 @@
                     var creationDateString = "Created on: " + GUI_HELPER.GetDayName(d.getDay()) + ", " + GUI_HELPER.GetMonthName(d.getMonth()) 
                         + " "+ d.getDate() + ", " + d.getFullYear();
                     
+                    var communitydetailpage = "community.html?cid=" + data[i].communityId;
                     var uid = GetQueryStringValue("uid");
-                    var communitydetailpage = "community.html?cid=" + data[i].communityId + "&uid=" + uid;
+                    if(uid != "") {
+                        communitydetailpage = communitydetailpage +  + "&uid=" + uid;
+                    }
+                    
                     
                     var joinButton = '<a style="cursor: pointer" class="nbtjoin-link" onclick="JoinCommunity(' + data[i].communityId + ',' + data[i].joinType + ');">Join</a>';
                     for(var j=0; j < data[i].memberList.length; j++) {

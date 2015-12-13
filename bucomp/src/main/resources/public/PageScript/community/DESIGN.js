@@ -23,13 +23,6 @@
                 callback_err();
             }
         },
-        GetUpcomingEventsS:function(communityId){
-        	try{
-        		SP_BANK.GetUpcomingEvents(parseInt(communityId),DESIGN.FillUpcomingEvents,DESIGN.GetCommunityError);
-        	} catch (err) {
-                
-            } 
-        },
         FillUpcomingEvents:function(data){
         	try{
         		if(GUI_HELPER.NOU(data)){
@@ -66,7 +59,7 @@
         FillPage: function(data) {
             var communityId = GetQueryStringValue("cid");
             var userId = GetQueryStringValue("uid");
-            DESIGN.GetUpcomingEventsS(communityId);
+            
         	if(GUI_HELPER.NOU(data)){
 	            $("#lblTitle").html(data.title);
 	            $("#divDescription").html(data.description);
@@ -106,6 +99,8 @@
             SP_BANK.GetCommunityMeetings(communityId, -1, DESIGN.FillMeetings, null);
             SP_BANK.GetCommunityTopics(communityId, DESIGN.FillTopics, null);
             SP_BANK.GetCommunityTags(communityId, DESIGN.FillTags, null);
+            SP_BANK.GetUpcomingEvents(communityId,DESIGN.FillUpcomingEvents,DESIGN.GetCommunityError);
+            
             if(userId != "") {
                 GUI_HELPER.GetUserInfo(userId, DESIGN.FillUserInfo, null);
             }
@@ -286,12 +281,13 @@
             var communityId = GetQueryStringValue("cid");
             var userId = GetQueryStringValue("uid");
             
-            if(GLOBALS.canCreateTopic == false && !GLOBALS.isOwner) {
-                $("#btnCreateTopic").hide();
+            if(GLOBALS.canCreateTopic == true || GLOBALS.isOwner) {
+                $("#btnCreateTopic").show();
             }
             
-            if(GLOBALS.canCreateMeeting == false && !GLOBALS.isOwner) {
-                $("#btnCreateMeeting").hide();
+            if(GLOBALS.canCreateMeeting == true || GLOBALS.isOwner) {
+                $("#btnCreateMeeting").show();
+                $("#btnCreateEvent").show();
             }
             
             if(GLOBALS.canJoin == true) {
@@ -300,8 +296,8 @@
                 $("#btnJoinCommunity").attr("onclick","DESIGN.ShowRequestModal();");
             }
             
-            if(GLOBALS.canAddResource == false && !GLOBALS.isOwner) {
-                $("#btnAddResource").hide();
+            if(GLOBALS.canAddResource == true || GLOBALS.isOwner) {
+                $("#btnAddResource").show();
             }
             
             if(GLOBALS.isMember == true) {
@@ -319,12 +315,15 @@
                 SP_BANK.CheckCommunityRequest(communityId, DESIGN.CheckCommunityRequest, null);
             }
             
-            if(GLOBALS.isOwner == false) {
-                $("#btnRequests").hide();
+            if(GLOBALS.isOwner == true) {
+                $("#btnRequests").show();
             }
         },
         CheckCommunityRequest: function(data) {
             var userId = GetQueryStringValue("uid");
+            if(data == null || userId == "") {
+                return;
+            }
             for(var i = 0; i< data.length; i++) {
                 if(userId == data[i].userId) {
                     $("#btnJoinCommunity").val("Waiting for approval");
@@ -401,6 +400,11 @@
             var userId = GetQueryStringValue("uid");
             var communityId = GetQueryStringValue("cid");
             window.location = "createmeeeting.html?uid=" + userId + "&cid=" + communityId;
+        },
+        RedirectToEventCreation: function() {
+            var userId = GetQueryStringValue("uid");
+            var communityId = GetQueryStringValue("cid");
+            window.location = "createmeeeting.html?uid=" + userId + "&cid=" + communityId + "&meetingType=event";
         },
         RedirectToCommunityRequests: function() {
             var userId = GetQueryStringValue("uid");

@@ -1,4 +1,4 @@
-﻿/// <reference path="../CommonScripts/GUI_HELPER.js" />
+/// <reference path="../CommonScripts/GUI_HELPER.js" />
 /// <reference path="SP_BANK.js" />
 /// <reference path="GLOBALS.js" />
 
@@ -19,6 +19,12 @@
                     	}).attr('selected', true);
                     	
                     },2000)
+                    
+                    if(GetQueryStringValue("meetingType") == "event") {
+                        $("#pageHeader").html("Create Event");
+                        $("#meetingtype").val("4");
+                        $('#meetingtype').prop('disabled', 'disabled');
+                    }
     			} catch (err) {
                     GUI_HELPER.ALERT('Warning', err, GUI_HELPER.ERROR);
                 }
