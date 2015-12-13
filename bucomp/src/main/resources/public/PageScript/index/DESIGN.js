@@ -11,6 +11,20 @@
                 callback_err();
             }
         },
+        GetCommunitiesByTitle: function (callback, callback_err) {
+            try {
+               SP_BANK.GetCommunitiesByTitle(callback, callback_err);
+            } catch (err) {
+                callback_err();
+            }
+        },
+        GetCommunitiesByCreationDate: function (callback, callback_err) {
+            try {
+               SP_BANK.GetCommunitiesByCreationDate(callback, callback_err);
+            } catch (err) {
+                callback_err();
+            }
+        },
         GetPopularTags: function() {
             SP_BANK.GetPopularTags(DESIGN.FillPopularTags,null);
         },
