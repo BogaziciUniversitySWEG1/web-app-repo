@@ -20,8 +20,10 @@ import org.springframework.web.multipart.MultipartFile;
 import bucomp.application.dto.TagCountDTO;
 import bucomp.application.model.Community;
 import bucomp.application.model.Communitymember;
+import bucomp.application.model.DbpediaClassModel;
 import bucomp.application.model.Resource;
 import bucomp.application.model.Tag;
+import bucomp.application.semantic.api.DBPediaWS;
 import bucomp.application.web.api.dao.CommunityDao;
 import bucomp.application.web.api.dao.CommunityDaoImpl;
 import bucomp.application.web.api.dao.CommunityMemberDao;
@@ -38,6 +40,7 @@ public class CommunityController {
 	private CommunityMemberDao cmDao = new CommunityMemberDaoImpl();
 	private UserDao udao = new UserDaoImpl();
 	private TagDao tdao = new TagDaoImpl();
+	private DBPediaWS dpws = new DBPediaWS();
 
 	/**
 	 * Request Mappings
@@ -48,11 +51,16 @@ public class CommunityController {
 		return new ResponseEntity<Integer>(dao.getCommunityCount(), HttpStatus.OK);
 	}
 
+	@RequestMapping(value = "/api/communities/tags/{keyword}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<Collection<DbpediaClassModel>> getSemanticTagsFromDBPedia(
+			@PathVariable("keyword") String keyword) {
+		return new ResponseEntity<Collection<DbpediaClassModel>>(dpws.getCategories(keyword), HttpStatus.OK);
+	}
+
 	@RequestMapping(value = "/api/communities/userCommunities/{userId}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<Collection<Community>> getUserCommunities(
-			@PathVariable("userId") Integer userId,
+	public ResponseEntity<Collection<Community>> getUserCommunities(@PathVariable("userId") Integer userId,
 			@RequestParam(value = "sortType", required = false) String sortType) {
-		Collection<Community> communities = dao.getUserCommunities(userId,sortType);
+		Collection<Community> communities = dao.getUserCommunities(userId, sortType);
 		if (communities == null || communities.size() == 0) {
 			return new ResponseEntity<Collection<Community>>(communities, HttpStatus.NO_CONTENT);
 		}
@@ -61,7 +69,8 @@ public class CommunityController {
 			community.setMemberCount(cmDao.getCommunityMembers(community.getCommunityId()).size());
 			community.setTagsList(new ArrayList<Tag>(tdao.getCommunityTags(community.getCommunityId())));
 			ArrayList<Integer> cmIDList = new ArrayList<Integer>();
-			for (Iterator<Communitymember> cmi = cmDao.getCommunityMembers(community.getCommunityId()).iterator(); cmi.hasNext();) {
+			for (Iterator<Communitymember> cmi = cmDao.getCommunityMembers(community.getCommunityId()).iterator(); cmi
+					.hasNext();) {
 				Communitymember cm = cmi.next();
 				cmIDList.add(cm.getUser().getUserId());
 			}
@@ -72,7 +81,8 @@ public class CommunityController {
 
 	// Get / Search communities
 	@RequestMapping(value = "/api/communities", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<Collection<Community>> getAllCommunities(@RequestParam(value = "sortType", required = false) String sortType) {
+	public ResponseEntity<Collection<Community>> getAllCommunities(
+			@RequestParam(value = "sortType", required = false) String sortType) {
 		Collection<Community> communities = dao.getAllCommunities(sortType);
 		if (communities == null || communities.size() == 0) {
 			return new ResponseEntity<Collection<Community>>(communities, HttpStatus.NO_CONTENT);
@@ -82,7 +92,8 @@ public class CommunityController {
 			community.setMemberCount(cmDao.getCommunityMembers(community.getCommunityId()).size());
 			community.setTagsList(new ArrayList<Tag>(tdao.getCommunityTags(community.getCommunityId())));
 			ArrayList<Integer> cmIDList = new ArrayList<Integer>();
-			for (Iterator<Communitymember> cmi = cmDao.getCommunityMembers(community.getCommunityId()).iterator(); cmi.hasNext();) {
+			for (Iterator<Communitymember> cmi = cmDao.getCommunityMembers(community.getCommunityId()).iterator(); cmi
+					.hasNext();) {
 				Communitymember cm = cmi.next();
 				cmIDList.add(cm.getUser().getUserId());
 			}
@@ -113,7 +124,8 @@ public class CommunityController {
 		community.setMemberCount(cmDao.getCommunityMembers(community.getCommunityId()).size());
 		community.setTagsList(new ArrayList<Tag>(tdao.getCommunityTags(community.getCommunityId())));
 		ArrayList<Integer> cmIDList = new ArrayList<Integer>();
-		for (Iterator<Communitymember> cmi = cmDao.getCommunityMembers(community.getCommunityId()).iterator(); cmi.hasNext();) {
+		for (Iterator<Communitymember> cmi = cmDao.getCommunityMembers(community.getCommunityId()).iterator(); cmi
+				.hasNext();) {
 			Communitymember cm = cmi.next();
 			cmIDList.add(cm.getUser().getUserId());
 		}
@@ -248,8 +260,6 @@ public class CommunityController {
 			}
 		}
 		Collections.sort(tagCountsList);
-		
-
 
 		return new ResponseEntity<Collection<TagCountDTO>>(tagCountsList, HttpStatus.OK);
 	}

@@ -32,8 +32,8 @@ public class DBPediaWS {
 		for (int i = 0; i < tagList.length; i++) {
 			client = Client.create();
 			webResource = client.resource(
-					"http://localhost:1111/api/search/KeywordSearch?QueryString="
-					
+					"http://lookup.dbpedia.org/api/search.asmx/PrefixSearch?QueryClass=&MaxHits=5&QueryString="
+
 							+ tagList[i]);
 
 			response = webResource.accept("application/json").get(ClientResponse.class);
@@ -53,7 +53,7 @@ public class DBPediaWS {
 			List<DbpediaModel> dbpediamodel = gson.fromJson(resultArray, listType);
 
 			for (DbpediaModel resultItem : dbpediamodel) {
-				for (DbpediaClassModel classModel : resultItem.getCategories()) {
+				for (DbpediaClassModel classModel : resultItem.getClasses()) {
 					categories.add(classModel);
 				}
 			}
