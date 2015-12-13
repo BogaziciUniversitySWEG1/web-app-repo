@@ -6,6 +6,7 @@
     var DESIGN = {
         INITIALIZE_CV: function () {
             try {
+            	
                 var _this = document.getElementById('profileCV');
                 if (_this.files.length > 0) {
                     var file = _this.files[0];
@@ -20,6 +21,7 @@
         },
         INITIALIZE_PIC: function () {
             try {
+            	
                 var _this = document.getElementById('profilePic');
                 if (_this.files.length > 0) {
                     var file = _this.files[0];
@@ -77,8 +79,13 @@
             }
         },
         REGISTERED_USER: function (data) {
-            try {
+            try { 
                 if (GUI_HELPER.NOU(data)) {
+                	$("#photouplaodformframe").contents().find("#hiddenuiforprofile").val(data.userId);
+                	$("#photouplaodformframe").contents().find("#UploadImage").click();
+                	$("#cvuplaodformframe").contents().find("#hiddenuiforcv").val(data.userId);
+                	$("#cvuplaodformframe").contents().find("#Uploadcv").click();
+                	
                     GUI_HELPER.ALERT('Info', "Registration is succesfull.You will be redirected to the main page in 2 seconds!", GUI_HELPER.INFO);
                     setTimeout(function () { window.location = "dashboard.html?uid=" + data.userId }, 2500);
                 }

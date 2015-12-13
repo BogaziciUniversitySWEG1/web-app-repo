@@ -1,0 +1,27 @@
+<html>
+<body> 
+<form id="cvuplaodform" method="post" enctype="multipart/form-data" action="/api/resources/upload">
+    <a href="" id="downloadcv" style="display:none;"></a>
+    <br />
+     <label for="cvupload">Upload Short CV</label>
+    <br />
+	<input id="cvupload" type="file" name="file" onchange="GetCv();" />
+		<input type="hidden" name="uid" id="hiddenuiforcv" value="1">
+	    <input type="submit" id="Uploadcv" value="Upload cv" name="submit" style="display:none;">
+	    
+	    
+ </form> 
+  <script type="text/javascript">
+   function GetCv(){
+	var _this = document.getElementById('cvupload');
+    if (_this.files.length > 0) {
+        var file = _this.files[0];
+        parent.GLOBALS.CvLink = file.name;
+    }
+    else {
+        parent.GLOBALS.CvLink = "";
+    }
+ }
+    </script>
+</body>
+</html> 

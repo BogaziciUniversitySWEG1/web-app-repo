@@ -1,0 +1,27 @@
+<html>
+<body> 
+<form id="photouplaodform" method="post" enctype="multipart/form-data" action="/api/resources/upload">
+    <a href="" id="downloadpic" style="display:none;"></a>
+    <br /> <label for="imgProfile">Upload Profile Photo</label>
+    <br />
+    <label for="profilePic">
+        <img src="images/man-icon.png" width="50" height="50" id="imgProfile" />
+    </label>
+	<input id="profilePic" type="file" name="file" onchange="GetprofilePic();" />
+		<input type="hidden" name="uid" id="hiddenuiforprofile" value="1">
+	    <input type="submit" id="UploadImage" value="Upload Image" name="submit" style="display:none;">
+ </form> 
+   <script type="text/javascript">
+   function GetprofilePic(){
+	var _this = document.getElementById('profilePic');
+    if (_this.files.length > 0) {
+        var file = _this.files[0];
+        parent.GLOBALS.PhotoLink = file.name;
+    }
+    else {
+        parent.GLOBALS.PhotoLink = "";
+    }
+ }
+    </script>
+</body>
+</html> 

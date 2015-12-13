@@ -94,8 +94,8 @@
 			                document.getElementById('txtProfession').value = GLOBALS.Profession;
 			                document.getElementById('txtHobbies').value = GLOBALS.Hobbies;
 			
-			                document.getElementById("cvlink").setAttribute("href", GLOBALS.CvLink);
-			                document.getElementById("imgProfile").setAttribute("src", GLOBALS.PhotoLink);
+			                //document.getElementById("cvlink").setAttribute("href", GLOBALS.CvLink);
+			                //document.getElementById("imgProfile").setAttribute("src", GLOBALS.PhotoLink);
 	                	}
 	               }
 	                else {
@@ -157,6 +157,10 @@
         UPDATED_USER: function (data) {
             try {
                 if (GUI_HELPER.NOU(data)) {
+                	$("#photouplaodformframe").contents().find("#hiddenuiforprofile").val(GLOBALS.UserId);
+                	$("#photouplaodformframe").contents().find("#UploadImage").click();
+                	$("#cvuplaodformframe").contents().find("#hiddenuiforcv").val(GLOBALS.UserId);
+                	$("#cvuplaodformframe").contents().find("#Uploadcv").click();
                     GUI_HELPER.ALERT('Info', "Information is updated.", GUI_HELPER.INFO);
                 }
                 else {

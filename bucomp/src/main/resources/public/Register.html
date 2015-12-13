@@ -73,24 +73,15 @@
                                                 <textarea id="txtHobbies" class="form-control" rows="10"></textarea>
                                             </div>
                                             <div class="image-upload">
-                                            	<form id="photouplaodform" action="upload.php" method="post" enctype="multipart/form-data" >
-	                                                <label for="imgProfile">Profile Photo</label>
-	                                                <br />
-	                                                <label for="profilePic">
-	                                                    <img src="images/man-icon.png" width="50" height="50" id="imgProfile" />
-	                                                </label>
-	
-	                                                <input id="profilePic" type="file" onchange="DESIGN.INITIALIZE_PIC();" />
-	                                                   <input type="submit" value="Upload Image" name="submit" style="display:none;">
-                                                 </form>
+                                            	<iframe id="photouplaodformframe" src="/uploadprofilefile.html" style="width: 100%;height: 100px;border: none;overflow: hidden;">
+                                            	
+	                                             </iframe>
                                             </div>
                                             <div class="form-group">
-                                                <form id="cvuplaodform" action="uploadcv.php" method="post" enctype="multipart/form-data" >
-	                                            <label for="imgProfile">Short CV</label>
-                                                <br />
-                                                <input  id="profileCV"  type="file" onchange="DESIGN.INITIALIZE_CV();" /> 
-                                                	<input type="submit" value="Upload CV" name="submit" style="display:none;">
-                                                 </form>
+                                               <iframe id="cvuplaodformframe" src="/uploadcvfile.html" style="width: 100%;height: 100px;border: none;overflow: hidden;">
+                                            	
+	                                             </iframe>
+                                            </div>
                                             </div>
                                             <div class="form-group-center">
                                                 <input type="button" value="Save" class="search-submit" onclick="DESIGN.Register();" />

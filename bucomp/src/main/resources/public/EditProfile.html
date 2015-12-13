@@ -72,21 +72,14 @@ xmlns:data="http://www.google.com/2005/gml/data" xmlns:expr="http://www.google.c
                                                 <textarea id="txtHobbies" class="form-control" rows="10"></textarea>
                                             </div>
                                             <div class="image-upload">
-                                                <label for="imgProfile">Profile Photo</label>
-                                                <br />
-                                                <label for="profilePic">
-                                                    <img src="images/man-icon.png" width="50" height="50" id="imgProfile" />
-                                                </label>
-                                             <input id="profilePic" type="file" onchange="DESIGN.INITIALIZE_PIC();" />
-
+                                            	<iframe id="photouplaodformframe" src="/uploadprofilefile.html" style="width: 100%;height: 120px;border: none;overflow: hidden;">
+                                            	
+	                                             </iframe>
                                             </div>
                                             <div class="form-group">
-                                                <label for="imgCv">Short CV</label>
-                                                <br />
-                                                 <label for="profileCV">
-                                                    <a id="cvlink" href=""></a>
-                                                </label>
-                                               <input  id="profileCV"  type="file" onchange="DESIGN.INITIALIZE_CV();" />
+                                               <iframe id="cvuplaodformframe" src="/uploadcvfile.html" style="width: 100%;height: 120px;border: none;overflow: hidden;">
+                                            	
+	                                             </iframe>
                                             </div>
                                             <div class="form-group-center">
                                                 <input type="button" value="Save" class="search-submit" onclick="DESIGN.Update();"/>

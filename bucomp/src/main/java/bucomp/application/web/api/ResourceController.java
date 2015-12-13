@@ -31,15 +31,19 @@ public class ResourceController {
             @RequestParam("file") MultipartFile[] files) {
 		
 		String uploadedFileLocation;
+		String UPLOAD_DIRECTORY= "/file-repository"; 
+		String uploadPath = System.getenv(UPLOAD_DIRECTORY);
+		
+		
 		if(mid!=null && mid>0){
 			// this is a meeting resource
-			uploadedFileLocation = "D://GitHub/swe574/web-app-repo/bucomp/file-repository/communities/" + cid + "/meetings/" + mid + "/users/" + uid + "/";
+			uploadedFileLocation = uploadPath+"/communities/" + cid + "/meetings/" + mid + "/users/" + uid + "/";
 		} else if(cid!=null && cid>0) {
 			//this is a community resource
-			uploadedFileLocation = "D://GitHub/swe574/web-app-repo/bucomp/file-repository/communities/" + cid + "/users/" + uid + "/";			
+			uploadedFileLocation =uploadPath+"/communities/" + cid + "/users/" + uid + "/";			
 		} else {
 			//this is a user resource (cv or photo)
-			uploadedFileLocation = "D://GitHub/swe574/web-app-repo/bucomp/file-repository/users/" + uid + "/";						
+			uploadedFileLocation =uploadPath+"/file-repository/users/" + uid + "/";						
 		}
 		String fileName = null;
 		String output = "";
