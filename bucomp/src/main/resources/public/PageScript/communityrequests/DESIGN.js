@@ -60,7 +60,11 @@
         }, 
         FillCommunity: function(data) {
         	if(GUI_HELPER.NOU(data)){
+                var uid = GetQueryStringValue("uid");
+                var cid = GetQueryStringValue("cid");
+                var url = "community.html?uid=" + uid + "&cid=" + cid;
                 $("#lblTitle").html(data.title);
+                $("#lblTitle").attr("href",url);
             } 
         }, 
         FillUser: function(data) {
