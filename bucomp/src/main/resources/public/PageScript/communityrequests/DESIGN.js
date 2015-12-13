@@ -150,11 +150,11 @@
 						} 
 						else if(_data[i].status==1){
 							td_opt.innerHTML="Approved";
-							td_status.innerHTML="<img style=\"width:20px;cursor: pointer;\" src=\"../../images/cross.png\" title=\"Deny\" onclick=\"DESIGN.SET_STATUS(2,"+_data[i].communityId+","+_data[i].userId+");\">";
+							//td_status.innerHTML="<img style=\"width:20px;cursor: pointer;\" src=\"../../images/cross.png\" title=\"Deny\" onclick=\"DESIGN.SET_STATUS(2,"+_data[i].communityId+","+_data[i].userId+");\">";
 						} 
 						else {
 							td_opt.innerHTML="Denied";
-							td_status.innerHTML="<img style=\"width:20px;cursor: pointer;\" src=\"../../images/thick.png\" title=\"Approve\" onclick=\"DESIGN.SET_STATUS(1,"+_data[i].communityId+","+_data[i].userId+");\">";
+							//td_status.innerHTML="<img style=\"width:20px;cursor: pointer;\" src=\"../../images/thick.png\" title=\"Approve\" onclick=\"DESIGN.SET_STATUS(1,"+_data[i].communityId+","+_data[i].userId+");\">";
 						} 
                         
                         var td_explanation = document.createElement('td');
