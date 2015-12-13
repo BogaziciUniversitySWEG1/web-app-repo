@@ -75,8 +75,8 @@ public class CommunityController {
 		if (communities == null || communities.size() == 0) {
 			return new ResponseEntity<Collection<Community>>(communities, HttpStatus.NO_CONTENT);
 		}
-		for (Iterator iterator = communities.iterator(); iterator.hasNext();) {
-			Community community = (Community) iterator.next();
+		for (Iterator<Community> iterator = communities.iterator(); iterator.hasNext();) {
+			Community community = iterator.next();
 			community.setMemberCount(cmDao.getCommunityMembers(community.getCommunityId()).size());
 			community.setTagsList(new ArrayList<Tag>(tdao.getCommunityTags(community.getCommunityId())));
 			ArrayList<Integer> cmIDList = new ArrayList<Integer>();

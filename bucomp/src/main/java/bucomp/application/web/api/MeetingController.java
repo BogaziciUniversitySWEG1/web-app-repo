@@ -6,6 +6,7 @@ import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -16,18 +17,28 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import bucomp.application.mail.SMTPMailSender;
 import bucomp.application.model.Meeting;
 import bucomp.application.model.MeetingInvitee;
+import bucomp.application.web.api.dao.CommunityDao;
+import bucomp.application.web.api.dao.CommunityDaoImpl;
 import bucomp.application.web.api.dao.MeetingDao;
 import bucomp.application.web.api.dao.MeetingDaoImpl;
 import bucomp.application.web.api.dao.MeetingInviteeDao;
 import bucomp.application.web.api.dao.MeetingInviteeDaoImpl;
+import bucomp.application.web.api.dao.UserDao;
+import bucomp.application.web.api.dao.UserDaoImpl;
 
 @RestController
 public class MeetingController {
+	
+	@Autowired
+	SMTPMailSender smtpMailSender;
 
 	private MeetingDao meetingDao = new MeetingDaoImpl();
 	private MeetingInviteeDao midao = new MeetingInviteeDaoImpl();
+	private UserDao udao = new UserDaoImpl();
+	private CommunityDao cdao = new CommunityDaoImpl();
 
 	/**
 	 * 
@@ -67,8 +78,15 @@ public class MeetingController {
 			meetingInvitee.setInviteSentDate(new Date());
 			meetingInvitee.setStatus(0);
 			midao.saveMeetingInvitee(meetingInvitee);
+
 			//send email to meeting invitee
-			// To be implemented
+			StringBuilder text = new StringBuilder("<html><body>");
+			text.append("You are invited to a meeting organized by the community " + cdao.getCommunityById(savedMeeting.getCommunityId()).getTitle());
+			text.append("<br>Start Time : " + savedMeeting.getStartTime()); 
+			text.append("<br>End Time : " + savedMeeting.getEndTime());
+			text.append("<br>Agenda :<br>" + savedMeeting.getAgenda());
+			text.append("<br></body></html>");
+			smtpMailSender.send(udao.getUserById(meetingInvitee.getUserId()).getEmail(), "[PROJECT.BUCOMP] - Upcoming Meeting Invite", text.toString());
 		}
 		savedMeeting.setInviteeList(midao.getMeetingInvitees(savedMeeting.getMeetingId()));
 		return new ResponseEntity<Meeting>(savedMeeting, HttpStatus.CREATED);
