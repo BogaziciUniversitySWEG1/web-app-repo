@@ -67,15 +67,6 @@
                 else if (GLOBALS.Profession == '') {
                     GUI_HELPER.ALERT('Warning', 'Please fill the Profession area!', GUI_HELPER.ERROR);
                 }
-                else if (GLOBALS.Hobbies == '') {
-                    GUI_HELPER.ALERT('Warning', 'Please fill the Hobbies area!', GUI_HELPER.ERROR);
-                }
-                else if (GLOBALS.CvLink == '') {
-                    GUI_HELPER.ALERT('Warning', 'Please upload your CV to the system!', GUI_HELPER.ERROR);
-                }
-                else if (GLOBALS.PhotoLink == '') {
-                    GUI_HELPER.ALERT('Warning', 'Please upload your profile photo to the system!', GUI_HELPER.ERROR);
-                }
                 else {
                     GLOBALS.UserId = -1;
                     SP_BANK.REGISTER(GLOBALS.UserId, GLOBALS.Name, GLOBALS.Surname, GLOBALS.Email, GLOBALS.Password, GLOBALS.Location,
