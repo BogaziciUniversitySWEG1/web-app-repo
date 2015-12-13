@@ -11,7 +11,9 @@
         canCreateMeeting: false,
         canAddResource: false,
         canCreateTopic: false,
-        canJoin: false
+        canJoin: false,
+        communityCount: 0,
+        Communities: new Array()
     }
     if (!window.GLOBALS) { window.GLOBALS = GLOBALS; }
 })();
