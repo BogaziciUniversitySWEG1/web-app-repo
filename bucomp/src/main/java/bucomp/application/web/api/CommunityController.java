@@ -49,13 +49,15 @@ public class CommunityController {
 	}
 
 	@RequestMapping(value = "/api/communities/userCommunities/{userId}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<Collection<Community>> getUserCommunities(@PathVariable("userId") Integer userId) {
-		Collection<Community> communities = dao.getUserCommunities(userId);
+	public ResponseEntity<Collection<Community>> getUserCommunities(
+			@PathVariable("userId") Integer userId,
+			@RequestParam(value = "sortType", required = false) String sortType) {
+		Collection<Community> communities = dao.getUserCommunities(userId,sortType);
 		if (communities == null || communities.size() == 0) {
 			return new ResponseEntity<Collection<Community>>(communities, HttpStatus.NO_CONTENT);
 		}
-		for (Iterator iterator = communities.iterator(); iterator.hasNext();) {
-			Community community = (Community) iterator.next();
+		for (Iterator<Community> iterator = communities.iterator(); iterator.hasNext();) {
+			Community community = iterator.next();
 			community.setMemberCount(cmDao.getCommunityMembers(community.getCommunityId()).size());
 			community.setTagsList(new ArrayList<Tag>(tdao.getCommunityTags(community.getCommunityId())));
 			ArrayList<Integer> cmIDList = new ArrayList<Integer>();
@@ -70,8 +72,8 @@ public class CommunityController {
 
 	// Get / Search communities
 	@RequestMapping(value = "/api/communities", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<Collection<Community>> getAllCommunities() {
-		Collection<Community> communities = dao.getAllCommunities();
+	public ResponseEntity<Collection<Community>> getAllCommunities(@RequestParam(value = "sortType", required = false) String sortType) {
+		Collection<Community> communities = dao.getAllCommunities(sortType);
 		if (communities == null || communities.size() == 0) {
 			return new ResponseEntity<Collection<Community>>(communities, HttpStatus.NO_CONTENT);
 		}
@@ -216,7 +218,7 @@ public class CommunityController {
 	@RequestMapping(value = "/api/communities/tagcount", method = RequestMethod.GET)
 	public ResponseEntity<Collection<TagCountDTO>> getNumberOfTagCounts() {
 
-		Collection<Community> communities = dao.getAllCommunities();
+		Collection<Community> communities = dao.getAllCommunities("SORT_BY_CREATION_DATE");
 		ArrayList<Tag> tagsList = new ArrayList<Tag>();
 		for (Community community : communities) {
 			Collection<Tag> tl = tdao.getCommunityTags(community.getCommunityId());

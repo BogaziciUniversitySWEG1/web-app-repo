@@ -14,17 +14,27 @@ public class CommunityDaoImpl implements CommunityDao {
 
 	@Override
 	public int getCommunityCount() {
-		return getAllCommunities().size();
+		return getAllCommunities("SORT_BY_CREATION_DATE").size();
 	}
 
 	@Override
 	@SuppressWarnings("unchecked")
-	public Collection<Community> getAllCommunities() {
+	public Collection<Community> getAllCommunities(String sortType) {
 		EntityTransaction etx = null;
 		try {
 			etx = dbService.getEntitymanager().getTransaction();
 			etx.begin();
-			List<Community> clist = dbService.getEntitymanager().createQuery("SELECT c FROM Community c")
+			
+			String query = "";
+			if(sortType!=null && sortType.equals("SORT_BY_TITLE")) {
+				query = "SELECT c FROM Community c order by c.title";				
+			} else if(sortType!=null && sortType.equals("SORT_BY_CREATION_DATE")) {
+				query = "SELECT c FROM Community c order by c.creationDate";				
+			} else {
+				query = "SELECT c FROM Community c";
+			} 			
+			
+			List<Community> clist = dbService.getEntitymanager().createQuery(query)
 					.getResultList();
 			etx.commit();
 			return clist;
@@ -38,12 +48,20 @@ public class CommunityDaoImpl implements CommunityDao {
 
 	@Override
 	@SuppressWarnings("unchecked")
-	public Collection<Community> getUserCommunities(int userId) {
+	public Collection<Community> getUserCommunities(int userId, String sortType) {
 		EntityTransaction etx = null;
 		try {
 			etx = dbService.getEntitymanager().getTransaction();
 			etx.begin();
-			List<Community> clist = dbService.getEntitymanager().createQuery("SELECT c FROM Community c where c.communityId in (select cm.CommunityId from Communitymember cm where cm.user.userId=" + userId + ")").getResultList();
+			String query = "";
+			if(sortType!=null && sortType.equals("SORT_BY_TITLE")) {
+				query = "SELECT c FROM Community c where c.communityId in (select cm.CommunityId from Communitymember cm where cm.user.userId=" + userId + ") order by c.title";				
+			} else if(sortType!=null && sortType.equals("SORT_BY_CREATION_DATE")) {
+				query = "SELECT c FROM Community c where c.communityId in (select cm.CommunityId from Communitymember cm where cm.user.userId=" + userId + ") order by c.creationDate";				
+			} else {
+				query = "SELECT c FROM Community c where c.communityId in (select cm.CommunityId from Communitymember cm where cm.user.userId=" + userId + ")";
+			} 
+			List<Community> clist = dbService.getEntitymanager().createQuery(query).getResultList();
 			etx.commit();
 			return clist;
 		} catch (Exception e) {

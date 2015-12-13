@@ -12,7 +12,7 @@ public interface CommunityDao {
 	
 	public int getCommunityCount();
 	
-	public Collection<Community> getAllCommunities();
+	public Collection<Community> getAllCommunities(String sortType);
 	
 	public Community getCommunityById(int id);
 	
@@ -28,7 +28,7 @@ public interface CommunityDao {
 	
 	public Collection<Community> searchCommunity(String key);
 
-	public Collection<Community> getUserCommunities(int userId);	
+	public Collection<Community> getUserCommunities(int userId, String sortType);	
 
 
 }
