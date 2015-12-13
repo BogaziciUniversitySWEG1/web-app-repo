@@ -95,10 +95,10 @@
             	GLOBALS.UserId=-1;
             }
             
-            SP_BANK.GetCommunityMembers(communityId, DESIGN.FillMembers, null);
-            SP_BANK.GetCommunityMeetings(communityId, -1, DESIGN.FillMeetings, null);
-            SP_BANK.GetCommunityTopics(communityId, DESIGN.FillTopics, null);
-            SP_BANK.GetCommunityTags(communityId, DESIGN.FillTags, null);
+            SP_BANK.GetCommunityMembers(communityId, DESIGN.FillMembers, DESIGN.GetCommunityError);
+            SP_BANK.GetCommunityMeetings(communityId, -1, DESIGN.FillMeetings, DESIGN.GetCommunityError);
+            SP_BANK.GetCommunityTopics(communityId, DESIGN.FillTopics, DESIGN.GetCommunityError);
+            SP_BANK.GetCommunityTags(communityId, DESIGN.FillTags, DESIGN.GetCommunityError);
             SP_BANK.GetUpcomingEvents(communityId,DESIGN.FillUpcomingEvents,DESIGN.GetCommunityError);
             
             if(userId != "") {
@@ -304,7 +304,8 @@
                 $("#btnJoinCommunity").hide();
             } else {
                 if(userId == "") {
-                    $("#btnJoinCommunity").hide();
+                    $("#btnJoinCommunity").show();
+                    $("#btnJoinCommunity").attr("onclick","DESIGN.ShowJoinError();");
                 } else {
                     $("#btnJoinCommunity").show();
                 }
@@ -332,7 +333,7 @@
             }
         },
         GetCommunityError: function() {
-            alert("An error has occured.");
+            //alert("An error has occured.");
         },
         ViewUser: function(userId) {
             var uid = GetQueryStringValue("uid");
@@ -369,6 +370,9 @@
         ShowRequestModal: function() {
             $("#divRequest").show();
             GUI_HELPER.OPENWINDOW("divRequest","Join Request",true, true, false);
+        },
+        ShowJoinError: function() {
+            alert("Please login to join this community.");
         },
         SendJoinRequest: function() {
             var communityId = GetQueryStringValue("cid");
