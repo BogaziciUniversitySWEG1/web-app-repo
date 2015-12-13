@@ -34,6 +34,9 @@
                     <div class="mainblogsec section" id="mainblogsec">
                         <div class="widget Blog" id="Blog1">
                             <div class="blog-posts hfeed" id="communityler">
+                            <p align="center" id="loading" style="font-size: large;">
+        <img src="images/spinner.gif">
+      </p>
                             </div>
                             <div style="clear: both;">
                             </div>
@@ -170,6 +173,7 @@
                             joinButton = "";
                         }
                     }
+                    $("#loading").hide();
                     
                     $("#communityler").append('<div class="date-outer"><h2 class="date-header"><span>Sunday, September 5, 2010</span>'
                             + '</h2><div class="date-posts"><div class="post-outer"><article class="post hentry"><a name="4682800689275728420"></a>'
