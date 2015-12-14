@@ -110,5 +110,15 @@ public class MeetingController {
 		}
 		return new ResponseEntity<Meeting>(HttpStatus.INTERNAL_SERVER_ERROR);
 	}
+	
+	@RequestMapping(value = "/api/meetings/{id}", method = RequestMethod.GET, 
+			produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<Meeting> getMeetingById(@PathVariable("id") Integer id) {
+		Meeting meeting = meetingDao.getMeetingById(id);
+		if(meeting == null) {
+			return new ResponseEntity<Meeting>(HttpStatus.NO_CONTENT);
+		}
+		return new ResponseEntity<Meeting>(meeting, HttpStatus.OK);
+	}
 
 }
