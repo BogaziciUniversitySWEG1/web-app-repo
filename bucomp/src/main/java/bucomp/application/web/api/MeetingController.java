@@ -118,6 +118,7 @@ public class MeetingController {
 		if(meeting == null) {
 			return new ResponseEntity<Meeting>(HttpStatus.NO_CONTENT);
 		}
+		meeting.setInviteeList(midao.getMeetingInvitees(meeting.getMeetingId()));
 		return new ResponseEntity<Meeting>(meeting, HttpStatus.OK);
 	}
 
