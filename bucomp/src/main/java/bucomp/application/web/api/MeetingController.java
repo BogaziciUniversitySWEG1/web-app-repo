@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 import bucomp.application.mail.SMTPMailSender;
 import bucomp.application.model.Meeting;
 import bucomp.application.model.MeetingInvitee;
+import bucomp.application.model.User;
 import bucomp.application.web.api.dao.CommunityDao;
 import bucomp.application.web.api.dao.CommunityDaoImpl;
 import bucomp.application.web.api.dao.MeetingDao;
@@ -78,15 +79,17 @@ public class MeetingController {
 			meetingInvitee.setInviteSentDate(new Date());
 			meetingInvitee.setStatus(0);
 			midao.saveMeetingInvitee(meetingInvitee);
-
+			User invitedUser = udao.getUserById(meetingInvitee.getUserId());
 			//send email to meeting invitee
 			StringBuilder text = new StringBuilder("<html><body>");
 			text.append("You are invited to a meeting organized by the community " + cdao.getCommunityById(savedMeeting.getCommunityId()).getTitle());
 			text.append("<br>Start Time : " + savedMeeting.getStartTime()); 
 			text.append("<br>End Time : " + savedMeeting.getEndTime());
 			text.append("<br>Agenda :<br>" + savedMeeting.getAgenda());
+			text.append("<br><a href=\"http://localhost:8080/api/meeting/approve/"+meeting.getMeetingId()+"?userId="+invitedUser.getUserId()+"\">Approve</a> or "
+					+ "<a href=\"http://localhost:8080/api/meeting/deny/"+meeting.getMeetingId()+"?userId="+invitedUser.getUserId()+"\">Deny</a>");
 			text.append("<br></body></html>");
-			smtpMailSender.send(udao.getUserById(meetingInvitee.getUserId()).getEmail(), "[PROJECT.BUCOMP] - Upcoming Meeting Invite", text.toString());
+			smtpMailSender.send(invitedUser.getEmail(), "[PROJECT.BUCOMP] - Upcoming Meeting Invite", text.toString());
 		}
 		savedMeeting.setInviteeList(midao.getMeetingInvitees(savedMeeting.getMeetingId()));
 		return new ResponseEntity<Meeting>(savedMeeting, HttpStatus.CREATED);
@@ -120,6 +123,24 @@ public class MeetingController {
 		}
 		meeting.setInviteeList(midao.getMeetingInvitees(meeting.getMeetingId()));
 		return new ResponseEntity<Meeting>(meeting, HttpStatus.OK);
+	}
+	
+	@RequestMapping(value = "/api/meeting/approve/{meetingId}", method = RequestMethod.GET)
+	public void approveMeetingRequest(
+			@PathVariable("meetingId") Integer meetingId,
+			@RequestParam(value = "userId") int userId) {
+		
+		midao.responseMeetingInvite(meetingId, userId, 1);
+		
+	}
+	
+	@RequestMapping(value = "/api/meeting/reject/{meetingId}", method = RequestMethod.GET)
+	public void rejectMeetingRequest(
+			@PathVariable("meetingId") Integer meetingId,
+			@RequestParam(value = "userId") int userId) {
+		
+		midao.responseMeetingInvite(meetingId, userId, 2);
+		
 	}
 
 }
