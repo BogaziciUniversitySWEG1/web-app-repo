@@ -1,4 +1,4 @@
-﻿(function () {
+(function () {
     var SP_BANK = {
         CREATEMEETING: function(callback, callback_err) {
         	try {
@@ -22,6 +22,7 @@
                 jsonObj.meetingroles = null;
                 jsonObj.communityId = GLOBALS.CommunityId; 
                 jsonObj.meetingTypeId = parseInt(GLOBALS.MeetingType);  // 
+                jsonObj.subject = GLOBALS.Subject;
                 
                 var jsonStr = JSON.stringify(jsonObj);
                 

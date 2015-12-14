@@ -92,8 +92,12 @@
 	                GLOBALS.Agenda= $('#txtagenda').val();
 	                GLOBALS.MeetingType= $("#meetingtype option:selected").val();
 	                GLOBALS.IRCLink= $('#txtirclink').val();
+                    GLOBALS.Subject= $("#txtSubject").val();
 	                
-	                if (GLOBALS.HourStart == '') {
+                    if(GLOBALS.Subject == '') {
+                        GUI_HELPER.ALERT('Warning', 'Please fill the subject  area!', GUI_HELPER.ERROR);
+	                    return;
+                    } else if (GLOBALS.HourStart == '') {
 	                    GUI_HELPER.ALERT('Warning', 'Please fill the start date time  area!', GUI_HELPER.ERROR);
 	                    return;
 	               
@@ -130,7 +134,7 @@
 	            try {
 	                if (GUI_HELPER.NOU(data)) {
 	                    GUI_HELPER.ALERT('Info', "Meeting Creation is succesfull.You will be redirected to the main page in 2 seconds!", GUI_HELPER.INFO);
-	                    setTimeout(function () { window.location = "dashboard.html?uid=" + GLOBALS.UserId }, 2500);
+	                    setTimeout(function () { window.location = "community.html?uid=" + GLOBALS.UserId + "&cid=" + GLOBALS.CommunityId }, 2500);
 	                }
 	                else {
 	                    GUI_HELPER.ALERT('Warning', "Meeting creation fails. Please try again later.", GUI_HELPER.ERROR);

@@ -1,47 +1,32 @@
-﻿(function () {
+(function () {
     var SP_BANK = {
-        TEST: function (param1, callback, callback_err) {
+        GetMeeting: function (meetingId, callback, callback_err) {
             try {
                 $.ajax({
-                    type: "POST",
-                    url: ServiceParameter + "/TEST",
-                    data: "{param1:'" + param1 + "'}",
+                    type: "GET",
+                    url: "api/meeting/" + meetingId,
                     contentType: "application/json; charset=utf-8",
-                    dataType: "json",
                     success: function (msg) {
-                        if (msg.d.length == 0 || msg.d == null) {
-                            if (typeof callback == 'function') {
-                                callback(null);
-                            }
-                        }
-                        else if (msg.d <= 0) {
-                            if (typeof callback_err == 'function') {
-                                callback_err(msg.d, 'TEST');
-                            }
+                      	if (msg == null) {
+                            callback(null);
                         }
                         else {
-                            var _data = eval("(" + msg.d + ")");
-                            if (typeof callback_err == 'function' && _data[0] != null && typeof _data[0].ErrorCode != 'undefined') {
-                                callback_err(_data, 'TEST');
-                            }
-                            else if (typeof callback == 'function') {
-                                callback(_data);
-                            }
+                            var _data = eval(msg);
+                            callback(_data);
                         }
                     },
                     error: function (msg) {
-                        if (typeof callback_err == 'function') {
-                            callback_err(-1, 'TEST');
-                        }
+                        callback_err(msg.status, 'Get meeting fails. Reason: ' + (msg.statusText));
                     }
                 });
             }
             catch (err) {
-                if (typeof callback_err == 'function') {
-                    callback_err(-2, 'TEST');
-                }
+                 callback_err(-2, 'Get meeting fails. Reason: ' + err.Description);
             }
-        } 
+        },
+        GetMeetingPosts: function(meetingId, callback, callback_err) {
+            
+        }
     }
     if (!window.SP_BANK) { window.SP_BANK = SP_BANK; }
 })();

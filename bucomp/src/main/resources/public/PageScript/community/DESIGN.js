@@ -99,7 +99,7 @@
             SP_BANK.GetCommunityMeetings(communityId, -1, DESIGN.FillMeetings, DESIGN.GetCommunityError);
             SP_BANK.GetCommunityTopics(communityId, DESIGN.FillTopics, DESIGN.GetCommunityError);
             SP_BANK.GetCommunityTags(communityId, DESIGN.FillTags, DESIGN.GetCommunityError);
-            SP_BANK.GetUpcomingEvents(communityId,DESIGN.FillUpcomingEvents,DESIGN.GetCommunityError);
+            //SP_BANK.GetUpcomingEvents(communityId,DESIGN.FillUpcomingEvents,DESIGN.GetCommunityError);
             
             if(userId != "") {
                 GUI_HELPER.GetUserInfo(userId, DESIGN.FillUserInfo, null);
@@ -218,11 +218,15 @@
             DESIGN.ShowHideButtons();
         },
         FillMeetings: function(data) {
+            $("#meetings").html("");
+            $("#upcomingEvents").html("");
+            
             if(data == null) {
                 return;
             }
+            
             for(var i = 0; i < data.length; i++){
-                var meetingDate = new Date(data[i].meetingDate);
+                var meetingDate = new Date(data[i].startTime);
                 var meetingStr = GUI_HELPER.GetDayName(meetingDate.getDay()) + ", " 
                     + GUI_HELPER.GetMonthName(meetingDate.getMonth()) + " " 
                     + meetingDate.getDate() + ", "
@@ -232,18 +236,36 @@
                     + data[i].timeZone + "), "
                     + data[i].location;
 
-                $("#meetings").append(
+                if(data[i].meetingTypeId != 4) {
+                    $("#meetings").append(
+                        $("<li>").append(
+                            $("<div>").attr("class","item-content").append(
+                                $("<div>").attr("class","item-snippet").append(meetingStr)
+                            ).append(
+                                $("<div>").attr("style","clear: both;")
+                            )
+                        )
+                    );
+                }
+                
+                var eventStr = "";
+                if(data[i].meetingTypeId != 4) {
+                    eventStr = "Meeting on " + meetingStr
+                } else if(data[i].meetingTypeId == 4) {
+                    eventStr = "Event on " + meetingStr
+                }
+                
+                $("#upcomingEvents").append(
                     $("<li>").append(
                         $("<div>").attr("class","item-content").append(
-                            $("<div>").attr("class","item-snippet").append(meetingStr)
-                        ).append(
-                            $("<div>").attr("style","clear: both;")
+                            $("<div>").attr("class","item-snippet").append(eventStr)
                         )
+                    ).append(
+                        $("<div>").attr("class","clear: both;")
                     )
                 );
             }
-            console.log("before if");
-            if (data.communityId){
+            
             $("#meetings").append(
                 $("<li>").append(
                     $("<div>").attr("class","item-content").append(
@@ -253,11 +275,6 @@
                     )
                 )
             );
-            }
-           else {
-                $("#meetings").html("No meetings scheduled...");
-                    
-            }
         },
         FillTags: function(data) {
             if(data != null) {

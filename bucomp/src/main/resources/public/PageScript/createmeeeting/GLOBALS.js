@@ -1,4 +1,4 @@
-﻿(function () {
+(function () {
     var GLOBALS = {
     	ServiceParameter: "api",
         UserId: '',
@@ -24,7 +24,8 @@
         InvitedMembers:null,
         InvitedMembersObj:'',
         MembersList:null,
-        IRCLink:''
+        IRCLink:'',
+        Subject:''
         
     }
     if (!window.GLOBALS) { window.GLOBALS = GLOBALS; }

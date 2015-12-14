@@ -87,7 +87,7 @@
             try {
                 $.ajax({
                     type: "GET",
-                    url: "api/meetings/" + communityId + "?status=" + status,
+                    url: "api/meetings/" + communityId,
                     contentType: "application/json; charset=utf-8",
                     success: function (msg) {
                       	if (msg == null) {

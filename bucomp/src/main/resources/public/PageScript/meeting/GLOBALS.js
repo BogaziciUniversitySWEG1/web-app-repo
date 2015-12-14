@@ -1,6 +1,8 @@
-﻿(function () {
+(function () {
     var GLOBALS = {
-        Id: -1  
+        UserId: null,
+        CommunityId: null,
+        MeetingId: null
     }
     if (!window.GLOBALS) { window.GLOBALS = GLOBALS; }
 })();
