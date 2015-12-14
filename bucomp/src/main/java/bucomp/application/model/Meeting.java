@@ -53,6 +53,8 @@ public class Meeting implements Serializable {
 	
 	@Transient
 	private List<MeetingInvitee> inviteeList;
+	
+	private String subject;
 
 	//bi-directional many-to-one association to Meetingattendant
 	@OneToMany(mappedBy="meeting")
@@ -259,6 +261,14 @@ public class Meeting implements Serializable {
 
 	public void setInviteeList(List<MeetingInvitee> inviteeList) {
 		this.inviteeList = inviteeList;
+	}
+
+	public String getSubject() {
+		return subject;
+	}
+
+	public void setSubject(String subject) {
+		this.subject = subject;
 	}
 
 
