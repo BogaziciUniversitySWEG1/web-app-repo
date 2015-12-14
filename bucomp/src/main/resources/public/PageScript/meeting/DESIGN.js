@@ -47,6 +47,7 @@
             
             
             GetUserInfo(data.meetingOrganizerUserId, DESIGN.FillOrganizerInfo, null);
+            SP_BANK.GetMeetingPosts(GLOBALS.MeetingId, DESIGN.FillMeetingPosts, null);
         },
         FillContentError: function(data) {
             alert(data);
@@ -58,6 +59,55 @@
         ReturnToCommunity: function() {
             var url = "community.html?cid=" + GLOBALS.CommunityId + "&uid=" + GLOBALS.UserId;
             window.location = url;
+        },
+        FillMeetingPosts: function(data) {
+            $("#commentList").html("");
+            var userId = GetQueryStringValue("uid");
+            for(var i = 0; i< data.length; i++) {
+                var d = new Date(data[i].postDate);
+                var postDateStr = "on " + GUI_HELPER.GetDayName(d.getDay()) + ", " + GUI_HELPER.GetMonthName(d.getMonth()) 
+                    + " "+ d.getDate() + ", " + d.getFullYear();
+                var userName = "by " + data[i].user.name + " " + data[i].user.surname;
+                var userLink = "ViewProfile.html?uid=" + userId + "&vid=" + data[i].user.userId;
+                $("#commentList").append(
+                    $("<li>").append(
+                        $("<a>").attr("class","related-post-item-title").attr("title",data[i].title).append(data[i].title)
+                    ).append(
+                        $("<span>").attr("class","related-post-item-summary").append(
+                            $("<span>").attr("class", "related-post-item-summary-text").append(data[i].post)
+                        ).append(
+                            $("<span>").attr("style","display:block;clear:both;")
+                        )
+                    ).append(
+                        $("<footer>").attr("class","nbtentry-meta").append(
+                            $("<span>").attr("class","nbtpost-date").append(postDateStr)
+                        ).append(
+                            $("<span>").attr("class","nbtbyline").append(
+                                $("<span>").append(
+                                    $("<a>").attr("rel","author").attr("href",userLink).attr("title","author profile").append(userName)
+                                )
+                            )
+                        )
+                    )
+                );
+            }
+        },
+        PostComment: function() {
+            var postTypeId = 3;
+            var title = $("#txtCommentTitle").val();
+            var post = $("#commentBodyField").val();
+            var postDate = (new Date).getTime();
+            
+            SP_BANK.PostComment(GLOBALS.UserId, postTypeId, title, post, GLOBALS.MeetingId, postDate, DESIGN.PostCommentSuccess, DESIGN.PostCommentError);
+        },
+        PostCommentSuccess: function(data) {
+            $("#txtCommentTitle").val("");
+            $("#commentBodyField").val("");
+            alert("Comment posted successfully.");
+            DESIGN.GetContent();
+        },
+        PostCommentError: function(data) {
+            alert("Error occured: " + data.statusText);
         }
     } 
     if (!window.DESIGN) { window.DESIGN = DESIGN; }

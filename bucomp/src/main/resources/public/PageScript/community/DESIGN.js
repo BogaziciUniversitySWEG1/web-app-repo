@@ -220,6 +220,8 @@
         FillMeetings: function(data) {
             $("#meetings").html("");
             $("#upcomingEvents").html("");
+            var uid = GetQueryStringValue("uid");
+            var cid = GetQueryStringValue("cid");
             
             if(data == null) {
                 return;
@@ -235,6 +237,8 @@
                     + meetingDate.getMinutes() + " ("
                     + data[i].timeZone + "), "
                     + data[i].location;
+                
+                meetingStr = "<a href='meeting.html?uid=" + uid + "&cid=" + cid + "&mid=" + data[i].meetingId + "'>" + meetingStr + "</a>";
 
                 if(data[i].meetingTypeId != 4) {
                     $("#meetings").append(
