@@ -49,7 +49,7 @@ public class MeetingController {
 	@RequestMapping(value = "/api/meetings/{communityId}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Collection<Meeting>> getCommunityMeetings(
 			@PathVariable("communityId") Integer communityId,
-			@RequestParam(value = "status") int status) {
+			@RequestParam(value = "status", required=false) Integer status) {
 		List<Meeting> meetings = meetingDao.getCommunityMeetings(communityId,status);
 		if (meetings == null) {
 			return new ResponseEntity<Collection<Meeting>>(

@@ -84,19 +84,17 @@ public class MeetingDaoImpl implements MeetingDao {
 
 	@Override
 	@SuppressWarnings("unchecked")
-	public List<Meeting> getCommunityMeetings(Integer communityId, int status) {
+	public List<Meeting> getCommunityMeetings(Integer communityId, Integer status) {
 		EntityTransaction etx = null;
 		try {
 			etx = dbService.getEntitymanager().getTransaction();
 			etx.begin();
 			// query to be updated
 			String query = "";
-			if(status==-1) {
-				//return all meetings
-				query = "SELECT m FROM Meeting m where m.communityId = " + communityId + " order by m.startTime DESC";
+			if(status == null) {
+				query = "SELECT m FROM Meeting m where m.communityId = " + communityId + " order by m.startTime DESC";				
 			} else {
 				query = "SELECT m FROM Meeting m where m.communityId = " + communityId + " AND m.status = " + status + " order by m.startTime DESC";
-				
 			}
 			List<Meeting> meetings = dbService.getEntitymanager().createQuery(query).getResultList();
 			etx.commit();
