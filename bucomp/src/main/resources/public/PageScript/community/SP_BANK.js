@@ -255,6 +255,35 @@
             catch (err) {
                  callback_err(err);
             }
+        }, 
+        GetCommunityResources: function (communityId, callback, callback_err) {
+            try { 
+                $.ajax({
+                    type: "GET",
+                    url: "api/communities/resources/" + communityId,
+                    data: json,
+					contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    success: function (msg) {
+                      	if (msg == null) {
+                            callback(null);
+                        }
+                        else if (GUI_HELPER.NOU(msg.status)) {
+                            callback_err(msg.status, 'Get communities');
+                        }
+                        else {
+                            var _data = eval(msg);
+                            callback(_data);
+                        }
+                    },
+                    error: function (msg) {
+                        callback_err(msg.status, 'Get communities Fails. Reason: ' + (msg.statusText));
+                    }
+                });
+            }
+            catch (err) {
+                 callback_err(-2, 'Get communities Fails. Reason: ' + err.Description);
+            }
         }
     }
     if (!window.SP_BANK) { window.SP_BANK = SP_BANK; }

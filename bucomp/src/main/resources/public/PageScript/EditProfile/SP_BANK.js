@@ -44,8 +44,8 @@
             	obj.photoLink=PhotoLink;
 
             	//open below when user web api is updated
-            	//obj.latitude=GLOBALS.Lat;
-            	//obj.latitude=GLOBALS.Long;
+            	obj.latitude=GLOBALS.Lat;
+            	obj.latitude=GLOBALS.Long;
             	
             	var json =JSON.stringify(obj);
                 $.ajax({

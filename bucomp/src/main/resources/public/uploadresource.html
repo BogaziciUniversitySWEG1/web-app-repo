@@ -1,9 +1,35 @@
-﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head>
-    <title></title>
-</head>
-<body>
-
+<html style="overflow: hidden;">
+<body  style="overflow: hidden;" > 
+<form id="resourceuplaodform" method="post"  style="overflow: hidden;" enctype="multipart/form-data" action="/api/resources/upload">
+    <a href="" target="_blank" id="downloadresource" style=""></a>
+    <br />
+     <label for="resourceupload">Upload Resource</label>
+    <br />
+	<input id="resourceupload" type="file" name="file" onchange="GetResource();" />
+		<input type="hidden" name="uid" id="hiddenuiforresource" value="">
+		<input type="hidden" name="cid" id="hiddenciforresource" value=""> 
+		<input type="hidden" name="mid" id="hiddenmiforresource" value="">
+	    <input type="submit" id="Uploadresource" value="Upload Resource" name="submit" style="" onclick="Refresh();">
+	    
+	    
+ </form> 
+  <script type="text/javascript">
+   function GetResource(){
+	var _this = document.getElementById('resourceupload');
+    if (_this.files.length > 0) {
+        var file = _this.files[0];
+        parent.GLOBALS.ResourceLink = file.name;
+    }
+    else {
+        parent.GLOBALS.ResourceLink = "";
+    }
+ }
+ function Refresh(){
+	 
+    if (parent.DESIGN.addResource) {
+         parent.DESIGN.addResource();
+    } 
+ }
+    </script>
 </body>
-</html>
+</html> 

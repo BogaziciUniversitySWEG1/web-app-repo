@@ -90,9 +90,14 @@
             var userId = GetQueryStringValue("uid");
          	if (GUI_HELPER.NOU(userId)&& userId!= ""){
             	GLOBALS.UserId=userId;
+            	$('#fileuploadDiv').show();
+            	$("#resourceuplaodformframe").contents().find("#hiddenuiforresource").val(userId);
+            	$("#resourceuplaodformframe").contents().find("#hiddenciforresource").val(communityId);
+                SP_BANK.GetCommunityResources(communityId, DESIGN.Resources, DESIGN.GetCommunityError);
             }
             else{
             	GLOBALS.UserId=-1;
+            	$('#fileuploadDiv').hide();
             }
             
             SP_BANK.GetCommunityMembers(communityId, DESIGN.FillMembers, DESIGN.GetCommunityError);
@@ -105,6 +110,34 @@
                 GUI_HELPER.GetUserInfo(userId, DESIGN.FillUserInfo, null);
             }
         },
+        GetCommunityResources: function(data) {
+            if(data == null) {
+                return;
+            }
+            $("#resourceList").html("");
+            for(var i=0; i< data.length; i++) {
+                var communityId = GetQueryStringValue("cid");
+                var userId = GetQueryStringValue("uid");  
+                var _link = "/file-repository/communities/"+data[i].communityId+"/users/"+data[i].userId+"/"+data[i].link; 
+                $("#resourceList").append(
+                    $("<li>").append(
+                        $("<a>").attr("class","related-post-item-title").attr("title",data[i].link).attr("href",_link).append(data[i].link)
+                    ) 
+                );
+            }
+        },
+        addResource: function() {
+            setTimeout(function () { 
+                $("#resourceuplaodformframe").attr("src","/uploadresource.html"); 
+                setTimeout(function () { 
+                	var communityId = GetQueryStringValue("cid");
+                    var userId = GetQueryStringValue("uid"); 
+	            	$("#resourceuplaodformframe").contents().find("#hiddenuiforresource").val(userId);
+	            	$("#resourceuplaodformframe").contents().find("#hiddenciforresource").val(communityId); 
+	            },1000);
+	    	},2000);
+            	
+		},
         FillTopics: function(data) {
             $("#topicList").html("");
             if(data == null) {
@@ -174,7 +207,8 @@
                     
                     if (data[i].user != null) {
                         var nameSurname = data[i].user.name + " " + data[i].user.surname;
-                        var photoLink = "photos/" + data[i].user.photoLink;
+                        var photoLink= "/file-repository/users/"+data[i].user.userId+"/"+data[i].user.photoLink;
+                        //var photoLink = "photos/" + data[i].user.photoLink;
                         if(data[i].user.photoLink == null){
                             photoLink = "images/man-icon.png";
                         }

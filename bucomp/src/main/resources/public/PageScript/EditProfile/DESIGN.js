@@ -208,7 +208,9 @@
 			                GLOBALS.Hobbies = data.hobbies;
 			                GLOBALS.CvLink = data.cvlink;
 			                GLOBALS.PhotoLink =data.photoLink;
-			
+			                GLOBALS.Lat=data.latitude;
+			                GLOBALS.Long=data.longitude;
+			            	
 			                document.getElementById('txtName').value = GLOBALS.Name;
 			                document.getElementById('txtSurname').value = GLOBALS.Surname;
 			                document.getElementById('txtEmail').value = GLOBALS.Email;
@@ -220,7 +222,24 @@
 			                document.getElementById('txtHobbies').value = GLOBALS.Hobbies;
 			                
 			                $( document ).ready(function() {
+			                	DESIGN.OPENCLOSEMAP();
 			                	setTimeout(function () { 
+			                		var latlng = {lat: parseFloat(GLOBALS.Lat), lng: parseFloat(GLOBALS.Long)};
+			     				    GLOBALS.Geocoder.geocode({'location': latlng}, function(results, status) {
+			     				        if (status === google.maps.GeocoderStatus.OK) {
+			     				          if (results[0]) {
+			     				        	  //GLOBALS.Map.setZoom(11); 
+			     				        	  GLOBALS.GeoLocation=results[0].formatted_address; 
+			     				        	  
+			     				        	  document.getElementById('address').value=results[0].formatted_address;
+			     				        	  document.getElementById('txtLocation').value=GLOBALS.GeoLocation;
+			     				          } else {
+			     				            GUI_HELPER.ALERT('info','No results found',GUI_HELPER.INFO);
+			     				          }
+			     				        } else {
+			     				            GUI_HELPER.ALERT('info','Geocoder failed due to: ' + status,GUI_HELPER.INFO);
+			     				         }
+			     				      });
 			                		var _pl= "/file-repository/users/"+GLOBALS.UserId+"/"+GLOBALS.PhotoLink;
 				                	var _cl= "/file-repository/users/"+GLOBALS.UserId+"/"+GLOBALS.CvLink;
 					            	$("#photouplaodformframe").contents().find("#imgProfile").attr("src",_pl); 
@@ -295,15 +314,17 @@
                 	$("#cvuplaodformframe").contents().find("#hiddenuiforcv").val(GLOBALS.UserId);
                 	$("#cvuplaodformframe").contents().find("#Uploadcv").click();
                     GUI_HELPER.ALERT('Info', "Information is updated.", GUI_HELPER.INFO);
-                    document.getElementById("photouplaodformframe").contentDocument.location.reload(true);
-                    document.getElementById("cvuplaodformframe").contentDocument.location.reload(true);
                     
-                    setTimeout(function () { 
-                		var _pl= "/file-repository/users/"+GLOBALS.UserId+"/"+GLOBALS.PhotoLink;
-	                	var _cl= "/file-repository/users/"+GLOBALS.UserId+"/"+GLOBALS.CvLink;
-		            	$("#photouplaodformframe").contents().find("#imgProfile").attr("src",_pl); 
-		            	$("#cvuplaodformframe").contents().find("#downloadcv").attr("href",_cl); 
-		            	$("#cvuplaodformframe").contents().find("#downloadcv").html(GLOBALS.CvLink); 
+	                    setTimeout(function () { 
+	                        $("#photouplaodformframe").attr("src","/uploadprofilefile.html");
+	                        $("#cvuplaodformframe").attr("src","/uploadcvfile.html");
+                        setTimeout(function () { 
+                        	var _pl= "/file-repository/users/"+GLOBALS.UserId+"/"+GLOBALS.PhotoLink;
+		                	var _cl= "/file-repository/users/"+GLOBALS.UserId+"/"+GLOBALS.CvLink;
+			            	$("#photouplaodformframe").contents().find("#imgProfile").attr("src",_pl); 
+			            	$("#cvuplaodformframe").contents().find("#downloadcv").attr("href",_cl); 
+			            	$("#cvuplaodformframe").contents().find("#downloadcv").html(GLOBALS.CvLink); 
+                        },1000);
                 	},1000);
                 }
                 else {

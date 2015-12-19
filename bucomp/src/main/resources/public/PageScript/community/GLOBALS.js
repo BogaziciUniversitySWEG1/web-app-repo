@@ -13,7 +13,8 @@
         canCreateTopic: false,
         canJoin: false,
         communityCount: 0,
-        Communities: new Array()
+        Communities: new Array(),
+        ResourceList:new Array()
     }
     if (!window.GLOBALS) { window.GLOBALS = GLOBALS; }
 })();
