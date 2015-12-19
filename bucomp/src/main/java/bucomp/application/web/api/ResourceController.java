@@ -46,24 +46,7 @@ public class ResourceController {
 		r.setMeetingId(mid);
 		r.setUserId(uid);
 		r.setTopicId(tid);
-		
-		if(mid!=null && mid>0){
-			// this is a meeting resource
-			System.out.println("this is a meeting resource");
-			uploadedFileLocation = UPLOAD_DIRECTORY+"/communities/" + cid + "/meetings/" + mid + "/users/" + uid + "/";
-			r.setLink(uploadedFileLocation);
-			dao.saveResource(r);
-		} else if(cid!=null && cid>0) {
-			//this is a community resource
-			System.out.println("this is a community resource");
-			uploadedFileLocation =UPLOAD_DIRECTORY+"/communities/" + cid + "/users/" + uid + "/";	
-			r.setLink(uploadedFileLocation);
-			dao.saveResource(r);
-		} else {
-			//this is a user resource (cv or photo)
-			System.out.println("this is a user resource");
-			uploadedFileLocation =UPLOAD_DIRECTORY+"/users/" + uid + "/";						
-		}
+
 		String fileName = null;
 		String output = "";
 		
@@ -73,9 +56,30 @@ public class ResourceController {
 					continue;
 				}
 				try {
-	                fileName = uploadedFileLocation + files[i].getOriginalFilename();
-	                fileName = URLDecoder.decode(fileName, "UTF-8");
-	                System.out.println(fileName);
+					
+	        		if(mid!=null && mid>0){
+	        			// this is a meeting resource
+	        			uploadedFileLocation = UPLOAD_DIRECTORY+"/communities/" + cid + "/meetings/" + mid + "/users/" + uid + "/";
+	        			fileName = uploadedFileLocation + files[i].getOriginalFilename();
+	        			fileName = URLDecoder.decode(fileName, "UTF-8");
+	        			r.setLink(fileName);
+	        			r.setName(URLDecoder.decode(files[i].getOriginalFilename(), "UTF-8"));
+	        			dao.saveResource(r);
+	        		} else if(cid!=null && cid>0) {
+	        			//this is a community resource
+	        			uploadedFileLocation =UPLOAD_DIRECTORY+"/communities/" + cid + "/users/" + uid + "/";	
+	        			fileName = uploadedFileLocation + files[i].getOriginalFilename();
+	        			fileName = URLDecoder.decode(fileName, "UTF-8");
+	        			r.setLink(fileName);
+	        			r.setName(URLDecoder.decode(files[i].getOriginalFilename(), "UTF-8"));
+	        			dao.saveResource(r);
+	        		} else {
+	        			//this is a user resource (cv or photo)
+	        			System.out.println("this is a user resource");
+	        			uploadedFileLocation =UPLOAD_DIRECTORY+"/users/" + uid + "/";
+	        			fileName = uploadedFileLocation + files[i].getOriginalFilename();
+	        			fileName = URLDecoder.decode(fileName, "UTF-8");
+	        		}
 	                File file = new File(fileName);
 	                file.getParentFile().mkdirs();
 	                byte[] bytes = files[i].getBytes();

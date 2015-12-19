@@ -17,6 +17,7 @@ public class Resource implements Serializable {
 	@Id
 	private int resourceId;
 
+	private String name;
 	private String link;
 
 	private int resourceTypeId;
@@ -83,6 +84,14 @@ public class Resource implements Serializable {
 
 	public void setUserId(Integer userId) {
 		this.userId = userId;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
 	}
 
 }
