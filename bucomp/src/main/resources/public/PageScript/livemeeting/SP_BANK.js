@@ -23,6 +23,30 @@
                  callback_err(err);
             }
         },
+        GetAttendants: function(callback, callback_err) {
+            try {
+                $.ajax({
+                    type: "GET",
+                    url: "api/chatroom/getAttendants?meetingId=" + GLOBALS.MeetingId,
+                    contentType: "application/json; charset=utf-8",
+                    success: function (msg) {
+                      	if (msg == null) {
+                            callback(null);
+                        }
+                        else {
+                            var _data = eval(msg);
+                            callback(_data);
+                        }
+                    },
+                    error: function (msg) {
+                        callback_err(msg);
+                    }
+                });
+            }
+            catch (err) {
+                 callback_err(err);
+            }
+        },
         PostContent: function(callback, callback_err) {
             try {
                 var form = new FormData();

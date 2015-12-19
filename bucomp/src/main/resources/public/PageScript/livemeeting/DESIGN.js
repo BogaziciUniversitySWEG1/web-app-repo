@@ -13,13 +13,34 @@
             DESIGN.myToggleClass($("#user-toggle"));
             $('#menu-toggle').removeClass('active');
             
-            DESIGN.GetAttendants();
-            setInterval(DESIGN.GetContent,1000);
+            setInterval(DESIGN.GetContent,2000);
+            setInterval(DESIGN.GetAttendants,2000);
         },
         GetAttendants: function() {
-            
+            SP_BANK.GetAttendants(DESIGN.FillAttendants, DESIGN.FillAttendantsError);
         },
         FillAttendants: function(data) {
+            $("#attendants").html("");
+            for(var i = 0; i < data.length; i++) {
+                var photoLink = "file-repository/users/" + data[i].userId + "/" + data[i].photoLink;
+                var profileLink = "viewprofile.html?uid=" + GLOBALS.UserId + "&vid=" + data[i].userId;
+                var nameSurname = data[i].name + " " + data[i].surname;
+                $("#attendants").append(
+                    $("<li>").append(
+                        $("<div>").attr("class","item-content").append(
+                            $("<div>").attr("class","item-snippet").append(
+                                $("<img>").append("src",photoLink).attr("width","40").attr("height","40")
+                            ).append(
+                                $("<a>").attr("href",profileLink).attr("target","_blank").append(nameSurname)
+                            )
+                        )
+                    ).append(
+                        $("<div>").attr("style","clear: both;")
+                    )
+                );
+            }
+        },
+        FillAttendantsError: function(data) {
             
         },
         GetContent: function() {
