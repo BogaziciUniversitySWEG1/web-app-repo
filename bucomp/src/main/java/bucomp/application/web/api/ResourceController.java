@@ -32,7 +32,7 @@ public class ResourceController {
             @RequestParam("file") MultipartFile[] files) {
 		
 		String uploadedFileLocation;
-		String UPLOAD_DIRECTORY= "file-repository"; 
+		String UPLOAD_DIRECTORY= "target/classes/public/file-repository"; 
 		
 		
 		if(mid!=null && mid>0){
