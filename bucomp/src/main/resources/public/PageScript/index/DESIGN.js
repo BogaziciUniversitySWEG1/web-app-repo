@@ -1,7 +1,6 @@
 /// <reference path="../CommonScripts/GUI_HELPER.js" />
 /// <reference path="SP_BANK.js" />
 /// <reference path="GLOBALS.js" />
-
 (function () {
     var DESIGN = {
         GetCommunities: function (callback, callback_err) {
@@ -24,6 +23,21 @@
             } catch (err) {
                 callback_err();
             }
+        },
+        SearchCommunity: function () {
+            var key = $('#searchByGroupName').val();
+
+            SP_BANK.SearchCommunity(key, DESIGN.SearchCommunitySuccess, DESIGN.SearchCommunityError);
+
+        },
+        SearchCommunitySuccess: function (data) {
+
+            DESIGN.FillC(data);
+
+
+        },
+        SearchCommunityError: function (data) {
+            console.log(data);
         },
         GetPopularTags: function () {
             SP_BANK.GetPopularTags(DESIGN.FillPopularTags, null);
@@ -79,9 +93,63 @@
         JoinRequestError: function (data, communityId) {
             GUI_HELPER.ALERT("Alert", "An error has been occured. Please contact to community owner.", GUI_HELPER.WARNING);
         },
-        SearchCommunity: function (key,callback, callback_err) {
-            var key = $('#searchByGroupName').val();
-            SP_BANK.SearchCommunity(key, callback, callback_err);
+
+        FillC: function (data) {
+
+            if (data) {
+
+                var communityCounter = 4;
+                $("#communityler").html("");
+                $("#lblCommunityCount").html(data.length);
+                if (data.length < 4) {
+                    communityCounter = data.length;
+                }
+                GLOBALS.communityCount = communityCounter;
+                GLOBALS.Communities = data;
+                for (var i = 0; i < communityCounter; i++) {
+                    var title = data[i].title;
+                    var description = data[i].description.substring(0, 200);
+                    description = description + "...";
+                    var membercount = data[i].memberCount;
+
+                    var tags = "";
+                    for (var j = 0; j < data[i].tagsList.length; j++) {
+                        var tagItem = "<a rel=\"tag\">" + data[i].tagsList[j].tag + "</a>";
+                        tags = tags + tagItem;
+                        if (j < data[i].tagsList.length - 1) {
+                            tags = tags + ", ";
+                        }
+                    }
+
+                    var d = new Date(data[i].creationDate);
+                    var creationDateString = "Created on: " + GUI_HELPER.GetDayName(d.getDay()) + ", " + GUI_HELPER.GetMonthName(d.getMonth()) + " " + d.getDate() + ", " + d.getFullYear();
+
+                    var communitydetailpage = "community.html?cid=" + data[i].communityId;
+                    var uid = GetQueryStringValue("uid");
+                    if (uid != "") {
+                        communitydetailpage = communitydetailpage + +"&uid=" + uid;
+                    }
+
+
+                    var joinButton = '<a style="cursor: pointer" class="nbtjoin-link" onclick="JoinCommunity(' + data[i].communityId + ',' + data[i].joinType + ');">Join</a>';
+                    for (var j = 0; j < data[i].memberList.length; j++) {
+                        if (uid == data[i].memberList[j]) {
+                            joinButton = "";
+                        }
+                    }
+                    $("#loading").hide();
+
+                    $("#communityler").append('<div class="date-outer"><h2 class="date-header"><span>Sunday, September 5, 2010</span>' + '</h2><div class="date-posts"><div class="post-outer"><article class="post hentry"><a name="4682800689275728420"></a>' + '<header class="entry-header"><h2 class="post-title entry-title"><a href="' + communitydetailpage + '">' + title + '</a>' + '</h2></header><div class="post-header-line-1"></div><div class="post-body entry-content">' + '<div id="summary4682800689275728420"><div>' + description + '</div></div>' + '<div style="float:right;padding-right:10px;margin-top:10px;">' + ' <a class="nbtmore-link" href="' + communitydetailpage + '">Community Details</a></div>' + '<div style="float:right;padding-right:10px;margin-top:10px;">' + joinButton + '</div><div style="clear: both;"></div></div><footer class="nbtentry-meta">' + '<span class="nbtpost-date">' + creationDateString + '</span><span class="nbtbyline"><span><a ' + 'rel="author" title="author profile">' + membercount + ' Participants</a></span></span><span class="nbttags-links">' + tags + '</span>' + '</footer></article><div style="clear: both;"></div></div></div></div>'
+
+                    );
+                }
+
+                DESIGN.GetPopularTags();
+            }
+            else{
+                $("#lblCommunityCount").html("0");
+                $("#communityler").html("No communities found.");
+            }
         }
 
     }

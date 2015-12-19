@@ -141,7 +141,7 @@
                 callback_err(err);
             }
         },
-        SearchCommunity: function (key,callback, callback_err) {
+        SearchCommunity: function (key, callback, callback_err) {
             try {
                 $.ajax({
                     type: "GET",
