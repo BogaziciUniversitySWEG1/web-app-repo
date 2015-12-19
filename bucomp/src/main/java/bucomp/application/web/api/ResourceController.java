@@ -3,6 +3,7 @@ package bucomp.application.web.api;
 import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
+import java.net.URLDecoder;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -31,19 +32,21 @@ public class ResourceController {
             @RequestParam("file") MultipartFile[] files) {
 		
 		String uploadedFileLocation;
-		String UPLOAD_DIRECTORY= "/file-repository"; 
-		String uploadPath = System.getenv(UPLOAD_DIRECTORY);
+		String UPLOAD_DIRECTORY= "file-repository"; 
 		
 		
 		if(mid!=null && mid>0){
 			// this is a meeting resource
-			uploadedFileLocation = uploadPath+"/communities/" + cid + "/meetings/" + mid + "/users/" + uid + "/";
+			System.out.println("this is a meeting resource");
+			uploadedFileLocation = UPLOAD_DIRECTORY+"/communities/" + cid + "/meetings/" + mid + "/users/" + uid + "/";
 		} else if(cid!=null && cid>0) {
 			//this is a community resource
-			uploadedFileLocation =uploadPath+"/communities/" + cid + "/users/" + uid + "/";			
+			System.out.println("this is a community resource");
+			uploadedFileLocation =UPLOAD_DIRECTORY+"/communities/" + cid + "/users/" + uid + "/";			
 		} else {
 			//this is a user resource (cv or photo)
-			uploadedFileLocation =uploadPath+"/file-repository/users/" + uid + "/";						
+			System.out.println("this is a user resource");
+			uploadedFileLocation =UPLOAD_DIRECTORY+"/users/" + uid + "/";						
 		}
 		String fileName = null;
 		String output = "";
@@ -55,6 +58,7 @@ public class ResourceController {
 				}
 				try {
 	                fileName = uploadedFileLocation + files[i].getOriginalFilename();
+	                fileName = URLDecoder.decode(fileName, "UTF-8");
 	                System.out.println(fileName);
 	                File file = new File(fileName);
 	                file.getParentFile().mkdirs();
@@ -63,7 +67,7 @@ public class ResourceController {
 	                        new BufferedOutputStream(new FileOutputStream(new File(fileName)));
 	                buffStream.write(bytes);
 	                buffStream.close();
-	                output += "You have successfully uploaded " +  files[i].getOriginalFilename() +"<br/>";
+	                output += "Success <br/>";
 	            } catch (Exception e) {
 	                return new ResponseEntity<String>("You failed to upload " + fileName + ": " + e.getMessage() +"<br/>", HttpStatus.INTERNAL_SERVER_ERROR);
 	            }
