@@ -104,6 +104,13 @@
         jQuery(document).ready(function ($) {
             $(window).on('load', DESIGN.GetMeetingInfo);
         });
+        
+        $("#commentField").keypress(function(event) {
+            if(event.which == 13) {
+                event.preventDefault();
+                DESIGN.PostContent();
+            }
+        });
     </script>
     
     <script src="PageScript/livemeeting/DESIGN.js" type="text/javascript"></script>
