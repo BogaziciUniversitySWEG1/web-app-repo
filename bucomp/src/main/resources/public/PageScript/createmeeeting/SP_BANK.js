@@ -27,9 +27,8 @@
                 jsonObj.meetingTypeId = parseInt(GLOBALS.MeetingType);  // 
                 jsonObj.subject = GLOBALS.Subject;
 
-            	//open below when meetings web api is updated
-            	//obj.latitude=GLOBALS.Lat;
-            	//obj.latitude=GLOBALS.Long;
+                jsonObj.latitude=GLOBALS.Lat;
+                jsonObj.longitude=GLOBALS.Long;
                 var jsonStr = JSON.stringify(jsonObj);
                 
                 $.ajax({
