@@ -14,8 +14,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import bucomp.application.model.Resource;
 import bucomp.application.model.Tag;
 import bucomp.application.model.Topic;
+import bucomp.application.web.api.dao.ResourceDao;
+import bucomp.application.web.api.dao.ResourceDaoImpl;
 import bucomp.application.web.api.dao.TagDao;
 import bucomp.application.web.api.dao.TagDaoImpl;
 import bucomp.application.web.api.dao.TopicDao;
@@ -29,6 +32,7 @@ public class TopicController {
 	private TopicDao dao = new TopicDaoImpl();
 	private UserDao userdao = new UserDaoImpl();
 	private TagDao tagdao = new TagDaoImpl();
+	private ResourceDao rdao = new ResourceDaoImpl();
 
 	@RequestMapping(value = "/api/topics", method = RequestMethod.POST, 
 			produces = MediaType.APPLICATION_JSON_VALUE)
@@ -86,5 +90,14 @@ public class TopicController {
 		return new ResponseEntity<Collection<Topic>>(topics, HttpStatus.OK);
 	}
 
-
+	@RequestMapping(value = "/api/topics/resources/{topicId}", 
+			method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<Collection<Resource>> getCommunityResources(
+			@PathVariable("topicId") Integer topicId) {
+		Collection<Resource> resources = rdao.getCommunityResources(topicId);
+		if (resources == null || resources.size() == 0) {
+			return new ResponseEntity<Collection<Resource>>(resources, HttpStatus.NO_CONTENT);
+		}
+		return new ResponseEntity<Collection<Resource>>(resources, HttpStatus.OK);
+	}
 }
