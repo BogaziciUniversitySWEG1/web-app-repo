@@ -73,23 +73,32 @@ public class MeetingController {
 			return new ResponseEntity<Meeting>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 		//add invitees
-		for (Iterator<MeetingInvitee> iterator = meeting.getInviteeList().iterator(); iterator.hasNext();) {
-			MeetingInvitee meetingInvitee = iterator.next();
+		if(meeting.getInviteeList()!=null){
+			for (Iterator<MeetingInvitee> iterator = meeting.getInviteeList().iterator(); iterator.hasNext();) {
+				MeetingInvitee meetingInvitee = iterator.next();
+				meetingInvitee.setMeetingId(savedMeeting.getMeetingId());
+				meetingInvitee.setInviteSentDate(new Date());
+				meetingInvitee.setStatus(0);
+				midao.saveMeetingInvitee(meetingInvitee);
+				User invitedUser = udao.getUserById(meetingInvitee.getUserId());
+				//send email to meeting invitee
+				StringBuilder text = new StringBuilder("<html><body>");
+				text.append("You are invited to a meeting organized by the community " + cdao.getCommunityById(savedMeeting.getCommunityId()).getTitle());
+				text.append("<br>Start Time : " + savedMeeting.getStartTime()); 
+				text.append("<br>End Time : " + savedMeeting.getEndTime());
+				text.append("<br>Agenda :<br>" + savedMeeting.getAgenda());
+				text.append("<br><a href=\"http://localhost:8080/api/meeting/approve/"+meeting.getMeetingId()+"?userId="+invitedUser.getUserId()+"\">Approve</a> or "
+						+ "<a href=\"http://localhost:8080/api/meeting/deny/"+meeting.getMeetingId()+"?userId="+invitedUser.getUserId()+"\">Deny</a>");
+				text.append("<br></body></html>");
+				smtpMailSender.send(invitedUser.getEmail(), "[PROJECT.BUCOMP] - Upcoming Meeting Invite", text.toString());
+			}
+		} else {
+			MeetingInvitee meetingInvitee = new MeetingInvitee();
 			meetingInvitee.setMeetingId(savedMeeting.getMeetingId());
 			meetingInvitee.setInviteSentDate(new Date());
 			meetingInvitee.setStatus(0);
+			meetingInvitee.setUserId(meeting.getMeetingOrganizerUserId());
 			midao.saveMeetingInvitee(meetingInvitee);
-			User invitedUser = udao.getUserById(meetingInvitee.getUserId());
-			//send email to meeting invitee
-			StringBuilder text = new StringBuilder("<html><body>");
-			text.append("You are invited to a meeting organized by the community " + cdao.getCommunityById(savedMeeting.getCommunityId()).getTitle());
-			text.append("<br>Start Time : " + savedMeeting.getStartTime()); 
-			text.append("<br>End Time : " + savedMeeting.getEndTime());
-			text.append("<br>Agenda :<br>" + savedMeeting.getAgenda());
-			text.append("<br><a href=\"http://localhost:8080/api/meeting/approve/"+meeting.getMeetingId()+"?userId="+invitedUser.getUserId()+"\">Approve</a> or "
-					+ "<a href=\"http://localhost:8080/api/meeting/deny/"+meeting.getMeetingId()+"?userId="+invitedUser.getUserId()+"\">Deny</a>");
-			text.append("<br></body></html>");
-			smtpMailSender.send(invitedUser.getEmail(), "[PROJECT.BUCOMP] - Upcoming Meeting Invite", text.toString());
 		}
 		savedMeeting.setInviteeList(midao.getMeetingInvitees(savedMeeting.getMeetingId()));
 		return new ResponseEntity<Meeting>(savedMeeting, HttpStatus.CREATED);
