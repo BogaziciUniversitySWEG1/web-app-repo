@@ -1,6 +1,7 @@
 package bucomp.application.web.api;
 
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -60,6 +61,14 @@ public class ChatRoomController {
 		ChatRoom cr = chatRooms.get(meetingId);
 		if(cr==null)
 			return false;
+		List<User> attandents = cr.getUserList();
+		for (Iterator<User> iterator = attandents.iterator(); iterator.hasNext();) {
+			User u = iterator.next();
+			if(u.getUserId()==userId) {
+				System.out.println("User is already joined...");
+				return true;
+			}
+		}
 		cr.addUser(user);
 		return true;
 	}
