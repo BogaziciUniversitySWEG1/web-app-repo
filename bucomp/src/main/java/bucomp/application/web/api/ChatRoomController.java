@@ -13,26 +13,23 @@ import bucomp.application.model.User;
 import bucomp.application.web.api.dao.UserDao;
 import bucomp.application.web.api.dao.UserDaoImpl;
 
+/**
+ * The rest controller class used for chat room operations.
+ *
+ */
 @RestController
 public class ChatRoomController {
 	
 	private Map<Integer,ChatRoom> chatRooms = new HashMap<Integer, ChatRoom>();
 	
 	UserDao udao = new UserDaoImpl();
-	 
-	@RequestMapping(value = "/api/chatroom/join", method = RequestMethod.POST)
-	public boolean joinChatRoom(
-			@RequestParam(value = "userId") int userId,
-			@RequestParam(value = "meetingId") int meetingId) {
-		User user = udao.getUserById(userId);
-		System.out.println(user.getName() + " joined to chat room for meeting " + meetingId);
-		ChatRoom cr = chatRooms.get(meetingId);
-		if(cr==null)
-			return false;
-		cr.addUser(user);
-		return true;
-	}
 	
+	/**
+	 * This method enables a user to open a chat room for a meeting.
+	 * @param userId, id of the user opening the chat room
+	 * @param meetingId, the meeting id of the chat room
+	 * @return, true if the chat room opened successfully.
+	 */
 	@RequestMapping(value = "/api/chatroom/open", method = RequestMethod.POST)
 	public boolean openChatRoom(
 			@RequestParam(value = "userId") int userId,
@@ -47,6 +44,31 @@ public class ChatRoomController {
 		return true;
 	}
 	
+	/**
+	 * This method enables a user to join a chat room created for a meeting.
+	 * @param userId, the user id joining into chat room
+	 * @param meetingId, the meeting id of the chat room
+	 * @return, tru if the user joins successfully
+	 */
+	@RequestMapping(value = "/api/chatroom/join", method = RequestMethod.POST)
+	public boolean joinChatRoom(
+			@RequestParam(value = "userId") int userId,
+			@RequestParam(value = "meetingId") int meetingId) {
+		User user = udao.getUserById(userId);
+		System.out.println(user.getName() + " joined to chat room for meeting " + meetingId);
+		ChatRoom cr = chatRooms.get(meetingId);
+		if(cr==null)
+			return false;
+		cr.addUser(user);
+		return true;
+	}
+	
+	/**
+	 * This method enables a user to close a chat room.
+	 * @param userId, the user id closing the chat room
+	 * @param meetingId, the meeting id of the chat room
+	 * @return
+	 */
 	@RequestMapping(value = "/api/chatroom/close", method = RequestMethod.POST)
 	public boolean closeChatRoom(
 			@RequestParam(value = "userId") int userId,
@@ -55,6 +77,13 @@ public class ChatRoomController {
 		return true;
 	}
 	
+	/**
+	 * This method enables a user to send a text message in a chat room.
+	 * @param userId, the user id sending the message
+	 * @param meetingId, the meeting id of the chat room
+	 * @param message, the message sent by the user
+	 * @return, the consolidated chat content
+	 */
 	@RequestMapping(value = "/api/chatroom/sendMessage", method = RequestMethod.POST)
 	public String sendMessage(
 			@RequestParam(value = "userId") int userId,
@@ -65,6 +94,5 @@ public class ChatRoomController {
 		chatRooms.get(meetingId).appendMessage(u, message);
 		return chatRooms.get(meetingId).getChatText().toString();
 	}
-		
 
 }

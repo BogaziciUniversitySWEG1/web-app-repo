@@ -8,6 +8,12 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Component;
 
+/**
+ * This class is used to send emails via SMTP.
+ * It uses javaMailSender library.
+ * @author 002679
+ *
+ */
 @Component
 public class SMTPMailSender {
 	
@@ -30,8 +36,6 @@ public class SMTPMailSender {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
-		
 		
 	}
 }

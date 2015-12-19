@@ -5,6 +5,12 @@ import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 
+/**
+ * 
+ * This class is the starting point for the application.
+ * It initiates the spring-boot framework with initial configuration and loads the components.
+ *
+ */
 @Configuration
 @ComponentScan
 @EnableAutoConfiguration

@@ -8,6 +8,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 import bucomp.application.mail.SMTPMailSender;
 
+/**
+ * This class is used for testing purposes.
+ *
+ */
 @RestController
 class MailSubmissionController {
 	

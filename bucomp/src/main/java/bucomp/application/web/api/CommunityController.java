@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Iterator;
-import java.util.List;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -33,6 +32,11 @@ import bucomp.application.web.api.dao.TagDaoImpl;
 import bucomp.application.web.api.dao.UserDao;
 import bucomp.application.web.api.dao.UserDaoImpl;
 
+/**
+ * The rest controller class used for community operations.
+ * It provides many functionalities required for community operations.
+ *
+ */
 @RestController
 public class CommunityController {
 
