@@ -1,6 +1,7 @@
 package bucomp.application.web.api;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -85,14 +86,24 @@ public class ChatRoomController {
 	 * @return, the consolidated chat content
 	 */
 	@RequestMapping(value = "/api/chatroom/sendMessage", method = RequestMethod.POST)
-	public String sendMessage(
+	public void sendMessage(
 			@RequestParam(value = "userId") int userId,
 			@RequestParam(value = "meetingId") int meetingId,
 			@RequestParam(value = "message") String message) {
 		User u = udao.getUserById(userId);
 		System.out.println("New message sent from " + u.getName() + ": " + message);
 		chatRooms.get(meetingId).appendMessage(u, message);
-		return chatRooms.get(meetingId).getChatText().toString();
+		return;
 	}
 
+
+	@RequestMapping(value = "/api/chatroom/getChatHistory", method = RequestMethod.GET)
+	public String getChatHistory(@RequestParam(value = "meetingId") int meetingId) {
+		return chatRooms.get(meetingId).getChatText().toString();
+	}
+	
+	@RequestMapping(value = "/api/chatroom/getAttendants", method = RequestMethod.GET)
+	public List<User> getAttendanceList(@RequestParam(value = "meetingId") int meetingId) {
+		return chatRooms.get(meetingId).getUserList();
+	}
 }

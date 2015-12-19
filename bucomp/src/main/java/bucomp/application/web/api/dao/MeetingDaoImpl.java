@@ -3,6 +3,7 @@ package bucomp.application.web.api.dao;
 import java.util.List;
 
 import javax.persistence.EntityTransaction;
+import javax.persistence.Query;
 
 import bucomp.application.model.Meeting;
 
@@ -125,6 +126,51 @@ public class MeetingDaoImpl implements MeetingDao {
 
 			etx.commit();
 			return m;
+		} catch (Exception e) {
+			e.printStackTrace();
+			if (etx != null)
+				etx.rollback();
+			return null;
+		}
+	}
+	
+	@Override
+	public int updateMeetingStatus(int meetingId, int status) {
+		EntityTransaction etx = null;
+		try {
+			etx = dbService.getEntitymanager().getTransaction();
+			etx.begin();
+			Query query = dbService.getEntitymanager().createQuery("Update Meeting m SET m.status = :status where m.meetingId=:meetingId");
+			query.setParameter("status", status);
+			query.setParameter("meetingId", meetingId);
+			int updateCount = query.executeUpdate();
+			etx.commit();
+			return updateCount;
+		} catch (Exception e) {
+			e.printStackTrace();
+			if (etx != null)
+				etx.rollback();
+			return 0;
+		}
+	}
+	
+	@Override
+	@SuppressWarnings("unchecked")
+	public List<Meeting> getAllMeetings(Integer status) {
+		EntityTransaction etx = null;
+		try {
+			etx = dbService.getEntitymanager().getTransaction();
+			etx.begin();
+			// query to be updated
+			String query = "";
+			if(status == null) {
+				query = "SELECT m FROM Meeting m order by m.startTime DESC";				
+			} else {
+				query = "SELECT m FROM Meeting m where m.status = " + status;
+			}
+			List<Meeting> meetings = dbService.getEntitymanager().createQuery(query).getResultList();
+			etx.commit();
+			return meetings;
 		} catch (Exception e) {
 			e.printStackTrace();
 			if (etx != null)
