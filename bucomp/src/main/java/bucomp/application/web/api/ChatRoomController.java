@@ -59,8 +59,11 @@ public class ChatRoomController {
 		User user = udao.getUserById(userId);
 		System.out.println(user.getName() + " joined to chat room for meeting " + meetingId);
 		ChatRoom cr = chatRooms.get(meetingId);
-		if(cr==null)
-			return false;
+		if(cr==null) {
+			openChatRoom(userId, meetingId);
+			cr = chatRooms.get(meetingId);
+		}
+			
 		List<User> attandents = cr.getUserList();
 		for (Iterator<User> iterator = attandents.iterator(); iterator.hasNext();) {
 			User u = iterator.next();

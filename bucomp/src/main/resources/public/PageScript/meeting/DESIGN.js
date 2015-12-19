@@ -45,6 +45,9 @@
                 $("#spnStatus").html("Status: Cancelled");
             }
             
+            if(data.status == 1) {
+                $("#btnJoin").show();
+            }
             
             GetUserInfo(data.meetingOrganizerUserId, DESIGN.FillOrganizerInfo, null);
             SP_BANK.GetMeetingPosts(GLOBALS.MeetingId, DESIGN.FillMeetingPosts, null);
@@ -108,6 +111,25 @@
         },
         PostCommentError: function(data) {
             alert("Error occured: " + data.statusText);
+        },
+        JoinMeeting: function() {
+            var userId = GetQueryStringValue("uid");
+            var meetingId = GetQueryStringValue("mid");
+            SP_BANK.JoinMeeting(userId, meetingId, DESIGN.JoinMeetingSuccess, DESIGN.JoinMeetingError);
+        },
+        JoinMeetingSuccess: function(data) {
+            if(data == "true") {
+                var userId = GetQueryStringValue("uid");
+                var meetingId = GetQueryStringValue("mid");
+                var communityId = GetQueryStringValue("cid");
+                var url = "livemeeting.html?uid=" + userId + "&cid=" + communityId + "&mid=" + meetingId;
+                window.location = url;
+            } else {
+                alert("Hata");
+            }
+        },
+        JoinMeetingError: function(data) {
+            
         }
     } 
     if (!window.DESIGN) { window.DESIGN = DESIGN; }
