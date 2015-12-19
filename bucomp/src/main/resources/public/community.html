@@ -95,8 +95,13 @@
                         <input type="button" id="btnCreateEvent" value="Create Event" class="submit-search" onclick="DESIGN.RedirectToEventCreation();" style="display:none;" />
                     </div>
                     <div class="widget PopularPosts" id="PopularPosts5">
-                        <input type="button" id="btnAddResource" value="Add Resource" class="submit-search" onclick="DESIGN.RedirectToResourceAddition();" style="display:none;" />
-                    </div>
+                         <div class="widget-content popular-posts" id="btnAddResource">
+	                            <iframe id="resourceuplaodformframe" src="/uploadresource.html" style="width: 100%;height: 100px;border: none;overflow: hidden;">
+	                             </iframe>
+	                       </div>
+					 </div>
+                    
+                           
                     <div class="widget PopularPosts" id="PopularPosts6">
                         <input type="button" id="btnRequests" value="Community Requests" class="submit-search" onclick="DESIGN.RedirectToCommunityRequests();" style="display:none;" />
                     </div>
@@ -153,10 +158,6 @@
                                 </li>
                             </ul>
                             <div class="clear"></div>
-                            <div class="widget-content popular-posts" id="fileuploadDiv">
-	                            <iframe id="resourceuplaodformframe" src="/uploadresource.html" style="width: 100%;height: 100px;border: none;overflow: hidden;">
-	                             </iframe>
-	                       </div>
                         </div>
                     </div>
                     <div class="widget PopularPosts" id="PopularPosts2">

@@ -260,10 +260,8 @@
             try { 
                 $.ajax({
                     type: "GET",
-                    url: "api/communities/resources/" + communityId,
-                    data: json,
-					contentType: "application/json; charset=utf-8",
-                    dataType: "json",
+                    url: "api/communities/resources/" + communityId, 
+					contentType: "application/json; charset=utf-8", 
                     success: function (msg) {
                       	if (msg == null) {
                             callback(null);

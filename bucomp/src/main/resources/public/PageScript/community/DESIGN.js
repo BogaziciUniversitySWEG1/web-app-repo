@@ -86,28 +86,27 @@
             var communityId = GetQueryStringValue("cid");
             var userId = GetQueryStringValue("uid"); 
          	if (GUI_HELPER.NOU(userId)&& userId!= ""){
-            	GLOBALS.UserId=userId;
-            	$('#fileuploadDiv').show();
+            	GLOBALS.UserId=userId; 
             	$("#resourceuplaodformframe").contents().find("#hiddenuiforresource").val(userId);
             	$("#resourceuplaodformframe").contents().find("#hiddenciforresource").val(communityId);
-                SP_BANK.GetCommunityResources(communityId, DESIGN.Resources, DESIGN.GetCommunityError);
+            	SP_BANK.GetCommunityResources(communityId, DESIGN.FillCommunityResources, DESIGN.GetCommunityError);
             }
             else{
-            	GLOBALS.UserId=-1;
-            	$('#fileuploadDiv').hide(); 
+            	GLOBALS.UserId=-1; 
             }
 
             SP_BANK.GetCommunityMembers(communityId, DESIGN.FillMembers, DESIGN.GetCommunityError);
             SP_BANK.GetCommunityMeetings(communityId, -1, DESIGN.FillMeetings, DESIGN.GetCommunityError);
             SP_BANK.GetCommunityTopics(communityId, DESIGN.FillTopics, DESIGN.GetCommunityError);
             SP_BANK.GetCommunityTags(communityId, DESIGN.FillTags, DESIGN.GetCommunityError);
+            
             //SP_BANK.GetUpcomingEvents(communityId,DESIGN.FillUpcomingEvents,DESIGN.GetCommunityError);
 
             if (userId != "") {
                 GUI_HELPER.GetUserInfo(userId, DESIGN.FillUserInfo, null);
             }
         }, 
-        GetCommunityResources: function(data) {
+       FillCommunityResources: function(data) {
             if(data == null) {
                 return;
             }
@@ -115,10 +114,9 @@
             for(var i=0; i< data.length; i++) {
                 var communityId = GetQueryStringValue("cid");
                 var userId = GetQueryStringValue("uid");  
-                var _link = "/file-repository/communities/"+data[i].communityId+"/users/"+data[i].userId+"/"+data[i].link; 
                 $("#resourceList").append(
                     $("<li>").append(
-                        $("<a>").attr("class","related-post-item-title").attr("title",data[i].link).attr("href",_link).append(data[i].link)
+                        $("<a>").attr("class","related-post-item-title").attr("title",data[i].name).attr("href",data[i].link).append(data[i].name)
                     ) 
                 );
             }

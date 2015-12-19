@@ -1,16 +1,80 @@
 <html style="overflow: hidden;">
+<head>
+<style>
+/*Copied from bootstrap */
+ .btn {
+    display: inline-block;
+    padding: 6px 12px;
+    margin-bottom: 0;
+    font-size: 14px;
+    font-weight: normal;
+    line-height: 1.42857143;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    background-image: none;
+    border: 1px solid transparent;
+    border-radius: 4px;
+}
+/*Also */
+ .btn-success {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    font-size: 0.83333em;
+    line-height: 1.8em;
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    box-shadow: none;
+    -webkit-transition: all 0.3s ease-in-out;
+    -moz-transition: all 0.3s ease-in-out;
+    -o-transition: all 0.3s ease-in-out;
+    transition: all 0.3s ease-in-out;
+    background-color: #242d36;
+    border: 0;
+    border-radius: 0px;
+    color: #f0f1f3;
+    padding: 13.5px 27px;
+    text-shadow: none;
+}
+/* This is copied from https://github.com/blueimp/jQuery-File-Upload/blob/master/css/jquery.fileupload.css */
+ .fileinput-button {
+    position: relative;
+    overflow: hidden;
+}
+/*Also*/
+ .fileinput-button input {
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin: 0;
+    opacity: 0;
+    -ms-filter:'alpha(opacity=0)';
+    font-size: 200px;
+    direction: ltr;
+    cursor: pointer;
+}
+</style>
+</head>
 <body  style="overflow: hidden;" > 
 <form id="resourceuplaodform" method="post"  style="overflow: hidden;" enctype="multipart/form-data" action="/api/resources/upload">
-    <a href="" target="_blank" id="downloadresource" style=""></a>
-    <br />
-     <label for="resourceupload">Upload Resource</label>
-    <br />
-	<input id="resourceupload" type="file" name="file" onchange="GetResource();" />
+    
+    <span class="btn btn-success fileinput-button">
+  <span>ADD RESOURCE</span>
+
+    <input type="file" id="resourceupload" name="file" onchange="GetResource();">
+  </span> 
 		<input type="hidden" name="uid" id="hiddenuiforresource" value="">
 		<input type="hidden" name="cid" id="hiddenciforresource" value=""> 
 		<input type="hidden" name="mid" id="hiddenmiforresource" value=""> 
 		<input type="hidden" name="tid" id="hiddenmiforresource" value="">
-	    <input type="submit" id="Uploadresource" value="Upload Resource" name="submit" style="" onclick="Refresh();">
+		
+	    <input type="submit" id="Uploadresource" value="ADD RESOURCE" name="submit" style="display:none;" onclick="Refresh();">
 	    
 	    
  </form> 
