@@ -113,10 +113,11 @@
             $("#resourceList").html("");
             for(var i=0; i< data.length; i++) {
                 var communityId = GetQueryStringValue("cid");
-                var userId = GetQueryStringValue("uid");  
+                var userId = GetQueryStringValue("uid"); 
+                var _link =data[i].link.replace("target/classes/public/","");
                 $("#resourceList").append(
                     $("<li>").append(
-                        $("<a>").attr("class","related-post-item-title").attr("title",data[i].name).attr("href",data[i].link).append(data[i].name)
+                        $("<a>").attr("class","related-post-item-title").attr("title",data[i].name).attr("target","_blank").attr("href",_link).append(data[i].name)
                     ) 
                 );
             }
