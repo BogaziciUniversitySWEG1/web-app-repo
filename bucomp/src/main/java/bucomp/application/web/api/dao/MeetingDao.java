@@ -20,4 +20,8 @@ public interface MeetingDao {
 
 	public Meeting updateMeeting(Meeting m);
 
+	List<Meeting> getAllMeetings(Integer status);
+
+	int updateMeetingStatus(int meetingId, int status);
+
 }

@@ -932,7 +932,7 @@ box-shadow: none;
 transition: all 0.3s ease-in-out;
 background-color: #242d36;
 border: 0;
-border-radius: 0;
+border-radius: 0px;
 color: #f0f1f3;
 padding: 13.5px 27px;
 text-shadow: none;
@@ -1700,7 +1700,7 @@ z-index: 4;
 .hentry {
 background-color: white;
 border-top: 8px solid #B6D1FE;
-margin: 0 0 81px;
+margin: 0 0 11px;
 padding: 27px 27px 22px;
 position: relative;
 }

@@ -16,6 +16,9 @@
                 jsonObj.status = GLOBALS.Status; 
                 jsonObj.meetingOrganizerUserId = GLOBALS.UserId; 
                 jsonObj.inviteeList = GLOBALS.InvitedMembersObj;
+                if(jsonObj.inviteeList ==""){
+                	jsonObj.inviteeList = [];
+                }
                 jsonObj.meetingattendants = null;
                 jsonObj.meetingnotes = null;
                 jsonObj.meetingresources = null;
@@ -23,7 +26,9 @@
                 jsonObj.communityId = GLOBALS.CommunityId; 
                 jsonObj.meetingTypeId = parseInt(GLOBALS.MeetingType);  // 
                 jsonObj.subject = GLOBALS.Subject;
-                
+
+                jsonObj.latitude=GLOBALS.Lat;
+                jsonObj.longitude=GLOBALS.Long;
                 var jsonStr = JSON.stringify(jsonObj);
                 
                 $.ajax({

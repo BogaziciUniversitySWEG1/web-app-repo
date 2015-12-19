@@ -19,6 +19,21 @@ xmlns:data="http://www.google.com/2005/gml/data" xmlns:expr="http://www.google.c
     <script src="CommonScripts/jeasyui/jquery.easyui.min.js" type="text/javascript"></script>
     <script src="CommonScripts/Common.js" type="text/javascript"></script>
     <script src="CommonScripts/navigation.js" type="text/javascript"></script>
+     
+    <script src="https://maps.googleapis.com/maps/api/js"></script>
+     <style> 
+		#floating-panel {
+		  position: absolute;
+		  width: 70%;
+		  left: 15%;
+		  z-index: 5;
+		  background-color: #fff;
+		  padding: 5px;
+		  border: 1px solid #999; 
+		  font-family: 'Roboto','sans-serif'; 
+		}
+		
+    </style>
 </head>
 <body class="home blog right-sidebar">
     <div id="bpagewrap">
@@ -55,10 +70,19 @@ xmlns:data="http://www.google.com/2005/gml/data" xmlns:expr="http://www.google.c
                                                 <label for="txtPassword">Password</label>
                                                 <input type="password" id="txtPassword" class="form-control" />
                                             </div>
-                                            <div class="form-group">
-                                                <label for="slLocation">Location</label>
-                                                <input type="text" id="txtLocation" class="form-control" />
+                                           <div class="form-group">
+                                                <label for="txtLocation">Location</label>
+                                                <input type="text" id="txtLocation" class="form-control" style="width:80%;" />
+                                                <input type="button" id="btnOpenCloseMap" value="Open Map" onclick="DESIGN.OPENCLOSEMAP();" class="form-control" style="width: 10%;position: absolute;margin: -45px 0px 0px 80%;cursor: pointer; border-radius: 5px; padding:5px; "/>
                                             </div>
+                                            
+                                             <div id="mapcontentdiv" style="display: none;padding : 5px; height:400px;">
+	                                              <div id="floating-panel" style="">
+												      <input id="address" type="textbox" value="istanbul" style="width: 74%;line-height: 40px;">
+												      <input id="button" type="button" value="Find Location" onclick="DESIGN.GEOCODE()" style="width: 25%;">
+											      </div>
+										         <div id="map" style="width:100%; height:400px;"></div>
+									 		</div> 
                                              <div class="form-group">
                                                 <label for="slEducation">Education</label>
                                                 <input type="text" id="txtEducation" class="form-control" />

@@ -35,6 +35,8 @@ public class User implements Serializable {
 	private String hobbies;
 
 	private String location;
+	private String latitude;
+	private String longitude;
 
 	private String name;
 
@@ -217,6 +219,22 @@ public class User implements Serializable {
 
 	public void setProfession(String profession) {
 		this.profession = profession;
+	}
+
+	public String getLatitude() {
+		return latitude;
+	}
+
+	public void setLatitude(String latitude) {
+		this.latitude = latitude;
+	}
+
+	public String getLongitude() {
+		return longitude;
+	}
+
+	public void setLongitude(String longitude) {
+		this.longitude = longitude;
 	}
 
 }
