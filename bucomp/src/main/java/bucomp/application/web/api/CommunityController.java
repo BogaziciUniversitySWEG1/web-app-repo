@@ -35,8 +35,8 @@ import bucomp.application.web.api.dao.UserDao;
 import bucomp.application.web.api.dao.UserDaoImpl;
 
 /**
- * The rest controller class used for community operations.
- * It provides many functionalities required for community operations.
+ * The rest controller class used for community operations. It provides many
+ * functionalities required for community operations.
  *
  */
 @RestController
