@@ -206,8 +206,8 @@
 			                GLOBALS.Education = data.education;
 			                GLOBALS.Profession = data.profession;
 			                GLOBALS.Hobbies = data.hobbies;
-			                GLOBALS.CvLink = data.cvLink;
-			                GLOBALS.PhotoLink = "photos/" + data.photoLink;
+			                GLOBALS.CvLink = data.cvlink;
+			                GLOBALS.PhotoLink =data.photoLink;
 			
 			                document.getElementById('txtName').value = GLOBALS.Name;
 			                document.getElementById('txtSurname').value = GLOBALS.Surname;
@@ -218,7 +218,16 @@
 			                document.getElementById('txtEducation').value = GLOBALS.Education;
 			                document.getElementById('txtProfession').value = GLOBALS.Profession;
 			                document.getElementById('txtHobbies').value = GLOBALS.Hobbies;
-			
+			                
+			                $( document ).ready(function() {
+			                	setTimeout(function () { 
+			                		var _pl= "/file-repository/users/"+GLOBALS.UserId+"/"+GLOBALS.PhotoLink;
+				                	var _cl= "/file-repository/users/"+GLOBALS.UserId+"/"+GLOBALS.CvLink;
+					            	$("#photouplaodformframe").contents().find("#imgProfile").attr("src",_pl); 
+					            	$("#cvuplaodformframe").contents().find("#downloadcv").attr("href",_cl); 
+					            	$("#cvuplaodformframe").contents().find("#downloadcv").html(GLOBALS.CvLink); 
+			                	},2000);
+			                });
 			                //document.getElementById("cvlink").setAttribute("href", GLOBALS.CvLink);
 			                //document.getElementById("imgProfile").setAttribute("src", GLOBALS.PhotoLink);
 	                	}
@@ -243,8 +252,7 @@
                 GLOBALS.Location = $('#txtLocation').val();
                 GLOBALS.Education = $('#txtEducation').val();
                 GLOBALS.Profession = $('#txtProfession').val();
-                GLOBALS.Hobbies = $('#txtHobbies').val();
-
+                GLOBALS.Hobbies = $('#txtHobbies').val(); 	
                 if (GLOBALS.Name == '') {
                     GUI_HELPER.ALERT('Warning', 'Please fill the Name area!', GUI_HELPER.ERROR);
                 }
@@ -287,6 +295,16 @@
                 	$("#cvuplaodformframe").contents().find("#hiddenuiforcv").val(GLOBALS.UserId);
                 	$("#cvuplaodformframe").contents().find("#Uploadcv").click();
                     GUI_HELPER.ALERT('Info', "Information is updated.", GUI_HELPER.INFO);
+                    document.getElementById("photouplaodformframe").contentDocument.location.reload(true);
+                    document.getElementById("cvuplaodformframe").contentDocument.location.reload(true);
+                    
+                    setTimeout(function () { 
+                		var _pl= "/file-repository/users/"+GLOBALS.UserId+"/"+GLOBALS.PhotoLink;
+	                	var _cl= "/file-repository/users/"+GLOBALS.UserId+"/"+GLOBALS.CvLink;
+		            	$("#photouplaodformframe").contents().find("#imgProfile").attr("src",_pl); 
+		            	$("#cvuplaodformframe").contents().find("#downloadcv").attr("href",_cl); 
+		            	$("#cvuplaodformframe").contents().find("#downloadcv").html(GLOBALS.CvLink); 
+                	},1000);
                 }
                 else {
                     GUI_HELPER.ALERT('Warning', "Updating information fails. Please try again later.", GUI_HELPER.ERROR);
