@@ -13,8 +13,14 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import bucomp.application.model.Resource;
+import bucomp.application.web.api.dao.ResourceDao;
+import bucomp.application.web.api.dao.ResourceDaoImpl;
+
 @RestController
 public class ResourceController {
+	
+	ResourceDao dao = new ResourceDaoImpl();
 
 	/**
 	 * 
@@ -28,21 +34,31 @@ public class ResourceController {
 	public ResponseEntity<String> uploadFile(
 			@RequestParam(required=false, value="cid") Integer cid,
 			@RequestParam(required=false, value="mid") Integer mid,
+			@RequestParam(required=false, value="tid") Integer tid,
 			@RequestParam(required=true, value="uid") Integer uid,
             @RequestParam("file") MultipartFile[] files) {
 		
 		String uploadedFileLocation;
 		String UPLOAD_DIRECTORY= "target/classes/public/file-repository"; 
 		
+		Resource r = new Resource();
+		r.setCommunityId(cid);
+		r.setMeetingId(mid);
+		r.setUserId(uid);
+		r.setTopicId(tid);
 		
 		if(mid!=null && mid>0){
 			// this is a meeting resource
 			System.out.println("this is a meeting resource");
 			uploadedFileLocation = UPLOAD_DIRECTORY+"/communities/" + cid + "/meetings/" + mid + "/users/" + uid + "/";
+			r.setLink(uploadedFileLocation);
+			dao.saveResource(r);
 		} else if(cid!=null && cid>0) {
 			//this is a community resource
 			System.out.println("this is a community resource");
-			uploadedFileLocation =UPLOAD_DIRECTORY+"/communities/" + cid + "/users/" + uid + "/";			
+			uploadedFileLocation =UPLOAD_DIRECTORY+"/communities/" + cid + "/users/" + uid + "/";	
+			r.setLink(uploadedFileLocation);
+			dao.saveResource(r);
 		} else {
 			//this is a user resource (cv or photo)
 			System.out.println("this is a user resource");
@@ -78,6 +94,5 @@ public class ResourceController {
         }
 	
 	}
-
 
 }

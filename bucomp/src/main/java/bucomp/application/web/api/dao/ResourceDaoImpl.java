@@ -68,4 +68,22 @@ public class ResourceDaoImpl implements ResourceDao {
 		}
 	}
 
+	@Override
+	public Resource saveResource(Resource r) {
+		EntityTransaction etx = null;
+		try {
+			etx = dbService.getEntitymanager().getTransaction();
+			etx.begin();
+			dbService.getEntitymanager().persist(r);
+			dbService.getEntitymanager().flush();
+			etx.commit();
+			return r;
+		} catch (Exception e) {
+			e.printStackTrace();
+			if(etx!=null)
+				etx.rollback();
+			return null;
+		}
+	}
+
 }
