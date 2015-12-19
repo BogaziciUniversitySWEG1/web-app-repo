@@ -8,7 +8,8 @@
 	<input id="resourceupload" type="file" name="file" onchange="GetResource();" />
 		<input type="hidden" name="uid" id="hiddenuiforresource" value="">
 		<input type="hidden" name="cid" id="hiddenciforresource" value=""> 
-		<input type="hidden" name="mid" id="hiddenmiforresource" value="">
+		<input type="hidden" name="mid" id="hiddenmiforresource" value=""> 
+		<input type="hidden" name="tid" id="hiddenmiforresource" value="">
 	    <input type="submit" id="Uploadresource" value="Upload Resource" name="submit" style="" onclick="Refresh();">
 	    
 	    
@@ -17,11 +18,8 @@
    function GetResource(){
 	var _this = document.getElementById('resourceupload');
     if (_this.files.length > 0) {
-        var file = _this.files[0];
-        parent.GLOBALS.ResourceLink = file.name;
-    }
-    else {
-        parent.GLOBALS.ResourceLink = "";
+        var file = _this.files[0]; 
+        document.getElementById('Uploadresource').click();
     }
  }
  function Refresh(){
