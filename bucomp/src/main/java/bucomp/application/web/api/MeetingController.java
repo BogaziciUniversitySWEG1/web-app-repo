@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 import bucomp.application.mail.SMTPMailSender;
 import bucomp.application.model.Meeting;
 import bucomp.application.model.MeetingInvitee;
+import bucomp.application.model.Resource;
 import bucomp.application.model.User;
 import bucomp.application.web.api.dao.CommunityDao;
 import bucomp.application.web.api.dao.CommunityDaoImpl;
@@ -27,6 +28,8 @@ import bucomp.application.web.api.dao.MeetingDao;
 import bucomp.application.web.api.dao.MeetingDaoImpl;
 import bucomp.application.web.api.dao.MeetingInviteeDao;
 import bucomp.application.web.api.dao.MeetingInviteeDaoImpl;
+import bucomp.application.web.api.dao.ResourceDao;
+import bucomp.application.web.api.dao.ResourceDaoImpl;
 import bucomp.application.web.api.dao.UserDao;
 import bucomp.application.web.api.dao.UserDaoImpl;
 
@@ -40,6 +43,7 @@ public class MeetingController {
 	private MeetingInviteeDao midao = new MeetingInviteeDaoImpl();
 	private UserDao udao = new UserDaoImpl();
 	private CommunityDao cdao = new CommunityDaoImpl();
+	private ResourceDao rdao = new ResourceDaoImpl();
 
 	/**
 	 * 
@@ -150,6 +154,17 @@ public class MeetingController {
 		
 		midao.responseMeetingInvite(meetingId, userId, 2);
 		
+	}
+	
+	@RequestMapping(value = "/api/meetings/resources/{meetingId}", 
+			method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<Collection<Resource>> getCommunityResources(
+			@PathVariable("meetingId") Integer meetingId) {
+		Collection<Resource> resources = rdao.getCommunityResources(meetingId);
+		if (resources == null || resources.size() == 0) {
+			return new ResponseEntity<Collection<Resource>>(resources, HttpStatus.NO_CONTENT);
+		}
+		return new ResponseEntity<Collection<Resource>>(resources, HttpStatus.OK);
 	}
 
 }

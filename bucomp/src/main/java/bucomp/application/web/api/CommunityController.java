@@ -27,14 +27,16 @@ import bucomp.application.web.api.dao.CommunityDao;
 import bucomp.application.web.api.dao.CommunityDaoImpl;
 import bucomp.application.web.api.dao.CommunityMemberDao;
 import bucomp.application.web.api.dao.CommunityMemberDaoImpl;
+import bucomp.application.web.api.dao.ResourceDao;
+import bucomp.application.web.api.dao.ResourceDaoImpl;
 import bucomp.application.web.api.dao.TagDao;
 import bucomp.application.web.api.dao.TagDaoImpl;
 import bucomp.application.web.api.dao.UserDao;
 import bucomp.application.web.api.dao.UserDaoImpl;
 
 /**
- * The rest controller class used for community operations.
- * It provides many functionalities required for community operations.
+ * The rest controller class used for community operations. It provides many
+ * functionalities required for community operations.
  *
  */
 @RestController
@@ -44,6 +46,7 @@ public class CommunityController {
 	private CommunityMemberDao cmDao = new CommunityMemberDaoImpl();
 	private UserDao udao = new UserDaoImpl();
 	private TagDao tdao = new TagDaoImpl();
+	private ResourceDao rdao = new ResourceDaoImpl();
 	private DBPediaWS dpws = new DBPediaWS();
 
 	/**
@@ -188,20 +191,16 @@ public class CommunityController {
 
 	}
 
-	// Leave Community
-	@RequestMapping(value = "/api/communities/documents", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<Resource> uploadResource(@RequestParam(value = "file", required = true) MultipartFile file,
-			@RequestParam(value = "communityId", required = true) Integer communityId,
-			@RequestParam(value = "userId", required = true) Integer userId) {
-
-		Resource resource = new Resource();
-		resource.setLink(file.getOriginalFilename());
-
-		/**
-		 * TODO: To be implemented
-		 */
-		return new ResponseEntity<Resource>(resource, HttpStatus.NOT_IMPLEMENTED);
-
+	@RequestMapping(value = "/api/communities/resources/{communityId}", 
+			method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<Collection<Resource>> getCommunityResources(
+			@PathVariable("communityId") Integer communityId) {
+		System.out.println("asdasdas");
+		Collection<Resource> resources = rdao.getCommunityResources(communityId);
+		if (resources == null || resources.size() == 0) {
+			return new ResponseEntity<Collection<Resource>>(resources, HttpStatus.NO_CONTENT);
+		}
+		return new ResponseEntity<Collection<Resource>>(resources, HttpStatus.OK);
 	}
 
 	@RequestMapping(value = "/api/communityMembers/{communityId}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
