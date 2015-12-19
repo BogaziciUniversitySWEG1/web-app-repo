@@ -11,8 +11,7 @@
                             if (typeof callback == 'function') {
                                 callback(null);
                             }
-                        }
-                        else{
+                        } else {
                             var _data = eval(msg);
                             callback(_data);
                         }
@@ -23,8 +22,7 @@
                         }
                     }
                 });
-            }
-            catch (err) {
+            } catch (err) {
                 if (typeof callback_err == 'function') {
                     callback_err(-2, 'TEST');
                 }
@@ -41,8 +39,7 @@
                             if (typeof callback == 'function') {
                                 callback(null);
                             }
-                        }
-                        else{
+                        } else {
                             var _data = eval(msg);
                             callback(_data);
                         }
@@ -53,8 +50,7 @@
                         }
                     }
                 });
-            }
-            catch (err) {
+            } catch (err) {
                 if (typeof callback_err == 'function') {
                     callback_err(-2, 'TEST');
                 }
@@ -71,8 +67,7 @@
                             if (typeof callback == 'function') {
                                 callback(null);
                             }
-                        }
-                        else{
+                        } else {
                             var _data = eval(msg);
                             callback(_data);
                         }
@@ -83,14 +78,13 @@
                         }
                     }
                 });
-            }
-            catch (err) {
+            } catch (err) {
                 if (typeof callback_err == 'function') {
                     callback_err(-2, 'TEST');
                 }
             }
         },
-        GetPopularTags: function(callback, callback_err) {
+        GetPopularTags: function (callback, callback_err) {
             try {
                 $.ajax({
                     type: "GET",
@@ -101,8 +95,7 @@
                             if (typeof callback == 'function') {
                                 callback(null);
                             }
-                        }
-                        else{
+                        } else {
                             var _data = eval(msg);
                             callback(_data);
                         }
@@ -113,20 +106,19 @@
                         }
                     }
                 });
-            }
-            catch (err) {
+            } catch (err) {
                 if (typeof callback_err == 'function') {
                     callback_err(err);
                 }
             }
         },
-        JoinCommunity: function (userId, communityId, roleId, callback, callback_err) { 
+        JoinCommunity: function (userId, communityId, roleId, callback, callback_err) {
             try {
                 var form = new FormData();
                 form.append("communityId", communityId);
                 form.append("userId", userId);
                 form.append("roleId", roleId);
-                
+
                 var settings = {
                     "async": true,
                     "crossDomain": true,
@@ -141,22 +133,49 @@
                     "mimeType": "multipart/form-data",
                     "data": form
                 }
-                
+
                 $.ajax(settings).done(function (response) {
-                    callback(userId, communityId); 
+                    callback(userId, communityId);
                 });
-            }
-            catch (err) {
+            } catch (err) {
                 callback_err(err);
             }
         },
-        SendJoinRequest: function(communityId, userId, explanation, callback, callback_err) {
-            try{
+        SearchCommunity: function (key,callback, callback_err) {
+            try {
+                $.ajax({
+                    type: "GET",
+                    url: GLOBALS.ServiceParameter + "/communities/search?key="+key,
+                    contentType: "application/json; charset=utf-8",
+                    success: function (msg) {
+                        if (msg == null) {
+                            if (typeof callback == 'function') {
+                                callback(null);
+                            }
+                        } else {
+                            var _data = eval(msg);
+                            callback(_data);
+                        }
+                    },
+                    error: function (msg) {
+                        if (typeof callback_err == 'function') {
+                            callback_err(-1, 'TEST');
+                        }
+                    }
+                });
+            } catch (err) {
+                if (typeof callback_err == 'function') {
+                    callback_err(-2, 'TEST');
+                }
+            }
+        },
+        SendJoinRequest: function (communityId, userId, explanation, callback, callback_err) {
+            try {
                 var form = new FormData();
                 form.append("communityId", communityId);
                 form.append("userId", userId);
                 form.append("explanation", explanation);
-                
+
                 var settings = {
                     "async": true,
                     "crossDomain": true,
@@ -171,14 +190,16 @@
                     "mimeType": "multipart/form-data",
                     "data": form
                 }
-                
+
                 $.ajax(settings).done(function (response) {
-                    callback(response); 
+                    callback(response);
                 });
-            } catch(err) {
+            } catch (err) {
                 callback_err(err);
             }
         }
     }
-    if (!window.SP_BANK) { window.SP_BANK = SP_BANK; }
+    if (!window.SP_BANK) {
+        window.SP_BANK = SP_BANK;
+    }
 })();
