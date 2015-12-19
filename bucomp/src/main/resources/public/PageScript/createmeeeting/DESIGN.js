@@ -6,7 +6,7 @@
     var DESIGN = {
     		INITIALIZE:function(){
     			try{
-
+    				DESIGN.MEETINGTYPE_CHANGED(document.getElementById('meetingtype'));
                 	GLOBALS.UserId = GetQueryStringValue("uid");
                     GLOBALS.CommunityId = GetQueryStringValue("cid"); 
                     $('#timezone').timezones();
@@ -61,6 +61,8 @@
     				          if (results[0]) {
     				        	  //GLOBALS.Map.setZoom(11); 
     				        	  GLOBALS.GeoLocation=results[0].formatted_address; 
+    				        	  
+    				        	  document.getElementById('address').value=results[0].formatted_address;
     				        	  document.getElementById('txtLocation').value=GLOBALS.GeoLocation;
     				          } else {
     				            GUI_HELPER.ALERT('info','No results found',GUI_HELPER.INFO);
@@ -71,16 +73,65 @@
     				      });
     				    
     				});
+    				
+    				 google.maps.event.addListener(GLOBALS.Map, 'dblclick', function(event) {
+    					 GLOBALS.Marker.setPosition(event.latLng);
+    					 GLOBALS.Lat = event.latLng.lat();
+     				     GLOBALS.Long = event.latLng.lng();
+     				    
+     				    var latlng = {lat: parseFloat(GLOBALS.Lat), lng: parseFloat(GLOBALS.Long)};
+     				    GLOBALS.Geocoder.geocode({'location': latlng}, function(results, status) {
+     				        if (status === google.maps.GeocoderStatus.OK) {
+     				          if (results[0]) {
+     				        	  //GLOBALS.Map.setZoom(11); 
+     				        	  GLOBALS.GeoLocation=results[0].formatted_address; 
+     				        	  
+     				        	  document.getElementById('address').value=results[0].formatted_address;
+     				        	  document.getElementById('txtLocation').value=GLOBALS.GeoLocation;
+     				          } else {
+     				            GUI_HELPER.ALERT('info','No results found',GUI_HELPER.INFO);
+     				          }
+     				        } else {
+     				            GUI_HELPER.ALERT('info','Geocoder failed due to: ' + status,GUI_HELPER.INFO);
+     				         }
+     				      });
+     				    
+    					});
     			} catch (err) {
                     GUI_HELPER.ALERT('Warning', err, GUI_HELPER.ERROR);
                 }
     			
     		},
     		toggleBounce:function () {
-    			  if (GLOBALS.Marker.getAnimation() !== null) {
+    			  if (GLOBALS.Marker.getAnimation() != null) {
     				  GLOBALS.Marker.setAnimation(null);
     			  } else {
     				  GLOBALS.Marker.setAnimation(google.maps.Animation.BOUNCE);
+    			  }
+    			},
+			GEOCODE:function () {
+				var address=document.getElementById('address').value;
+    			  if (address != "") {
+    				  GLOBALS.Geocoder.geocode({'address': address}, function(results, status) {
+  				        if (status === google.maps.GeocoderStatus.OK) {
+  				          if (results[0]) {
+  				        	  //GLOBALS.Map.setZoom(11); 
+							GLOBALS.GeoLocation=results[0].formatted_address; 
+							document.getElementById('txtLocation').value=GLOBALS.GeoLocation;
+							document.getElementById('address').value= GLOBALS.GeoLocation;
+							GLOBALS.Marker.setPosition(results[0].geometry.location);
+							GLOBALS.Map.setCenter(results[0].geometry.location);
+							GLOBALS.Lat = results[0].geometry.location.lat();
+							GLOBALS.Long = results[0].geometry.location.lng();
+  				          } else {
+  				            GUI_HELPER.ALERT('info','No results found',GUI_HELPER.INFO);
+  				          }
+  				        } else {
+  				            GUI_HELPER.ALERT('info','Geocoder failed due to: ' + status,GUI_HELPER.INFO);
+  				         }
+  				      });
+    			  } else {
+    				  GUI_HELPER.ALERT('Warning', "Please enter an address", GUI_HELPER.WARNING);
     			  }
     			},
 	        Createmeeting: function () {
@@ -93,12 +144,19 @@
 	                GLOBALS.MeetingType= $("#meetingtype option:selected").val();
 	                GLOBALS.IRCLink= $('#txtirclink').val();
                     GLOBALS.Subject= $("#txtSubject").val();
+                    
+                    var selectedIndex=document.getElementById('meetingtype').selectedIndex;
+                    var selectedValue=document.getElementById('meetingtype').options[selectedIndex].value;
 	                
                     if(GLOBALS.Subject == '') {
                         GUI_HELPER.ALERT('Warning', 'Please fill the subject  area!', GUI_HELPER.ERROR);
 	                    return;
                     } else if (GLOBALS.HourStart == '') {
 	                    GUI_HELPER.ALERT('Warning', 'Please fill the start date time  area!', GUI_HELPER.ERROR);
+	                    return;
+	               
+	                }else if (GLOBALS.IRCLink == '' && selectedValue == 2) {
+	                    GUI_HELPER.ALERT('Warning', 'Please fill the Irc Link  area!', GUI_HELPER.ERROR);
 	                    return;
 	               
 	                } else if (GLOBALS.HourEnd == '') {
@@ -109,7 +167,7 @@
 	                    GUI_HELPER.ALERT('Warning', 'Please fill the Time Zone area!', GUI_HELPER.ERROR);
 	                    return;
 	                }
-	                else if (GLOBALS.Location == '') {
+	                else if (GLOBALS.Location == '' && selectedValue > 2) {
 	                    GUI_HELPER.ALERT('Warning', 'Please fill the Location area!', GUI_HELPER.ERROR);
 	                    return;
 	                }
@@ -261,6 +319,35 @@
         CANCEL:function(){
         	try{
         		GUI_HELPER.CONFIRM('Cancel?','Are you sure to cancel creating meeting?', GUI_HELPER.GO_BACK_PAGE);
+        	}
+        	catch (err) {
+                GUI_HELPER.ALERT('Warning', err, GUI_HELPER.ERROR);
+            } 
+        	
+        },
+        MEETINGTYPE_CHANGED:function(obj){
+        	try{
+        		var selectedIndex=obj.selectedIndex;
+        		var selectedValue=obj.options[selectedIndex].value;
+        		if(selectedValue==1){//Online Meeting
+        			$('#divLocation').hide(); 
+        			$('#divIrclink').hide();
+        			
+        		}
+        		else if(selectedValue==2){//IRC Meeting
+        			$('#divLocation').hide(); 
+        			$('#divIrclink').show();
+        			
+        		}
+        		else if(selectedValue==3){//Face to face Meeting
+        			$('#divLocation').show(); 
+        			$('#divIrclink').hide();  
+        		}
+        		else if(selectedValue==4){//Event 
+        			$('#divLocation').show(); 
+        			$('#divIrclink').hide(); 
+        		}
+        		 
         	}
         	catch (err) {
                 GUI_HELPER.ALERT('Warning', err, GUI_HELPER.ERROR);

@@ -15,6 +15,11 @@
             	obj.hobbies=Hobbies;
             	obj.cvlink=CvLink;
             	obj.photoLink=PhotoLink;
+            	
+            	//open below when user web api is updated
+            	//obj.latitude=GLOBALS.Lat;
+            	//obj.latitude=GLOBALS.Long;
+            	
             	var json =JSON.stringify(obj);
                 $.ajax({
                     type: "POST",

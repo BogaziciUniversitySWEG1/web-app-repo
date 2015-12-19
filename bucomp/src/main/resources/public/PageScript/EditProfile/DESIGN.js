@@ -46,6 +46,130 @@
                 GUI_HELPER.ALERT('Warning', err, GUI_HELPER.ERROR);
             }
         },
+
+		INITIALIZE_MAP:function(){
+			try{
+ 
+                var mapCanvas = document.getElementById('map'); 
+				 var mapOptions = {
+				          center: new google.maps.LatLng(41.085408, 29.046599),
+				          zoom: 8,
+				          mapTypeId: google.maps.MapTypeId.ROADMAP
+				        };
+				GLOBALS.Map= new google.maps.Map(mapCanvas, mapOptions);
+				GLOBALS.Marker = new google.maps.Marker({
+					    map: GLOBALS.Map,
+					    draggable: true,
+					    animation: google.maps.Animation.DROP,
+					    position: {lat: 41.085408, lng: 29.046599}
+					  });
+				GLOBALS.Marker.addListener('click', DESIGN.toggleBounce);
+				GLOBALS.Geocoder= new google.maps.Geocoder;
+				google.maps.event.addListener(GLOBALS.Marker, 'dragend', function (event) {
+				    GLOBALS.Lat = this.getPosition().lat();
+				    GLOBALS.Long = this.getPosition().lng();
+				    
+				    var latlng = {lat: parseFloat(GLOBALS.Lat), lng: parseFloat(GLOBALS.Long)};
+				    GLOBALS.Geocoder.geocode({'location': latlng}, function(results, status) {
+				        if (status === google.maps.GeocoderStatus.OK) {
+				          if (results[0]) {
+				        	  //GLOBALS.Map.setZoom(11); 
+				        	  GLOBALS.GeoLocation=results[0].formatted_address; 
+				        	  
+				        	  document.getElementById('address').value=results[0].formatted_address;
+				        	  document.getElementById('txtLocation').value=GLOBALS.GeoLocation;
+				          } else {
+				            GUI_HELPER.ALERT('info','No results found',GUI_HELPER.INFO);
+				          }
+				        } else {
+				            GUI_HELPER.ALERT('info','Geocoder failed due to: ' + status,GUI_HELPER.INFO);
+				         }
+				      });
+				    
+				});
+				
+				 google.maps.event.addListener(GLOBALS.Map, 'dblclick', function(event) {
+					 GLOBALS.Marker.setPosition(event.latLng);
+					 GLOBALS.Lat = event.latLng.lat();
+ 				     GLOBALS.Long = event.latLng.lng();
+ 				    
+ 				    var latlng = {lat: parseFloat(GLOBALS.Lat), lng: parseFloat(GLOBALS.Long)};
+ 				    GLOBALS.Geocoder.geocode({'location': latlng}, function(results, status) {
+ 				        if (status === google.maps.GeocoderStatus.OK) {
+ 				          if (results[0]) {
+ 				        	  //GLOBALS.Map.setZoom(11); 
+ 				        	  GLOBALS.GeoLocation=results[0].formatted_address; 
+ 				        	  
+ 				        	  document.getElementById('address').value=results[0].formatted_address;
+ 				        	  document.getElementById('txtLocation').value=GLOBALS.GeoLocation;
+ 				          } else {
+ 				            GUI_HELPER.ALERT('info','No results found',GUI_HELPER.INFO);
+ 				          }
+ 				        } else {
+ 				            GUI_HELPER.ALERT('info','Geocoder failed due to: ' + status,GUI_HELPER.INFO);
+ 				         }
+ 				      });
+ 				    
+					});
+				 	document.getElementById('address').value= document.getElementById('txtLocation').value;
+	                DESIGN.GEOCODE();
+			} catch (err) {
+                GUI_HELPER.ALERT('Warning', err, GUI_HELPER.ERROR);
+            }
+			
+		},
+		toggleBounce:function () {
+			  if (GLOBALS.Marker.getAnimation() != null) {
+				  GLOBALS.Marker.setAnimation(null);
+			  } else {
+				  GLOBALS.Marker.setAnimation(google.maps.Animation.BOUNCE);
+			  }
+			},
+		GEOCODE:function () {
+			var address=document.getElementById('address').value;
+			  if (address != "") {
+				  GLOBALS.Geocoder.geocode({'address': address}, function(results, status) {
+				        if (status === google.maps.GeocoderStatus.OK) {
+				          if (results[0]) {
+				        	  //GLOBALS.Map.setZoom(11); 
+							GLOBALS.GeoLocation=results[0].formatted_address; 
+							document.getElementById('txtLocation').value=GLOBALS.GeoLocation;
+							document.getElementById('address').value= GLOBALS.GeoLocation;
+							GLOBALS.Marker.setPosition(results[0].geometry.location);
+							GLOBALS.Map.setCenter(results[0].geometry.location);
+							GLOBALS.Lat = results[0].geometry.location.lat();
+							GLOBALS.Long = results[0].geometry.location.lng();
+				          } else {
+				            GUI_HELPER.ALERT('info','No results found',GUI_HELPER.INFO);
+				          }
+				        } else {
+				            GUI_HELPER.ALERT('info','Geocoder failed due to: ' + status,GUI_HELPER.INFO);
+				         }
+				      });
+			  } else {
+				  GUI_HELPER.ALERT('Warning', "Please enter an address", GUI_HELPER.WARNING);
+			  }
+			},
+	        OPENCLOSEMAP:function(){
+	        	try	{
+	    			$('#mapcontentdiv').slideToggle(500, function () {
+						if(GLOBALS.MapDivStatus==0){
+	            			GLOBALS.MapDivStatus=1;
+	            			document.getElementById('btnOpenCloseMap').value="Close Map";
+	            			if(GLOBALS.Map==null){ 
+	            				setTimeout(function(){DESIGN.INITIALIZE_MAP();},500);
+							}
+	            		}
+	            		else{
+	            			GLOBALS.MapDivStatus=0;
+	            			document.getElementById('btnOpenCloseMap').value="Open Map";
+	            		}
+	    		    });
+	        	}
+	        	catch (err) {
+	                GUI_HELPER.ALERT('Warning', err, GUI_HELPER.ERROR);
+	            } 
+	        },
         GetUserById: function (ID) {
             try {
                 SP_BANK.GET_USER_BY_ID(ID, DESIGN.FillUserById, GUI_HELPER.SERVICE_CALLBACK_ERR);
@@ -90,6 +214,7 @@
 			                document.getElementById('txtEmail').value = GLOBALS.Email;
 			                document.getElementById('txtPassword').value = GLOBALS.Password;
 			                document.getElementById('txtLocation').value = GLOBALS.Location;
+			                document.getElementById('address').value = GLOBALS.Location;
 			                document.getElementById('txtEducation').value = GLOBALS.Education;
 			                document.getElementById('txtProfession').value = GLOBALS.Profession;
 			                document.getElementById('txtHobbies').value = GLOBALS.Hobbies;
