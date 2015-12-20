@@ -86,10 +86,7 @@
             var communityId = GetQueryStringValue("cid");
             var userId = GetQueryStringValue("uid"); 
          	if (GUI_HELPER.NOU(userId)&& userId!= ""){
-            	GLOBALS.UserId=userId; 
-            	$("#resourceuplaodformframe").contents().find("#hiddenuiforresource").val(userId);
-            	$("#resourceuplaodformframe").contents().find("#hiddenciforresource").val(communityId);
-            	SP_BANK.GetCommunityResources(communityId, DESIGN.FillCommunityResources, DESIGN.GetCommunityError);
+            	GLOBALS.UserId=userId;  
             }
             else{
             	GLOBALS.UserId=-1; 
@@ -111,15 +108,90 @@
                 return;
             }
             $("#resourceList").html("");
-            for(var i=0; i< data.length; i++) {
-                var communityId = GetQueryStringValue("cid");
-                var userId = GetQueryStringValue("uid"); 
+            var communityId = GetQueryStringValue("cid");
+            var userId = GetQueryStringValue("uid");
+            
+            
+            var table= document.getElementById('tblResourceList');
+			table.innerHTML = "";
+			
+			var thead= document.createElement('thead');
+			
+			var th1= document.createElement('th');
+			th1.innerHTML="Resource Name";
+			
+			var th2= document.createElement('th');
+			th2.innerHTML="User Name";
+			
+
+			var th3= document.createElement('th');
+			th3.innerHTML="User Profile";
+			
+
+			var th4= document.createElement('th');
+			th4.innerHTML="";
+              
+			
+			thead.appendChild(th1); 
+			thead.appendChild(th2); 
+			thead.appendChild(th3);  
+			thead.appendChild(th4); 
+			table.appendChild(thead);
+			
+            for(var i=0; i< data.length; i++) { 
                 var _link =data[i].link.replace("target/classes/public/","");
-                $("#resourceList").append(
-                    $("<li>").append(
-                        $("<a>").attr("class","related-post-item-title").attr("title",data[i].name).attr("target","_blank").attr("href",_link).append(data[i].name)
-                    ) 
-                );
+                var _name =data[i].name;
+                if(i<3){
+	                $("#resourceList").append(
+	                    $("<li>").append(
+	                        $("<a>").attr("class","related-post-item-title").attr("title",_name).attr("target","_blank").attr("href",_link).append(_name)
+	                    ) 
+	                );
+                }
+                var tr= document.createElement('tr');
+                var td_name=  document.createElement('td');
+                td_name.innerHTML= _name ; 
+                
+                var td_user=  document.createElement('td');  
+                var td_user_profile=  document.createElement('td'); 
+                
+            	for(var j =0; j< GLOBALS.Members.length; j++){ 
+            		if( GLOBALS.Members[j].user != null && GLOBALS.Members[j].user.userId == data[i].userId){ 
+                        var nameSurname = GLOBALS.Members[j].user.name + " " + GLOBALS.Members[j].user.surname; 
+                        var photoLink= "/file-repository/users/"+GLOBALS.Members[j].user.userId+"/"+GLOBALS.Members[j].user.photoLink;
+                        td_user_profile.innerHTML= nameSurname ; 
+                        $(td_user).append(
+                    			$("<img>")
+                                .attr("alt", nameSurname)
+                                .attr("title", nameSurname)
+                                .attr("class", "communityMemberPic")
+                                .attr("src", photoLink)
+                                .attr("width", "40")
+                                .attr("height", "40") 
+                                .attr("onclick", "DESIGN.ViewUser(" + GLOBALS.Members[j].user.userId + ");")
+                                );
+            		}
+					
+				}		
+                	
+                 
+
+                var td_link=  document.createElement('td');
+                td_link.innerHTML="<a href='"+_link+"' target='_blank'>Download</a>"; 
+                
+                tr.appendChild(td_name);
+				tr.appendChild(td_user_profile);
+				tr.appendChild(td_user);
+				tr.appendChild(td_link);
+				table.appendChild(tr);  
+				
+				if(i== data.length-1){
+	                $("#resourceList").append(
+	                    $("<li>").append(
+	                        $("<a>").attr("class","related-post-item-title").attr("title","See All").attr("href","#").attr("onclick","$('#divResourceList').show(); GUI_HELPER.OPENWINDOW('divResourceList','Resource List');").append("See All")
+	                    ) 
+	                );
+                }
             }
         },
         addResource: function() {
@@ -129,7 +201,8 @@
                 	var communityId = GetQueryStringValue("cid");
                     var userId = GetQueryStringValue("uid"); 
 	            	$("#resourceuplaodformframe").contents().find("#hiddenuiforresource").val(userId);
-	            	$("#resourceuplaodformframe").contents().find("#hiddenciforresource").val(communityId); 
+	            	$("#resourceuplaodformframe").contents().find("#hiddenciforresource").val(communityId);  
+	            	SP_BANK.GetCommunityResources(communityId, DESIGN.FillCommunityResources, DESIGN.GetCommunityError);
 	            },1000);
 	    	},2000);
             	
@@ -207,7 +280,9 @@
                         if(data[i].user.photoLink == null){ 
                             photoLink = "images/man-icon.png";
                         }
-
+                        
+                       
+                        
                         $("#members").append(
                             $("<li>").append(
                                 $("<img>")
@@ -242,7 +317,13 @@
             } else {
                 $("#lblMemberCount").html("0");
             }
-
+            var userId = GetQueryStringValue("uid"); 
+         	if (GUI_HELPER.NOU(userId)&& userId!= ""){
+            	GLOBALS.UserId=userId; 
+            	$("#resourceuplaodformframe").contents().find("#hiddenuiforresource").val(userId);
+            	$("#resourceuplaodformframe").contents().find("#hiddenciforresource").val(communityId);
+            	SP_BANK.GetCommunityResources(communityId, DESIGN.FillCommunityResources, DESIGN.GetCommunityError);
+            }
             DESIGN.ShowHideButtons();
         },
         FillMeetings: function (data) {
@@ -375,11 +456,12 @@
             }
         },
         GetCommunityError: function () {
-            //alert("An error has occured.");
+            //GUI_HELPER.ALERT("Alert","An error has occured.", GUI_HELPER.WARNING);
         },
         ViewUser: function (userId) {
             var uid = GetQueryStringValue("uid");
-            window.location = "ViewProfile.html?uid=" + uid + "&vid=" + userId;
+            window.open( window.location.origin+"/ViewProfile.html?uid=" + uid + "&vid=" + userId);
+            //window.location = "ViewProfile.html?uid=" + uid + "&vid=" + userId;
         },
         JoinCommunityClicked: function (joinType) {
             if (joinType == 1) {
@@ -403,18 +485,18 @@
             SP_BANK.JoinCommunity(userId, communityId, roleId, DESIGN.JoinSuccess, DESIGN.JoinError);
         },
         JoinSuccess: function (data) {
-            alert("You became the member of the community.");
+            GUI_HELPER.ALERT("Alert","You became the member of the community.", GUI_HELPER.WARNING);
             window.location = window.location;
         },
         JoinError: function (data) {
-            alert("Alert", "An error has been occured. Please contact to community owner.");
+            GUI_HELPER.ALERT("Alert", "An error has been occured. Please contact to community owner.", GUI_HELPER.WARNING);
         },
         ShowRequestModal: function () {
             $("#divRequest").show();
             GUI_HELPER.OPENWINDOW("divRequest", "Join Request", true, true, false);
         },
         ShowJoinError: function () {
-            alert("Please login to join this community.");
+            GUI_HELPER.ALERT("Alert","Please login to join this community.", GUI_HELPER.WARNING);
         },
         SendJoinRequest: function () {
             var communityId = GetQueryStringValue("cid");
@@ -427,7 +509,7 @@
             GUI_HELPER.CLOSEWINDOW("divRequest");
         },
         JoinRequestSuccess: function () {
-            alert("Your join request is sent to owner of the community. When the request is approved, you will be a member of the community.");
+            GUI_HELPER.ALERT("Alert","Your join request is sent to owner of the community. When the request is approved, you will be a member of the community.", GUI_HELPER.WARNING);
             window.location = window.location;
         },
         JoinRequestError: function () {
