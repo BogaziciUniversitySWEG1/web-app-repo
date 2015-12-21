@@ -126,7 +126,7 @@
                     var communitydetailpage = "community.html?cid=" + data[i].communityId;
                     var uid = GetQueryStringValue("uid");
                     if (uid != "") {
-                        communitydetailpage = communitydetailpage + +"&uid=" + uid;
+                        communitydetailpage = communitydetailpage + "&uid=" + uid;
                     }
 
 
