@@ -228,8 +228,7 @@ function Login() {
 function LoggedUser(data) {
     try {
         if (GUI_HELPER.NOU(data)) {
-            GUI_HELPER.ALERT('Info', "Login is succesfull.You will be redirected to the main page in 2 seconds!", GUI_HELPER.INFO);
-            setTimeout(function () { window.location = "dashboard.html?uid=" + data.userId }, 2500);
+            window.location = "dashboard.html?uid=" + data.userId;
         }
         else {
             GUI_HELPER.ALERT('Warning', "login fails. Please try again later.", GUI_HELPER.ERROR);
