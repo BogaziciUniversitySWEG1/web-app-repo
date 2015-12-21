@@ -24,7 +24,6 @@
             var communityId = GetQueryStringValue("cid");
             var userId = GetQueryStringValue("uid");
             var url = "topic.html?cid=" + communityId + "&uid=" + userId + "&tid=" + GLOBALS.topicId;
-            alert("Successfully saved. Redirecting to community page.");
             window.location = url;
         },
         SaveTagsError: function(data){

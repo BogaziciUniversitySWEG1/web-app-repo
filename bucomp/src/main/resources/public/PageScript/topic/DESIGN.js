@@ -43,7 +43,6 @@
         PostCommentSuccess: function(data) {
             $("#txtCommentTitle").val("");
             $("#commentBodyField").val("");
-            alert("Comment posted successfully.");
             DESIGN.GetContent();
         },
         PostCommentError: function(data) {

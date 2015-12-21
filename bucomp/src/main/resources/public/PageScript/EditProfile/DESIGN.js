@@ -313,7 +313,6 @@
                 	$("#photouplaodformframe").contents().find("#UploadImage").click();
                 	$("#cvuplaodformframe").contents().find("#hiddenuiforcv").val(GLOBALS.UserId);
                 	$("#cvuplaodformframe").contents().find("#Uploadcv").click();
-                    GUI_HELPER.ALERT('Info', "Information is updated.", GUI_HELPER.INFO);
                     
 	                    setTimeout(function () { 
 	                        $("#photouplaodformframe").attr("src","/uploadprofilefile.html");

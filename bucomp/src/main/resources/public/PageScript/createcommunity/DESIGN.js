@@ -31,12 +31,10 @@
         },
         SaveTagsSuccess: function(data) {
             var userId = GetQueryStringValue("uid");
-            alert("Successfully saved. Redirecting to community page.");
             window.location = "community.html?cid=" + GLOBALS.CommunityId + "&uid=" + userId;
         },
         SaveTagsError: function(data) {
             var userId = GetQueryStringValue("uid");
-            alert("Successfully saved. Redirecting to community page.");
             window.location = "community.html?cid=" + data.communityId + "&uid=" + userId;
         },
         SaveError: function(data) {

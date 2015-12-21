@@ -62,7 +62,6 @@
             SP_BANK.JoinCommunity(userId, communityId, roleId, DESIGN.JoinSuccess, DESIGN.JoinError);
         },
         JoinSuccess: function (userId, communityId) {
-            alert("You became the member of the community.");
             var url = "community.html?uid=" + userId + "&cid=" + communityId;
             window.location = url;
         },
