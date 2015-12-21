@@ -99,14 +99,14 @@ function CreateMenu() {
             ).append(
                 $("<input>").attr("class","search-submit").attr("type","button").attr("value","Login").attr("onclick","Login();")
             ).append(
-                $("<input>").attr("class","search-submit").attr("type","button").attr("value","Register").attr("onclick","window.location='register.html';")
+                $("<input>").attr("class","search-submit").attr("type","button").attr("value","Register").attr("onclick","window.location='Register.html';")
             )
         );
     } else {
         var profileLink = "EditProfile.html?uid=" + userId;
         var communityLink = "index.html?uid=" + userId;
         var dashboardLink = "dashboard.html?uid=" + userId;
-        var createCommunityLink = "createCommunity.html?uid=" + userId;
+        var createCommunityLink = "createcommunity.html?uid=" + userId;
         $("#search-toggle-nav").append(
             $("<div>").attr("class", "main-navigation").attr("id", "site-navigation").attr("role", "navigation").append(
                 $("<div>").attr("class", "bwraptopmenu").append(

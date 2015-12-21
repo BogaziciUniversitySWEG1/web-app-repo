@@ -23,7 +23,7 @@
             $("#attendants").html("");
             for(var i = 0; i < data.length; i++) {
                 var photoLink = "file-repository/users/" + data[i].userId + "/" + data[i].photoLink;
-                var profileLink = "viewprofile.html?uid=" + GLOBALS.UserId + "&vid=" + data[i].userId;
+                var profileLink = "ViewProfile.html?uid=" + GLOBALS.UserId + "&vid=" + data[i].userId;
                 var nameSurname = data[i].name + " " + data[i].surname;
                 $("#attendants").append(
                     $("<li>").append(
