@@ -42,7 +42,7 @@ public class ScheduledTasks {
 			c.setTime(now);
 			c.add(Calendar.DATE, 1);
 			tomorrow = c.getTime();
-			if (tomorrow.compareTo(m.getEndTime()) > 0) {
+			if (m.getEndTime().compareTo(tomorrow) > 0) {
 				mdao.updateMeetingStatus(m.getMeetingId(), 2);
 			}
 		}
