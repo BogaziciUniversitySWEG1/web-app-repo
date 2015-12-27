@@ -92,20 +92,17 @@
         FillMembers: function (data) {
             if (GUI_HELPER.NOU(data)) { 
                 GLOBALS.Members = data; 
-
-            	var communityId = GetQueryStringValue("cid");
-                var userId = GetQueryStringValue("uid"); 
-                var topicId = GetQueryStringValue("tid"); 
-            	SP_BANK.GetTopicResources(topicId, DESIGN.FillTopicResources, DESIGN.GetTopicError);
+                DESIGN.addResource();
+            	
             } 
         },
         addResource: function() {
             setTimeout(function () { 
                 $("#resourceuplaodformframe").attr("src","/uploadresource.html"); 
                 setTimeout(function () { 
-                	var communityId = GetQueryStringValue("cid");
-                    var userId = GetQueryStringValue("uid"); 
-                    var topicId = GetQueryStringValue("tid"); 
+                	var communityId = parseInt(GetQueryStringValue("cid"));
+                    var userId = parseInt(GetQueryStringValue("uid")); 
+                    var topicId = parseInt(GetQueryStringValue("tid")); 
 	            	$("#resourceuplaodformframe").contents().find("#hiddenuiforresource").val(userId);
 	            	$("#resourceuplaodformframe").contents().find("#hiddenciforresource").val(communityId); 
 	            	$("#resourceuplaodformframe").contents().find("#hiddentiforresource").val(topicId);  
@@ -116,6 +113,11 @@
 		},
 		GetTopicError: function () {
             //GUI_HELPER.ALERT("Alert","An error has occured.", GUI_HELPER.WARNING);
+        },
+        ViewUser: function (userId) {
+            var uid = GetQueryStringValue("uid");
+            window.open( window.location.origin+"/ViewProfile.html?uid=" + uid + "&vid=" + userId);
+            //window.location = "ViewProfile.html?uid=" + uid + "&vid=" + userId;
         }, 
 		FillTopicResources: function(data) {
 	            if(data == null) {
