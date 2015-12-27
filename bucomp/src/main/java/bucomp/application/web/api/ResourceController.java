@@ -59,14 +59,25 @@ public class ResourceController {
 					
 	        		if(mid!=null && mid>0){
 	        			// this is a meeting resource
+	        			System.out.println("this is a meeting resource");
 	        			uploadedFileLocation = UPLOAD_DIRECTORY+"/communities/" + cid + "/meetings/" + mid + "/users/" + uid + "/";
 	        			fileName = uploadedFileLocation + files[i].getOriginalFilename();
 	        			fileName = URLDecoder.decode(fileName, "UTF-8");
 	        			r.setLink(fileName);
 	        			r.setName(URLDecoder.decode(files[i].getOriginalFilename(), "UTF-8"));
 	        			dao.saveResource(r);
-	        		} else if(cid!=null && cid>0) {
+	        		} else if(tid!=null && tid>0) {
+	        			//this is a topic resource
+	        			System.out.println("this is a topic resource");
+	        			uploadedFileLocation =UPLOAD_DIRECTORY+"/communities/" + cid + "/topics/" + tid +  "/users/" + uid + "/";	
+	        			fileName = uploadedFileLocation + files[i].getOriginalFilename();
+	        			fileName = URLDecoder.decode(fileName, "UTF-8");
+	        			r.setLink(fileName);
+	        			r.setName(URLDecoder.decode(files[i].getOriginalFilename(), "UTF-8"));
+	        			dao.saveResource(r);
+	        		}else if(cid!=null && cid>0) {
 	        			//this is a community resource
+	        			System.out.println("this is a community resource");
 	        			uploadedFileLocation =UPLOAD_DIRECTORY+"/communities/" + cid + "/users/" + uid + "/";	
 	        			fileName = uploadedFileLocation + files[i].getOriginalFilename();
 	        			fileName = URLDecoder.decode(fileName, "UTF-8");

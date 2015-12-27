@@ -7,24 +7,28 @@
     	GetCommunityInfo: function() {
             GLOBALS.CommunityId = GetQueryStringValue("cid");
             GLOBALS.UserId = GetQueryStringValue("uid");
-            SP_BANK.GetCommunityInfo(GLOBALS.CommunityId, DESIGN.FillCommunityInfo, null);
-            DESIGN.GetCommunityMembers();
+            SP_BANK.GetCommunityInfo(GLOBALS.CommunityId, DESIGN.FillCommunityInfo, GUI_HELPER.SERVICE_CALLBACK_ERR);
         },
         FillCommunityInfo(data) {
             if(data != null) {
                 var communityLink = "community.html?cid=" + GLOBALS.CommunityId + "&uid=" + GLOBALS.UserId;
                 $("#lblTitle").attr("href", communityLink);
                 $("#lblTitle").html(data.title);
+                DESIGN.GetCommunityMembers();
+            }
+            else{
+             GUI_HELPER.ALERT('info', 'Community is not found',GUI_HELPER.WARNING);
+            	
             }
         },
         GetCommunityMembers() {
-            SP_BANK.GetCommunityMembers(GLOBALS.CommunityId, DESIGN.FillCommunityMembers, null);
+            SP_BANK.GetCommunityMembers(GLOBALS.CommunityId, DESIGN.FillCommunityMembers, GUI_HELPER.SERVICE_CALLBACK_ERR);
         },
         FillCommunityMembers(data) {
             if(data != null) {
                 $("#divMembers").html("");
                 for(var i = 0; i < data.length; i++) {
-                    var imageLink = "photos/" + data[i].user.photoLink;
+                	var imageLink= "/file-repository/users/"+data[i].user.userId+"/"+ data[i].user.photoLink;
                     var nameSurnameProfession = data[i].user.name + " " + data[i].user.surname + " - " + data[i].user.profession;
                     var userLink = "ViewProfile.html?uid=" + GLOBALS.UserId + "&vid=" + data[i].user.userId;
                     var mailLink = "mailto:" + data[i].user.email;
@@ -32,7 +36,7 @@
                         $("<div>").attr("class","form-group").append(
                             $("<img>").attr("src",imageLink).attr("width","40").attr("height","40")
                         ).append(
-                            $("<label>").attr("onclick","DESIGN.ViewMember(" + data[i].user.userId + ");").append(nameSurnameProfession)
+                            $("<label>").attr("style","cursor:pointer").attr("onclick","DESIGN.ViewMember(" + data[i].user.userId + ");").append(nameSurnameProfession)
                         ).append(
                             $("<a>").attr("href", mailLink).append("(" + data[i].user.email + ")")
                         )

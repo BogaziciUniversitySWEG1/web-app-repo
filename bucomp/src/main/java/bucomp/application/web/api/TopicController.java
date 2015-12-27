@@ -82,7 +82,8 @@ public class TopicController {
 	 */
 	@RequestMapping(value = "/api/topics/communityTopics/{communityId}", method = RequestMethod.GET, 
 			produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<Collection<Topic>> getCommunityTopics(@PathVariable("communityId") Integer communityId) {
+	public ResponseEntity<Collection<Topic>> getCommunityTopics(
+			@PathVariable("communityId") Integer communityId) {
 		List<Topic> topics = dao.getCommunityTopics(communityId);
 		if (topics == null) {
 			return new ResponseEntity<Collection<Topic>>(HttpStatus.NO_CONTENT);
@@ -94,7 +95,7 @@ public class TopicController {
 			method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Collection<Resource>> getCommunityResources(
 			@PathVariable("topicId") Integer topicId) {
-		Collection<Resource> resources = rdao.getCommunityResources(topicId);
+		Collection<Resource> resources = rdao.getTopicResources(topicId);
 		if (resources == null || resources.size() == 0) {
 			return new ResponseEntity<Collection<Resource>>(resources, HttpStatus.NO_CONTENT);
 		}
