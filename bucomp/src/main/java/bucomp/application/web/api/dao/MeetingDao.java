@@ -21,6 +21,8 @@ public interface MeetingDao {
 	public Meeting updateMeeting(Meeting m);
 
 	List<Meeting> getAllMeetings(Integer status);
+	
+	List<Meeting> getActiveAndOngoingMeetings();
 
 	int updateMeetingStatus(int meetingId, int status);
 

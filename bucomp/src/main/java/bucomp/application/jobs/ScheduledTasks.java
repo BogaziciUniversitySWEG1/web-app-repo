@@ -28,9 +28,9 @@ public class ScheduledTasks {
 	@Scheduled(fixedRate = 60000)
 	public void updateMeetingStatus() {
 		// get upcomig all meetings (status=0)
-		List<Meeting> meetings = mdao.getAllMeetings(0);
+		List<Meeting> meetings = mdao.getActiveAndOngoingMeetings();
 		Date now = new Date(); // used to check ongoing meetings
-		Date tomorrow = null; // used to check finished meetings
+		Date oneDayLater = null; // used to check finished meetings
 		for (Iterator<Meeting> iterator = meetings.iterator(); iterator
 				.hasNext();) {
 			Meeting m = iterator.next();
@@ -39,10 +39,10 @@ public class ScheduledTasks {
 				mdao.updateMeetingStatus(m.getMeetingId(), 1);
 			}
 			Calendar c = Calendar.getInstance();
-			c.setTime(now);
+			c.setTime(m.getEndTime());
 			c.add(Calendar.DATE, 1);
-			tomorrow = c.getTime();
-			if (m.getEndTime().compareTo(tomorrow) > 0) {
+			oneDayLater = c.getTime();
+			if (now.compareTo(oneDayLater) > 0) {
 				mdao.updateMeetingStatus(m.getMeetingId(), 2);
 			}
 		}

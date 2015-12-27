@@ -179,4 +179,24 @@ public class MeetingDaoImpl implements MeetingDao {
 		}
 	}
 
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Meeting> getActiveAndOngoingMeetings() {
+		EntityTransaction etx = null;
+		try {
+			etx = dbService.getEntitymanager().getTransaction();
+			etx.begin();
+			// query to be updated
+			String query = "SELECT m FROM Meeting m where m.status = 0 OR m.status = 1";
+			List<Meeting> meetings = dbService.getEntitymanager().createQuery(query).getResultList();
+			etx.commit();
+			return meetings;
+		} catch (Exception e) {
+			e.printStackTrace();
+			if (etx != null)
+				etx.rollback();
+			return null;
+		}
+	}
+
 }
