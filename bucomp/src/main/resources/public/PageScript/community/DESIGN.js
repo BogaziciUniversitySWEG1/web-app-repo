@@ -247,6 +247,10 @@
                             $("<span>").attr("style", "display:block;clear:both;")
                         )
                     ).append(
+                    		$("<div>").attr("style", "float:right;padding-right:10px;margin-top:10px;").append(
+                    				$("<a>").attr("class", "related-post-item-title").attr("title", data[i].title).attr("href", topicUrl).append("Details")
+                    				)
+                    ).append(
                         $("<footer>").attr("class", "nbtentry-meta").append(
                             $("<span>").attr("class", "nbtpost-date").append(topicDate)
                         ).append(

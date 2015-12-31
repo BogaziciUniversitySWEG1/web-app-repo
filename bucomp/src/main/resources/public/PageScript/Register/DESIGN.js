@@ -182,20 +182,22 @@
                 else if (GLOBALS.Password == '') {
                     GUI_HELPER.ALERT('Warning', 'Please fill the Password area!', GUI_HELPER.ERROR);
                 }
-                else if (GLOBALS.Location == '') {
-                    GUI_HELPER.ALERT('Warning', 'Please fill the Location area!', GUI_HELPER.ERROR);
-                }
-                else if (GLOBALS.Education == '') {
-                    GUI_HELPER.ALERT('Warning', 'Please fill the Education area!', GUI_HELPER.ERROR);
-                }
-                else if (GLOBALS.Profession == '') {
-                    GUI_HELPER.ALERT('Warning', 'Please fill the Profession area!', GUI_HELPER.ERROR);
-                }
                 else {
                     GLOBALS.UserId = -1;
                     SP_BANK.REGISTER(GLOBALS.UserId, GLOBALS.Name, GLOBALS.Surname, GLOBALS.Email, GLOBALS.Password, GLOBALS.Location,
                                     GLOBALS.Education, GLOBALS.Profession, GLOBALS.Hobbies, GLOBALS.CvLink, GLOBALS.PhotoLink, DESIGN.REGISTERED_USER, GUI_HELPER.SERVICE_CALLBACK_ERR);
                 }
+
+                /* else if (GLOBALS.Location == '') {
+                     GUI_HELPER.ALERT('Warning', 'Please fill the Location area!', GUI_HELPER.ERROR);
+                 }
+                 else if (GLOBALS.Education == '') {
+                     GUI_HELPER.ALERT('Warning', 'Please fill the Education area!', GUI_HELPER.ERROR);
+                 }
+                 else if (GLOBALS.Profession == '') {
+                     GUI_HELPER.ALERT('Warning', 'Please fill the Profession area!', GUI_HELPER.ERROR);
+                 }*/
+                
             } catch (err) {
                 GUI_HELPER.ALERT('Warning', err, GUI_HELPER.ERROR);
             }
@@ -218,7 +220,21 @@
             }
         },
         Cancel: function() {
-            window.location = "index.html";
+            //window.location = "index.html";
+        	$('#txtName').val("");
+            $('#txtSurname').val("");
+            $('#txtEmail').val("");
+            $('#txtPassword').val("");
+            $('#txtLocation').val("");
+            $('#txtEducation').val("");
+            $('#txtProfession').val("");
+            $('#txtHobbies').val("");
+            $('#address').val("");
+            GLOBALS.CvLink="";
+            GLOBALS.PhotoLink="";
+            if(GLOBALS.MapDivStatus==1){
+            	DESIGN.OPENCLOSEMAP();
+            }
         }
     }
     if (!window.DESIGN) {
