@@ -9,7 +9,12 @@ function GetQueryStringValue(key){
     for (var i = 0; i < hash.length; i++) {
         var params=hash[i].split("=");
         if(params[0] == key){
-            return params[1];
+        	try{
+                return parseInt(params[1]);
+        	}
+        	catch (err) {
+                return params[1];
+        	}
         }
     }
     return "";
