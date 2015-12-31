@@ -33,7 +33,17 @@
             $("#divAgenda").html(data.agenda);
             $("#lblStartTime").html(startStr);
             $("#lblEndTime").html(endStr);
-            $("#lblLocation").html(data.location);
+            
+            if(data.meetingTypeId == 1)
+            	$("#lblLocation").html("online meeting");
+           else if(data.meetingTypeId == 2)
+        	   $("#lblLocation").html(data.irclink);
+           else if(data.meetingTypeId == 3)
+        	   $("#lblLocation").html(data.location);
+           else if(data.meetingTypeId ==4)
+        	   $("#lblLocation").html(data.location);
+            
+            //$("#lblLocation").html(data.location);
             
             if(data.status == 0) {
                 $("#spnStatus").html("Status: Upcoming");

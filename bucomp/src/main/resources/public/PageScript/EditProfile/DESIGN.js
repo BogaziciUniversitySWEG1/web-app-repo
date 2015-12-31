@@ -240,8 +240,10 @@
 			     				            GUI_HELPER.ALERT('info','Geocoder failed due to: ' + status,GUI_HELPER.INFO);
 			     				         }
 			     				      });
-			                		var _pl= "/file-repository/users/"+GLOBALS.UserId+"/"+GLOBALS.PhotoLink;
-				                	var _cl= "/file-repository/users/"+GLOBALS.UserId+"/"+GLOBALS.CvLink;
+			                		//var _pl= "/file-repository/users/"+GLOBALS.UserId+"/"+GLOBALS.PhotoLink;
+			                		var _pl="api/resources/download?uid="+GLOBALS.UserId+"&fileName="+GLOBALS.PhotoLink;
+				                	//var _cl= "/file-repository/users/"+GLOBALS.UserId+"/"+GLOBALS.CvLink;
+				                	var _cl="api/resources/download?uid="+GLOBALS.UserId+"&fileName="+GLOBALS.CvLink;
 					            	$("#photouplaodformframe").contents().find("#imgProfile").attr("src",_pl); 
 					            	$("#cvuplaodformframe").contents().find("#downloadcv").attr("href",_cl); 
 					            	$("#cvuplaodformframe").contents().find("#downloadcv").html(GLOBALS.CvLink); 

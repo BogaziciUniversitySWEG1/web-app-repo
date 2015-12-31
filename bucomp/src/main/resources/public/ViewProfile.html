@@ -117,15 +117,17 @@ xmlns:data="http://www.google.com/2005/gml/data" xmlns:expr="http://www.google.c
                     
                     if(data.photoLink == null) {
                     	$("#imgProfile").attr("src","images/man-icon.png");
-                    } else {
-                    	$("#imgProfile").attr("src","file-repository/users/" + data.userId + "/" + data.photoLink);
+                    } else { 
+                		var _pl="api/resources/download?uid="+data.userId+"&fileName="+data.photoLink; 
+                    	$("#imgProfile").attr("src",_pl);
                     }
                     
                     if(data.cvlink == null) {
                     	$("#cvStr").html("");
                     } else {
                     	$("#cvStr").html(data.cvlink);
-                    	$("#cvStr").attr("href","file-repository/users/" + data.userId + "/" + data.cvlink).attr("target","_blank");
+                    	var _cl="api/resources/download?uid="+data.userId+"&fileName="+data.cvlink;
+                    	$("#cvStr").attr("href",_cl).attr("target","_blank");
                     }
                     
                     

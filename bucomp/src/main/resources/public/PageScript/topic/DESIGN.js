@@ -86,7 +86,11 @@
         ReturnToCommunity: function() {
             var userId = GetQueryStringValue("uid");
             var communityId = GetQueryStringValue("cid");
-            var url = "community.html?cid=" + communityId + "&uid=" + userId;
+            var url ="";
+            if(userId>0)
+            	url = "community.html?cid=" + communityId+ "&uid=" + userId ;
+            else
+            	url = "community.html?cid=" + communityId ;
             window.location = url;
         },
         FillMembers: function (data) {

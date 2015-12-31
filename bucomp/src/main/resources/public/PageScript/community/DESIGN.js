@@ -141,6 +141,7 @@
             for(var i=0; i< data.length; i++) { 
                 var _link =data[i].link.replace("target/classes/public/","");
                 var _name =data[i].name;
+                var _link="api/resources/download?cid="+communityId+"&uid="+userId+"&fileName="+_name;
                 if(i<3){
 	                $("#resourceList").append(
 	                    $("<li>").append(
@@ -158,7 +159,8 @@
             	for(var j =0; j< GLOBALS.Members.length; j++){ 
             		if( GLOBALS.Members[j].user != null && GLOBALS.Members[j].user.userId == data[i].userId){ 
                         var nameSurname = GLOBALS.Members[j].user.name + " " + GLOBALS.Members[j].user.surname; 
-                        var photoLink= "/file-repository/users/"+GLOBALS.Members[j].user.userId+"/"+GLOBALS.Members[j].user.photoLink;
+                        //var photoLink= "/file-repository/users/"+GLOBALS.Members[j].user.userId+"/"+GLOBALS.Members[j].user.photoLink;
+                        var photoLink="api/resources/download?uid="+GLOBALS.Members[j].user.userId+"&fileName="+GLOBALS.Members[j].user.photoLink;
                         td_user_profile.innerHTML= nameSurname ; 
                         $(td_user).append(
                     			$("<img>")
@@ -275,7 +277,8 @@
 
                     if (data[i].user != null) {
                         var nameSurname = data[i].user.name + " " + data[i].user.surname; 
-                        var photoLink= "/file-repository/users/"+data[i].user.userId+"/"+data[i].user.photoLink;
+                        var photoLink="api/resources/download?uid="+data[i].user.userId+"&fileName="+data[i].user.photoLink;
+                        //var photoLink= "/file-repository/users/"+data[i].user.userId+"/"+data[i].user.photoLink;
                         //var photoLink = "photos/" + data[i].user.photoLink;
                         if(data[i].user.photoLink == null){ 
                             photoLink = "images/man-icon.png";
@@ -335,14 +338,77 @@
             if (data == null) {
                 return;
             }
+            
+            var table= document.getElementById('tblmeetingList');
+			table.innerHTML = "";
+			
+			var thead= document.createElement('thead');
+			
+			var th1= document.createElement('th');
+			th1.innerHTML="Meeting Subject";
+			
+			var th2= document.createElement('th');
+			th2.innerHTML="Meeting Type";
+			
 
+			var th3= document.createElement('th');
+			th3.innerHTML="Start Date and Time";
+			  
+
+			var th5= document.createElement('th');
+			th5.innerHTML="";
+              
+			
+			thead.appendChild(th1); 
+			thead.appendChild(th2); 
+			thead.appendChild(th3);   
+			thead.appendChild(th5); 
+			table.appendChild(thead);
+			
+			var meetingCount=1;
             for (var i = 0; i < data.length; i++) {
                 var meetingDate = new Date(data[i].startTime);
                 var meetingStr = GUI_HELPER.GetDayName(meetingDate.getDay()) + ", " + GUI_HELPER.GetMonthName(meetingDate.getMonth()) + " " + meetingDate.getDate() + ", " + meetingDate.getFullYear() + " at " + meetingDate.getHours() + ":" + meetingDate.getMinutes() + " (" + data[i].timeZone + "), " + data[i].location;
 
-                meetingStr = "<a href='meeting.html?uid=" + uid + "&cid=" + cid + "&mid=" + data[i].meetingId + "'>" + meetingStr + "</a>";
-
-                if (data[i].meetingTypeId != 4) {
+                meetingStr = "<a target='_blank' href='meeting.html?uid=" + uid + "&cid=" + cid + "&mid=" + data[i].meetingId + "'>" + meetingStr + "</a>";
+                
+                var tr= document.createElement('tr');
+                var td_subject=  document.createElement('td');
+                var td_type=  document.createElement('td');
+                var td_time=  document.createElement('td'); 
+                var td_detail=  document.createElement('td');
+                td_subject.innerHTML= data[i].subject ; 
+                var startDate = new Date(data[i].startTime);
+                var startStr = GUI_HELPER.GetDayName(startDate.getDay()) + ", " 
+                    + GUI_HELPER.GetMonthName(startDate.getMonth()) + " " 
+                    + startDate.getDate() + ", "
+                    + startDate.getFullYear() + " at "
+                    + startDate.getHours() + ":" 
+                    + startDate.getMinutes() + " ("
+                    + data[i].timeZone;
+                td_time.innerHTML= startStr ; 
+                
+                var _type="Online Meeting";
+                if(data[i].meetingTypeId == 1)
+                	 _type="Online Meeting";
+                else if(data[i].meetingTypeId == 2)
+               	 _type="IRC Meeting";
+                else if(data[i].meetingTypeId == 3)
+               	 _type="Face to face Meeting";
+                else if(data[i].meetingTypeId ==4)
+               	 _type="Event";
+                
+                td_type.innerHTML= _type ; 	 
+                td_detail.innerHTML=  "<a target='_blank' href='meeting.html?uid=" + uid + "&cid=" + cid + "&mid=" + data[i].meetingId + "'>More Detail</a>"; ; 
+                
+                tr.appendChild(td_subject);
+				tr.appendChild(td_type);
+				tr.appendChild(td_time);
+				tr.appendChild(td_detail);
+				table.appendChild(tr);  
+				
+                if (data[i].meetingTypeId != 4 && meetingCount < 4) {
+                	meetingCount++;
                     $("#meetings").append(
                         $("<li>").append(
                             $("<div>").attr("class", "item-content").append(
@@ -360,27 +426,31 @@
                 } else if (data[i].meetingTypeId == 4) {
                     eventStr = "Event on " + meetingStr
                 }
-
-                $("#upcomingEvents").append(
-                    $("<li>").append(
-                        $("<div>").attr("class", "item-content").append(
-                            $("<div>").attr("class", "item-snippet").append(eventStr)
-                        )
-                    ).append(
-                        $("<div>").attr("class", "clear: both;")
-                    )
-                );
-            }
-
-            $("#meetings").append(
-                $("<li>").append(
-                    $("<div>").attr("class", "item-content").append(
-                        $("<div>").attr("class", "item-snippet").append(
-                            $("<a>").attr("href", "meetinglist.html?cid=" + data.communityId).html("See all...")
-                        )
-                    )
-                )
-            );
+                var date= new Date();
+                var date_diff = daysBetween(date,meetingDate);
+                if(date_diff < 2 && date_diff >= 0 ){
+	                $("#upcomingEvents").append(
+	                    $("<li>").append(
+	                        $("<div>").attr("class", "item-content").append(
+	                            $("<div>").attr("class", "item-snippet").append(eventStr)
+	                        )
+	                    ).append(
+	                        $("<div>").attr("class", "clear: both;")
+	                    )
+	                );
+                }    
+                if(i== data.length-1){
+                	 $("#meetings").append(
+                             $("<li>").append(
+                                 $("<div>").attr("class", "item-content").append(
+                                     $("<div>").attr("class", "item-snippet").append( 
+                                         $("<a>").attr("class","related-post-item-title").attr("title","See All").attr("href","#").attr("onclick","$('#divmeetingList').show(); GUI_HELPER.OPENWINDOW('divmeetingList','Meeting List');").append("See All")
+                                     )
+                                 )
+                             )
+                         ); 
+                }
+            } 
         },
         FillTags: function (data) {
             if (data != null) {

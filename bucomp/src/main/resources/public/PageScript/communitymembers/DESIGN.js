@@ -29,7 +29,7 @@
                 $("#divMembers").html("");
                 for(var i = 0; i < data.length; i++) {
                 	var imageLink= "/file-repository/users/"+data[i].user.userId+"/"+ data[i].user.photoLink;
-                    var nameSurnameProfession = data[i].user.name + " " + data[i].user.surname + " - " + data[i].user.profession;
+                	var nameSurnameProfession = data[i].user.name + " " + data[i].user.surname + " - " + data[i].user.profession;
                     var userLink = "ViewProfile.html?uid=" + GLOBALS.UserId + "&vid=" + data[i].user.userId;
                     var mailLink = "mailto:" + data[i].user.email;
                     $("#divMembers").append(
