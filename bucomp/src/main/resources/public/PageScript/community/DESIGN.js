@@ -483,8 +483,10 @@
             }
 
             if (GLOBALS.canCreateMeeting == true || GLOBALS.isOwner) {
-                $("#btnCreateMeeting").show();
-                $("#btnCreateEvent").show();
+            	if (userId > 0){
+                    $("#btnCreateMeeting").show();
+                    $("#btnCreateEvent").show();
+                }
             }
 
             if (GLOBALS.canJoin == true) {
