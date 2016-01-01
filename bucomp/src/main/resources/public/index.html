@@ -163,7 +163,11 @@
             
             function FillCommunities(data){
                 var communityCounter = 4;
-                $("#lblCommunityCount").html(data.length);
+                var comcnt = 0;
+                if(data != null) {
+                	comcnt = data.length;
+                }
+                $("#lblCommunityCount").html(comcnt);
                 if(data.length < 4){
                     communityCounter = data.length;
                 }

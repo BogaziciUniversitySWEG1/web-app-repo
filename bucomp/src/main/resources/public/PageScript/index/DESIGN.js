@@ -61,6 +61,8 @@
                         )
                     );
                 }
+            } else {
+            	$("#popularTags").html("No Communities");
             }
         },
         JoinCommunity: function (communityId) {

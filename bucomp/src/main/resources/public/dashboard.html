@@ -151,16 +151,23 @@
             	$("#loading").hide();
             	GLOBALS.Communities = data;
             	if(data == null) {
-            		document.getElementById('headeralertDiv').innerHTML="You have not created any community yet. You can use Create Community button to create one.";
+            		document.getElementById('headeralertDiv').innerHTML="You are not member of any community yet. You can use Create Community button to create one or join to an existing community.";
             		document.getElementById('seemorelink').style.display="none";
             		document.getElementById('headerDiv').style.display="none";
+            		$("#popularTags").html("No Communities");
+            		$("#lblCommunityCount").html(0);
             		return;
             	}
                 document.getElementById('headeralertDiv').style.display="none";
                 var userId = GetQueryStringValue("uid");
             	
                 var communityCounter = 4;
-                $("#lblCommunityCount").html(data.length);
+                
+                var comcnt = "0";
+                if(data != null) {
+                	comcnt = data.length;
+                }
+                $("#lblCommunityCount").html(comcnt);
                 if(data.length < 4){
                     communityCounter = data.length;
                 }
