@@ -11,6 +11,27 @@
                 callback_err();
             }
         },
+        GetCommunitiesByTitle: function (userId, callback, callback_err) {
+            try {
+                SP_BANK.GetCommunitiesByTitle(userId, callback, callback_err);
+            } catch (err) {
+                callback_err();
+            }
+        },
+        GetCommunitiesByCreationDate: function (userId, callback, callback_err) {
+            try {
+                SP_BANK.GetCommunitiesByCreationDate(userId, callback, callback_err);
+            } catch (err) {
+                callback_err();
+            }
+        },
+        GetCommunitiesByMemberCount: function (userId, callback, callback_err) {
+            try {
+                SP_BANK.GetCommunitiesByMemberCount(userId, callback, callback_err);
+            } catch (err) {
+                callback_err();
+            }
+        },
         GetUserInfo: function(userId, callback, callback_err){
             try {
                    SP_BANK.GetUserInfo(userId, callback, callback_err);

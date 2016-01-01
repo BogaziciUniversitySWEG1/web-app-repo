@@ -1,6 +1,7 @@
 package bucomp.application.model;
 
 import java.io.Serializable;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 
@@ -208,6 +209,13 @@ public class Community implements Serializable {
 
 	public void setMemberList(List<Integer> memberList) {
 		this.memberList = memberList;
+	}
+	
+	public static class MemberCountComparator implements Comparator<Community> {
+	    @Override
+	    public int compare(Community o1, Community o2) {
+	        return o2.getMemberCount() - o1.getMemberCount();
+	    }
 	}
 
 }

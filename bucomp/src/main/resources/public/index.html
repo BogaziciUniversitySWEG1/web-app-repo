@@ -87,7 +87,7 @@
                             <a onClick="GetCommunitiesByCreationDate();" style="cursor: pointer">Creation Date</a>
                         </div>
                         <div class="item-title">
-                            <a style="cursor: pointer">Member Count</a>
+                            <a onClick="GetCommunitiesByMemberCount();" style="cursor: pointer">Member Count</a>
                         </div>
                     </div>
                     <div class="widget Label" id="Label1">
@@ -238,7 +238,7 @@
             }
             
             function ErrorFnc(){
-                GUI_HELPER.ALERT("Alert", "An error has occured.", GUI_HELPER.WARNING);
+            	swal({   title: "Error!",   text: "An error has occurred!",   type: "error",   confirmButtonText: "OK" });
             }
             
             $(window).on('load', GetContent);
@@ -248,8 +248,8 @@
         function JoinCommunity(communityId,joinType) {
             var uid = GetQueryStringValue("uid");
             if(uid == "") {
-            	//swal("Please login to join this community!");
-            	GUI_HELPER.ALERT("warning", "Please login to join this community!", GUI_HELPER.WARNING);
+            	swal("Please login to join this community!");
+            	//GUI_HELPER.ALERT("warning", "Please login to join this community!", GUI_HELPER.WARNING);
             } else {
                 if(joinType == 2) {
                     DESIGN.JoinCommunity(communityId);
@@ -265,8 +265,8 @@
         	var data = GLOBALS.Communities;
         	var startOffset = GLOBALS.communityCount;
         	if (data.length <= GLOBALS.communityCount) {
-        		//swal("No more community!");
-        		GUI_HELPER.ALERT("Info", "No more community!", GUI_HELPER.INFO);
+        		swal("No more community!");
+        		//GUI_HELPER.ALERT("Info", "No more community!", GUI_HELPER.INFO);
         		return;
         	}
         	
@@ -353,9 +353,19 @@
             DESIGN.GetCommunitiesByCreationDate(SortCommunities,ErrorFnc);
         }
         
+        function GetCommunitiesByMemberCount(){
+        	$("#communityler").html("");
+        	$("#communityler").append('<p align="center" id="loading" style="font-size: large;">'
+                    +'<img src="images/spinner.gif">'
+                    +'</p>');
+             DESIGN.GetCommunitiesByMemberCount(SortCommunities,ErrorFnc);
+        }
+        
         function SortCommunities(data){
         	GLOBALS.Communities = data;
         	var communityCounter = GLOBALS.communityCount;
+
+            $("#loading").hide();
             
             for(var i = 0; i< communityCounter; i++){
                 var title = data[i].title;
@@ -386,7 +396,6 @@
                     }
                 }
                 
-                $("#loading").hide();
                 
                 $("#communityler").append('<div class="date-outer"><h2 class="date-header"><span>Sunday, September 5, 2010</span>'
                         + '</h2><div class="date-posts"><div class="post-outer"><article class="post hentry"><a name="4682800689275728420"></a>'
@@ -422,7 +431,7 @@
         }
         
         function ErrorFnc(){
-             GUI_HELPER.ALERT("Alert", "An error has occured.", GUI_HELPER.WARNING);
+        	swal({   title: "Error!",   text: "An error has occurred!",   type: "error",   confirmButtonText: "OK" });
         }
 
         //]]>

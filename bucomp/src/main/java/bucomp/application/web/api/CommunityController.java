@@ -1,9 +1,12 @@
 package bucomp.application.web.api;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -83,6 +86,10 @@ public class CommunityController {
 			}
 			community.setMemberList(cmIDList);
 		}
+		if (sortType!=null && sortType.equals("SORT_BY_MEMBER_COUNT")) {
+			Collections.sort((List<Community>) communities, new Community.MemberCountComparator());
+		}
+		
 		return new ResponseEntity<Collection<Community>>(communities, HttpStatus.OK);
 	}
 
@@ -94,9 +101,11 @@ public class CommunityController {
 		if (communities == null || communities.size() == 0) {
 			return new ResponseEntity<Collection<Community>>(communities, HttpStatus.NO_CONTENT);
 		}
+		
 		for (Iterator<Community> iterator = communities.iterator(); iterator.hasNext();) {
 			Community community = iterator.next();
-			community.setMemberCount(cmDao.getCommunityMembers(community.getCommunityId()).size());
+			int memCount = cmDao.getCommunityMembers(community.getCommunityId()).size();
+			community.setMemberCount(memCount);
 			community.setTagsList(new ArrayList<Tag>(tdao.getCommunityTags(community.getCommunityId())));
 			ArrayList<Integer> cmIDList = new ArrayList<Integer>();
 			for (Iterator<Communitymember> cmi = cmDao.getCommunityMembers(community.getCommunityId()).iterator(); cmi
@@ -105,6 +114,10 @@ public class CommunityController {
 				cmIDList.add(cm.getUser().getUserId());
 			}
 			community.setMemberList(cmIDList);
+		}
+		
+		if (sortType!=null && sortType.equals("SORT_BY_MEMBER_COUNT")) {
+			Collections.sort((List<Community>) communities, new Community.MemberCountComparator());
 		}
 		return new ResponseEntity<Collection<Community>>(communities, HttpStatus.OK);
 	}

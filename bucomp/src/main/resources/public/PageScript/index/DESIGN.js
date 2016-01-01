@@ -24,6 +24,13 @@
                 callback_err();
             }
         },
+        GetCommunitiesByMemberCount: function (callback, callback_err) {
+            try {
+                SP_BANK.GetCommunitiesByMemberCount(callback, callback_err);
+            } catch (err) {
+                callback_err();
+            }
+        },
         SearchCommunity: function () {
             var key = $('#searchByGroupName').val();
 
