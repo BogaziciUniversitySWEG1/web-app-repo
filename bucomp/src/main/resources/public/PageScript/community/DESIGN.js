@@ -17,7 +17,7 @@
         },
         GetCommunity: function (communityId, callback, callback_err) {
             try {
-                SP_BANK.GetCommunity(communityId, callback, callback_err);
+                SP_BANK.GetCommunity(cmmunityId, callback, callback_err);
             } catch (err) {
                 callback_err();
             }
@@ -532,7 +532,7 @@
             }
         },
         GetCommunityError: function () {
-            //GUI_HELPER.ALERT("Alert","An error has occured.", GUI_HELPER.WARNING);
+        	swal({   title: "Error!",   text: "An error has occurred!",   type: "error",   confirmButtonText: "OK" });
         },
         ViewUser: function (userId) {
             var uid = GetQueryStringValue("uid");

@@ -15,6 +15,8 @@ xmlns:data="http://www.google.com/2005/gml/data" xmlns:expr="http://www.google.c
         <script src="CommonScripts/Common.js" type="text/javascript"></script>
         <script src="CommonScripts/GUI_HELPER.js" type="text/javascript"></script>
         <script src="CommonScripts/navigation.js" type="text/javascript"></script>
+        <script src="CommonScripts/sweetalert-master/dist/sweetalert.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="CommonScripts/sweetalert-master/dist/sweetalert.css">
 	</head>
 	<body class="home blog right-sidebar">
 		<div id="bpagewrap">
@@ -135,7 +137,7 @@ xmlns:data="http://www.google.com/2005/gml/data" xmlns:expr="http://www.google.c
                 }
                 
                 function ErrorFnc(){
-                    alert("An error has occured.");
+                	swal({   title: "Error!",   text: "An error has occurred!",   type: "error",   confirmButtonText: "OK" });
                 }
 
                 $(window).on('load', navMenu);

@@ -8,7 +8,7 @@
             try {
                SP_BANK.TEST(paream1, DESIGN.LoginCallback, GUI_HELPER.SERVICE_CALLBACK_ERR);
             } catch (err) {
-                GUI_HELPER.ALERT('test', err, GUI_HELPER.ERROR);
+            	swal({   title: "Error!",   text: err,   type: "error",   confirmButtonText: "OK" });
             }
         }
     } if (!window.DESIGN) { window.DESIGN = DESIGN; }
