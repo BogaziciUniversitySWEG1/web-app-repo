@@ -20,8 +20,6 @@
                 
                 var jsonStr = JSON.stringify(jsonObj);
                 
-                alert(jsonStr);
-                
                 $.ajax({
                     type: "POST",
                     url: GLOBALS.ServiceParameter + "/communities",
