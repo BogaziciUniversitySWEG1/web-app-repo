@@ -8,7 +8,7 @@
             try {
                 var userId = GetQueryStringValue("uid");
                 var title = $("#txtTitle").val();
-                var description = $("#txtDescription").val();
+                var description = $("#txtDescription").val().replace(/\n/g,"<br/>");
                 var createrUserId = userId;
                 var creationDate = (new Date).getTime();
                 var accessType = $('input[name=accessType]:checked').val();
