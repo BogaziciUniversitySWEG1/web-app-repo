@@ -19,7 +19,12 @@
             if (type == null) {
                 type = GUI_HELPER.INFO;
             }
-            $.messager.alert(title, hata, type);
+            try {
+            	swal(hata);
+            } catch (err) {
+            	 $.messager.alert(title, hata, type);
+            }
+           
             if (type == GUI_HELPER.ERROR && GUI_HELPER.NOU(hata)) {
             	//GUI_HELPER.SET_LOADER("open");
                 var _number = "";
