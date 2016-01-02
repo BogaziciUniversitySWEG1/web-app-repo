@@ -1,5 +1,6 @@
 package bucomp.application.chatroom;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -23,6 +24,8 @@ public class ChatRoom {
 	 * consolidated chat text in a chat room
 	 */
 	StringBuilder chatText = new StringBuilder("");
+	
+	static SimpleDateFormat df = new SimpleDateFormat("HH:mm:ss z");
 
 	/**
 	 * This method appends a new message coming from a user to chatText.
@@ -30,7 +33,7 @@ public class ChatRoom {
 	 * @param message, the message text sent
 	 */
 	public void appendMessage(User user, String message) {
-		chatText.append(new Date().toString() + " [" + user.getName() + "] : " + message + "\r\n");
+		chatText.append(df.format(new Date()).toString() + " [" + user.getName() + "] : " + message + "\r\n");
 	}
 
 	public StringBuilder getChatText() {
