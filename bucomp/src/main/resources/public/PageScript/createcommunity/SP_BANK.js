@@ -2,7 +2,7 @@
 
 (function () {
     var SP_BANK = {
-        SAVE: function (title, description, creationDate, createrUserId, accessType, joinType, postType, meetingCreationType, resourceAdditionType, topicCreationType, callback, callback_err) {
+        SAVE: function (title, description, creationDate, createrUserId, accessType, joinType, postType, meetingCreationType, resourceAdditionType, topicCreationType, InviteeList, callback, callback_err) {
             try {
                 var jsonObj = new Object;
                 jsonObj.title = title;
@@ -17,6 +17,8 @@
                 jsonObj.resourceAdditionType = resourceAdditionType;
                 jsonObj.topicCreationType = topicCreationType;
 
+                jsonObj.inviteeList = InviteeList;
+                
                 var jsonStr = JSON.stringify(jsonObj);
 
                 $.ajax({

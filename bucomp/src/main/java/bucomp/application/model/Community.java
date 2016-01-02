@@ -60,6 +60,17 @@ public class Community implements Serializable {
 	@Transient
 	private List<Integer> memberList;
 	
+	@Transient
+	private List<String> inviteeList;
+	
+
+	public List<String> getInviteeList() {
+		return inviteeList;
+	}
+
+	public void setInviteeList(List<String> inviteeList) {
+		this.inviteeList = inviteeList;
+	}
 
 	// bi-directional many-to-one association to User
 	@ManyToOne
