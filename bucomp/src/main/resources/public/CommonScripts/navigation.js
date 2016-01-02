@@ -90,11 +90,11 @@ function CreateMenu() {
                 $("<label>").append(
                     $("<span>").attr("class", "screen-reader-text").append("User Name:")
                 ).append(
-                    $("<input>").attr("class", "search-field").attr("name", "q").attr("placeholder", "Email").attr("type", "email").attr("value", "").attr("id", "txtEmailForLogin")
+                    $("<input>").attr("class", "search-field").attr("name", "q").attr("placeholder", "Email").attr("type", "email").attr("value", "").attr("id", "txtEmailForLogin").attr("onkeypress","LoginKeyPressed(event);")
                 ).append(
                     $("<span>").attr("class", "screen-reader-text").append("Password:")
                 ).append(
-                    $("<input>").attr("class", "search-field").attr("name", "q").attr("placeholder", "Password").attr("type", "password").attr("value", "").attr("id", "txtPasswordForLogin")
+                    $("<input>").attr("class", "search-field").attr("name", "q").attr("placeholder", "Password").attr("type", "password").attr("value", "").attr("id", "txtPasswordForLogin").attr("onkeypress","LoginKeyPressed(event);")
                 )
             ).append(
                 $("<input>").attr("class","search-submit").attr("type","button").attr("value","Login").attr("onclick","Login();")
@@ -201,6 +201,13 @@ function GetUserInfo(userId, callback, callback_err) {
 function FillUserInfo(data){
     var nameSurname = data.name + " " + data.surname;
     $("#lblUserNameSurname").html(nameSurname);
+}
+
+function LoginKeyPressed(event) {
+    if(event.which == 13) {
+        event.preventDefault();
+        Login();
+    }
 }
 
 function Login() {
