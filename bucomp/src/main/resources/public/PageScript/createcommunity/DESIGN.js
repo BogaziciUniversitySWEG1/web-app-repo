@@ -17,7 +17,13 @@
                 var meetingCreationType = $('input[name=meetingCreationType]:checked').val();
                 var resourceAdditionType = $('input[name=resourceAdditionType]:checked').val();
                 var topicCreationType = $('input[name=topicCreationType]:checked').val();
-               SP_BANK.SAVE(title, description, creationDate, createrUserId, accessType, joinType, postType, meetingCreationType, resourceAdditionType, topicCreationType, DESIGN.SaveSuccess, DESIGN.SaveError);
+                
+                var InviteeList = new Array();
+                $("#lstInvitation option").each(function() {
+                   InviteeList.push($(this).text());
+                });
+                
+               SP_BANK.SAVE(title, description, creationDate, createrUserId, accessType, joinType, postType, meetingCreationType, resourceAdditionType, topicCreationType, InviteeList, DESIGN.SaveSuccess, DESIGN.SaveError);
             } catch (err) {
                 GUI_HELPER.ALERT('test', err, GUI_HELPER.ERROR);
             }
@@ -35,7 +41,7 @@
         },
         SaveTagsError: function(data) {
             var userId = GetQueryStringValue("uid");
-            window.location = "community.html?cid=" + data.communityId + "&uid=" + userId;
+            window.location = "community.html?cid=" + GLOBALS.CommunityId + "&uid=" + userId;
         },
         SaveError: function(data) {
             alert("Error occured. Please contact to your system administrator.");
