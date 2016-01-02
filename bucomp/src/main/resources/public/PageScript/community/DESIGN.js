@@ -17,7 +17,7 @@
         },
         GetCommunity: function (communityId, callback, callback_err) {
             try {
-                SP_BANK.GetCommunity(cmmunityId, callback, callback_err);
+                SP_BANK.GetCommunity(communityId, callback, callback_err);
             } catch (err) {
                 callback_err();
             }

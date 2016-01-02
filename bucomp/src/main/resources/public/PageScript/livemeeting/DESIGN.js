@@ -62,6 +62,10 @@
         PostContentError: function(data) {
             
         },
+        ShowAgenda: function() {
+            var url = "meetingagenda.html?mid=" + GLOBALS.MeetingId;
+            window.open(url, "_blank");
+        },
         ReturnToCommunity: function() {
             var url = "community.html?cid=" + GLOBALS.CommunityId + "&uid=" + GLOBALS.UserId;
             window.location = url;

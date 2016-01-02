@@ -140,7 +140,7 @@
 	                GLOBALS.HourEnd= $('#txtEndHour').val();
 	                GLOBALS.TimeZone= $("#timezone option:selected").text();
 	                GLOBALS.Location= $('#txtLocation').val();
-	                GLOBALS.Agenda= $('#txtagenda').val();
+	                GLOBALS.Agenda= $('#txtagenda').val().replace(/\n/g,"<br/>");
 	                GLOBALS.MeetingType= $("#meetingtype option:selected").val();
 	                GLOBALS.IRCLink= $('#txtirclink').val();
                     GLOBALS.Subject= $("#txtSubject").val();
