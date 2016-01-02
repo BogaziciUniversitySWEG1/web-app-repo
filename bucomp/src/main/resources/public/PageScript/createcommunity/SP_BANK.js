@@ -16,9 +16,9 @@
                 jsonObj.meetingCreationType = meetingCreationType;
                 jsonObj.resourceAdditionType = resourceAdditionType;
                 jsonObj.topicCreationType = topicCreationType;
-                
+
                 var jsonStr = JSON.stringify(jsonObj);
-                
+
                 $.ajax({
                     type: "POST",
                     url: GLOBALS.ServiceParameter + "/communities",
@@ -30,8 +30,7 @@
                             if (typeof callback == 'function') {
                                 callback(null);
                             }
-                        }
-                        else{
+                        } else {
                             var _data = eval(msg);
                             callback(_data);
                         }
@@ -42,17 +41,16 @@
                         }
                     }
                 });
-            }
-            catch (err) {
+            } catch (err) {
                 if (typeof callback_err == 'function') {
                     callback_err(-2, 'TEST');
                 }
             }
-        } ,
-        SaveTags: function(communityId, tagList, callback, callback_err) {
+        },
+        SaveTags: function (communityId, tagList, callback, callback_err) {
             try {
                 var jsonObj = new Array();
-                for(var i = 0; i < tagList.length; i++) {
+                for (var i = 0; i < tagList.length; i++) {
                     var tagObj = new Object;
                     tagObj.tag = tagList[i];
                     tagObj.semantic = "";
@@ -60,7 +58,7 @@
                 }
 
                 var jsonStr = JSON.stringify(jsonObj);
-                
+
                 $.ajax({
                     type: "POST",
                     url: GLOBALS.ServiceParameter + "/tags/communityTags/" + communityId,
@@ -72,8 +70,7 @@
                             if (typeof callback == 'function') {
                                 callback(null);
                             }
-                        }
-                        else{
+                        } else {
                             var _data = eval(msg);
                             callback(_data);
                         }
@@ -84,10 +81,42 @@
                         }
                     }
                 });
-            } catch(err) {
+            } catch (err) {
                 callback_err(err);
+            }
+        },
+        CallSemanticTags: function (tag, callback, callback_err) {
+            try {
+                $.ajax({
+                    type: "GET",
+                    url: "api/communities/tags/" + tag,
+                    contentType: "application/json; charset=utf-8",
+                    success: function (msg) {
+                        if (msg == null) {
+                            if (typeof callback == 'function') {
+                                callback(null);
+                            }
+                        } else {
+                            var _data = eval(msg);
+                            if (typeof callback === 'function') {
+                                callback(_data);
+                            }
+                        }
+                    },
+                    error: function (msg) {
+                        if (typeof callback_err == 'function') {
+                            callback_err(msg);
+                        }
+                    }
+                });
+            } catch (err) {
+                if (typeof callback_err == 'function') {
+                    callback_err(err);
+                }
             }
         }
     }
-    if (!window.SP_BANK) { window.SP_BANK = SP_BANK; }
+    if (!window.SP_BANK) {
+        window.SP_BANK = SP_BANK;
+    }
 })();
