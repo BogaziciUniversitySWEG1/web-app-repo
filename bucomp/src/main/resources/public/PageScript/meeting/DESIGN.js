@@ -34,15 +34,22 @@
             $("#lblStartTime").html(startStr);
             $("#lblEndTime").html(endStr);
             
-            if(data.meetingTypeId == 1)
-            	$("#lblLocation").html("online meeting");
-           else if(data.meetingTypeId == 2)
-        	   $("#lblLocation").html(data.irclink);
-           else if(data.meetingTypeId == 3)
-        	   $("#lblLocation").html(data.location);
-           else if(data.meetingTypeId ==4)
-        	   $("#lblLocation").html(data.location);
-            
+            if(data.meetingTypeId == 1) {
+                $("#lblLocation").html("online meeting");
+            }
+           else if(data.meetingTypeId == 2) {
+               $("#lblLocationHeader").html("IRC Link")
+               $("#lblLocation").append(
+                   $("<a>").attr("href", data.irclink).attr("target","_blank").append(data.irclink)
+               );
+               //$("#lblLocation").html(data.irclink);
+           }
+           else if(data.meetingTypeId == 3) {
+               $("#lblLocation").html(data.location);
+           }
+           else if(data.meetingTypeId ==4) {
+               $("#lblLocation").html(data.location);
+           }
             //$("#lblLocation").html(data.location);
             
             if(data.status == 0) {

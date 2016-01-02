@@ -8,9 +8,9 @@
                 jsonObj.IRCLink = GLOBALS.IRCLink;  
                 jsonObj.location = GLOBALS.Location; //
                 var sd = new Date(GLOBALS.HourStart);
-                jsonObj.startTime =(sd).getTime(); // 
+                jsonObj.startTime =(sd).getTime() + (sd.getTimezoneOffset() * 60000); // 
                 var ed = new Date(GLOBALS.HourEnd);
-                jsonObj.endTime =(ed).getTime();  //
+                jsonObj.endTime =(ed).getTime() + (ed.getTimezoneOffset() * 60000);  //
                 jsonObj.timeZone =GLOBALS.TimeZone;  //
                 jsonObj.agenda = GLOBALS.Agenda; //
                 jsonObj.status = GLOBALS.Status; 
