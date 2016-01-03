@@ -71,8 +71,7 @@
                     } catch (err) {
                         callback_err(err);
                     }
-                }
-            },
+                },
             CallSemanticTags: function (tag, callback, callback_err) {
                 try {
                     $.ajax({
