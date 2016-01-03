@@ -70,8 +70,8 @@ public class CommunityRequestController {
 		text.append("<br>Community : " + comDao.getCommunityById(communityId).getTitle());
 		text.append("<br>Explanation :" + explanation);
 		text.append("<br><br>Please respond this request by ");
-		text.append("<a href=\"http://localhost:8080/api/communityRequests/approve?communityId="+communityId+"&userId="+userId+"\">approving</a> or ");
-		text.append("<a href=\"http://localhost:8080/api/communityRequests/deny?communityId="+communityId+"&userId="+userId+"\">denying</a> it.");
+		text.append("<a href=\"http://54.211.68.153:8080/api/communityRequests/approve?communityId="+communityId+"&userId="+userId+"\">approving</a> or ");
+		text.append("<a href=\"http://54.211.68.153:8080/api/communityRequests/deny?communityId="+communityId+"&userId="+userId+"\">denying</a> it.");
 		text.append("<br></body></html>");
 
 		smtpMailSender.send(comDao.getCommunityById(communityId).getUser().getEmail(), "[PROJECT.BUCOMP] - Incoming Join Request", text.toString());

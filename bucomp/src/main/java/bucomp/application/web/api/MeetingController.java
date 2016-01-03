@@ -98,8 +98,8 @@ public class MeetingController {
 				text.append("<br>Start Time : " + savedMeeting.getStartTime()); 
 				text.append("<br>End Time : " + savedMeeting.getEndTime());
 				text.append("<br>Agenda :<br>" + savedMeeting.getAgenda());
-				text.append("<br><a href=\"http://localhost:8080/api/meeting/approve/"+meeting.getMeetingId()+"?userId="+invitedUser.getUserId()+"\">Approve</a> or "
-						+ "<a href=\"http://localhost:8080/api/meeting/deny/"+meeting.getMeetingId()+"?userId="+invitedUser.getUserId()+"\">Deny</a>");
+				text.append("<br><a href=\"http://54.211.68.153:8080/api/meeting/approve/"+meeting.getMeetingId()+"?userId="+invitedUser.getUserId()+"\">Approve</a> or "
+						+ "<a href=\"http://54.211.68.153:8080/api/meeting/deny/"+meeting.getMeetingId()+"?userId="+invitedUser.getUserId()+"\">Deny</a>");
 				text.append("<br></body></html>");
 				smtpMailSender.send(invitedUser.getEmail(), "[PROJECT.BUCOMP] - Upcoming Meeting Invite", text.toString());
 			}
