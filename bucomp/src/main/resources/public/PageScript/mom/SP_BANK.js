@@ -82,28 +82,33 @@
         },
         Postmom: function(meetingId,mom, attendants, callback, callback_err) {
             try {
-                var form = new FormData();
-                form.append("meetingId", meetingId);
-                form.append("mom", mom);
-                form.append("attendants", attendants);
-                
-                var settings = {
-                    "async": true,
-                    "crossDomain": true,
-                    "url": "api/meeting/mom/",
-                    "method": "POST",
-                    "headers": {
-                        "cache-control": "no-cache",
-                        "postman-token": "38db6183-c7ee-1717-6ce3-e1e485ec518d"
+            	var obj= new Object; 
+            	obj.meetingId=meetingId;
+            	obj.meetingNote=mom;
+            	obj.attendants=attendants; 
+            	
+            	var json =JSON.stringify(obj);
+                $.ajax({
+                    type: "POST",
+                    url: "/api/meetings/mom",
+                    data: json,
+					contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    success: function (msg) {
+                       if (msg == null) {
+                            callback(null);
+                        }
+                        else if (GUI_HELPER.NOU(msg.status)) {
+                            callback_err(msg.status, 'Postmom User');
+                        }
+                        else {
+                            var _data = eval(msg);
+                            callback(_data);
+                        }
                     },
-                    "processData": false,
-                    "contentType": false,
-                    "mimeType": "multipart/form-data",
-                    "data": form
-                }
-                
-                $.ajax(settings).done(function (response) {
-                    callback(response); 
+                    error: function (msg) {
+                        callback_err(msg.status, 'Postmom Fails. Reason: ' + (msg.statusText));
+                    }
                 });
             }
             catch(err) {
