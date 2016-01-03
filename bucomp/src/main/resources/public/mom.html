@@ -1,0 +1,231 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html dir="ltr" xmlns="http://www.w3.org/1999/xhtml" xmlns:b="http://www.google.com/2005/gml/b"
+      xmlns:data="http://www.google.com/2005/gml/data" xmlns:expr="http://www.google.com/2005/gml/expr">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta content="width=device-width, initial-scale=1" name="viewport" />
+    <link href="styles/css/cssdemo.css" media="all" rel="stylesheet" type="text/css" />
+    <link href="styles/css/font-awesome.css" rel="stylesheet" />
+    <title>Minutes Of Meeting</title>
+    <link type="text/css" rel="stylesheet" href="styles/css/4235914959-widget_css_bundle.css" />
+    <link type="text/css" rel="stylesheet" href="styles/css/authorization.css" />
+    <link href="styles/css/Site.css" rel="stylesheet" type="text/css" />
+    <link href="styles/css/layout.css" rel="stylesheet" type="text/css" />
+    <link href="CommonScripts/jeasyui/themes/color.css" rel="stylesheet" type="text/css" />
+    <link href="CommonScripts/jeasyui/themes/icon.css" rel="stylesheet" type="text/css" />
+    <link href="CommonScripts/jeasyui/themes/default/dialog.css" rel="stylesheet" type="text/css" />
+    <link href="CommonScripts/jeasyui/themes/default/easyui.css" rel="stylesheet" type="text/css" />
+    <script src="CommonScripts/jquery.min.js" type="text/javascript"></script>
+    <script src="CommonScripts/jeasyui/jquery.easyui.min.js" type="text/javascript"></script> 
+    <script src="CommonScripts/GUI_HELPER.js" type="text/javascript"></script>
+    <script src="CommonScripts/Common.js" type="text/javascript"></script>
+    <script src="CommonScripts/navigation.js" type="text/javascript"></script>
+</head>
+<body class="home blog right-sidebar">
+    <div id="bpagewrap">
+        <header class="site-header" id="masthead" role="banner"></header>
+        <!-- #masthead -->
+        <div class="panel" id="search-toggle-nav" style="display: block;"></div>
+        <div class="bwrapsite-content" id="bwrapcontent">
+            <div class="content-area" id="primarybwrap">
+                <div class="bwrapsite-main" id="mainbwrap" role="main">
+                    <div class="mainblogsec section" id="mainblogsec">
+                        <div class="widget Blog" id="Blog1">
+                            <div class="blog-posts hfeed">
+                                <div class="date-outer">
+                                    <div class="date-posts">
+                                        <div class="post-outer">
+                                            <article class="post hentry">
+                                                <a name="4682800689275728420"></a>
+                                                <header class="entry-header">
+                                                    <h2 class="post-title entry-title">
+                                                        <a id="lblSubject" href="#"></a>
+                                                    </h2>
+                                                </header>
+                                                <div class="post-header-line-1"></div>
+                                                <div class="post-body entry-content">
+                                                    <div id="summary4682800689275728420">
+                                                        <div id="divAgenda"></div>
+                                                    </div>
+                                                    <div style="clear: both;"></div>
+                                                </div>
+                                                <div class="related-postbwrap" id="bpostrelated-post">
+                                                    <h4>Comments:</h4>
+                                                    <ul class="related-post-style-2" id="commentList">
+                                                    </ul>
+                                                </div>
+                                            </article>
+                                            <div style="clear: both;"></div>
+                                            
+                                            <div class="comments" id="comments">
+                                                <p class="comment-footer">
+                                                </p>
+                                                <div class="comment-form">
+                                                    <a name="comment-form"></a>
+                                                    <h4 id="comment-post-message">Minutes Of Meeting</h4>
+                                                    <p></p> 
+                                                    <div class="allHolder"> 
+                                                        <div class="form-group">
+                                                            <textarea name="momBody" rows="10" cols="50" id="momBodyField" class="momField" placeholder="Enter MoM..."></textarea>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <input type="button" class="search-submit" value="Save" onclick="DESIGN.Postmom();" />
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div style="clear: both;"></div>
+                        </div>
+                    </div>
+                </div>
+                <!-- #main -->
+            </div>
+            <!-- #primary -->
+            <div class="bwrapwidget-area" id="secondarybwrap" role="complementary">
+                <div class="sidebarbtop section" id="sidebarbtop">
+                     <div class="widget PopularPosts" id="PopularPosts5">
+                         <div  id="btnAddResource" style="display:none;">
+	                            <iframe id="resourceuplaodformframe" src="/uploadresource.html" style="width: 100%;height: 100px;border: none;overflow: hidden;">
+	                             </iframe>
+	                       </div>
+					 </div>
+                    <div class="widget PopularPosts" id="PopularPosts2">
+                        <h2>Resources</h2>
+                        <div class="widget-content popular-posts">
+                            <ul id="resourceList">
+                            </ul>
+                            <div class="clear"></div>
+                        </div>
+                    </div>
+                    <div class="widget PopularPosts" id="PopularPosts7">
+                        <h2>
+                            <span id="spnStatus"></span>
+                        </h2>
+                        <h2>Start Time</h2>
+                        <div class="widget-content popular-posts">
+                            <ul>
+                                <li>
+                                    <div class="item-content">
+                                        <div class="item-snippet">
+                                            <label id="lblStartTime"></label>
+                                        </div>
+                                    </div>
+                                    <div style="clear: both;"></div>
+                                </li>
+                            </ul>
+                            <div class="clear"></div>
+                        </div>
+                        <h2>End Time</h2>
+                        <div class="widget-content popular-posts">
+                            <ul>
+                                <li>
+                                    <div class="item-content">
+                                        <div class="item-snippet">
+                                            <label id="lblEndTime"></label>
+                                        </div>
+                                    </div>
+                                    <div style="clear: both;"></div>
+                                </li>
+                            </ul>
+                            <div class="clear"></div>
+                        </div>
+                        <h2>
+                            <label id="lblLocationHeader">Location</label>
+                        </h2>
+                        <div class="widget-content popular-posts">
+                            <ul>
+                                <li>
+                                    <div class="item-content">
+                                        <div class="item-snippet">
+                                            <label id="lblLocation"></label>
+                                        </div>
+                                    </div>
+                                    <div style="clear: both;"></div>
+                                </li>
+                            </ul>
+                            <div class="clear"></div>
+                        </div>
+                        <h2>Organizer</h2>
+                        <div class="widget-content popular-posts">
+                            <ul>
+                                <li>
+                                    <div class="item-content">
+                                        <div class="item-snippet">
+                                            <label id="lblOrganizer"></label>
+                                        </div>
+                                    </div>
+                                    <div style="clear: both;"></div>
+                                </li>
+                            </ul>
+                            <div class="clear"></div>
+                        </div>
+                    </div>
+                    <div class="widget PopularPosts" id="PopularPosts2">
+                        <h2>Attendants</h2>
+                        <div class="widget-content popular-posts">
+                            <ul id="attendants">
+                                <li>
+                                    <div class="item-content">
+                                        <div class="item-snippet">
+                                            <a>Alper Karatepe</a>
+                                        </div>
+                                    </div>
+                                    <div style="clear: both;"></div>
+                                </li>
+                            </ul>
+                            <div class="clear"></div>
+                        </div>
+                    </div>
+                    <div class="widget PopularPosts" id="PopularPosts1">
+                        <input type="button" value="Return To Meeting" class="submit-search" onclick="DESIGN.ReturnToMeeting();" />
+                    </div>
+                </div>
+            </div>
+            <!-- #secondary -->
+        </div>
+        <!-- #content -->
+        <footer class="site-footer" id="colophon" role="contentinfo">
+            <div class="site-info">
+                Copyright ©
+                <script type="text/javascript">
+                    var creditsyear = new Date();
+                    document.write(creditsyear.getFullYear());
+                </script>
+                <a href="index.html">BuComp</a>
+            </div><!-- .site-info -->
+        </footer>
+        <!-- #colophon -->
+    </div>
+    <div id="divResourceList" style="display:none; width:400px; top:100px;">
+        <div class="post-body entry-content"> 	
+            <div class="form-group">
+                <table id="tblResourceList"></table>
+            </div> 
+        </div>
+    </div>
+    
+    <div id="divAttendantsList" style="display:none; width:400px; top:100px;">
+        <div class="post-body entry-content"> 	
+            <div class="form-group">
+                <table id="tblAttendantsList"></table>
+            </div> 
+        </div>
+    </div>
+    <!-- #page -->
+    <script type="text/javascript">
+        jQuery(document).ready(function ($) {
+            $(window).on('load', DESIGN.GetContent);
+        });
+    </script>
+    
+    <script src="PageScript/mom/DESIGN.js" type="text/javascript"></script>
+    <script src="PageScript/mom/GLOBALS.js" type="text/javascript"></script>
+    <script src="PageScript/mom/SP_BANK.js" type="text/javascript"></script>
+    
+</body>
+</html>
