@@ -1,13 +1,12 @@
 package bucomp.application.web.api;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -17,9 +16,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.multipart.MultipartFile;
 
 import bucomp.application.dto.TagCountDTO;
+import bucomp.application.mail.SMTPMailSender;
 import bucomp.application.model.Community;
 import bucomp.application.model.Communitymember;
 import bucomp.application.model.DbpediaClassModel;
@@ -44,6 +43,9 @@ import bucomp.application.web.api.dao.UserDaoImpl;
  */
 @RestController
 public class CommunityController {
+	
+	@Autowired
+	SMTPMailSender smtpMailSender;
 
 	private CommunityDao dao = new CommunityDaoImpl();
 	private CommunityMemberDao cmDao = new CommunityMemberDaoImpl();
@@ -168,6 +170,19 @@ public class CommunityController {
 		cm.setUser(udao.getUserById(community.getUser().getUserId()));
 		cmDao.saveCommunityMember(cm);
 		savedCommunity.setUser(udao.getUserById(community.getUser().getUserId()));
+		
+		StringBuilder text = null;
+		//Send Email to invitees
+		for (Iterator<String> iterator = community.getInviteeList().iterator(); iterator.hasNext();) {
+			String emailAddress = iterator.next();
+			text = new StringBuilder("<html><body>");
+			text.append("You are invited to a community created by " + community.getUser().getName() + " " + community.getUser().getSurname());
+			text.append("<br>Community Title : " + community.getTitle()); 
+			text.append("<br>Description : " + community.getDescription());
+			text.append("<br>You can see the community details <a href=\"http://localhost:8080\">here</a>");
+			text.append("<br></body></html>");
+			smtpMailSender.send(emailAddress, "[PROJECT.BUCOMP] - Community Offer", text.toString());
+		}
 		return new ResponseEntity<Community>(savedCommunity, HttpStatus.CREATED);
 	}
 
