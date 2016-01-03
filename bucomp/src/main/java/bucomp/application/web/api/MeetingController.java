@@ -166,5 +166,16 @@ public class MeetingController {
 		}
 		return new ResponseEntity<Collection<Resource>>(resources, HttpStatus.OK);
 	}
+	
+	@RequestMapping(value = "/api/meetings/resources/{meetingId}", 
+			method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<Collection<Resource>> getMeetingResources(
+			@PathVariable("meetingId") Integer meetingId) {
+		Collection<Resource> resources = rdao.getMeetingResources(meetingId);
+		if (resources == null || resources.size() == 0) {
+			return new ResponseEntity<Collection<Resource>>(resources, HttpStatus.NO_CONTENT);
+		}
+		return new ResponseEntity<Collection<Resource>>(resources, HttpStatus.OK);
+	}
 
 }

@@ -223,7 +223,6 @@ public class CommunityController {
 			method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Collection<Resource>> getCommunityResources(
 			@PathVariable("communityId") Integer communityId) {
-		System.out.println("asdasdas");
 		Collection<Resource> resources = rdao.getCommunityResources(communityId);
 		if (resources == null || resources.size() == 0) {
 			return new ResponseEntity<Collection<Resource>>(resources, HttpStatus.NO_CONTENT);
