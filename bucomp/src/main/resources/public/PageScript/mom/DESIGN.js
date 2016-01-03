@@ -351,6 +351,12 @@
    		            DESIGN.ADD_ATTENDANTS(userid,email);
    		        }
 	    	});
+	    	setTimeout(function(){
+    			$('.textbox.combo').css({"width":"100%","height":"35px","padding":"5px"});
+    			$('.textbox-addon.textbox-addon-right').css({"right":"0px","top":"6px"});
+    			$('.textbox-text.validatebox-text.textbox-prompt').css({"width":"100%","height":"25px"});
+    			
+    		},1000);
 	    },
 	    ADD_ATTENDANTS:function(userid,email){
         	try{ 
