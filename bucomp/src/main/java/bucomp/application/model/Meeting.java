@@ -60,13 +60,7 @@ public class Meeting implements Serializable {
 	@OneToMany(mappedBy="meeting")
 	private List<Meetingattendant> meetingattendants;
 
-	//bi-directional many-to-one association to Meetingnote
-	@OneToMany(mappedBy="meeting")
-	private List<Meetingnote> meetingnotes;
-
-	//bi-directional many-to-one association to Meetingresource
-	@OneToMany(mappedBy="meeting")
-	private List<Meetingresource> meetingresources;
+	private String meetingnote;
 
 	//bi-directional many-to-one association to Meetingrole
 	@OneToMany(mappedBy="meeting")
@@ -139,50 +133,6 @@ public class Meeting implements Serializable {
 		meetingattendant.setMeeting(null);
 
 		return meetingattendant;
-	}
-
-	public List<Meetingnote> getMeetingnotes() {
-		return this.meetingnotes;
-	}
-
-	public void setMeetingnotes(List<Meetingnote> meetingnotes) {
-		this.meetingnotes = meetingnotes;
-	}
-
-	public Meetingnote addMeetingnote(Meetingnote meetingnote) {
-		getMeetingnotes().add(meetingnote);
-		meetingnote.setMeeting(this);
-
-		return meetingnote;
-	}
-
-	public Meetingnote removeMeetingnote(Meetingnote meetingnote) {
-		getMeetingnotes().remove(meetingnote);
-		meetingnote.setMeeting(null);
-
-		return meetingnote;
-	}
-
-	public List<Meetingresource> getMeetingresources() {
-		return this.meetingresources;
-	}
-
-	public void setMeetingresources(List<Meetingresource> meetingresources) {
-		this.meetingresources = meetingresources;
-	}
-
-	public Meetingresource addMeetingresource(Meetingresource meetingresource) {
-		getMeetingresources().add(meetingresource);
-		meetingresource.setMeeting(this);
-
-		return meetingresource;
-	}
-
-	public Meetingresource removeMeetingresource(Meetingresource meetingresource) {
-		getMeetingresources().remove(meetingresource);
-		meetingresource.setMeeting(null);
-
-		return meetingresource;
 	}
 
 	public List<Meetingrole> getMeetingroles() {
@@ -285,6 +235,14 @@ public class Meeting implements Serializable {
 
 	public void setLongitude(String longitude) {
 		this.longitude = longitude;
+	}
+
+	public String getMeetingnote() {
+		return meetingnote;
+	}
+
+	public void setMeetingnote(String meetingnote) {
+		this.meetingnote = meetingnote;
 	}
 
 
