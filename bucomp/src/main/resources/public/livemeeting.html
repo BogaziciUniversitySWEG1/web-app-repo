@@ -6,7 +6,7 @@
     <meta content="width=device-width, initial-scale=1" name="viewport" />
     <link href="styles/css/cssdemo.css" media="all" rel="stylesheet" type="text/css" />
     <link href="styles/css/font-awesome.css" rel="stylesheet" />
-    <title>Accessible Infographics</title>
+    <title>BuComp</title>
     <link type="text/css" rel="stylesheet" href="styles/css/4235914959-widget_css_bundle.css" />
     <link type="text/css" rel="stylesheet" href="styles/css/authorization.css" />
     <link href="styles/css/Site.css" rel="stylesheet" type="text/css" />
@@ -20,10 +20,16 @@
     <script src="CommonScripts/GUI_HELPER.js" type="text/javascript"></script>
     <script src="CommonScripts/Common.js" type="text/javascript"></script>
     <script src="CommonScripts/navigation.js" type="text/javascript"></script>
+    <script src="CommonScripts/sweetalert-master/dist/sweetalert.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="CommonScripts/sweetalert-master/dist/sweetalert.css">
     <style>
         .bwrapsite-content {
             margin: 11px auto 0 !important;
             max-width: 55.556em;
+        }
+        
+        .PopularPosts input{
+            width:100%;
         }
     </style>
 </head>
@@ -51,7 +57,7 @@
                                                             <textarea name="comment" rows="5" cols="50" id="commentField" class="commentField"></textarea>
                                                         </div>
                                                         <div class="form-group">
-                                                            <input type="button" class="search-submit" value="Send" onclick="DESIGN.PostContent();" />
+                                                            <input type="button" class="search-submit" id="btnSend" value="Send" onclick="DESIGN.PostContent();" />
                                                         </div>
                                                     </div>
                                                 </div>
@@ -73,10 +79,13 @@
                     <div class="widget PopularPosts" id="PopularPosts1">
                         <input type="button" value="Return To Community" class="submit-search" onclick="DESIGN.ReturnToCommunity();" />
                     </div>
-                    <div class="widget PopularPosts" id="PopularPosts1">
+                    <div class="widget PopularPosts" id="PopularPosts2">
                         <input type="button" value="Meeting Agenda" class="submit-search" onclick="DESIGN.ShowAgenda();" />
                     </div>
-                    <div class="widget PopularPosts" id="PopularPosts1">
+                    <div class="widget PopularPosts" id="PopularPosts3">
+                        <input type="button" value="Finish Meeting" class="submit-search" onclick="DESIGN.FinishMeeting();" />
+                    </div>
+                    <div class="widget PopularPosts" id="PopularPosts4">
                         <h2>Attendants</h2>
                         <div class="widget-content popular-posts">
                             <ul id="attendants">
@@ -111,7 +120,9 @@
         $("#commentField").keypress(function(event) {
             if(event.which == 13) {
                 event.preventDefault();
-                DESIGN.PostContent();
+                if($("#commentField").val() != "") {
+                    DESIGN.PostContent();
+                }
             }
         });
     </script>
