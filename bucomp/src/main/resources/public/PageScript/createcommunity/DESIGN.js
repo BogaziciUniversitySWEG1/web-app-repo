@@ -3,6 +3,7 @@
 /// <reference path="GLOBALS.js" />
 
 (function () {
+
     var DESIGN = {
         SAVE: function () {
             try {
@@ -57,16 +58,34 @@
             DESIGN.RefreshTagList();
             $("#txtSemantic").val("");
         },
+        AddSemTag: function (tag) {
+            GLOBALS.tagList.push(tag);
+            DESIGN.RemoveSemTag(tag);
+        },
         RemoveTag: function (tag) {
             var index = GLOBALS.tagList.indexOf(tag);
             GLOBALS.tagList.splice(index, 1);
             DESIGN.RefreshTagList();
         },
+        RemoveSemTag: function (tag) {
+            var index = GLOBALS.semTagList.indexOf(tag);
+            GLOBALS.semTagList.splice(index, 1);
+            DESIGN.RefreshTagList();
+        },
         CallSemanticTags: function (tag) {
-            SP_BANK.CallSemanticTags(tag, DESIGN.FillCommunity, GUI_HELPER.SERVICE_CALLBACK_ERR);
+            SP_BANK.CallSemanticTags(tag, DESIGN.CallSemanticsSuccess, GUI_HELPER.SERVICE_CALLBACK_ERR);
+        },
+        CallSemanticsSuccess: function (data) {
+            GLOBALS.semTagList = [];
+            for (var i = 0; i < data.length; i++) {
+                var obj = data[i];
+                GLOBALS.semTagList.push(obj.label);
+            }
+            DESIGN.RefreshTagList();
         },
         RefreshTagList: function () {
             var tagContent = "";
+            var semTagContent = "";
             for (var i = 0; i < GLOBALS.tagList.length; i++) {
                 tagContent = tagContent + "<img src='images/Delete.png' onclick='DESIGN.RemoveTag(\"" + GLOBALS.tagList[i] + "\");' width='16' />";
                 tagContent = tagContent + "<a rel='tag'>" + GLOBALS.tagList[i] + "</a>";
@@ -74,7 +93,17 @@
                     tagContent = tagContent + ", ";
                 }
             }
+
+            for (var i = 0; i < GLOBALS.semTagList.length; i++) {
+                semTagContent = semTagContent + "<img src='images/add.png' onclick='DESIGN.AddSemTag(\"" + GLOBALS.semTagList[i] + "\");' width='16' />";
+                semTagContent = semTagContent + "<a rel='tag'>" + GLOBALS.semTagList[i] + "</a>";
+                if (i < GLOBALS.semTagList.length - 1) {
+                    semTagContent = semTagContent + ", ";
+                }
+            }
+
             $("#tagSpan").html(tagContent);
+            $("#semTagSpan").html(semTagContent);
         },
         AddInvitation: function () {
             var email = $("#txtInvitation").val();
