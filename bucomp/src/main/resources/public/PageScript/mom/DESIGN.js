@@ -9,8 +9,6 @@
             GLOBALS.CommunityId = GetQueryStringValue("cid");
             GLOBALS.MeetingId = GetQueryStringValue("mid");
             SP_BANK.GetMeeting(GLOBALS.MeetingId, DESIGN.FillContent, DESIGN.FillContentError);
-            //DESIGN.addResource();
-            //SP_BANK.GetMeetingResources(GLOBALS.MeetingId, DESIGN.FillMeetingResources, GUI_HELPER.SERVICE_CALLBACK_ERR);
         },
         FillContent: function(data) {
         	GLOBALS.Members=data.inviteeList;
@@ -48,7 +46,6 @@
                $("#lblLocation").append(
                    $("<a>").attr("href", data.irclink).attr("target","_blank").append(data.irclink)
                );
-               //$("#lblLocation").html(data.irclink);
            }
            else if(data.meetingTypeId == 3) {
                $("#lblLocation").html(data.location);
@@ -56,7 +53,6 @@
            else if(data.meetingTypeId ==4) {
                $("#lblLocation").html(data.location);
            }
-            //$("#lblLocation").html(data.location);
             
             if(data.status == 0) {
                 $("#spnStatus").html("Status: Upcoming");
@@ -67,24 +63,13 @@
             } else if(data.status == 3) {
                 $("#spnStatus").html("Status: Cancelled");
             }
-            
-            if(data.status == 1) {
-                $("#btnJoin").show();
-            }
-            
+
             GetUserInfo(data.meetingOrganizerUserId, DESIGN.FillOrganizerInfo, null);
+            SP_BANK.GetMeetingMoms(GLOBALS.MeetingId, DESIGN.FillMeetingMoms, null);
             SP_BANK.GetMeetingPosts(GLOBALS.MeetingId, DESIGN.FillMeetingPosts, null);
         },
         FillContentError: function(data) {
             alert(data);
-        },
-        FillOrganizerInfo: function(data) {
-            var nameSurname = data.name + " " + data.surname;
-            $("#lblOrganizer").html(nameSurname);
-        },
-        ReturnToCommunity: function() {
-            var url = "community.html?cid=" + GLOBALS.CommunityId + "&uid=" + GLOBALS.UserId;
-            window.location = url;
         },
         FillMeetingPosts: function(data) {
             $("#commentList").html("");
@@ -118,40 +103,34 @@
                 );
             }
         },
-        PostComment: function() {
-            var postTypeId = 3;
-            var title = $("#txtCommentTitle").val();
-            var post = $("#commentBodyField").val();
-            var postDate = (new Date).getTime();
-            
-            SP_BANK.PostComment(GLOBALS.UserId, postTypeId, title, post, GLOBALS.MeetingId, postDate, DESIGN.PostCommentSuccess, DESIGN.PostCommentError);
+        FillOrganizerInfo: function(data) {
+            var nameSurname = data.name + " " + data.surname;
+            $("#lblOrganizer").html(nameSurname);
         },
-        PostCommentSuccess: function(data) {
-            $("#txtCommentTitle").val("");
-            $("#commentBodyField").val("");
-            DESIGN.GetContent();
+        ReturnToMeeting: function() {
+            var url = "meeting.html?mid=" + GLOBALS.MeetingId + "&cid=" + GLOBALS.CommunityId + "&uid=" + GLOBALS.UserId;
+            window.location = url;
         },
-        PostCommentError: function(data) {
-            alert("Error occured: " + data.statusText);
-        },
-        JoinMeeting: function() {
+        FillMeetingMoms: function(data) {
+            $("#momBodyField").val("");
+			$("#momBodyField").val(data.meetingNote);
             var userId = GetQueryStringValue("uid");
-            var meetingId = GetQueryStringValue("mid");
-            SP_BANK.JoinMeeting(userId, meetingId, DESIGN.JoinMeetingSuccess, DESIGN.JoinMeetingError);
-        },
-        JoinMeetingSuccess: function(data) {
-            if(data == "true") {
-                var userId = GetQueryStringValue("uid");
-                var meetingId = GetQueryStringValue("mid");
-                var communityId = GetQueryStringValue("cid");
-                var url = "livemeeting.html?uid=" + userId + "&cid=" + communityId + "&mid=" + meetingId;
-                window.location = url;
-            } else {
-                alert("Hata");
+            for(var i = 0; i< data.attendants.length; i++) { 
+            	var x="";
             }
         },
-        JoinMeetingError: function(data) {
-            
+        Postmom: function() {  
+            var mom = $("#momBodyField").val(); 
+            var meetingId = GetQueryStringValue("mid");
+            var attendants = GLOBALS.Attendants;
+            SP_BANK.Postmom(meetingId,mom, attendants, DESIGN.PostmomSuccess, DESIGN.PostmomError);
+        },
+        PostmomSuccess: function(data) {
+            $("#momBodyField").val(""); 
+            DESIGN.GetContent();
+        },
+        PostmomError: function(data) {
+            alert("Error occured: " + data.statusText);
         },
         addResource: function() {
             setTimeout(function () { 

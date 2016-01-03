@@ -73,7 +73,7 @@
                 if (data.meetingCreationType == 1) {
                     GLOBALS.canCreateMeeting = true;
                 }
-                if (data.joinType == 1) {
+                if (data.joinType == 2) {
                     GLOBALS.canJoin = true;
                 }
                 if (data.postType == 1) {
@@ -103,7 +103,7 @@
                 GUI_HELPER.GetUserInfo(userId, DESIGN.FillUserInfo, null);
             }
         }, 
-       FillCommunityResources: function(data) {
+        FillCommunityResources: function(data) {
             if(data == null) {
                 return;
             }
@@ -141,6 +141,7 @@
             for(var i=0; i< data.length; i++) { 
                 var _link =data[i].link.replace("target/classes/public/","");
                 var _name =data[i].name;
+                userId = data[i].userId;
                 var _link="api/resources/download?cid="+communityId+"&uid="+userId+"&fileName="+_name;
                 if(i<3){
 	                $("#resourceList").append(
@@ -236,13 +237,18 @@
                         tagStr = tagStr + "<a rel=\"tag\">" + data[i].tagList[j].tag + "</a>";
                     }
                 }
+                
+                var topicDescription = data[i].description;
+                if(topicDescription.length > 300) {
+                    topicDescription = topicDescription.substring(0,300) + "...";
+                }
 
                 $("#topicList").append(
                     $("<li>").append(
                         $("<a>").attr("class", "related-post-item-title").attr("title", data[i].title).attr("href", topicUrl).append(data[i].title)
                     ).append(
                         $("<span>").attr("class", "related-post-item-summary").append(
-                            $("<span>").attr("class", "related-post-item-summary-text").append(data[i].description)
+                            $("<span>").attr("class", "related-post-item-summary-text").append(topicDescription)
                         ).append(
                             $("<span>").attr("style", "display:block;clear:both;")
                         )
@@ -512,10 +518,11 @@
                 $("#btnCreateTopic").hide();
                 $("#btnCreateMeeting").hide();
                 $("#btnAddResource").hide();
+                $("#btnCreateEvent").hide();
                 SP_BANK.CheckCommunityRequest(communityId, DESIGN.CheckCommunityRequest, null);
             }
 
-            if (GLOBALS.isOwner == true) {
+            if (GLOBALS.isOwner == true && GLOBALS.canJoin == false) {
                 $("#btnRequests").show();
             }
         },
@@ -540,7 +547,7 @@
             //window.location = "ViewProfile.html?uid=" + uid + "&vid=" + userId;
         },
         JoinCommunityClicked: function (joinType) {
-            if (joinType == 1) {
+            if (joinType == 2) {
                 DESIGN.JoinCommunity();
             } else {
                 DESIGN.ShowRequestModal();

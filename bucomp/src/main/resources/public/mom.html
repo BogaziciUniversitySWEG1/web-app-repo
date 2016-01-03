@@ -6,7 +6,7 @@
     <meta content="width=device-width, initial-scale=1" name="viewport" />
     <link href="styles/css/cssdemo.css" media="all" rel="stylesheet" type="text/css" />
     <link href="styles/css/font-awesome.css" rel="stylesheet" />
-    <title>Accessible Infographics</title>
+    <title>Minutes Of Meeting</title>
     <link type="text/css" rel="stylesheet" href="styles/css/4235914959-widget_css_bundle.css" />
     <link type="text/css" rel="stylesheet" href="styles/css/authorization.css" />
     <link href="styles/css/Site.css" rel="stylesheet" type="text/css" />
@@ -62,18 +62,14 @@
                                                 </p>
                                                 <div class="comment-form">
                                                     <a name="comment-form"></a>
-                                                    <h4 id="comment-post-message">Post a Comment</h4>
-                                                    <p></p>
-                                                    <p>Note: Only a member of this blog may post a comment.</p>
-                                                    <div class="allHolder">
+                                                    <h4 id="comment-post-message">Minutes Of Meeting</h4>
+                                                    <p></p> 
+                                                    <div class="allHolder"> 
                                                         <div class="form-group">
-                                                            <input type="text" id="txtCommentTitle" class="commentField" placeholder="Enter your title..." />
+                                                            <textarea name="momBody" rows="10" cols="50" id="momBodyField" class="momField" placeholder="Enter MoM..."></textarea>
                                                         </div>
                                                         <div class="form-group">
-                                                            <textarea name="commentBody" rows="10" cols="50" id="commentBodyField" class="commentField" placeholder="Enter your comment..."></textarea>
-                                                        </div>
-                                                        <div class="form-group">
-                                                            <input type="button" class="search-submit" value="Post" onclick="DESIGN.PostComment();" />
+                                                            <input type="button" class="search-submit" value="Save" onclick="DESIGN.Postmom();" />
                                                         </div>
                                                     </div>
                                                 </div>
@@ -92,9 +88,6 @@
             <!-- #primary -->
             <div class="bwrapwidget-area" id="secondarybwrap" role="complementary">
                 <div class="sidebarbtop section" id="sidebarbtop">
-                    <div class="widget PopularPosts" id="PopularPosts1">
-                        <input type="button" id="btnJoin" value="Join Meeting" class="submit-search" onclick="DESIGN.JoinMeeting();" style="display:none;" />
-                    </div>
                      <div class="widget PopularPosts" id="PopularPosts5">
                          <div  id="btnAddResource" style="display:none;">
 	                            <iframe id="resourceuplaodformframe" src="/uploadresource.html" style="width: 100%;height: 100px;border: none;overflow: hidden;">
@@ -189,7 +182,7 @@
                         </div>
                     </div>
                     <div class="widget PopularPosts" id="PopularPosts1">
-                        <input type="button" value="Return To Community" class="submit-search" onclick="DESIGN.ReturnToCommunity();" />
+                        <input type="button" value="Return To Meeting" class="submit-search" onclick="DESIGN.ReturnToMeeting();" />
                     </div>
                 </div>
             </div>
@@ -230,9 +223,9 @@
         });
     </script>
     
-    <script src="PageScript/meeting/DESIGN.js" type="text/javascript"></script>
-    <script src="PageScript/meeting/GLOBALS.js" type="text/javascript"></script>
-    <script src="PageScript/meeting/SP_BANK.js" type="text/javascript"></script>
+    <script src="PageScript/mom/DESIGN.js" type="text/javascript"></script>
+    <script src="PageScript/mom/GLOBALS.js" type="text/javascript"></script>
+    <script src="PageScript/mom/SP_BANK.js" type="text/javascript"></script>
     
 </body>
 </html>

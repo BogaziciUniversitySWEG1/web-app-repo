@@ -32,6 +32,7 @@ public class TopicDaoImpl implements TopicDao {
 	@Override
 	public Topic getTopicById(Integer topicId) {
 		try{
+			dbService.getEntitymanager().clear();
 			return dbService.getEntitymanager().find(Topic.class, topicId);			
 		} catch(Exception e){
 			e.printStackTrace();
@@ -44,6 +45,7 @@ public class TopicDaoImpl implements TopicDao {
 	public List<Topic> getCommunityTopics(Integer communityId) {
 		EntityTransaction etx = null;
 		try{
+			dbService.getEntitymanager().clear();
 			etx = dbService.getEntitymanager().getTransaction();
 			etx.begin();
 			List<Topic> topics = dbService.getEntitymanager().createQuery("SELECT t FROM Topic t where t.CommunityId = " + communityId).getResultList();

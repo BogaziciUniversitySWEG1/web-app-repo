@@ -191,8 +191,7 @@
 	        CREATED_MEETING: function (data) {
 	            try {
 	                if (GUI_HELPER.NOU(data)) {
-	                    GUI_HELPER.ALERT('Info', "Meeting Creation is succesfull.You will be redirected to the main page in 2 seconds!", GUI_HELPER.INFO);
-	                    setTimeout(function () { window.location = "community.html?uid=" + GLOBALS.UserId + "&cid=" + GLOBALS.CommunityId }, 2500);
+	                    window.location = "community.html?uid=" + GLOBALS.UserId + "&cid=" + GLOBALS.CommunityId
 	                }
 	                else {
 	                    GUI_HELPER.ALERT('Warning', "Meeting creation fails. Please try again later.", GUI_HELPER.ERROR);

@@ -10,9 +10,6 @@
 		<class>bucomp.application.model.Communityrequest</class>
 		<class>bucomp.application.model.Log</class>
 		<class>bucomp.application.model.Meetingattendant</class>
-		<class>bucomp.application.model.Meetingnote</class>
-		<class>bucomp.application.model.Meetingresource</class>
-		<class>bucomp.application.model.Meetingresourcetype</class>
 		<class>bucomp.application.model.Meetingrole</class>
 		<class>bucomp.application.model.Meeting</class>
 		<class>bucomp.application.model.Meetingtype</class>
@@ -36,7 +33,6 @@
 			<property name="eclipselink.ddl-generation" value="none" />
 			<property name="eclipselink.logging.level" value="FINE" />
 			<property name="eclipselink.allow-zero-id" value="true"/>
-			<property name="eclipselink.query-results-cache" value="false"/>
 		</properties>
 	</persistence-unit>
 </persistence>

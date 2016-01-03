@@ -6,7 +6,7 @@
     var DESIGN = { 
         SAVE: function () {
             var title = $("#txtTitle").val();
-            var description = $("#txtDescription").val();
+            var description = $("#txtDescription").val().replace(/\n/g,"<br/>");
             var communityId = GetQueryStringValue("cid");
             var userId = GetQueryStringValue("uid");
             var creationDate = (new Date).getTime();

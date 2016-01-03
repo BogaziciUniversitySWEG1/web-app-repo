@@ -52,50 +52,45 @@
                 callback_err(err);
             }
         },
-        PostComment: function(userId, postTypeId, title, post, associatedObjectId, postDate, callback, callback_err) {
+        GetMeetingMoms: function(meetingId, callback, callback_err) {
             try {
-                var form = new FormData();
-                form.append("post", post);
-                form.append("postTypeId", postTypeId);
-                form.append("associatedObjectId", associatedObjectId);
-                form.append("title", title);
-                form.append("userId", userId);
-                
-                var settings = {
-                    "async": true,
-                    "crossDomain": true,
-                    "url": "api/posts",
-                    "method": "POST",
-                    "headers": {
-                        "cache-control": "no-cache",
-                        "postman-token": "38db6183-c7ee-1717-6ce3-e1e485ec518d"
+                $.ajax({
+                    type: "GET",
+                    url: "api/meetings/mom/" + meetingId,
+                    contentType: "application/json; charset=utf-8",
+                    success: function (msg) {
+                        if (msg == null) {
+                            if (typeof callback == 'function') {
+                                callback(null);
+                            }
+                        }
+                        else{
+                            var _data = eval(msg);
+                            callback(_data);
+                        }
                     },
-                    "processData": false,
-                    "contentType": false,
-                    "mimeType": "multipart/form-data",
-                    "data": form
-                }
-                
-                $.ajax(settings).done(function (response) {
-                    callback(response); 
+                    error: function (msg) {
+                        if (typeof callback_err == 'function') {
+                            callback_err(msg);
+                        }
+                    }
                 });
             }
-            catch(err) {
-                if (typeof callback_err == 'function') {
-                    callback_err(err);
-                }
+            catch (err) {
+                callback_err(err);
             }
         },
-        JoinMeeting: function(userId, meetingId, callback, callback_err) {
+        Postmom: function(meetingId,mom, attendants, callback, callback_err) {
             try {
                 var form = new FormData();
-                form.append("userId", userId);
                 form.append("meetingId", meetingId);
+                form.append("mom", mom);
+                form.append("attendants", attendants);
                 
                 var settings = {
                     "async": true,
                     "crossDomain": true,
-                    "url": "api/chatroom/join",
+                    "url": "api/meeting/mom/",
                     "method": "POST",
                     "headers": {
                         "cache-control": "no-cache",
