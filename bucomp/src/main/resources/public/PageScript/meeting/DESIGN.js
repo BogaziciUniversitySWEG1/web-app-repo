@@ -9,9 +9,14 @@
             GLOBALS.CommunityId = GetQueryStringValue("cid");
             GLOBALS.MeetingId = GetQueryStringValue("mid");
             SP_BANK.GetMeeting(GLOBALS.MeetingId, DESIGN.FillContent, DESIGN.FillContentError);
-            SP_BANK.GetMeetingResources(GLOBALS.MeetingId, DESIGN.FillMeetingResources, GUI_HELPER.SERVICE_CALLBACK_ERR);
+            //DESIGN.addResource();
+            //SP_BANK.GetMeetingResources(GLOBALS.MeetingId, DESIGN.FillMeetingResources, GUI_HELPER.SERVICE_CALLBACK_ERR);
         },
         FillContent: function(data) {
+        	GLOBALS.Members=data.inviteeList;
+        	GLOBALS.Attendants=data.meetingattendants;
+        	DESIGN.FILL_MEETING_ATTENDANTS(GLOBALS.Attendants);
+        	DESIGN.addResource();
             var startDate = new Date(data.startTime);
             var startStr = GUI_HELPER.GetDayName(startDate.getDay()) + ", " 
                 + GUI_HELPER.GetMonthName(startDate.getMonth()) + " " 
@@ -170,6 +175,7 @@
             $("#resourceList").html("");
             var communityId = GetQueryStringValue("cid");
             var userId = GetQueryStringValue("uid");
+            var meetingId = GetQueryStringValue("mid");
             
             
             var table= document.getElementById('tblResourceList');
@@ -180,8 +186,8 @@
 			var th1= document.createElement('th');
 			th1.innerHTML="Resource Name";
 			
-			var th2= document.createElement('th');
-			th2.innerHTML="User Name";
+			//var th2= document.createElement('th');
+			//th2.innerHTML="User Name";
 			
 
 			var th3= document.createElement('th');
@@ -193,7 +199,7 @@
               
 			
 			thead.appendChild(th1); 
-			thead.appendChild(th2); 
+			//thead.appendChild(th2); 
 			thead.appendChild(th3);  
 			thead.appendChild(th4); 
 			table.appendChild(thead);
@@ -201,7 +207,7 @@
             for(var i=0; i< data.length; i++) { 
                 var _link =data[i].link.replace("target/classes/public/","");
                 var _name =data[i].name;
-                var _link="api/resources/download?cid="+communityId+"&uid="+userId+"&fileName="+_name;
+                var _link="api/resources/download?mid="+meetingId+"&cid="+communityId+"&uid="+userId+"&fileName="+_name;
                 if(i<3){
 	                $("#resourceList").append(
 	                    $("<li>").append(
@@ -217,21 +223,13 @@
                 var td_user_profile=  document.createElement('td'); 
                 
             	for(var j =0; j< GLOBALS.Members.length; j++){ 
-            		if( GLOBALS.Members[j].user != null && GLOBALS.Members[j].user.userId == data[i].userId){ 
-                        var nameSurname = GLOBALS.Members[j].user.name + " " + GLOBALS.Members[j].user.surname; 
+            		if( GLOBALS.Members[j] != null && GLOBALS.Members[j].userId == data[i].userId){ 
+                        var nameSurname = "";//GLOBALS.Members[j].user.name + " " + GLOBALS.Members[j].user.surname; 
                         //var photoLink= "/file-repository/users/"+GLOBALS.Members[j].user.userId+"/"+GLOBALS.Members[j].user.photoLink;
-                        var photoLink="api/resources/download?uid="+GLOBALS.Members[j].user.userId+"&fileName="+GLOBALS.Members[j].user.photoLink;
-                        td_user_profile.innerHTML= nameSurname ; 
-                        $(td_user).append(
-                    			$("<img>")
-                                .attr("alt", nameSurname)
-                                .attr("title", nameSurname)
-                                .attr("class", "communityMemberPic")
-                                .attr("src", photoLink)
-                                .attr("width", "40")
-                                .attr("height", "40") 
-                                .attr("onclick", "DESIGN.ViewUser(" + GLOBALS.Members[j].user.userId + ");")
-                                );
+                        //var photoLink="api/resources/download?uid="+GLOBALS.Members[j].userId+"&fileName="+GLOBALS.Members[j].user.photoLink;
+                        //td_user_profile.innerHTML= nameSurname ; 
+                        td_user.innerHTML="<span style='cursor:pointer;' onclick='DESIGN.ViewUser(" + GLOBALS.Members[j].userId + ");'>See User</span>"; 
+                        
             		}
 					
 				}		
@@ -242,7 +240,7 @@
                 td_link.innerHTML="<a href='"+_link+"' target='_blank'>Download</a>"; 
                 
                 tr.appendChild(td_name);
-				tr.appendChild(td_user_profile);
+				//tr.appendChild(td_user_profile);
 				tr.appendChild(td_user);
 				tr.appendChild(td_link);
 				table.appendChild(tr);  
@@ -251,6 +249,86 @@
 	                $("#resourceList").append(
 	                    $("<li>").append(
 	                        $("<a>").attr("class","related-post-item-title").attr("title","See All").attr("href","#").attr("onclick","$('#divResourceList').show(); GUI_HELPER.OPENWINDOW('divResourceList','Resource List');").append("See All")
+	                    ) 
+	                );
+                }
+            }
+        },
+        ViewUser: function (userId) {
+            var uid = GetQueryStringValue("uid");
+            window.open( window.location.origin+"/ViewProfile.html?uid=" + uid + "&vid=" + userId);
+            //window.location = "ViewProfile.html?uid=" + uid + "&vid=" + userId;
+        }, 
+        FILL_MEETING_ATTENDANTS: function(data) {
+
+            $("#attendants").html("");
+            if(!GUI_HELPER.NOU(data) || data.length==0 ) {
+                return;
+            } 
+            var communityId = GetQueryStringValue("cid");
+            var userId = GetQueryStringValue("uid");
+            var meetingId = GetQueryStringValue("mid");
+            
+            
+            var table= document.getElementById('tblAttendantsList');
+			table.innerHTML = "";
+			
+			var thead= document.createElement('thead');
+			
+			var th1= document.createElement('th');
+			th1.innerHTML="Attendant Name"; 
+			
+			var th3= document.createElement('th');
+			th3.innerHTML="User Profile";
+			
+			
+			thead.appendChild(th1);  
+			thead.appendChild(th3);  
+			table.appendChild(thead);
+			
+            for(var i=0; i< data.length; i++) { 
+			   var nameSurname = data[i].user.name + " " + data[i].user.surname; 
+			   var photoLink="api/resources/download?uid="+data[i].user.userId+"&fileName="+data[i].user.photoLink; 
+			   if(data[i].user.photoLink == null){ 
+			       photoLink = "images/man-icon.png";
+			   } 
+                if(i<3){ 
+	                $("#attendants").append(
+                            $("<li>").append(
+                                $("<img>")
+                                .attr("alt", nameSurname)
+                                .attr("title", nameSurname)
+                                .attr("class", "communityMemberPic")
+                                .attr("src", photoLink)
+                                .attr("width", "40")
+                                .attr("height", "40")
+                                .attr("onclick", "DESIGN.ViewUser(" + data[i].user.userId + ");")
+                            )
+                        );
+                }
+                var tr= document.createElement('tr');
+                var td_name=  document.createElement('td');
+                td_name.innerHTML= nameSurname ; 
+                
+                var td_user=  document.createElement('td');   
+                td_user.append(
+                        $("<img>")
+                        .attr("alt", nameSurname)
+                        .attr("title", nameSurname)
+                        .attr("class", "communityMemberPic")
+                        .attr("src", photoLink)
+                        .attr("width", "40")
+                        .attr("height", "40")
+                        .attr("onclick", "DESIGN.ViewUser(" + data[i].user.userId + ");")
+                    );
+                tr.appendChild(td_name); 
+				tr.appendChild(td_user); 
+				table.appendChild(tr);  
+				
+				if(i== data.length-1){
+	                $("#attendants").append(
+	                    $("<li>").append(
+	                        $("<a>").attr("class","related-post-item-title").attr("title","See All").attr("href","#").attr("onclick","$('#divAttendantsList').show(); GUI_HELPER.OPENWINDOW('divAttendantsList','Attendant List');").append("See All")
 	                    ) 
 	                );
                 }
