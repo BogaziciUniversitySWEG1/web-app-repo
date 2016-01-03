@@ -197,6 +197,7 @@ public class MeetingController {
 		}
 		//update attendants
 		madao.deleteMeetingAttendants(mom.getMeetingId());
+
 		madao.saveMeetingAttendants(maList);
 		
 		//update meetingnotes

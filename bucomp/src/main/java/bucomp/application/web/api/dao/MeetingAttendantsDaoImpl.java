@@ -14,12 +14,12 @@ public class MeetingAttendantsDaoImpl implements MeetingAttendantsDao {
 	@Override
 	public void saveMeetingAttendants(List<Meetingattendant> meetingAttendants) {
 		EntityTransaction etx = null;
+		etx = dbService.getEntitymanager().getTransaction();
+		etx.begin();
 		try {
 			for (Iterator<Meetingattendant> iterator = meetingAttendants
 					.iterator(); iterator.hasNext();) {
 				Meetingattendant ma = iterator.next();
-				etx = dbService.getEntitymanager().getTransaction();
-				etx.begin();
 				dbService.getEntitymanager().persist(ma);
 				dbService.getEntitymanager().flush();
 			}
