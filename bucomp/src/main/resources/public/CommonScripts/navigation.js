@@ -5,7 +5,9 @@ jQuery(document).ready(function ($) {
     $(window).on('load', CreateHeader);
     $(window).on('load', CreateMenu);
     $(window).on('load', navMenu);
-    GetUserInfo(userId, FillUserInfo, null);
+    if(userId != "") {
+        GetUserInfo(userId, FillUserInfo, null);
+    }
 });
 
 function CreateHeader() {
