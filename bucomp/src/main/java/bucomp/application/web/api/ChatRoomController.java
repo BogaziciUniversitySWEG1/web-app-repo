@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import bucomp.application.chatroom.ChatRoom;
 import bucomp.application.model.User;
+import bucomp.application.web.api.dao.MeetingDao;
+import bucomp.application.web.api.dao.MeetingDaoImpl;
 import bucomp.application.web.api.dao.UserDao;
 import bucomp.application.web.api.dao.UserDaoImpl;
 
@@ -25,6 +27,7 @@ public class ChatRoomController {
 	private Map<Integer,ChatRoom> chatRooms = new HashMap<Integer, ChatRoom>();
 	
 	UserDao udao = new UserDaoImpl();
+	MeetingDao mdao = new MeetingDaoImpl();
 	
 	/**
 	 * This method enables a user to open a chat room for a meeting.
@@ -86,6 +89,7 @@ public class ChatRoomController {
 	public boolean closeChatRoom(
 			@RequestParam(value = "userId") int userId,
 			@RequestParam(value = "meetingId") int meetingId) {
+		mdao.updateMeetingStatus(meetingId, 2);
 		chatRooms.remove(meetingId);
 		return true;
 	}
