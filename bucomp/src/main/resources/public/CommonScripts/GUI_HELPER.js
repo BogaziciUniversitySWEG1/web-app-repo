@@ -234,7 +234,7 @@
         NOU: function (_item) {
             //NULL OR UNDEFINED KONTROLU YAPAR.
             try {
-                if (_item != null && _item != undefined) {
+                if (_item != null && _item != undefined  && _item != NaN) {
                     return true;
                 }
                 else {

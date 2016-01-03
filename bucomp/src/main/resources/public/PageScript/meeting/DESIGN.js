@@ -160,11 +160,21 @@
                 	var communityId = GetQueryStringValue("cid");
                     var userId = GetQueryStringValue("uid"); 
                     var meetingId = GetQueryStringValue("mid"); 
-	            	$("#resourceuplaodformframe").contents().find("#hiddenuiforresource").val(userId);
-	            	$("#resourceuplaodformframe").contents().find("#hiddenciforresource").val(communityId); 
-	            	$("#resourceuplaodformframe").contents().find("#hiddenmiforresource").val(meetingId);  
+                    if(userId>0){
+
+                    	$("#btnAddResource").attr("style","display:block;"); 
+                    	$("#resourceuplaodformframe").contents().find("#hiddenuiforresource").val(userId);
+    	            	$("#resourceuplaodformframe").contents().find("#hiddenciforresource").val(communityId); 
+    	            	$("#resourceuplaodformframe").contents().find("#hiddenmiforresource").val(meetingId); 
+                    }	
+                    else{
+                    	$("#btnAddResource").attr("style","display:none;"); 
+                    }
+
+	            	 
 	            	SP_BANK.GetMeetingResources(meetingId, DESIGN.FillMeetingResources, GUI_HELPER.SERVICE_CALLBACK_ERR);
-	            },1000);
+                
+                },1000);
 	    	},2000);
             	
 		}, 
@@ -205,8 +215,9 @@
 			table.appendChild(thead);
 			
             for(var i=0; i< data.length; i++) { 
-                var _link =data[i].link.replace("target/classes/public/","");
+               
                 var _name =data[i].name;
+                userId = data[i].userId;
                 var _link="api/resources/download?mid="+meetingId+"&cid="+communityId+"&uid="+userId+"&fileName="+_name;
                 if(i<3){
 	                $("#resourceList").append(
@@ -222,18 +233,9 @@
                 var td_user=  document.createElement('td');  
                 var td_user_profile=  document.createElement('td'); 
                 
-            	for(var j =0; j< GLOBALS.Members.length; j++){ 
-            		if( GLOBALS.Members[j] != null && GLOBALS.Members[j].userId == data[i].userId){ 
-                        var nameSurname = "";//GLOBALS.Members[j].user.name + " " + GLOBALS.Members[j].user.surname; 
-                        //var photoLink= "/file-repository/users/"+GLOBALS.Members[j].user.userId+"/"+GLOBALS.Members[j].user.photoLink;
-                        //var photoLink="api/resources/download?uid="+GLOBALS.Members[j].userId+"&fileName="+GLOBALS.Members[j].user.photoLink;
-                        //td_user_profile.innerHTML= nameSurname ; 
-                        td_user.innerHTML="<span style='cursor:pointer;' onclick='DESIGN.ViewUser(" + GLOBALS.Members[j].userId + ");'>See User</span>"; 
-                        
-            		}
-					
-				}		
-                	
+            	 
+                td_user.innerHTML="<span style='cursor:pointer;' onclick='DESIGN.ViewUser(" +  data[i].userId+ ");'>See User</span>"; 
+                         
                  
 
                 var td_link=  document.createElement('td');

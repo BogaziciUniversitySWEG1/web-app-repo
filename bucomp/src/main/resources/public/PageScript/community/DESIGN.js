@@ -141,6 +141,7 @@
             for(var i=0; i< data.length; i++) { 
                 var _link =data[i].link.replace("target/classes/public/","");
                 var _name =data[i].name;
+                userId = data[i].userId;
                 var _link="api/resources/download?cid="+communityId+"&uid="+userId+"&fileName="+_name;
                 if(i<3){
 	                $("#resourceList").append(
