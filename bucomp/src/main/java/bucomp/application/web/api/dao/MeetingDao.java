@@ -25,5 +25,7 @@ public interface MeetingDao {
 	List<Meeting> getActiveAndOngoingMeetings();
 
 	int updateMeetingStatus(int meetingId, int status);
+	
+	public void updateMeetingNote(Integer meetingId, String meetingNote);
 
 }

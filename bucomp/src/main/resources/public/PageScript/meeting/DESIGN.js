@@ -14,8 +14,6 @@
         },
         FillContent: function(data) {
         	GLOBALS.Members=data.inviteeList;
-        	GLOBALS.Attendants=data.meetingattendants;
-        	DESIGN.FILL_MEETING_ATTENDANTS(GLOBALS.Attendants);
         	DESIGN.addResource();
             var startDate = new Date(data.startTime);
             var startStr = GUI_HELPER.GetDayName(startDate.getDay()) + ", " 
@@ -43,27 +41,28 @@
             if(data.meetingTypeId == 1) {
                 $("#lblLocation").html("online meeting");
             }
-           else if(data.meetingTypeId == 2) {
+            else if(data.meetingTypeId == 2) {
                $("#lblLocationHeader").html("IRC Link")
                $("#lblLocation").append(
                    $("<a>").attr("href", data.irclink).attr("target","_blank").append(data.irclink)
                );
                //$("#lblLocation").html(data.irclink);
-           }
-           else if(data.meetingTypeId == 3) {
+            }
+            else if(data.meetingTypeId == 3) {
                $("#lblLocation").html(data.location);
-           }
-           else if(data.meetingTypeId ==4) {
+            }
+            else if(data.meetingTypeId ==4) {
                $("#lblLocation").html(data.location);
-           }
-            //$("#lblLocation").html(data.location);
+            }
             
             if(data.status == 0) {
                 $("#spnStatus").html("Status: Upcoming");
             } else if(data.status == 1) {
                 $("#spnStatus").html("Status: Ongoing");
+                $("#btnMom").show();
             } else if(data.status == 2) {
                 $("#spnStatus").html("Status: Finished");
+                $("#btnMom").show();
             } else if(data.status == 3) {
                 $("#spnStatus").html("Status: Cancelled");
             }
@@ -74,6 +73,7 @@
             
             GetUserInfo(data.meetingOrganizerUserId, DESIGN.FillOrganizerInfo, null);
             SP_BANK.GetMeetingPosts(GLOBALS.MeetingId, DESIGN.FillMeetingPosts, null);
+            SP_BANK.GetMeetingAttendants(GLOBALS.MeetingId, DESIGN.FillAttendants, null);
         },
         FillContentError: function(data) {
             alert(data);
@@ -261,80 +261,34 @@
             window.open( window.location.origin+"/ViewProfile.html?uid=" + uid + "&vid=" + userId);
             //window.location = "ViewProfile.html?uid=" + uid + "&vid=" + userId;
         }, 
-        FILL_MEETING_ATTENDANTS: function(data) {
-
+        FillAttendants: function(data) {
             $("#attendants").html("");
-            if(!GUI_HELPER.NOU(data) || data.length==0 ) {
-                return;
-            } 
-            var communityId = GetQueryStringValue("cid");
-            var userId = GetQueryStringValue("uid");
-            var meetingId = GetQueryStringValue("mid");
-            
-            
-            var table= document.getElementById('tblAttendantsList');
-			table.innerHTML = "";
-			
-			var thead= document.createElement('thead');
-			
-			var th1= document.createElement('th');
-			th1.innerHTML="Attendant Name"; 
-			
-			var th3= document.createElement('th');
-			th3.innerHTML="User Profile";
-			
-			
-			thead.appendChild(th1);  
-			thead.appendChild(th3);  
-			table.appendChild(thead);
-			
-            for(var i=0; i< data.length; i++) { 
-			   var nameSurname = data[i].user.name + " " + data[i].user.surname; 
-			   var photoLink="api/resources/download?uid="+data[i].user.userId+"&fileName="+data[i].user.photoLink; 
-			   if(data[i].user.photoLink == null){ 
-			       photoLink = "images/man-icon.png";
-			   } 
-                if(i<3){ 
-	                $("#attendants").append(
-                            $("<li>").append(
-                                $("<img>")
-                                .attr("alt", nameSurname)
-                                .attr("title", nameSurname)
-                                .attr("class", "communityMemberPic")
-                                .attr("src", photoLink)
-                                .attr("width", "40")
-                                .attr("height", "40")
-                                .attr("onclick", "DESIGN.ViewUser(" + data[i].user.userId + ");")
+            if(data != null) {
+                for(var i=0; i<data.length; i++) {
+                    var nameSurname = data[i].user.name + " " + data[i].user.surname; 
+                    var photoLink="api/resources/download?uid="+data[i].user.userId+"&fileName="+data[i].user.photoLink;
+                    var url="";
+                    $("#attendants").append(
+                        $("<li>").append(
+                            $("<div>").attr("class","item-content").append(
+                                $("<div>").attr("class","item-snippet").append(
+                                    $("<img>").attr("src", photoLink)
+                                ).append(
+                                    $("<a>").attr("onclick", "DESIGN.ViewUser(" + data[i].user.userId + ")").append(nameSurname)
+                                )
                             )
-                        );
-                }
-                var tr= document.createElement('tr');
-                var td_name=  document.createElement('td');
-                td_name.innerHTML= nameSurname ; 
-                
-                var td_user=  document.createElement('td');   
-                td_user.append(
-                        $("<img>")
-                        .attr("alt", nameSurname)
-                        .attr("title", nameSurname)
-                        .attr("class", "communityMemberPic")
-                        .attr("src", photoLink)
-                        .attr("width", "40")
-                        .attr("height", "40")
-                        .attr("onclick", "DESIGN.ViewUser(" + data[i].user.userId + ");")
+                        )
                     );
-                tr.appendChild(td_name); 
-				tr.appendChild(td_user); 
-				table.appendChild(tr);  
-				
-				if(i== data.length-1){
-	                $("#attendants").append(
-	                    $("<li>").append(
-	                        $("<a>").attr("class","related-post-item-title").attr("title","See All").attr("href","#").attr("onclick","$('#divAttendantsList').show(); GUI_HELPER.OPENWINDOW('divAttendantsList','Attendant List');").append("See All")
-	                    ) 
-	                );
                 }
             }
+        },
+        ViewUser: function (userId) {
+            var uid = GetQueryStringValue("uid");
+            window.open( window.location.origin+"/ViewProfile.html?uid=" + uid + "&vid=" + userId);
+        },
+        RedirectToMom: function() {
+            var url = "mom.html?uid=" + GLOBALS.UserId + "&cid=" + GLOBALS.CommunityId + "&mid=" + GLOBALS.MeetingId;
+            window.location = url;
         }
     } 
     if (!window.DESIGN) { window.DESIGN = DESIGN; }

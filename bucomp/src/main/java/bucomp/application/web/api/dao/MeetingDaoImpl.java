@@ -119,7 +119,6 @@ public class MeetingDaoImpl implements MeetingDao {
 			etx.begin();
 			existingMeeting.setIRCLink(m.getIRCLink());
 			existingMeeting.setLocation(m.getLocation());
-			existingMeeting.setMeetingattendants(m.getMeetingattendants());
 			existingMeeting.setMeetingroles(m.getMeetingroles());
 			//existingMeeting.setMeetingtype(m.getMeetingtype());
 			existingMeeting.setTimeZone(m.getTimeZone());
@@ -197,6 +196,23 @@ public class MeetingDaoImpl implements MeetingDao {
 				etx.rollback();
 			return null;
 		}
+	}
+
+	@Override
+	public void updateMeetingNote(Integer meetingId, String meetingnote) {
+		Meeting m = getMeetingById(meetingId);
+		EntityTransaction etx = null;
+		try {
+			etx = dbService.getEntitymanager().getTransaction();
+			etx.begin();
+			m.setMeetingnote(meetingnote);
+			etx.commit();
+		} catch (Exception e) {
+			e.printStackTrace();
+			if (etx != null)
+				etx.rollback();
+		}
+		
 	}
 
 }

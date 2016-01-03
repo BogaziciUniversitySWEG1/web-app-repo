@@ -179,7 +179,7 @@ public class CommunityController {
 			text.append("You are invited to a community created by " + community.getUser().getName() + " " + community.getUser().getSurname());
 			text.append("<br>Community Title : " + community.getTitle()); 
 			text.append("<br>Description : " + community.getDescription());
-			text.append("<br>You can see the community details <a href=\"http://localhost:8080/community.html?cid=" + community.getCommunityId() + "\">here</a>");
+			text.append("<br>You can see the community details <a href=\"http://54.211.68.153:8080/community.html?cid=" + community.getCommunityId() + "\">here</a>");
 			text.append("<br></body></html>");
 			smtpMailSender.send(emailAddress, "[PROJECT.BUCOMP] - Community Offer", text.toString());
 		}

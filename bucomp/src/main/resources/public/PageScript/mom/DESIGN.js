@@ -8,11 +8,12 @@
             GLOBALS.UserId = GetQueryStringValue("uid");
             GLOBALS.CommunityId = GetQueryStringValue("cid");
             GLOBALS.MeetingId = GetQueryStringValue("mid");
+            GLOBALS.Attendants= new Array();
             SP_BANK.GetMeeting(GLOBALS.MeetingId, DESIGN.FillContent, DESIGN.FillContentError);
         },
         FillContent: function(data) {
         	GLOBALS.Members=data.inviteeList;
-        	GLOBALS.Attendants=data.meetingattendants;
+        	//GLOBALS.Attendants=data.meetingattendants;
         	DESIGN.FILL_MEETING_ATTENDANTS(GLOBALS.Attendants);
         	DESIGN.addResource();
             var startDate = new Date(data.startTime);

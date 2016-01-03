@@ -56,10 +56,6 @@ public class Meeting implements Serializable {
 	
 	private String subject;
 
-	//bi-directional many-to-one association to Meetingattendant
-	@OneToMany(mappedBy="meeting")
-	private List<Meetingattendant> meetingattendants;
-
 	private String meetingnote;
 
 	//bi-directional many-to-one association to Meetingrole
@@ -111,28 +107,6 @@ public class Meeting implements Serializable {
 
 	public void setTimeZone(String timeZone) {
 		this.timeZone = timeZone;
-	}
-
-	public List<Meetingattendant> getMeetingattendants() {
-		return this.meetingattendants;
-	}
-
-	public void setMeetingattendants(List<Meetingattendant> meetingattendants) {
-		this.meetingattendants = meetingattendants;
-	}
-
-	public Meetingattendant addMeetingattendant(Meetingattendant meetingattendant) {
-		getMeetingattendants().add(meetingattendant);
-		meetingattendant.setMeeting(this);
-
-		return meetingattendant;
-	}
-
-	public Meetingattendant removeMeetingattendant(Meetingattendant meetingattendant) {
-		getMeetingattendants().remove(meetingattendant);
-		meetingattendant.setMeeting(null);
-
-		return meetingattendant;
 	}
 
 	public List<Meetingrole> getMeetingroles() {
