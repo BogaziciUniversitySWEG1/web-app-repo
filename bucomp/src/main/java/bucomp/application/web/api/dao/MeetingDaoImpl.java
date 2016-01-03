@@ -3,7 +3,6 @@ package bucomp.application.web.api.dao;
 import java.util.List;
 
 import javax.persistence.EntityTransaction;
-import javax.persistence.Query;
 
 import bucomp.application.model.Meeting;
 
@@ -51,6 +50,7 @@ public class MeetingDaoImpl implements MeetingDao {
 	@Override
 	public Meeting getMeetingById(Integer meetingId) {
 		try {
+			dbService.getEntitymanager().clear();
 			return dbService.getEntitymanager().find(Meeting.class, meetingId);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -134,16 +134,14 @@ public class MeetingDaoImpl implements MeetingDao {
 	
 	@Override
 	public int updateMeetingStatus(int meetingId, int status) {
+		Meeting m = getMeetingById(meetingId);
 		EntityTransaction etx = null;
 		try {
 			etx = dbService.getEntitymanager().getTransaction();
 			etx.begin();
-			Query query = dbService.getEntitymanager().createQuery("Update Meeting m SET m.status = :status where m.meetingId=:meetingId");
-			query.setParameter("status", status);
-			query.setParameter("meetingId", meetingId);
-			int updateCount = query.executeUpdate();
+			m.setStatus(status);
 			etx.commit();
-			return updateCount;
+			return 1;
 		} catch (Exception e) {
 			e.printStackTrace();
 			if (etx != null)
