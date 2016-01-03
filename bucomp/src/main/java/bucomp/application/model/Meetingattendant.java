@@ -21,7 +21,9 @@ public class Meetingattendant implements Serializable {
 
 	private int meetingId;
 
-	private int userId;
+	@ManyToOne
+	@JoinColumn(name = "UserId")
+	private User user;
 
 	public Meetingattendant() {
 	}
@@ -42,13 +44,12 @@ public class Meetingattendant implements Serializable {
 		this.meetingId = meetingId;
 	}
 
-	public int getUserId() {
-		return userId;
+	public User getUser() {
+		return user;
 	}
 
-	public void setUserId(int userId) {
-		this.userId = userId;
+	public void setUser(User user) {
+		this.user = user;
 	}
-
 
 }

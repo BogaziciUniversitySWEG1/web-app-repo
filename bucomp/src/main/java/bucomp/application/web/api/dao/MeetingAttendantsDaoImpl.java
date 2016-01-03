@@ -4,7 +4,6 @@ import java.util.Iterator;
 import java.util.List;
 
 import javax.persistence.EntityTransaction;
-import javax.persistence.Query;
 
 import bucomp.application.model.Meetingattendant;
 
@@ -36,14 +35,19 @@ public class MeetingAttendantsDaoImpl implements MeetingAttendantsDao {
 
 	@Override
 	public int deleteMeetingAttendants(Integer meetingId) {
+		
+		EntityTransaction etx = null;
+		int result=0;
 		try {
-			Query query = dbService.getEntitymanager().createQuery(
-				      "DELETE FROM Meetingattendant m WHERE m.meetingId = " + meetingId);
-			return query.executeUpdate();
+			etx = dbService.getEntitymanager().getTransaction();
+			etx.begin();
+			result = dbService.getEntitymanager().createQuery("DELETE FROM Meetingattendant m WHERE m.meetingId = " + meetingId).executeUpdate();
+			etx.commit();
 		} catch (Exception e) {
 			e.printStackTrace();
 			return 0;
 		}
+		return result;
 	}
 
 	@SuppressWarnings("unchecked")

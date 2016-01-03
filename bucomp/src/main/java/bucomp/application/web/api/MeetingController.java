@@ -191,7 +191,8 @@ public class MeetingController {
 		List<Meetingattendant> maList = new ArrayList<Meetingattendant>();
 		for (Iterator<Integer> iterator = mom.getAttendants().iterator(); iterator.hasNext();) {
 			Meetingattendant ma = new Meetingattendant();
-			ma.setUserId(iterator.next());
+			ma.setUser(udao.getUserById(iterator.next()));
+			ma.setMeetingId(mom.getMeetingId());
 			maList.add(ma);
 		}
 		//update attendants
