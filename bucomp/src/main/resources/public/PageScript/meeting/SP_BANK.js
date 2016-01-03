@@ -116,6 +116,33 @@
                     callback_err(err);
                 }
             }
+        }, 
+        GetMeetingResources: function (meetingid, callback, callback_err) {
+            try { 
+                $.ajax({
+                    type: "GET",
+                    url: "/api/meetings/resources/" + meetingid, 
+					contentType: "application/json; charset=utf-8", 
+                    success: function (msg) {
+                      	if (msg == null) {
+                            callback(null);
+                        }
+                        else if (GUI_HELPER.NOU(msg.status)) {
+                            callback_err(msg.status, 'GetMeetingResources');
+                        }
+                        else {
+                            var _data = eval(msg);
+                            callback(_data);
+                        }
+                    },
+                    error: function (msg) {
+                        callback_err(msg.status, 'GetMeetingResources Fails. Reason: ' + (msg.statusText));
+                    }
+                });
+            }
+            catch (err) {
+                 callback_err(-2, 'GetMeetingResources Fails. Reason: ' + err.Description);
+            }
         }
     }
     if (!window.SP_BANK) { window.SP_BANK = SP_BANK; }

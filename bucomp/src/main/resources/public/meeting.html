@@ -95,6 +95,20 @@
                     <div class="widget PopularPosts" id="PopularPosts1">
                         <input type="button" id="btnJoin" value="Join Meeting" class="submit-search" onclick="DESIGN.JoinMeeting();" style="display:none;" />
                     </div>
+                     <div class="widget PopularPosts" id="PopularPosts5">
+                         <div  id="btnAddResource">
+	                            <iframe id="resourceuplaodformframe" src="/uploadresource.html" style="width: 100%;height: 100px;border: none;overflow: hidden;">
+	                             </iframe>
+	                       </div>
+					 </div>
+                    <div class="widget PopularPosts" id="PopularPosts2">
+                        <h2>Resources</h2>
+                        <div class="widget-content popular-posts">
+                            <ul id="resourceList">
+                            </ul>
+                            <div class="clear"></div>
+                        </div>
+                    </div>
                     <div class="widget PopularPosts" id="PopularPosts7">
                         <h2>
                             <span id="spnStatus"></span>
@@ -193,6 +207,13 @@
             </div><!-- .site-info -->
         </footer>
         <!-- #colophon -->
+    </div>
+    <div id="divResourceList" style="display:none; width:400px; top:100px;">
+        <div class="post-body entry-content"> 	
+            <div class="form-group">
+                <table id="tblResourceList"></table>
+            </div> 
+        </div>
     </div>
     <!-- #page -->
     <script type="text/javascript">
