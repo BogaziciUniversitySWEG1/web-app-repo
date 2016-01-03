@@ -12,8 +12,6 @@ import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import bucomp.application.chatroom.ChatRoom;
-
 /**
  * The persistent class for the users database table.
  * 
@@ -53,10 +51,6 @@ public class User implements Serializable {
 	// bi-directional many-to-one association to Communityoffer
 	@OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
 	private List<Communityoffer> communityoffers;
-
-	// bi-directional many-to-one association to Meetingattendant
-	@OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
-	private List<Meetingattendant> meetingattendants;
 
 	// bi-directional many-to-one association to Userrole
 	@OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
@@ -157,30 +151,6 @@ public class User implements Serializable {
 		communityoffer.setUser(null);
 
 		return communityoffer;
-	}
-
-	public List<Meetingattendant> getMeetingattendants() {
-		return this.meetingattendants;
-	}
-
-	public void setMeetingattendants(List<Meetingattendant> meetingattendants) {
-		this.meetingattendants = meetingattendants;
-	}
-
-	public Meetingattendant addMeetingattendant(
-			Meetingattendant meetingattendant) {
-		getMeetingattendants().add(meetingattendant);
-		meetingattendant.setUser(this);
-
-		return meetingattendant;
-	}
-
-	public Meetingattendant removeMeetingattendant(
-			Meetingattendant meetingattendant) {
-		getMeetingattendants().remove(meetingattendant);
-		meetingattendant.setUser(null);
-
-		return meetingattendant;
 	}
 
 	public List<Userrole> getUserroles() {

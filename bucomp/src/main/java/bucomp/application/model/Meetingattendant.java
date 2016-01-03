@@ -1,6 +1,7 @@
 package bucomp.application.model;
 
 import java.io.Serializable;
+
 import javax.persistence.*;
 
 
@@ -15,17 +16,12 @@ public class Meetingattendant implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int meetingAttendantId;
 
-	//bi-directional many-to-one association to Meeting
-	@ManyToOne
-	@JoinColumn(name="MeetingId")
-	private Meeting meeting;
+	private int meetingId;
 
-	//bi-directional many-to-one association to User
-	@ManyToOne
-	@JoinColumn(name="UserId")
-	private User user;
+	private int userId;
 
 	public Meetingattendant() {
 	}
@@ -38,20 +34,21 @@ public class Meetingattendant implements Serializable {
 		this.meetingAttendantId = meetingAttendantId;
 	}
 
-	public Meeting getMeeting() {
-		return this.meeting;
+	public int getMeetingId() {
+		return meetingId;
 	}
 
-	public void setMeeting(Meeting meeting) {
-		this.meeting = meeting;
+	public void setMeetingId(int meetingId) {
+		this.meetingId = meetingId;
 	}
 
-	public User getUser() {
-		return this.user;
+	public int getUserId() {
+		return userId;
 	}
 
-	public void setUser(User user) {
-		this.user = user;
+	public void setUserId(int userId) {
+		this.userId = userId;
 	}
+
 
 }

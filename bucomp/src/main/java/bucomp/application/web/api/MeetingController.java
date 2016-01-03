@@ -1,6 +1,7 @@
 package bucomp.application.web.api;
 
 import java.text.ParseException;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 import java.util.Iterator;
@@ -18,12 +19,16 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import bucomp.application.mail.SMTPMailSender;
+import bucomp.application.model.MOM;
 import bucomp.application.model.Meeting;
 import bucomp.application.model.MeetingInvitee;
+import bucomp.application.model.Meetingattendant;
 import bucomp.application.model.Resource;
 import bucomp.application.model.User;
 import bucomp.application.web.api.dao.CommunityDao;
 import bucomp.application.web.api.dao.CommunityDaoImpl;
+import bucomp.application.web.api.dao.MeetingAttendantsDao;
+import bucomp.application.web.api.dao.MeetingAttendantsDaoImpl;
 import bucomp.application.web.api.dao.MeetingDao;
 import bucomp.application.web.api.dao.MeetingDaoImpl;
 import bucomp.application.web.api.dao.MeetingInviteeDao;
@@ -41,6 +46,8 @@ public class MeetingController {
 
 	private MeetingDao meetingDao = new MeetingDaoImpl();
 	private MeetingInviteeDao midao = new MeetingInviteeDaoImpl();
+	private MeetingAttendantsDao madao = new MeetingAttendantsDaoImpl();
+	
 	private UserDao udao = new UserDaoImpl();
 	private CommunityDao cdao = new CommunityDaoImpl();
 	private ResourceDao rdao = new ResourceDaoImpl();
@@ -166,5 +173,36 @@ public class MeetingController {
 		}
 		return new ResponseEntity<Collection<Resource>>(resources, HttpStatus.OK);
 	}
+	
+	@RequestMapping(value = "/api/meeting/attendants/{meetingId}", 
+			method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<Collection<Meetingattendant>> getMeetingAttendants(
+			@PathVariable("meetingId") Integer meetingId) {
+		Collection<Meetingattendant> attendants = madao.getMeetingAttendants(meetingId);
+		if (attendants == null || attendants.size() == 0) {
+			return new ResponseEntity<Collection<Meetingattendant>>(attendants, HttpStatus.NO_CONTENT);
+		}
+		return new ResponseEntity<Collection<Meetingattendant>>(attendants, HttpStatus.OK);
+	}
+	
+	@RequestMapping(value = "/api/meetings/mom", method = RequestMethod.POST, 
+			consumes = MediaType.APPLICATION_JSON_VALUE)
+	public void  saveMOM(@RequestBody MOM mom) throws ParseException {
+		List<Meetingattendant> maList = new ArrayList<Meetingattendant>();
+		for (Iterator<Integer> iterator = mom.getAttendants().iterator(); iterator.hasNext();) {
+			Meetingattendant ma = new Meetingattendant();
+			ma.setUserId(iterator.next());
+			maList.add(ma);
+		}
+		//update attendants
+		madao.deleteMeetingAttendants(mom.getMeetingId());
+		madao.saveMeetingAttendants(maList);
+		
+		//update meetingnotes
+		meetingDao.updateMeetingNote(mom.getMeetingId(), mom.getMeetingNote());
+		
+	}
+	
+	
 
 }
