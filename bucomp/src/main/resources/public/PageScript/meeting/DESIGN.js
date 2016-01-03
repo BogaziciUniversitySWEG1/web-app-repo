@@ -272,7 +272,7 @@
                         $("<li>").append(
                             $("<div>").attr("class","item-content").append(
                                 $("<div>").attr("class","item-snippet").append(
-                                    $("<img>").attr("src", photoLink)
+                                    $("<img>").attr("src", photoLink).attr("style", "width:40px;")
                                 ).append(
                                     $("<a>").attr("onclick", "DESIGN.ViewUser(" + data[i].user.userId + ")").append(nameSurname)
                                 )

@@ -11,10 +11,10 @@
             GLOBALS.Attendants= new Array();
             SP_BANK.GetMeeting(GLOBALS.MeetingId, DESIGN.FillContent, DESIGN.FillContentError);
         },
-        FillContent: function(data) {
-        	GLOBALS.Members=data.inviteeList;
+        FillContent: function(data) { 
+        	DESIGN.FILL_MEETING_INVITEES(data.inviteeList);
         	//GLOBALS.Attendants=data.meetingattendants;
-        	DESIGN.FILL_MEETING_ATTENDANTS(GLOBALS.Attendants);
+        	//DESIGN.FILL_MEETING_ATTENDANTS(GLOBALS.Attendants);
         	DESIGN.addResource();
             var startDate = new Date(data.startTime);
             var startStr = GUI_HELPER.GetDayName(startDate.getDay()) + ", " 
@@ -66,7 +66,7 @@
             }
 
             GetUserInfo(data.meetingOrganizerUserId, DESIGN.FillOrganizerInfo, null);
-            SP_BANK.GetMeetingMoms(GLOBALS.MeetingId, DESIGN.FillMeetingMoms, null);
+            //SP_BANK.GetMeetingMoms(GLOBALS.MeetingId, DESIGN.FillMeetingMoms, null);
             SP_BANK.GetMeetingPosts(GLOBALS.MeetingId, DESIGN.FillMeetingPosts, null);
         },
         FillContentError: function(data) {
@@ -315,7 +315,88 @@
 	                );
                 }
             }
+        },
+	    FILL_MEETING_INVITEES:function(data){
+	    	if(data != null && data.length > 0)
+	    	{
+	    		for(var i =0; i<data.length ; i++)
+	    		{
+	    			
+	    			if(i==data.length-1)
+	    				SP_BANK.GetUsers(data[i].userId,DESIGN.ADD_USER_FINAL,GUI_HELPER.SERVICE_CALLBACK_ERR);
+	    			else
+	    				SP_BANK.GetUsers(data[i].userId,DESIGN.ADD_USER,GUI_HELPER.SERVICE_CALLBACK_ERR);
+	    		}
+	    	}
+	    },
+        ADD_USER:function(data){
+	    	if(data != null)
+	    	{
+	    		GLOBALS.Members.push({'label':data.userId,'value':data.email}); 
+	    	}
+	    },
+	    ADD_USER_FINAL:function(data){
+	    	if(data != null)
+	    	{
+	    		GLOBALS.Members.push({'label':data.userId,'value':data.email}); 
+	    	}
+	    	
+	    	$('#txtAllmembers').combobox({
+   			 valueField: 'label',
+   			 textField: 'value',
+   			 data:GLOBALS.Members,
+   			 onSelect: function(rec){
+   		            var email =  rec.value;
+   		            var userid =  rec.label; 
+   		            DESIGN.ADD_ATTENDANTS(userid,email);
+   		        }
+	    	});
+	    },
+	    ADD_ATTENDANTS:function(userid,email){
+        	try{ 
+        		GLOBALS.AttendantsList[userid]=email;
+        		var invitedMembersContent = ""; 
+        		GLOBALS.Attendants=[];
+                for(var i = 0; i< GLOBALS.AttendantsList.length; i++){
+                	if(GUI_HELPER.NOU(GLOBALS.AttendantsList[i])){
+                		invitedMembersContent = invitedMembersContent + "<img src='images/Delete.png' onclick='DESIGN.REMOVE_INVITEES(" + i+ ");' width='16' />";
+                		invitedMembersContent = invitedMembersContent + "<a rel='tag'>" + GLOBALS.AttendantsList[i] + "</a>";
+                		GLOBALS.Attendants.push(i)
+                	}
+                	if(i==GLOBALS.AttendantsList.length-1){ 
+                    	invitedMembersContent = invitedMembersContent + ", ";
+                    	$("#invitedMembersSpan").html(invitedMembersContent);
+                    }
+	                    
+                }
+                 
+        	} catch (err) {
+                GUI_HELPER.ALERT('Warning', err, GUI_HELPER.ERROR);
+            }
+        	
+        },
+        REMOVE_INVITEES:function(userid){
+        	try{
+        		GLOBALS.AttendantsList.splice(userid,1);
+        		var invitedMembersContent = "";
+        		$("#invitedMembersSpan").html(invitedMembersContent);
+                for(var i = 0; i< GLOBALS.AttendantsList.length; i++){
+                	if(GUI_HELPER.NOU(GLOBALS.AttendantsList[i])){
+                		invitedMembersContent = invitedMembersContent + "<img src='images/Delete.png' onclick='DESIGN.REMOVE_INVITEES(" + i+ ");' width='16' />";
+                		invitedMembersContent = invitedMembersContent + "<a rel='tag'>" + GLOBALS.AttendantsList[i] + "</a>";
+                	}
+                	if(i==GLOBALS.AttendantsList.length-1){
+                    	invitedMembersContent = invitedMembersContent + ", ";
+                    	$("#invitedMembersSpan").html(invitedMembersContent);
+                    }
+	                    
+                }
+        	} catch (err) {
+                GUI_HELPER.ALERT('Warning', err, GUI_HELPER.ERROR);
+            }
+        	
         }
+    
     } 
     if (!window.DESIGN) { window.DESIGN = DESIGN; }
 })();

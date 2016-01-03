@@ -3,8 +3,9 @@
         UserId: null,
         CommunityId: null,
         MeetingId: null,
-        Members:null,
-        Attendants:null
+        Members:new Array(),
+        Attendants:new Array(),
+        AttendantsList:new Array()
     }
     if (!window.GLOBALS) { window.GLOBALS = GLOBALS; }
 })();

@@ -23,6 +23,7 @@ public class MeetingInvitee implements Serializable {
 	private int meetingId;
 	
 	private int userId;
+	  
 	
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date inviteSentDate;
@@ -56,6 +57,7 @@ public class MeetingInvitee implements Serializable {
 	public int getUserId() {
 		return userId;
 	}
+	 
 
 	public void setUserId(int userId) {
 		this.userId = userId;
