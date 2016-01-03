@@ -14,6 +14,7 @@ public class CommunityDaoImpl implements CommunityDao {
 
 	@Override
 	public int getCommunityCount() {
+		dbService.getEntitymanager().clear();
 		return getAllCommunities("SORT_BY_CREATION_DATE").size();
 	}
 
@@ -22,6 +23,7 @@ public class CommunityDaoImpl implements CommunityDao {
 	public Collection<Community> getAllCommunities(String sortType) {
 		EntityTransaction etx = null;
 		try {
+			dbService.getEntitymanager().clear();
 			etx = dbService.getEntitymanager().getTransaction();
 			etx.begin();
 			
@@ -51,6 +53,7 @@ public class CommunityDaoImpl implements CommunityDao {
 	public Collection<Community> getUserCommunities(int userId, String sortType) {
 		EntityTransaction etx = null;
 		try {
+			dbService.getEntitymanager().clear();
 			etx = dbService.getEntitymanager().getTransaction();
 			etx.begin();
 			String query = "";
@@ -74,6 +77,7 @@ public class CommunityDaoImpl implements CommunityDao {
 
 	@Override
 	public Community getCommunityById(int id) {
+		dbService.getEntitymanager().clear();
 		return dbService.getEntitymanager().find(Community.class, id);
 	}
 
@@ -157,6 +161,7 @@ public class CommunityDaoImpl implements CommunityDao {
 	public Collection<Community> searchCommunity(String key) {
 		EntityTransaction etx = null;
 		try {
+			dbService.getEntitymanager().clear();
 			etx = dbService.getEntitymanager().getTransaction();
 			etx.begin();
 			List<Community> clist = dbService.getEntitymanager()

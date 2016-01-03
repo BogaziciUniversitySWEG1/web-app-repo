@@ -16,6 +16,7 @@ public class ResourceDaoImpl implements ResourceDao {
 	public List<Resource> getCommunityResources(int communityId) {
 		EntityTransaction etx = null;
 		try {
+			dbService.getEntitymanager().clear();
 			etx = dbService.getEntitymanager().getTransaction();
 			etx.begin();
 			List<Resource> resourceList = dbService.getEntitymanager()
@@ -35,6 +36,7 @@ public class ResourceDaoImpl implements ResourceDao {
 	public List<Resource> getMeetingResources(int meetingId) {
 		EntityTransaction etx = null;
 		try {
+			dbService.getEntitymanager().clear();
 			etx = dbService.getEntitymanager().getTransaction();
 			etx.begin();
 			List<Resource> resourceList = dbService.getEntitymanager()
@@ -54,6 +56,7 @@ public class ResourceDaoImpl implements ResourceDao {
 	public List<Resource> getTopicResources(int topicId) {
 		EntityTransaction etx = null;
 		try {
+			dbService.getEntitymanager().clear();
 			etx = dbService.getEntitymanager().getTransaction();
 			etx.begin();
 			List<Resource> resourceList = dbService.getEntitymanager()

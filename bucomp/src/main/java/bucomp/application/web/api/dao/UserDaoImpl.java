@@ -38,6 +38,7 @@ public class UserDaoImpl implements UserDao {
 	@Override
 	public User getUserById(Integer userId) {
 		try {
+			dbService.getEntitymanager().clear();
 			return dbService.getEntitymanager().find(User.class, userId);
 		} catch (Exception e) {
 			return null;
@@ -49,6 +50,7 @@ public class UserDaoImpl implements UserDao {
 	public List<User> getAllUsers() {
 		EntityTransaction etx = null;
 		try {
+			dbService.getEntitymanager().clear();
 			etx = dbService.getEntitymanager().getTransaction();
 			etx.begin();
 			List<User> userList = dbService.getEntitymanager()
@@ -68,6 +70,7 @@ public class UserDaoImpl implements UserDao {
 	public Collection<User> searchUser(String key) {
 		EntityTransaction etx = null;
 		try {
+			dbService.getEntitymanager().clear();
 			etx = dbService.getEntitymanager().getTransaction();
 			etx.begin();
 			List<User> userList = dbService.getEntitymanager()
@@ -124,6 +127,7 @@ public class UserDaoImpl implements UserDao {
 	public User getUserByEmail(String email) {
 		EntityTransaction etx = null;
 		try {
+			dbService.getEntitymanager().clear();
 			etx = dbService.getEntitymanager().getTransaction();
 			etx.begin();
 			User user = (User) dbService.getEntitymanager().createQuery(

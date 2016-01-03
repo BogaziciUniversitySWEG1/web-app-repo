@@ -16,6 +16,7 @@ public class CommunityMemberDaoImpl implements CommunityMemberDao {
 	public Collection<Communitymember> getCommunityMembers(int communityId) {
 		EntityTransaction etx = null;
 		try{
+			dbService.getEntitymanager().clear();
 			etx = dbService.getEntitymanager().getTransaction();
 			etx.begin();
 			List<Communitymember> members = dbService.getEntitymanager().createQuery("SELECT c FROM Communitymember c where c.CommunityId=" + communityId).getResultList();

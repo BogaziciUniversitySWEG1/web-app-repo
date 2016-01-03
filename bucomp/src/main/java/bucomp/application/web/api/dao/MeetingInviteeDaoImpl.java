@@ -34,6 +34,7 @@ public class MeetingInviteeDaoImpl implements MeetingInviteeDao {
 	public MeetingInvitee getInviteeByMeetingAndUserId(Integer userId, Integer meetingId) {
 		EntityTransaction etx = null;
 		try {
+			dbService.getEntitymanager().clear();
 			etx = dbService.getEntitymanager().getTransaction();
 			etx.begin();
 			MeetingInvitee invitee = (MeetingInvitee) dbService.getEntitymanager().createQuery(
@@ -68,10 +69,12 @@ public class MeetingInviteeDaoImpl implements MeetingInviteeDao {
 		}
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<MeetingInvitee> getMeetingInvitees(Integer meetingId) {
 		EntityTransaction etx = null;
 		try {
+			dbService.getEntitymanager().clear();
 			etx = dbService.getEntitymanager().getTransaction();
 			etx.begin();
 			List<MeetingInvitee> inviteeList = dbService.getEntitymanager()

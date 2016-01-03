@@ -38,6 +38,7 @@ public class PostDaoImpl implements PostDao {
 	@Override
 	public Post getPostById(Integer postId) {
 		try{
+			dbService.getEntitymanager().clear();
 			return dbService.getEntitymanager().find(Post.class, postId);			
 		} catch(Exception e){
 			return null;
@@ -49,6 +50,7 @@ public class PostDaoImpl implements PostDao {
 	public List<Post> getSpecificPosts(int postTypeId, int associatedObjectId) {
 		EntityTransaction etx = null;
 		try{
+			dbService.getEntitymanager().clear();
 			etx = dbService.getEntitymanager().getTransaction();
 			etx.begin();
 			List<Post> posts = dbService.getEntitymanager().createQuery("SELECT p FROM Post p where p.postTypeId = " + postTypeId + " AND p.associatedObjectId =" + associatedObjectId).getResultList();
@@ -67,6 +69,7 @@ public class PostDaoImpl implements PostDao {
 	public List<Post> getUserPosts(int userId) {
 		EntityTransaction etx = null;
 		try{
+			dbService.getEntitymanager().clear();
 			etx = dbService.getEntitymanager().getTransaction();
 			etx.begin();
 			List<Post> posts = dbService.getEntitymanager().createQuery("SELECT p FROM Post p where p.user.userId = " + userId).getResultList();

@@ -32,6 +32,7 @@ public class TagDaoImpl implements TagDao {
 	@Override
 	public Tag getTagById(Integer tagId) {
 		try {
+			dbService.getEntitymanager().clear();
 			return dbService.getEntitymanager().find(Tag.class, tagId);
 		} catch (Exception e) {
 			return null;
@@ -42,6 +43,7 @@ public class TagDaoImpl implements TagDao {
 	public Tag getTagByName(String tagName) {
 		EntityTransaction etx = null;
 		try {
+			dbService.getEntitymanager().clear();
 			etx = dbService.getEntitymanager().getTransaction();
 			etx.begin();
 			Tag tag = (Tag) dbService
@@ -64,6 +66,7 @@ public class TagDaoImpl implements TagDao {
 	public Collection<Tag> getCommunityTags(Integer communityId) {
 		EntityTransaction etx = null;
 		try {
+			dbService.getEntitymanager().clear();
 			etx = dbService.getEntitymanager().getTransaction();
 			etx.begin();
 			List<Tag> tags = dbService
@@ -85,6 +88,7 @@ public class TagDaoImpl implements TagDao {
 	public Collection<Tag> getTopicTags(Integer topicId) {
 		EntityTransaction etx = null;
 		try {
+			dbService.getEntitymanager().clear();
 			etx = dbService.getEntitymanager().getTransaction();
 			etx.begin();
 			List<Tag> tags = dbService

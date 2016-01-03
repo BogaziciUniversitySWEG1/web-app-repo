@@ -63,6 +63,7 @@ public class MeetingDaoImpl implements MeetingDao {
 	public List<Meeting> getUserMeetings(int userId) {
 		EntityTransaction etx = null;
 		try {
+			dbService.getEntitymanager().clear();
 			etx = dbService.getEntitymanager().getTransaction();
 			etx.begin();
 			List<Meeting> meetings = dbService.getEntitymanager()
@@ -88,6 +89,7 @@ public class MeetingDaoImpl implements MeetingDao {
 	public List<Meeting> getCommunityMeetings(Integer communityId, Integer status) {
 		EntityTransaction etx = null;
 		try {
+			dbService.getEntitymanager().clear();
 			etx = dbService.getEntitymanager().getTransaction();
 			etx.begin();
 			// query to be updated
@@ -155,6 +157,7 @@ public class MeetingDaoImpl implements MeetingDao {
 	public List<Meeting> getAllMeetings(Integer status) {
 		EntityTransaction etx = null;
 		try {
+			dbService.getEntitymanager().clear();
 			etx = dbService.getEntitymanager().getTransaction();
 			etx.begin();
 			// query to be updated
@@ -180,6 +183,7 @@ public class MeetingDaoImpl implements MeetingDao {
 	public List<Meeting> getActiveAndOngoingMeetings() {
 		EntityTransaction etx = null;
 		try {
+			dbService.getEntitymanager().clear();
 			etx = dbService.getEntitymanager().getTransaction();
 			etx.begin();
 			// query to be updated

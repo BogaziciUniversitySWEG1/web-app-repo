@@ -16,6 +16,7 @@ public class CommunityRequestDaoImpl implements CommunityRequestDao {
 	public Collection<Communityrequest> getCommunityRequests(int communityId) {
 		EntityTransaction etx = null;
 		try{
+			dbService.getEntitymanager().clear();
 			etx = dbService.getEntitymanager().getTransaction();
 			etx.begin();
 			List<Communityrequest> crlist = dbService.getEntitymanager().createQuery("SELECT c FROM Communityrequest c where c.CommunityId=" + communityId).getResultList();
