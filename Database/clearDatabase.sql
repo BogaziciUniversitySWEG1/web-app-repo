@@ -1,8 +1,6 @@
 delete from communitymembers
 delete from communityrequests
 delete from meetingattendants
-delete from meetingnotes
-delete from meetingresources
 delete from meeting_invitees
 delete from resources
 delete from tagrelations
