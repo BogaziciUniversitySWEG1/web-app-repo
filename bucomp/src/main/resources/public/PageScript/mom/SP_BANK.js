@@ -56,7 +56,7 @@
             try {
                 $.ajax({
                     type: "GET",
-                    url: "api/meetings/mom/" + meetingId,
+                    url: "api/meeting/" + meetingId,
                     contentType: "application/json; charset=utf-8",
                     success: function (msg) {
                         if (msg == null) {
@@ -152,6 +152,34 @@
                 $.ajax({
                     type: "GET",
                     url: "/api/users/" + userid,
+                    contentType: "application/json; charset=utf-8",
+                    success: function (msg) {
+                        if (msg == null) {
+                            if (typeof callback == 'function') {
+                                callback(null);
+                            }
+                        }
+                        else{
+                            var _data = eval(msg);
+                            callback(_data);
+                        }
+                    },
+                    error: function (msg) {
+                        if (typeof callback_err == 'function') {
+                            callback_err(msg);
+                        }
+                    }
+                });
+            }
+            catch (err) {
+                callback_err(err);
+            }
+        },
+        GetCommunityMembers: function(communityId, callback, callback_err) {
+            try {
+                $.ajax({
+                    type: "GET",
+                    url: "/api/communityMembers/" + communityId,
                     contentType: "application/json; charset=utf-8",
                     success: function (msg) {
                         if (msg == null) {

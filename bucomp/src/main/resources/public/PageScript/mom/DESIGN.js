@@ -12,7 +12,8 @@
             SP_BANK.GetMeeting(GLOBALS.MeetingId, DESIGN.FillContent, DESIGN.FillContentError);
         },
         FillContent: function(data) { 
-        	DESIGN.FILL_MEETING_INVITEES(data.inviteeList);
+            SP_BANK.GetCommunityMembers(GLOBALS.CommunityId, DESIGN.FillCommunityMembers, null);
+        	//DESIGN.FILL_MEETING_INVITEES(data.inviteeList);
         	//GLOBALS.Attendants=data.meetingattendants;
         	//DESIGN.FILL_MEETING_ATTENDANTS(GLOBALS.Attendants);
         	DESIGN.addResource();
@@ -66,7 +67,7 @@
             }
 
             GetUserInfo(data.meetingOrganizerUserId, DESIGN.FillOrganizerInfo, null);
-            //SP_BANK.GetMeetingMoms(GLOBALS.MeetingId, DESIGN.FillMeetingMoms, null);
+            SP_BANK.GetMeetingMoms(GLOBALS.MeetingId, DESIGN.FillMeetingMoms, null);
             SP_BANK.GetMeetingPosts(GLOBALS.MeetingId, DESIGN.FillMeetingPosts, null);
         },
         FillContentError: function(data) {
@@ -114,7 +115,7 @@
         },
         FillMeetingMoms: function(data) {
             $("#momBodyField").val("");
-			$("#momBodyField").val(data.meetingNote);
+			$("#momBodyField").val(data.meetingnote);
             var userId = GetQueryStringValue("uid");
             for(var i = 0; i< data.attendants.length; i++) { 
             	var x="";
@@ -316,6 +317,18 @@
                 }
             }
         },
+        FillCommunityMembers: function(data) {
+            if(data != null && data.length > 0) {
+                for(var i =0; i<data.length ; i++) {
+                    if(i==data.length-1) {
+                        DESIGN.ADD_USER_FINAL(data[i].user);
+                    } else {
+                        DESIGN.ADD_USER(data[i].user);
+                    }
+                    
+                }
+            }
+        },
 	    FILL_MEETING_INVITEES:function(data){
 	    	if(data != null && data.length > 0)
 	    	{
@@ -332,13 +345,13 @@
         ADD_USER:function(data){
 	    	if(data != null)
 	    	{
-	    		GLOBALS.Members.push({'label':data.userId,'value':data.email}); 
+	    		GLOBALS.Members.push({'label':data.userId,'value':data.name + " " + data.surname}); 
 	    	}
 	    },
 	    ADD_USER_FINAL:function(data){
 	    	if(data != null)
 	    	{
-	    		GLOBALS.Members.push({'label':data.userId,'value':data.email}); 
+	    		GLOBALS.Members.push({'label':data.userId,'value':data.name + " " + data.surname}); 
 	    	}
 	    	
 	    	$('#txtAllmembers').combobox({
