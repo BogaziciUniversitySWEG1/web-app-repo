@@ -11,7 +11,6 @@ import org.springframework.stereotype.Component;
 /**
  * This class is used to send emails via SMTP.
  * It uses javaMailSender library.
- * @author 002679
  *
  */
 @Component

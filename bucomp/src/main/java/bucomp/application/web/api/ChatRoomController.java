@@ -90,6 +90,7 @@ public class ChatRoomController {
 			@RequestParam(value = "userId") int userId,
 			@RequestParam(value = "meetingId") int meetingId) {
 		mdao.updateMeetingStatus(meetingId, 2);
+		mdao.updateMeetingNote(meetingId, chatRooms.get(meetingId).getChatText().toString());
 		chatRooms.remove(meetingId);
 		return true;
 	}
