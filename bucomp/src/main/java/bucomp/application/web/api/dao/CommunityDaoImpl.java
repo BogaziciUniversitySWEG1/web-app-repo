@@ -33,7 +33,7 @@ public class CommunityDaoImpl implements CommunityDao {
 			} else if(sortType!=null && sortType.equals("SORT_BY_CREATION_DATE")) {
 				query = "SELECT c FROM Community c order by c.creationDate";				
 			} else {
-				query = "SELECT c FROM Community c";
+				query = "SELECT c FROM Community c order by c.creationDate desc";
 			} 			
 			
 			List<Community> clist = dbService.getEntitymanager().createQuery(query)
