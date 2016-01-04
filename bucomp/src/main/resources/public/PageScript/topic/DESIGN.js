@@ -15,7 +15,7 @@
 	                + " "+ d.getDate() + ", " + d.getFullYear();
             $("#lblTitle").html(data.title);
             $("#divDescription").html(data.description);
-            $("#communityAuthor").html("Emre Gürer");
+            $("#communityAuthor").html(data.user.name + " " + data.user.surname);
             $("#lblCommunityCreationDate").html(creationDateString);
             $("#tagList").html("");
             for(var i = 0; i < data.tagList.length; i++) {
